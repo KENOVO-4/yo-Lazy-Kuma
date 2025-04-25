@@ -76,19 +76,18 @@
         cover: "anime-super-dragon-ball-heroes-goku-ultra-instinct-dragon-ball-hd-wallpaper-preview.jpg",
         link: "anime/dragon-ball.html"
       },
-      // You can add more anime objects here
-    };
- // Define anime data
-    const animeData = {
       "Shinchan The Legend of Ninja Mononoke (Hindi)": {
         title: "Shinchan The Legend of Ninja Mononoke (Hindi)",
         cover: "download.jpg",
         link: "anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"
       },
+      // You can add more anime objects here
+    };
+
     // Function to load anime cards
     function loadAnimeCards() {
       const container = document.getElementById('animeList');
-      container.innerHTML = '';
+      container.innerHTML = ''; // Clear existing cards
       for (const [key, anime] of Object.entries(animeData)) {
         const card = document.createElement('a');
         card.href = anime.link;
