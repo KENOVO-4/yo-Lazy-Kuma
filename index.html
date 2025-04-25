@@ -1,0 +1,79 @@
+<!-- index.html - Anime Dashboard Homepage -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kenovo Anime Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="assets/logo.png" />
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <!-- Header -->
+  <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md">
+    <img src="assets/logo.png" alt="Lazy Kuma Logo" class="w-12 h-12" />
+    <input type="text" id="search" placeholder="Search anime..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
+    <select id="themeSelect" class="bg-gray-700 text-white rounded p-2">
+      <option value="default">Anime</option>
+      <option value="neon">Neon</option>
+      <option value="flame">Flame</option>
+    </select>
+  </header>
+
+  <!-- Carousel -->
+  <section class="overflow-x-auto whitespace-nowrap p-4 space-x-4">
+    <div class="inline-block w-64 h-40 bg-pink-600 rounded shadow-md text-center align-top">Cover 1</div>
+    <div class="inline-block w-64 h-40 bg-purple-600 rounded shadow-md text-center align-top">Cover 2</div>
+    <div class="inline-block w-64 h-40 bg-blue-600 rounded shadow-md text-center align-top">Cover 3</div>
+    <!-- Add more covers dynamically later -->
+  </section>
+
+  <!-- Anime List -->
+  <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList">
+    <!-- Cards will be added by JavaScript -->
+  </main>
+
+  <!-- Ad Box -->
+  <div class="fixed bottom-4 right-4 bg-gray-700 p-4 rounded shadow-md text-sm text-white">
+    Ad: Watch new anime trailers!
+  </div>
+
+  <script>
+    const animeData = {
+      "dragon-ball": {
+        title: "Dragon Ball Movie",
+        cover: "https://via.placeholder.com/300x150",
+        link: "anime/dragon-ball.html"
+      },
+      // You can add more anime objects here
+    };
+
+    function loadAnimeCards() {
+      const container = document.getElementById('animeList');
+      container.innerHTML = '';
+      for (const [key, anime] of Object.entries(animeData)) {
+        const card = document.createElement('a');
+        card.href = anime.link;
+        card.className = "bg-gray-800 rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700";
+        card.innerHTML = `
+          <img src="${anime.cover}" alt="${anime.title}" class="w-full h-40 object-cover rounded mb-2">
+          <h2 class="text-xl font-bold text-center">${anime.title}</h2>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    function filterAnime() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const allCards = document.querySelectorAll('#animeList a');
+      allCards.forEach(card => {
+        const title = card.querySelector('h2').innerText.toLowerCase();
+        card.style.display = title.includes(search) ? 'block' : 'none';
+      });
+    }
+
+    // Initial load
+    loadAnimeCards();
+  </script>
+</body>
+</html>
