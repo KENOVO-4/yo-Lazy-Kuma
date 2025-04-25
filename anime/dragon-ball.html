@@ -1,0 +1,63 @@
+<!-- anime/dragon-ball.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dragon Ball Movie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://player.vimeo.com/api/player.js"></script>
+</head>
+<body class="bg-black text-white font-mono">
+  <div class="p-6">
+    <h1 class="text-4xl font-bold text-pink-600">Dragon Ball Movie</h1>
+    <p class="text-gray-400 mb-6">All episodes of the Dragon Ball Movie</p>
+
+    <!-- Video Player -->
+    <div class="mb-4">
+      <iframe id="videoPlayer" src="https://player.vimeo.com/video/1078621375" width="100%" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen class="rounded shadow"></iframe>
+      <div class="mt-2">
+        <h2 id="episodeTitle" class="text-xl font-semibold">Super Dragon Ball Heroes: The Movie</h2>
+        <p id="episodeDesc" class="text-gray-400">The ultimate battle begins.</p>
+        <p id="uploadDate" class="text-gray-600 text-sm">Uploaded: 2023-08-10</p>
+      </div>
+    </div>
+
+    <!-- Episode List -->
+    <div id="episodeList" class="space-y-3">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <script>
+    const episodes = [
+      {
+        title: "Super Dragon Ball Heroes: The Movie",
+        link: "https://player.vimeo.com/video/1078621375",
+        description: "The ultimate battle begins.",
+        uploadDate: "2023-08-10"
+      },
+      // You can add more episodes here
+    ];
+
+    const list = document.getElementById('episodeList');
+    const player = document.getElementById('videoPlayer');
+    const title = document.getElementById('episodeTitle');
+    const desc = document.getElementById('episodeDesc');
+    const date = document.getElementById('uploadDate');
+
+    episodes.forEach((ep, idx) => {
+      const btn = document.createElement('button');
+      btn.className = "w-full text-left bg-gray-800 hover:bg-gray-700 rounded p-3 shadow";
+      btn.innerText = ep.title;
+      btn.onclick = () => {
+        player.src = ep.link;
+        title.innerText = ep.title;
+        desc.innerText = ep.description;
+        date.innerText = "Uploaded: " + ep.uploadDate;
+      };
+      list.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
