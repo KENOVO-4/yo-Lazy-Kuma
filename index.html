@@ -1,4 +1,3 @@
-<!-- index.html - Anime Dashboard Homepage -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +20,8 @@
   </header>
 
   <!-- Carousel -->
-  <section class="overflow-x-auto whitespace-nowrap p-4 space-x-4">
-    <div class="anime-super-dragon-ball-heroes-goku-ultra-instinct-dragon-ball-hd-wallpaper-preview.jpg">Cover 1</div>
-    <div class="inline-block w-64 h-40 bg-purple-600 rounded shadow-md text-center align-top">Cover 2</div>
-    <div class="inline-block w-64 h-40 bg-blue-600 rounded shadow-md text-center align-top">Cover 3</div>
-    <!-- Add more covers dynamically later -->
+  <section class="overflow-x-auto whitespace-nowrap p-4 space-x-4" id="carousel">
+    <!-- Carousel items will be added here -->
   </section>
 
   <!-- Anime List -->
@@ -39,6 +35,41 @@
   </div>
 
   <script>
+    // Define images and links for the carousel covers
+    const carouselData = [
+      {
+        title: "Cover 1",
+        image: "anime-super-dragon-ball-heroes-goku-ultra-instinct-dragon-ball-hd-wallpaper-preview.jpg", // Replace with your image path
+      },
+      {
+        title: "Cover 2",
+        image: "path-to-your-image2.jpg", // Replace with your image path
+      },
+      {
+        title: "Cover 3",
+        image: "path-to-your-image3.jpg", // Replace with your image path
+      },
+    ];
+
+    // Function to load carousel items
+    function loadCarousel() {
+      const carousel = document.getElementById('carousel');
+      carousel.innerHTML = ''; // Clear existing items
+      carouselData.forEach(item => {
+        const coverDiv = document.createElement('div');
+        coverDiv.className = "inline-block w-64 h-40 bg-purple-600 rounded shadow-md text-center align-top";
+        
+        coverDiv.innerHTML = `
+          <div class="w-full h-full flex justify-center items-center">
+            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover rounded" />
+          </div>
+        `;
+        
+        carousel.appendChild(coverDiv);
+      });
+    }
+
+    // Define anime data
     const animeData = {
       "dragon-ball": {
         title: "Dragon Ball Movie",
@@ -48,6 +79,7 @@
       // You can add more anime objects here
     };
 
+    // Function to load anime cards
     function loadAnimeCards() {
       const container = document.getElementById('animeList');
       container.innerHTML = '';
@@ -63,6 +95,7 @@
       }
     }
 
+    // Function to filter anime cards based on search
     function filterAnime() {
       const search = document.getElementById('search').value.toLowerCase();
       const allCards = document.querySelectorAll('#animeList a');
@@ -73,6 +106,7 @@
     }
 
     // Initial load
+    loadCarousel();
     loadAnimeCards();
   </script>
 </body>
