@@ -15,3 +15,20 @@
   
   // Add more anime blocks here in same structure
 }
+{
+  "Shinchan The Legend of Ninja Mononoke (Hindi)": {
+    "title": "Dragon Ball Movie",
+    "cover": "https://via.placeholder.com/300x150",
+    "link": "anime/Shinchan The Legend of Ninja Mononoke (Hindi).html",
+    "episodes": [
+      {
+        "title": "Shinchan The Legend of Ninja Mononoke (Hindi)",
+        "link": "https://drive.google.com/file/d/1CCs06Ok3qo6k9B-SmgCeJS5950ZsUOot/preview",
+        "description": "Shinchan The Legend of Ninja Mononoke (Hindi).html.",
+        "uploadDate": "2025-04-25"
+      }
+    ]
+  }
+  
+  // Add more anime blocks here in same structure
+}
