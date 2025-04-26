@@ -1,9 +1,9 @@
 // js/loadFromJson.js
 
-fetch('js/data/anime.json')
+fetch('js/data/movies/movies.json')
   .then(res => res.json())
   .then(data => {
-    const container = document.getElementById('animeList');
+    const container = document.getElementById('movies/movies.json');
     container.innerHTML = '';
     for (const [key, anime] of Object.entries(data)) {
       const card = document.createElement('a');
