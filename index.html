@@ -13,6 +13,8 @@
       50% { box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; }
       100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
     }
+
+    /* Apply Neon Effect to Background */
     body {
       background: linear-gradient(to right, #00f260, #0575e6);
       background-size: 400% 400%;
@@ -21,16 +23,20 @@
       overflow-x: hidden;
     }
 
-    /* Dynamic Background Color */
+    /* Dynamic Background Color - 6-10 Colors with 3-second interval */
     @keyframes changeBackground {
-      0% { background-color: #00f260; }
-      50% { background-color: #0575e6; }
-      100% { background-color: #ff00ff; }
+      0% { background-color: #ff5733; }
+      16.6% { background-color: #33ff57; }
+      33.3% { background-color: #3357ff; }
+      50% { background-color: #ff33a1; }
+      66.6% { background-color: #a133ff; }
+      83.3% { background-color: #ff8c33; }
+      100% { background-color: #33ffd1; }
     }
 
     /* Apply dynamic background change */
     body {
-      animation: changeBackground 10s infinite alternate;
+      animation: changeBackground 18s infinite;
     }
 
     /* Scrollable Navbar */
@@ -179,7 +185,7 @@
   <!-- Header with Shrink on Scroll -->
   <header id="header" class="p-4 transition-all duration-300 ease-in-out">
     <img src="unnamed.png" alt="Doosh Hub Logo" class="w-12 h-12 inline-block" />
-    <input type="text" id="search" placeholder="Search anime,movies and drama.." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
+    <input type="text" id="search" placeholder="Search anime..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
   </header>
 
   <!-- Welcome Message -->
