@@ -126,12 +126,16 @@
         link: "anime/Tokyo Revengers season 1.html"
       }
     };
- const moviedata = {
+
+    // Movies Data (fixed!)
+    const moviedata = {
       "do patti": {
-        title: "Dragon Ball prison planet full Movie",
+        title: "Do Patti Movie",
         cover: "unnamed (4).jpg",
         link: "anime/do pati.html"
-      },
+      }
+    };
+
     // Load Carousel
     function loadCarousel() {
       const carousel = document.getElementById('carousel');
@@ -143,6 +147,10 @@
         link.innerHTML = `<img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover" />`;
         carousel.appendChild(link);
       });
+
+      // Duplicate first item for smooth looping
+      const firstClone = carousel.firstElementChild.cloneNode(true);
+      carousel.appendChild(firstClone);
     }
 
     // Auto Slide Carousel
@@ -151,8 +159,18 @@
       const carousel = document.getElementById('carousel');
       const items = document.querySelectorAll('#carousel a');
       const itemWidth = items[0].offsetWidth + 16; // width + margin
-      carouselIndex = (carouselIndex + 1) % items.length;
+      carouselIndex++;
+      carousel.style.transition = "transform 0.7s ease-in-out";
       carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
+
+      // If reach last clone, reset to start
+      if (carouselIndex >= items.length - 1) {
+        setTimeout(() => {
+          carousel.style.transition = "none";
+          carousel.style.transform = `translateX(0px)`;
+          carouselIndex = 0;
+        }, 700);
+      }
     }
     setInterval(autoSlide, 3000); // Every 3 seconds
 
