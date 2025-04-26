@@ -1,6 +1,6 @@
 // js/loadFromJson.js
 
-fetch('js/data/')
+fetch('js/data/movie  Data.Json')
   .then(res => res.json())
   .then(data => {
     const container = document.getElementById('animeList');
