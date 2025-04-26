@@ -174,6 +174,17 @@
       0% { opacity: 0; transform: translateY(-30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
+
+    /* Animation on Scroll */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.5s ease-in-out;
+    }
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
   </style>
 </head>
 
@@ -189,7 +200,7 @@
   </header>
 
   <!-- Welcome Message -->
-  <div class="welcome-message">
+  <div class="welcome-message animate-on-scroll">
     Welcome to DOOSH HUB!
   </div>
 
@@ -270,7 +281,7 @@
       Object.values(animeData).forEach(a => {
         const card = document.createElement('a');
         card.href = a.link;
-        card.className = "anime-card bg-gray-800 rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700";
+        card.className = "anime-card bg-gray-800 rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700 animate-on-scroll";
         card.innerHTML = `
           <img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2 shimmer">
           <h2 class="text-xl font-bold text-center">${a.title}</h2>`;
@@ -354,6 +365,17 @@
       loadCarousel();
       setTimeout(loadAnimeCards, 1500);  // Load after skeleton loader timeout
     }
+
+    // Scroll Animation Visibility
+    const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+    window.addEventListener('scroll', () => {
+      animateOnScrollElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+          element.classList.add('visible');
+        }
+      });
+    });
   </script>
 
 </body>
