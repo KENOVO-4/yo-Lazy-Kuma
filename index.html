@@ -7,27 +7,44 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="assets/logo.png" />
   <style>
+    /* Ad box styling & responsive sizing */
     #adBox {
       position: fixed;
       bottom: 20px;
       right: 20px;
+      width: 90vw;
+      max-width: 728px;
       background-color: #374151;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       z-index: 1000;
       cursor: move;
       transition: opacity 0.5s ease;
     }
-    #adBox.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+    #adBox.hidden { opacity: 0; pointer-events: none; }
     .ad-slot { display: none; }
     .ad-slot.active { display: block; }
+    /* Close button */
+    #closeAd {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    /* Mobile tweaks */
+    @media (max-width: 640px) {
+      #adBox { bottom: 1rem; right: 1rem; }
+    }
   </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
+
   <!-- Header -->
   <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md">
     <img src="unnamed.png" alt="Lazy Kuma Logo" class="w-12 h-12" />
@@ -40,43 +57,49 @@
   </header>
 
   <!-- Carousel -->
-  <section class="overflow-x-auto whitespace-nowrap p-4 space-x-4" id="carousel">
-    <!-- Carousel items will be added here -->
-  </section>
+  <section class="overflow-x-auto whitespace-nowrap p-4 space-x-4" id="carousel"></section>
 
   <!-- Anime List -->
-  <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList">
-    <!-- Cards will be added by JavaScript -->
-  </main>
+  <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList"></main>
 
   <!-- Ad Box -->
   <div id="adBox" onmouseenter="showAdBox()" onmouseleave="startAutoHide()">
+    <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
-      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="468" height="60" frameborder="0" scrolling="no"></iframe>
+      <iframe
+        src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a"
+        width="100%"
+        height="90"
+        frameborder="0"
+        scrolling="no"
+        allowfullscreen>
+      </iframe>
     </div>
     <div class="ad-slot" id="ad2">
       <script type="text/javascript">
         atOptions = {
           'key': '38c97041ba09133421880a5339a162a8',
           'format': 'iframe',
-          'height': 60,
-          'width': 468,
+          'height': 90,
+          'width': 728,
           'params': {}
         };
       </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
+      <script src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
     </div>
   </div>
 
   <script>
-    // --- Anime logic ---
+    // --- Remove any "leave site?" prompt ---
+    window.onbeforeunload = null;
+
+    // --- Carousel & Anime cards setup (same as before) ---
     const carouselData = [
       { title: "Cover 1", image: "unnamed (3).jpg" },
       { title: "Cover 2", image: "unnamed (2).jpg" },
       { title: "Cover 3", image: "unnamed (4).jpg" },
       { title: "Cover 4", image: "unnamed (1).jpg" },
     ];
-
     const animeData = {
       "dragon-ball": {
         title: "Dragon Ball prison planet full Movie",
@@ -104,43 +127,40 @@
       const carousel = document.getElementById('carousel');
       carousel.innerHTML = '';
       carouselData.forEach(item => {
-        const coverDiv = document.createElement('div');
-        coverDiv.className = "inline-block w-64 h-40 bg-purple-600 rounded shadow-md text-center align-top";
-        coverDiv.innerHTML = `<div class="w-full h-full flex justify-center items-center"><img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover rounded" /></div>`;
-        carousel.appendChild(coverDiv);
+        const div = document.createElement('div');
+        div.className = "inline-block w-64 h-40 bg-purple-600 rounded shadow-md text-center align-top";
+        div.innerHTML = `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover rounded" />`;
+        carousel.appendChild(div);
       });
     }
-
     function loadAnimeCards() {
-      const container = document.getElementById('animeList');
-      container.innerHTML = '';
-      for (const anime of Object.values(animeData)) {
+      const list = document.getElementById('animeList');
+      list.innerHTML = '';
+      Object.values(animeData).forEach(a => {
         const card = document.createElement('a');
-        card.href = anime.link;
+        card.href = a.link;
         card.className = "bg-gray-800 rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700";
-        card.innerHTML = `<img src="${anime.cover}" alt="${anime.title}" class="w-full h-40 object-cover rounded mb-2"><h2 class="text-xl font-bold text-center">${anime.title}</h2>`;
-        container.appendChild(card);
-      }
+        card.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2"><h2 class="text-xl font-bold text-center">${a.title}</h2>`;
+        list.appendChild(card);
+      });
     }
-
     function filterAnime() {
-      const search = document.getElementById('search').value.toLowerCase();
-      const allCards = document.querySelectorAll('#animeList a');
-      allCards.forEach(card => {
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('#animeList a').forEach(card => {
         const title = card.querySelector('h2').innerText.toLowerCase();
-        card.style.display = title.includes(search) ? 'block' : 'none';
+        card.style.display = title.includes(q) ? 'block' : 'none';
       });
     }
 
-    // --- Ad Rotation ---
+    // --- Ads rotation every 10s ---
     let currentAd = 1;
     setInterval(() => {
-      document.querySelectorAll('.ad-slot').forEach(ad => ad.classList.remove('active'));
-      document.getElementById(`ad${currentAd}`).classList.add('active');
+      document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('active'));
       currentAd = currentAd === 1 ? 2 : 1;
+      document.getElementById(`ad${currentAd}`).classList.add('active');
     }, 10000);
 
-    // --- Auto Hide ---
+    // --- Auto-hide after 30s, re-show on hover ---
     let hideTimeout;
     function startAutoHide() {
       clearTimeout(hideTimeout);
@@ -148,40 +168,41 @@
         document.getElementById('adBox').classList.add('hidden');
       }, 30000);
     }
-
     function showAdBox() {
       clearTimeout(hideTimeout);
       document.getElementById('adBox').classList.remove('hidden');
     }
-
     startAutoHide();
 
-    // --- Drag Logic ---
-    const adBox = document.getElementById('adBox');
-    let offsetX, offsetY, isDragging = false;
+    // --- Make adBox draggable ---
+    (function() {
+      const box = document.getElementById('adBox');
+      let offsetX, offsetY, dragging = false;
+      box.addEventListener('mousedown', e => {
+        dragging = true;
+        offsetX = e.clientX - box.offsetLeft;
+        offsetY = e.clientY - box.offsetTop;
+        document.body.style.userSelect = 'none';
+      });
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        box.style.left = `${e.clientX - offsetX}px`;
+        box.style.top = `${e.clientY - offsetY}px`;
+        box.style.bottom = 'auto';
+        box.style.right  = 'auto';
+      });
+      document.addEventListener('mouseup', () => {
+        dragging = false;
+        document.body.style.userSelect = '';
+      });
+    })();
 
-    adBox.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - adBox.offsetLeft;
-      offsetY = e.clientY - adBox.offsetTop;
-      document.body.style.userSelect = 'none';
+    // --- Close button handler ---
+    document.getElementById('closeAd').addEventListener('click', () => {
+      document.getElementById('adBox').style.display = 'none';
     });
 
-    document.addEventListener('mousemove', (e) => {
-      if (isDragging) {
-        adBox.style.left = e.clientX - offsetX + 'px';
-        adBox.style.top = e.clientY - offsetY + 'px';
-        adBox.style.bottom = 'auto';
-        adBox.style.right = 'auto';
-      }
-    });
-
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-      document.body.style.userSelect = 'auto';
-    });
-
-    // Initial content
+    // --- Initial loads ---
     loadCarousel();
     loadAnimeCards();
   </script>
