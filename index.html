@@ -6,7 +6,33 @@
   <title>DOOSH HUB</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="assets/logo.png" />
+
+  <!-- Neon Theme CSS -->
   <style>
+    body {
+      animation: neonBackground 9s infinite alternate;
+    }
+
+    @keyframes neonBackground {
+      0% { background-color: #0f0f0f; }
+      25% { background-color: #1a1a40; }
+      50% { background-color: #29004a; }
+      75% { background-color: #001f3f; }
+      100% { background-color: #0f0f0f; }
+    }
+
+    .neon-border {
+      border: 2px solid;
+      border-radius: 10px;
+      animation: neonBorder 3s infinite alternate;
+    }
+
+    @keyframes neonBorder {
+      0% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+      50% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; }
+      100% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+    }
+
     #adBox {
       position: fixed;
       bottom: 20px;
@@ -20,6 +46,7 @@
       z-index: 1000;
       cursor: move;
     }
+
     .ad-slot { display: none; }
     .ad-slot.active { display: block; }
     #closeAd {
@@ -47,7 +74,7 @@
     <input type="text" id="search" placeholder="Search anime..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
   </header>
 
-  <!-- Carousel (auto generated) -->
+  <!-- Carousel -->
   <section class="relative overflow-hidden p-4">
     <div id="carousel" class="flex space-x-4 transition-transform duration-700 ease-in-out"></div>
   </section>
@@ -75,7 +102,7 @@
     </div>
   </div>
 
-  <!-- Your Added Native Banner Ad (newly added below) -->
+  <!-- Native Banner Ad -->
   <div class="p-4">
     <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
     <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
@@ -118,47 +145,98 @@
       }
     };
 
-    // Load Anime Cards
+    // Load Anime Cards with Neon and Click Delay
     function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
       Object.values(animeData).forEach(a => {
-        const card = document.createElement('a');
-        card.href = a.link;
-        card.className = "bg-gray-800 rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700";
-        card.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2"><h2 class="text-xl font-bold text-center">${a.title}</h2>`;
+        const card = document.createElement('div');
+        card.className = "bg-gray-800 neon-border rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700 cursor-pointer";
+        card.innerHTML = `
+          <img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2">
+          <h2 class="text-xl font-bold text-center">${a.title}</h2>
+        `;
+
+        card.addEventListener('click', () => {
+          let pop = window.open('', '_blank');
+          if (pop) {
+            pop.document.write("<script src='//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js'><\/script>");
+            pop.document.close();
+          }
+          showCountdown(a.link);
+        });
+
         list.appendChild(card);
       });
     }
 
-    // Load Carousel Slides (auto generate)
+    // Load Carousel with Neon and Click Delay
     function loadCarousel() {
       const carousel = document.getElementById('carousel');
       carousel.innerHTML = '';
       Object.values(animeData).forEach(a => {
-        const slide = document.createElement('a');
-        slide.href = a.link;
-        slide.className = "flex-shrink-0 w-64 h-40 rounded overflow-hidden shadow-md transition-transform transform hover:scale-105";
+        const slide = document.createElement('div');
+        slide.className = "flex-shrink-0 w-64 h-40 rounded overflow-hidden shadow-md transition-transform transform hover:scale-105 neon-border cursor-pointer";
         slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
+
+        slide.addEventListener('click', () => {
+          let pop = window.open('', '_blank');
+          if (pop) {
+            pop.document.write("<script src='//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js'><\/script>");
+            pop.document.close();
+          }
+          showCountdown(a.link);
+        });
+
         carousel.appendChild(slide);
       });
 
-      // Duplicate first slide for smooth infinite loop
+      // Duplicate first slide for infinite loop
       const firstClone = carousel.firstElementChild.cloneNode(true);
       carousel.appendChild(firstClone);
+    }
+
+    // Show countdown overlay
+    function showCountdown(targetUrl) {
+      const overlay = document.createElement('div');
+      overlay.className = "fixed inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center text-center text-white text-2xl z-50";
+      overlay.innerHTML = `
+        <p>Redirecting in <span id="countdownTimer">5</span> seconds...</p>
+        <p class="mt-4 text-lg text-gray-400">Please wait...</p>
+      `;
+      document.body.appendChild(overlay);
+
+      let seconds = 5;
+      const countdown = document.getElementById('countdownTimer');
+      const interval = setInterval(() => {
+        seconds--;
+        countdown.innerText = seconds;
+        if (seconds <= 0) {
+          clearInterval(interval);
+          window.location.href = targetUrl;
+        }
+      }, 1000);
+    }
+
+    // Search Filter
+    function filterAnime() {
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('#animeList div').forEach(card => {
+        const title = card.querySelector('h2').innerText.toLowerCase();
+        card.style.display = title.includes(q) ? 'block' : 'none';
+      });
     }
 
     // Auto Slide
     let carouselIndex = 0;
     function autoSlide() {
       const carousel = document.getElementById('carousel');
-      const items = document.querySelectorAll('#carousel a');
-      const itemWidth = items[0].offsetWidth + 16; // width + margin
+      const items = document.querySelectorAll('#carousel div');
+      const itemWidth = items[0].offsetWidth + 16;
       carouselIndex++;
       carousel.style.transition = "transform 0.7s ease-in-out";
       carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
 
-      // Reset when last
       if (carouselIndex >= items.length - 1) {
         setTimeout(() => {
           carousel.style.transition = "none";
@@ -167,17 +245,7 @@
         }, 700);
       }
     }
-
-    setInterval(autoSlide, 3000); // every 3 seconds
-
-    // Search Filter
-    function filterAnime() {
-      const q = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('#animeList a').forEach(card => {
-        const title = card.querySelector('h2').innerText.toLowerCase();
-        card.style.display = title.includes(q) ? 'block' : 'none';
-      });
-    }
+    setInterval(autoSlide, 3000);
 
     // Ad Rotation
     let currentAd = 1;
