@@ -23,6 +23,8 @@
       opacity: 0;
       pointer-events: none;
     }
+    .ad-slot { display: none; }
+    .ad-slot.active { display: block; }
   </style>
 </head>
 <body class="bg-gray-900 text-white font-sans">
@@ -49,13 +51,25 @@
 
   <!-- Ad Box -->
   <div id="adBox" onmouseenter="showAdBox()" onmouseleave="startAutoHide()">
-    <div id="adContent">
-      <!-- Ads will rotate here -->
+    <div class="ad-slot active" id="ad1">
+      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="468" height="60" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <div class="ad-slot" id="ad2">
+      <script type="text/javascript">
+        atOptions = {
+          'key': '38c97041ba09133421880a5339a162a8',
+          'format': 'iframe',
+          'height': 60,
+          'width': 468,
+          'params': {}
+        };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
     </div>
   </div>
 
   <script>
-    // --- Anime content setup ---
+    // --- Anime logic ---
     const carouselData = [
       { title: "Cover 1", image: "unnamed (3).jpg" },
       { title: "Cover 2", image: "unnamed (2).jpg" },
@@ -118,30 +132,13 @@
       });
     }
 
-    // --- Ads Setup ---
-    const adSlots = [
-      `<iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="468" height="60" frameborder="0" scrolling="no"></iframe>`,
-      `<script type="text/javascript">
-        atOptions = {
-          'key': '38c97041ba09133421880a5339a162a8',
-          'format': 'iframe',
-          'height': 60,
-          'width': 468,
-          'params': {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>`
-    ];
-
-    let currentAd = 0;
-    function rotateAds() {
-      const adBox = document.getElementById('adContent');
-      adBox.innerHTML = adSlots[currentAd];
-      currentAd = (currentAd + 1) % adSlots.length;
-    }
-
-    setInterval(rotateAds, 10000); // rotate every 10 seconds
-    rotateAds(); // initial load
+    // --- Ad Rotation ---
+    let currentAd = 1;
+    setInterval(() => {
+      document.querySelectorAll('.ad-slot').forEach(ad => ad.classList.remove('active'));
+      document.getElementById(`ad${currentAd}`).classList.add('active');
+      currentAd = currentAd === 1 ? 2 : 1;
+    }, 10000);
 
     // --- Auto Hide ---
     let hideTimeout;
@@ -149,7 +146,7 @@
       clearTimeout(hideTimeout);
       hideTimeout = setTimeout(() => {
         document.getElementById('adBox').classList.add('hidden');
-      }, 30000); // 30 sec
+      }, 30000);
     }
 
     function showAdBox() {
@@ -159,7 +156,7 @@
 
     startAutoHide();
 
-    // --- Dragging Logic ---
+    // --- Drag Logic ---
     const adBox = document.getElementById('adBox');
     let offsetX, offsetY, isDragging = false;
 
@@ -184,7 +181,7 @@
       document.body.style.userSelect = 'auto';
     });
 
-    // Initial content load
+    // Initial content
     loadCarousel();
     loadAnimeCards();
   </script>
