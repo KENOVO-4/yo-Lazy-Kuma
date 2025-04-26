@@ -1,0 +1,28 @@
+{
+  "do-patti": {
+    "title": "Do Patti (2024)",
+    "cover": "",
+    "link": "movies/do-patti.html",
+    "episodes": [
+      {
+        "title": "Do Patti Full Movie",
+        "link": "https://drive.google.com/file/d/1CCs06Ok3qo6k9B-SmgCeJS5950ZsUOot/preview",
+        "description": "Do Patti full Hindi movie.",
+        "uploadDate": "2025-04-25"
+      }
+    ]
+  },
+  "another-movie": {
+    "title": "Another Hindi Movie",
+    "cover": "https://via.placeholder.com/300x150",
+    "link": "movies/another-movie.html",
+    "episodes": [
+      {
+        "title": "Another Hindi Movie",
+        "link": "https://drive.google.com/file/d/xxxx/preview",
+        "description": "Another exciting Hindi movie.",
+        "uploadDate": "2025-04-20"
+      }
+    ]
+  }
+}
