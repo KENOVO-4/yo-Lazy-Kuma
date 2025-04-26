@@ -1,34 +1,22 @@
 {
-  "do patti": {
-    "title": "do patti movie in hindi",
+  "do-patti": {
+    "title": "Do Patti (2024) Hindi Movie",
     "cover": "Do-patti-(2024)-hindi-movie.jpg",
-    "link": "movies/do pati.html",
-    "episodes": [
-      {
-        "title": "Dragon Ball Movie - Google Drive",
-        "link": "https://drive.google.com/file/d/1CCs06Ok3qo6k9B-SmgCeJS5950ZsUOot/preview",
-        "description": "Dragon Ball full movie hosted on Google Drive.",
-        "uploadDate": "2025-04-25"
-      }
-    ]
+    "link": "movies/do-patti.html"
+  },
+  "avengers-endgame": {
+    "title": "Avengers: Endgame (2019) Hindi Dubbed",
+    "cover": "assets/avengers-endgame.jpg",
+    "link": "movies/avengers-endgame.html"
+  },
+  "inception": {
+    "title": "Inception (2010) Hindi Dubbed",
+    "cover": "assets/inception.jpg",
+    "link": "movies/inception.html"
+  },
+  "joker": {
+    "title": "Joker (2019) Hindi Dubbed",
+    "cover": "assets/joker.jpg",
+    "link": "movies/joker.html"
   }
-  
-  // Add more anime blocks here in same structure
-}
-{
-  "Shinchan The Legend of Ninja Mononoke (Hindi)": {
-    "title": "Shinchan The Legend of Ninja Mononoke (Hindi)",
-    "cover": "https://via.placeholder.com/300x150",
-    "link": "anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html",
-    "episodes": [
-      {
-        "title": "Shinchan The Legend of Ninja Mononoke (Hindi)",
-        "link": "https://drive.google.com/file/d/1AS3NjcmQdBkalfSxzBZfXq5Y80lUCReg/preview",
-        "description": "Shinchan The Legend of Ninja Mononoke (Hindi).html.",
-        "uploadDate": "2025-04-25"
-      }
-    ]
-  }
-  
-  // Add more anime blocks here in same structure
 }
