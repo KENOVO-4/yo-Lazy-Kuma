@@ -18,9 +18,7 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       z-index: 1000;
       cursor: move;
-      transition: opacity 0.5s ease;
     }
-    #adBox.hidden { opacity: 0; pointer-events: none; }
     .ad-slot { display: none; }
     .ad-slot.active { display: block; }
     #closeAd {
@@ -73,7 +71,7 @@ Flight 914 — some journeys were never meant to end.
   </div>
 
   <!-- Ad Box -->
-  <div id="adBox" onmouseenter="showAdBox()" onmouseleave="startAutoHide()">
+  <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
       <iframe
@@ -148,20 +146,6 @@ Flight 914 — some journeys were never meant to end.`,
       currentAd = currentAd === 1 ? 2 : 1;
       document.getElementById(`ad${currentAd}`).classList.add('active');
     }, 10000);
-
-    // Auto-hide ads
-    let hideTimeout;
-    function startAutoHide() {
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        document.getElementById('adBox').classList.add('hidden');
-      }, 30000);
-    }
-    function showAdBox() {
-      clearTimeout(hideTimeout);
-      document.getElementById('adBox').classList.remove('hidden');
-    }
-    startAutoHide();
 
     // Draggable
     (function() {
