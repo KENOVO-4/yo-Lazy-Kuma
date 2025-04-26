@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="assets/logo.png" />
   <style>
-    /* Ad box styling & responsive sizing */
+    /* Ad box styling */
     #adBox {
       position: fixed;
       bottom: 20px;
@@ -20,12 +20,9 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       z-index: 1000;
       cursor: move;
-      transition: opacity 0.5s ease;
     }
-    #adBox.hidden { opacity: 0; pointer-events: none; }
     .ad-slot { display: none; }
     .ad-slot.active { display: block; }
-    /* Close button */
     #closeAd {
       position: absolute;
       top: 6px;
@@ -37,7 +34,6 @@
       line-height: 1;
       cursor: pointer;
     }
-    /* Mobile tweaks */
     @media (max-width: 640px) {
       #adBox { bottom: 1rem; right: 1rem; }
     }
@@ -63,7 +59,7 @@
   <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList"></main>
 
   <!-- Ad Box -->
-  <div id="adBox" onmouseenter="showAdBox()" onmouseleave="startAutoHide()">
+  <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
       <iframe
@@ -90,16 +86,15 @@
   </div>
 
   <script>
-    // --- Remove any "leave site?" prompt ---
     window.onbeforeunload = null;
 
-    // --- Carousel & Anime cards setup (same as before) ---
     const carouselData = [
       { title: "Cover 1", image: "unnamed (3).jpg" },
       { title: "Cover 2", image: "unnamed (2).jpg" },
       { title: "Cover 3", image: "unnamed (4).jpg" },
       { title: "Cover 4", image: "unnamed (1).jpg" },
     ];
+
     const animeData = {
       "dragon-ball": {
         title: "Dragon Ball prison planet full Movie",
@@ -133,6 +128,7 @@
         carousel.appendChild(div);
       });
     }
+
     function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
@@ -144,6 +140,7 @@
         list.appendChild(card);
       });
     }
+
     function filterAnime() {
       const q = document.getElementById('search').value.toLowerCase();
       document.querySelectorAll('#animeList a').forEach(card => {
@@ -152,7 +149,7 @@
       });
     }
 
-    // --- Ads rotation every 10s ---
+    // Rotate ads every 10 seconds
     let currentAd = 1;
     setInterval(() => {
       document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('active'));
@@ -160,22 +157,8 @@
       document.getElementById(`ad${currentAd}`).classList.add('active');
     }, 10000);
 
-    // --- Auto-hide after 30s, re-show on hover ---
-    let hideTimeout;
-    function startAutoHide() {
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        document.getElementById('adBox').classList.add('hidden');
-      }, 30000);
-    }
-    function showAdBox() {
-      clearTimeout(hideTimeout);
-      document.getElementById('adBox').classList.remove('hidden');
-    }
-    startAutoHide();
-
-    // --- Make adBox draggable ---
-    (function() {
+    // Make ad box draggable
+    (function () {
       const box = document.getElementById('adBox');
       let offsetX, offsetY, dragging = false;
       box.addEventListener('mousedown', e => {
@@ -189,7 +172,7 @@
         box.style.left = `${e.clientX - offsetX}px`;
         box.style.top = `${e.clientY - offsetY}px`;
         box.style.bottom = 'auto';
-        box.style.right  = 'auto';
+        box.style.right = 'auto';
       });
       document.addEventListener('mouseup', () => {
         dragging = false;
@@ -197,12 +180,12 @@
       });
     })();
 
-    // --- Close button handler ---
+    // Close ad
     document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
     });
 
-    // --- Initial loads ---
+    // Initial load
     loadCarousel();
     loadAnimeCards();
   </script>
