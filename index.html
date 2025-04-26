@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="assets/logo.png" />
   <style>
-    /* Ad box styling */
     #adBox {
       position: fixed;
       bottom: 20px;
@@ -46,14 +45,9 @@
   <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md">
     <img src="unnamed.png" alt="Doosh Hub Logo" class="w-12 h-12" />
     <input type="text" id="search" placeholder="Search anime..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
-    <select id="themeSelect" class="bg-gray-700 text-white rounded p-2">
-      <option value="anime">Anime</option>
-      <option value="movies">Movies</option>
-      <option value="kdrama">K-Drama</option>
-    </select>
   </header>
 
-  <!-- Carousel -->
+  <!-- Carousel (auto generated) -->
   <section class="relative overflow-hidden p-4">
     <div id="carousel" class="flex space-x-4 transition-transform duration-700 ease-in-out"></div>
   </section>
@@ -84,29 +78,10 @@
   <script>
     window.onbeforeunload = null;
 
-    // Carousel data
-    const carouselData = {
-      "anime": {
-        title: "Anime",
-        cover: "unnamed (3).jpg",
-        link: "anime/index.html"
-      },
-      "movies": {
-        title: "Movies",
-        cover: "unnamed (2).jpg",
-        link: "movies/index.html"
-      },
-      "kdrama": {
-        title: "K-Drama",
-        cover: "unnamed (4).jpg",
-        link: "kdrama/index.html"
-      }
-    };
-
     // Anime Data
     const animeData = {
       "dragon-ball": {
-        title: "Dragon Ball prison planet full Movie",
+        title: "Dragon Ball Prison Planet Full Movie",
         cover: "unnamed (4).jpg",
         link: "anime/dragon-ball.html"
       },
@@ -132,53 +107,6 @@
       }
     };
 
-    // Movies Data (fixed!)
-    const moviedata = {
-      "do patti": {
-        title: "Do Patti Movie",
-        cover: "unnamed (4).jpg",
-        link: "anime/do pati.html"
-      }
-    };
-
-    // Load Carousel
-    function loadCarousel() {
-      const carousel = document.getElementById('carousel');
-      carousel.innerHTML = '';
-      Object.values(carouselData).forEach(item => {
-        const link = document.createElement('a');
-        link.href = item.link;
-        link.className = "flex-shrink-0 w-64 h-40 rounded overflow-hidden shadow-md transition-transform transform hover:scale-105";
-        link.innerHTML = `<img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover" />`;
-        carousel.appendChild(link);
-      });
-
-      // Duplicate first item for smooth looping
-      const firstClone = carousel.firstElementChild.cloneNode(true);
-      carousel.appendChild(firstClone);
-    }
-
-    // Auto Slide Carousel
-    let carouselIndex = 0;
-    function autoSlide() {
-      const carousel = document.getElementById('carousel');
-      const items = document.querySelectorAll('#carousel a');
-      const itemWidth = items[0].offsetWidth + 16; // width + margin
-      carouselIndex++;
-      carousel.style.transition = "transform 0.7s ease-in-out";
-      carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
-
-      // If reach last clone, reset to start
-      if (carouselIndex >= items.length - 1) {
-        setTimeout(() => {
-          carousel.style.transition = "none";
-          carousel.style.transform = `translateX(0px)`;
-          carouselIndex = 0;
-        }, 700);
-      }
-    }
-    setInterval(autoSlide, 3000); // Every 3 seconds
-
     // Load Anime Cards
     function loadAnimeCards() {
       const list = document.getElementById('animeList');
@@ -191,6 +119,45 @@
         list.appendChild(card);
       });
     }
+
+    // Load Carousel Slides (auto generate)
+    function loadCarousel() {
+      const carousel = document.getElementById('carousel');
+      carousel.innerHTML = '';
+      Object.values(animeData).forEach(a => {
+        const slide = document.createElement('a');
+        slide.href = a.link;
+        slide.className = "flex-shrink-0 w-64 h-40 rounded overflow-hidden shadow-md transition-transform transform hover:scale-105";
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
+        carousel.appendChild(slide);
+      });
+
+      // Duplicate first slide for smooth infinite loop
+      const firstClone = carousel.firstElementChild.cloneNode(true);
+      carousel.appendChild(firstClone);
+    }
+
+    // Auto Slide
+    let carouselIndex = 0;
+    function autoSlide() {
+      const carousel = document.getElementById('carousel');
+      const items = document.querySelectorAll('#carousel a');
+      const itemWidth = items[0].offsetWidth + 16; // width + margin
+      carouselIndex++;
+      carousel.style.transition = "transform 0.7s ease-in-out";
+      carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
+
+      // Reset when last
+      if (carouselIndex >= items.length - 1) {
+        setTimeout(() => {
+          carousel.style.transition = "none";
+          carousel.style.transform = `translateX(0px)`;
+          carouselIndex = 0;
+        }, 700);
+      }
+    }
+
+    setInterval(autoSlide, 3000); // every 3 seconds
 
     // Search Filter
     function filterAnime() {
@@ -235,18 +202,6 @@
     // Close Ad
     document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
-    });
-
-    // Theme Select
-    document.getElementById('themeSelect').addEventListener('change', (e) => {
-      const value = e.target.value;
-      if (value === 'movies') {
-        window.location.href = 'movies/index.html';
-      } else if (value === 'kdrama') {
-        window.location.href = 'kdrama/index.html';
-      } else if (value === 'anime') {
-        window.location.href = 'index.html';
-      }
     });
 
     // Initial Load
