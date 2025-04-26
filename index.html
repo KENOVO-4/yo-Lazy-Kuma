@@ -18,6 +18,19 @@
       background-size: 400% 400%;
       animation: neon 3s ease-in-out infinite;
       font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Dynamic Background Color */
+    @keyframes changeBackground {
+      0% { background-color: #00f260; }
+      50% { background-color: #0575e6; }
+      100% { background-color: #ff00ff; }
+    }
+
+    /* Apply dynamic background change */
+    body {
+      animation: changeBackground 10s infinite alternate;
     }
 
     /* Scrollable Navbar */
@@ -88,13 +101,12 @@
       100% { background-position: 1000px 0; }
     }
 
-    /* Ad Box */
+    /* Smaller Ad Box */
     #adBox {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 90vw;
-      max-width: 728px;
+      bottom: 10px;
+      right: 10px;
+      width: 300px;
       background-color: #374151;
       padding: 12px;
       border-radius: 8px;
@@ -102,6 +114,7 @@
       z-index: 1000;
       cursor: move;
       transition: opacity 0.5s ease;
+      display: block;
     }
 
     #closeAd {
@@ -116,13 +129,15 @@
       cursor: pointer;
     }
 
-    /* Shimmer Loader */
-    .shimmer {
-      animation: loading 1.5s infinite linear;
+    /* Ad Box Animation */
+    .ad-box-animation {
+      animation: bounce 2s ease-in-out infinite;
     }
-    @keyframes loading {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
     /* Scroll-to-Top Button */
@@ -138,10 +153,6 @@
       cursor: pointer;
       font-size: 18px;
       display: none;
-    }
-
-    @media (max-width: 640px) {
-      #adBox { bottom: 1rem; right: 1rem; }
     }
 
     /* Welcome Message */
@@ -191,7 +202,7 @@
   </main>
 
   <!-- Ad Box -->
-  <div id="adBox">
+  <div id="adBox" class="ad-box-animation">
     <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
       <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="100%" height="90" frameborder="0" scrolling="no" allowfullscreen></iframe>
@@ -202,7 +213,7 @@
           'key': '38c97041ba09133421880a5339a162a8',
           'format': 'iframe',
           'height': 90,
-          'width': 728,
+          'width': 300,
           'params': {}
         };
       </script>
@@ -222,7 +233,7 @@
       "Shinchan The Legend of Ninja Mononoke (Hindi)": {
         title: "Shinchan The Legend of Ninja Mononoke (Hindi)",
         cover: "unnamed (1).jpg",
-        link: "anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"
+        link: "anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"
       },
       "WIND BREAKER Season 2 in hindi": {
         title: "WIND BREAKER S02E01 1080",
