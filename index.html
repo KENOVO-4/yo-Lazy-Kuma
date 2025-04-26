@@ -43,12 +43,14 @@
 
   <!-- Header -->
   <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md">
-    <img src="unnamed.png" alt="Lazy Kuma Logo" class="w-12 h-12" />
+    <img src="unnamed.png" alt="Doosh Hub Logo" class="w-12 h-12" />
     <input type="text" id="search" placeholder="Search anime..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
+    
+    <!-- NEW Dropdown -->
     <select id="themeSelect" class="bg-gray-700 text-white rounded p-2">
-      <option value="default">Anime</option>
-      <option value="neon">Neon</option>
-      <option value="flame">Flame</option>
+      <option value="anime">Anime</option>
+      <option value="movies">Movies</option>
+      <option value="kdrama">K-Drama</option>
     </select>
   </header>
 
@@ -88,6 +90,7 @@
   <script>
     window.onbeforeunload = null;
 
+    // Carousel data
     const carouselData = [
       { title: "Cover 1", image: "unnamed (3).jpg" },
       { title: "Cover 2", image: "unnamed (2).jpg" },
@@ -95,6 +98,7 @@
       { title: "Cover 4", image: "unnamed (1).jpg" },
     ];
 
+    // Anime Data
     const animeData = {
       "dragon-ball": {
         title: "Dragon Ball prison planet full Movie",
@@ -149,7 +153,7 @@
       });
     }
 
-    // Rotate ads every 10 seconds
+    // Ad rotation
     let currentAd = 1;
     setInterval(() => {
       document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('active'));
@@ -157,7 +161,7 @@
       document.getElementById(`ad${currentAd}`).classList.add('active');
     }, 10000);
 
-    // Make ad box draggable
+    // Drag ad box
     (function () {
       const box = document.getElementById('adBox');
       let offsetX, offsetY, dragging = false;
@@ -180,12 +184,24 @@
       });
     })();
 
-    // Close ad
+    // Close ad box
     document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
     });
 
-    // Initial load
+    // NEW — Switch pages when dropdown changes
+    document.getElementById('themeSelect').addEventListener('change', (e) => {
+      const value = e.target.value;
+      if (value === 'movies') {
+        window.location.href = 'movies/index.html';
+      } else if (value === 'kdrama') {
+        window.location.href = 'kdrama/index.html';
+      } else if (value === 'anime') {
+        window.location.href = 'index.html';
+      }
+    });
+
+    // Initial Load
     loadCarousel();
     loadAnimeCards();
   </script>
