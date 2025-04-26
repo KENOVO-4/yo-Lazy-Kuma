@@ -39,14 +39,13 @@
     }
   </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+
+<body class="bg-gray-900 text-white font-sans overflow-x-hidden">
 
   <!-- Header -->
   <header class="flex items-center justify-between p-4 bg-gray-800 shadow-md">
     <img src="unnamed.png" alt="Doosh Hub Logo" class="w-12 h-12" />
     <input type="text" id="search" placeholder="Search anime..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
-    
-    <!-- NEW Dropdown -->
     <select id="themeSelect" class="bg-gray-700 text-white rounded p-2">
       <option value="anime">Anime</option>
       <option value="movies">Movies</option>
@@ -55,7 +54,9 @@
   </header>
 
   <!-- Carousel -->
-  <section class="overflow-x-auto whitespace-nowrap p-4 space-x-4" id="carousel"></section>
+  <section class="relative overflow-hidden p-4">
+    <div id="carousel" class="flex space-x-4 transition-transform duration-700 ease-in-out"></div>
+  </section>
 
   <!-- Anime List -->
   <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList"></main>
@@ -64,14 +65,7 @@
   <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
-      <iframe
-        src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a"
-        width="100%"
-        height="90"
-        frameborder="0"
-        scrolling="no"
-        allowfullscreen>
-      </iframe>
+      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="100%" height="90" frameborder="0" scrolling="no" allowfullscreen></iframe>
     </div>
     <div class="ad-slot" id="ad2">
       <script type="text/javascript">
@@ -91,12 +85,23 @@
     window.onbeforeunload = null;
 
     // Carousel data
-    const carouselData = [
-      { title: "Cover 1", image: "unnamed (3).jpg" },
-      { title: "Cover 2", image: "unnamed (2).jpg" },
-      { title: "Cover 3", image: "unnamed (4).jpg" },
-      { title: "Cover 4", image: "unnamed (1).jpg" },
-    ];
+    const carouselData = {
+      "anime": {
+        title: "Anime",
+        cover: "unnamed (3).jpg",
+        link: "anime/index.html"
+      },
+      "movies": {
+        title: "Movies",
+        cover: "unnamed (2).jpg",
+        link: "movies/index.html"
+      },
+      "kdrama": {
+        title: "K-Drama",
+        cover: "unnamed (4).jpg",
+        link: "kdrama/index.html"
+      }
+    };
 
     // Anime Data
     const animeData = {
@@ -108,7 +113,7 @@
       "Shinchan The Legend of Ninja Mononoke (Hindi)": {
         title: "Shinchan The Legend of Ninja Mononoke (Hindi)",
         cover: "unnamed (1).jpg",
-        link: "anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"
+        link: "anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"
       },
       "WIND BREAKER Season 2 in hindi": {
         title: "WIND BREAKER S02E01 1080",
@@ -121,18 +126,37 @@
         link: "anime/Tokyo Revengers season 1.html"
       }
     };
-
+ const moviedata = {
+      "do patti": {
+        title: "Dragon Ball prison planet full Movie",
+        cover: "unnamed (4).jpg",
+        link: "anime/dragon-ball.html"
+      },
+    // Load Carousel
     function loadCarousel() {
       const carousel = document.getElementById('carousel');
       carousel.innerHTML = '';
-      carouselData.forEach(item => {
-        const div = document.createElement('div');
-        div.className = "inline-block w-64 h-40 bg-purple-600 rounded shadow-md text-center align-top";
-        div.innerHTML = `<img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover rounded" />`;
-        carousel.appendChild(div);
+      Object.values(carouselData).forEach(item => {
+        const link = document.createElement('a');
+        link.href = item.link;
+        link.className = "flex-shrink-0 w-64 h-40 rounded overflow-hidden shadow-md transition-transform transform hover:scale-105";
+        link.innerHTML = `<img src="${item.cover}" alt="${item.title}" class="w-full h-full object-cover" />`;
+        carousel.appendChild(link);
       });
     }
 
+    // Auto Slide Carousel
+    let carouselIndex = 0;
+    function autoSlide() {
+      const carousel = document.getElementById('carousel');
+      const items = document.querySelectorAll('#carousel a');
+      const itemWidth = items[0].offsetWidth + 16; // width + margin
+      carouselIndex = (carouselIndex + 1) % items.length;
+      carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
+    }
+    setInterval(autoSlide, 3000); // Every 3 seconds
+
+    // Load Anime Cards
     function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
@@ -145,6 +169,7 @@
       });
     }
 
+    // Search Filter
     function filterAnime() {
       const q = document.getElementById('search').value.toLowerCase();
       document.querySelectorAll('#animeList a').forEach(card => {
@@ -153,7 +178,7 @@
       });
     }
 
-    // Ad rotation
+    // Ad Rotation
     let currentAd = 1;
     setInterval(() => {
       document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('active'));
@@ -161,7 +186,7 @@
       document.getElementById(`ad${currentAd}`).classList.add('active');
     }, 10000);
 
-    // Drag ad box
+    // Drag Ad Box
     (function () {
       const box = document.getElementById('adBox');
       let offsetX, offsetY, dragging = false;
@@ -184,12 +209,12 @@
       });
     })();
 
-    // Close ad box
+    // Close Ad
     document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
     });
 
-    // NEW — Switch pages when dropdown changes
+    // Theme Select
     document.getElementById('themeSelect').addEventListener('change', (e) => {
       const value = e.target.value;
       if (value === 'movies') {
@@ -205,5 +230,6 @@
     loadCarousel();
     loadAnimeCards();
   </script>
+
 </body>
 </html>
