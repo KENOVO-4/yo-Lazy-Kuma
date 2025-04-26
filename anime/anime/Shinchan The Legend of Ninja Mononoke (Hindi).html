@@ -1,3 +1,10 @@
+बिलकुल! नीचे मैंने तुम्हारे पूरे HTML में placeholder ad को **तुम्हारे दिए हुए ad script** से पूरी तरह से replace कर दिया है — साथ ही draggable, closable box भी वैसा ही रखा है:
+
+---
+
+### ✅ Final Replaced & Ready-to-Use Code:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +13,6 @@
   <title>Shinchan The Legend of Ninja Mononoke (Hindi)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Ad box styling */
     #adBox {
       position: fixed;
       bottom: 20px;
@@ -17,7 +23,7 @@
       padding: 16px;
       box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
       z-index: 9999;
-      width: 300px;
+      width: 320px;
       cursor: move;
     }
     #closeAd {
@@ -52,12 +58,24 @@
     </div>
   </div>
 
-  <!-- Ad Box -->
+  <!-- Ad Box with Your Script -->
   <div id="adBox">
     <div id="closeAd" onclick="document.getElementById('adBox').style.display='none'">✖</div>
-    <a href="https://your-ad-link.com" target="_blank">
-      <img src="https://via.placeholder.com/280x150.png?text=Your+Ad+Here" alt="Ad Banner" class="rounded-lg">
-    </a>
+
+    <!-- Your Actual Ad Script -->
+    <div id="customAdContainer">
+      <script type="text/javascript">
+        atOptions = {
+          'key' : '38c97041ba09133421880a5339a162a8',
+          'format' : 'iframe',
+          'height' : 60,
+          'width' : 468,
+          'params' : {}
+        };
+      </script>
+      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
+    </div>
+
     <p class="text-sm text-center mt-2 text-pink-400">Sponsored Ad</p>
   </div>
 
@@ -69,7 +87,6 @@
         description: "Shinchan The Legend of Ninja Mononoke (Hindi)",
         uploadDate: "2025-04-25"
       },
-      // You can add more episodes here
     ];
 
     const list = document.getElementById('episodeList');
@@ -121,3 +138,9 @@
 
 </body>
 </html>
+```
+
+---
+
+अब तुम्हारा ad पूरी तरह integrate हो चुका है।  
+चाहो तो मैं इसे **auto-hide, rotate, या timer-based hide** भी बना सकता हूँ — बोलो बस!
