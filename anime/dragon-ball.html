@@ -35,6 +35,23 @@
       line-height: 1;
       cursor: pointer;
     }
+    /* Tiny popup ad */
+    #tinyPopup {
+      display: none;
+      position: absolute;
+      top: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 90px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      z-index: 500;
+      text-align: center;
+      padding: 5px;
+      transition: opacity 0.5s;
+    }
     @media (max-width: 640px) {
       #adBox { bottom: 1rem; right: 1rem; }
     }
@@ -47,8 +64,14 @@
     <p class="text-gray-400 mb-6">All episodes of the Dragon Ball Movie</p>
 
     <!-- Video Player -->
-    <div class="mb-4">
+    <div class="mb-4 relative">
       <iframe id="videoPlayer" src="https://drive.google.com/file/d/1CCs06Ok3qo6k9B-SmgCeJS5950ZsUOot/preview" width="100%" height="400" frameborder="0" allow="autoplay" allowfullscreen class="rounded shadow"></iframe>
+
+      <!-- Tiny popup inside video -->
+      <div id="tinyPopup">
+        <script type='text/javascript' src='//pl26487838.profitableratecpm.com/b1/b5/3f/b1b53f67b160e09bda7bf4a781f629b2.js'></script>
+      </div>
+
       <div class="mt-2">
         <h2 id="episodeTitle" class="text-xl font-semibold">Dragon Ball Movie - Google Drive</h2>
         <p id="episodeDesc" class="text-gray-400">Dragon Ball full movie hosted on Google Drive.</p>
@@ -101,7 +124,6 @@
         description: "Dragon Ball full movie hosted on Google Drive.",
         uploadDate: "2025-04-25"
       }
-      // You can add more episodes here
     ];
 
     const list = document.getElementById('episodeList');
@@ -171,6 +193,29 @@
     // --- Close button handler ---
     document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
+    });
+
+    // --- Tiny popup logic ---
+    const tinyPopup = document.getElementById('tinyPopup');
+    let alreadyShown = false;
+
+    player.addEventListener('click', () => {
+      if (alreadyShown) return;
+      tinyPopup.style.display = 'block';
+      tinyPopup.style.opacity = '1';
+      alreadyShown = true;
+
+      // Auto-hide after 5 seconds
+      setTimeout(() => {
+        tinyPopup.style.opacity = '0';
+        setTimeout(() => {
+          tinyPopup.style.display = 'none';
+        }, 500); // wait fadeout
+      }, 5000);
+    });
+
+    window.addEventListener('resize', () => {
+      tinyPopup.style.left = '50%';
     });
   </script>
 
