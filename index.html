@@ -7,36 +7,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="assets/logo.png" />
   <style>
-    /* Neon Background */
-    @keyframes neon {
-      0% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
-      50% { box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00; }
-      100% { box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
-    }
-
-    /* Apply Neon Effect to Background */
+    /* Remove background color and gradient animation */
     body {
-      background: linear-gradient(to right, #00f260, #0575e6);
-      background-size: 400% 400%;
-      animation: neon 3s ease-in-out infinite;
+      background-color: #2d3748; /* Gray background */
       font-family: 'Roboto', sans-serif;
       overflow-x: hidden;
-    }
-
-    /* Dynamic Background Color - 6-10 Colors with 3-second interval */
-    @keyframes changeBackground {
-      0% { background-color: #ff5733; }
-      16.6% { background-color: #33ff57; }
-      33.3% { background-color: #3357ff; }
-      50% { background-color: #ff33a1; }
-      66.6% { background-color: #a133ff; }
-      83.3% { background-color: #ff8c33; }
-      100% { background-color: #33ffd1; }
-    }
-
-    /* Apply dynamic background change */
-    body {
-      animation: changeBackground 18s infinite;
+      color: white;
     }
 
     /* Scrollable Navbar */
@@ -54,13 +30,43 @@
       padding: 10px;
     }
 
-    /* Card Hover Effect */
+    /* Carousel Styling */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #carousel {
+      display: flex;
+      transition: transform 0.7s ease-in-out;
+    }
+
+    #carousel a {
+      flex-shrink: 0;
+      width: 300px;
+      height: 200px;
+      margin-right: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Anime Cards */
     .anime-card {
       transition: all 0.3s ease;
       border-radius: 15px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      background-color: #1a202c; /* Dark Background for Cards */
     }
+
     .anime-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -70,20 +76,9 @@
     .anime-card img {
       transition: transform 0.3s ease;
     }
+
     .anime-card:hover img {
       transform: scale(1.1);
-    }
-
-    /* Neon Text Animation */
-    .neon-text {
-      font-size: 2rem;
-      color: #ff00ff;
-      animation: neon-text 1.5s ease-in-out infinite alternate;
-    }
-    @keyframes neon-text {
-      0% { color: #ff00ff; }
-      50% { color: #00ff00; }
-      100% { color: #ff00ff; }
     }
 
     /* Skeleton Loader */
@@ -102,6 +97,7 @@
       height: 24px;
       margin-top: 10px;
     }
+
     @keyframes shimmer {
       0% { background-position: -1000px 0; }
       100% { background-position: 1000px 0; }
@@ -116,7 +112,7 @@
       background-color: #374151;
       padding: 12px;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
       z-index: 1000;
       cursor: move;
       transition: opacity 0.5s ease;
@@ -133,17 +129,6 @@
       font-size: 1.25rem;
       line-height: 1;
       cursor: pointer;
-    }
-
-    /* Ad Box Animation */
-    .ad-box-animation {
-      animation: bounce 2s ease-in-out infinite;
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
     }
 
     /* Scroll-to-Top Button */
@@ -174,21 +159,10 @@
       0% { opacity: 0; transform: translateY(-30px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-
-    /* Animation on Scroll */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 0.5s ease-in-out;
-    }
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
   </style>
 </head>
 
-<body class="bg-gray-900 text-white font-sans overflow-x-hidden">
+<body>
 
   <!-- Scroll-to-Top Button -->
   <button id="scrollToTop" onclick="scrollToTop()">↑</button>
@@ -200,13 +174,13 @@
   </header>
 
   <!-- Welcome Message -->
-  <div class="welcome-message animate-on-scroll">
+  <div class="welcome-message">
     Welcome to DOOSH HUB!
   </div>
 
-  <!-- Carousel (auto generated) -->
-  <section class="relative overflow-hidden p-4">
-    <div id="carousel" class="flex space-x-4 transition-transform duration-700 ease-in-out"></div>
+  <!-- Carousel -->
+  <section class="carousel-container p-4">
+    <div id="carousel"></div>
   </section>
 
   <!-- Anime List (Skeleton Loader) -->
@@ -219,7 +193,7 @@
   </main>
 
   <!-- Ad Box -->
-  <div id="adBox" class="ad-box-animation">
+  <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
       <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="100%" height="90" frameborder="0" scrolling="no" allowfullscreen></iframe>
@@ -240,7 +214,6 @@
 
   <!-- Anime Data (Automated) -->
   <script>
-    // Anime Data
     const animeData = {
       "dragon-ball": {
         title: "Dragon Ball Prison Planet Full Movie",
@@ -274,49 +247,44 @@
       }
     };
 
-    // Load Anime Cards
     function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
       Object.values(animeData).forEach(a => {
         const card = document.createElement('a');
         card.href = a.link;
-        card.className = "anime-card bg-gray-800 rounded-lg shadow hover:shadow-lg p-4 block transition hover:bg-gray-700 animate-on-scroll";
+        card.className = "anime-card p-4 block";
         card.innerHTML = `
-          <img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2 shimmer">
+          <img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2">
           <h2 class="text-xl font-bold text-center">${a.title}</h2>`;
         list.appendChild(card);
       });
     }
 
-    // Load Carousel Slides (auto generate)
     function loadCarousel() {
       const carousel = document.getElementById('carousel');
       carousel.innerHTML = '';
       Object.values(animeData).forEach(a => {
         const slide = document.createElement('a');
         slide.href = a.link;
-        slide.className = "flex-shrink-0 w-64 h-40 rounded overflow-hidden shadow-md transition-transform transform hover:scale-105";
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover shimmer" />`;
+        slide.className = "w-64 h-40 rounded overflow-hidden shadow-md";
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
         carousel.appendChild(slide);
       });
 
-      // Duplicate first slide for smooth infinite loop
       const firstClone = carousel.firstElementChild.cloneNode(true);
       carousel.appendChild(firstClone);
     }
 
-    // Auto Slide
     let carouselIndex = 0;
     function autoSlide() {
       const carousel = document.getElementById('carousel');
       const items = document.querySelectorAll('#carousel a');
-      const itemWidth = items[0].offsetWidth + 16; // width + margin
+      const itemWidth = items[0].offsetWidth + 16;
       carouselIndex++;
       carousel.style.transition = "transform 0.7s ease-in-out";
       carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
 
-      // Reset when last
       if (carouselIndex >= items.length - 1) {
         setTimeout(() => {
           carousel.style.transition = "none";
@@ -326,9 +294,8 @@
       }
     }
 
-    setInterval(autoSlide, 3000); // every 3 seconds
+    setInterval(autoSlide, 3000);
 
-    // Search Filter
     function filterAnime() {
       const q = document.getElementById('search').value.toLowerCase();
       document.querySelectorAll('#animeList a').forEach(card => {
@@ -337,12 +304,10 @@
       });
     }
 
-    // Scroll to Top
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Show Scroll-to-Top Button on Scroll
     window.onscroll = function () {
       const scrollButton = document.getElementById('scrollToTop');
       if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
@@ -352,7 +317,6 @@
       }
     };
 
-    // Ad Rotation
     let currentAd = 1;
     setInterval(() => {
       document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('active'));
@@ -360,22 +324,10 @@
       document.getElementById(`ad${currentAd}`).classList.add('active');
     }, 10000);
 
-    // Initial Load
     window.onload = function() {
       loadCarousel();
-      setTimeout(loadAnimeCards, 1500);  // Load after skeleton loader timeout
-    }
-
-    // Scroll Animation Visibility
-    const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
-    window.addEventListener('scroll', () => {
-      animateOnScrollElements.forEach(element => {
-        const rect = element.getBoundingClientRect();
-        if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-          element.classList.add('visible');
-        }
-      });
-    });
+      setTimeout(loadAnimeCards, 1500);
+    };
   </script>
 
 </body>
