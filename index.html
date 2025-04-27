@@ -66,34 +66,6 @@
       padding: 10px;
     }
 
-    /* Carousel */
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    #carousel {
-      display: flex;
-      transition: transform 0.7s ease-in-out;
-    }
-
-    #carousel a {
-      flex-shrink: 0;
-      width: 300px;
-      height: 200px;
-      margin-right: 16px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    #carousel img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     /* Anime Cards */
     .anime-card {
       transition: all 0.3s ease;
@@ -138,33 +110,6 @@
       100% {
         background-position: 1000px 0;
       }
-    }
-
-    /* Ad Box */
-    #adBox {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      width: 300px;
-      background-color: #374151;
-      padding: 12px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      cursor: move;
-      transition: opacity 0.5s ease;
-      display: block;
-    }
-
-    #closeAd {
-      position: absolute;
-      top: 6px;
-      right: 8px;
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
     }
 
     /* Scroll-to-Top Button */
@@ -234,11 +179,6 @@
     Welcome to DOOSH HUB!
   </div>
 
-  <!-- Carousel -->
-  <section class="carousel-container p-4">
-    <div id="carousel"></div>
-  </section>
-
   <!-- Anime List -->
   <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList">
     <div class="skeleton skeleton-card"></div>
@@ -246,24 +186,11 @@
     <div class="skeleton skeleton-card"></div>
   </main>
 
-  <!-- Ad Box -->
-  <div id="adBox">
-    <button id="closeAd" aria-label="Close ad">×</button>
-    <div class="ad-slot active" id="ad1">
-      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="100%" height="90" frameborder="0" scrolling="no" allowfullscreen></iframe>
-    </div>
-    <div class="ad-slot" id="ad2" style="display:none;">
-      <script type="text/javascript">
-        atOptions = {
-          'key': '38c97041ba09133421880a5339a162a8',
-          'format': 'iframe',
-          'height': 90,
-          'width': 300,
-          'params': {}
-        };
-      </script>
-      <script src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
-    </div>
+  <!-- Content Button to Redirect -->
+  <div class="text-center mt-8">
+    <button onclick="window.location.href='content.html'" class="bg-blue-500 text-white px-6 py-2 rounded mt-4">
+      Go to Content
+    </button>
   </div>
 
   <!-- Scripts -->
@@ -280,80 +207,51 @@
     function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
-      Object.values(animeData).forEach(a => {
+      Object.keys(animeData).forEach(key => {
+        const a = animeData[key];
         const card = document.createElement('a');
-        card.href = a.link;
+        card.href = `content.html?anime=${key}`;  // Linking to content.html with the anime identifier
         card.className = "anime-card p-4 block";
         card.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2">
-                          <h2 class="text-xl font-bold text-center">${a.title}</h2>`;
+                          <h2 class="text-xl font-bold text-center text-white">${a.title}</h2>`;
         list.appendChild(card);
       });
     }
 
-    function loadCarousel() {
-      const carousel = document.getElementById('carousel');
-      carousel.innerHTML = '';
-      Object.values(animeData).forEach(a => {
-        const slide = document.createElement('a');
-        slide.href = a.link;
-        slide.className = "w-64 h-40 rounded overflow-hidden shadow-md";
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
-        carousel.appendChild(slide);
-      });
-
-      const firstClone = carousel.firstElementChild.cloneNode(true);
-      carousel.appendChild(firstClone);
-    }
-
-    let carouselIndex = 0;
-
-    function autoSlide() {
-      const carousel = document.getElementById('carousel');
-      const items = document.querySelectorAll('#carousel a');
-      const itemWidth = items[0].offsetWidth + 16;
-      carouselIndex++;
-      carousel.style.transition = "transform 0.7s ease-in-out";
-      carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
-      if (carouselIndex >= items.length - 1) {
-        setTimeout(() => {
-          carousel.style.transition = "none";
-          carousel.style.transform = `translateX(0px)`;
-          carouselIndex = 0;
-        }, 700);
-      }
-    }
-
-    setInterval(autoSlide, 3000);
-
-    function filterAnime() {
-      const q = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('#animeList a').forEach(card => {
-        const title = card.querySelector('h2').innerText.toLowerCase();
-        card.style.display = title.includes(q) ? 'block' : 'none';
-      });
-    }
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
+    // Scroll to Top Function
     window.onscroll = function () {
       const scrollButton = document.getElementById('scrollToTop');
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
         scrollButton.style.display = "block";
       } else {
         scrollButton.style.display = "none";
       }
     };
 
-    document.getElementById('closeAd').addEventListener('click', function () {
-      document.getElementById('adBox').style.display = 'none';
-    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-    window.onload = function () {
-      loadCarousel();
-      setTimeout(loadAnimeCards, 1500);
-    };
+    // Filter Anime Function (based on search input)
+    function filterAnime() {
+      const query = document.getElementById('search').value.toLowerCase();
+      const list = document.getElementById('animeList');
+      list.innerHTML = '';  // Clear the current list
+      Object.keys(animeData).forEach(key => {
+        const anime = animeData[key];
+        if (anime.title.toLowerCase().includes(query)) {
+          const card = document.createElement('a');
+          card.href = `content.html?anime=${key}`;
+          card.className = "anime-card p-4 block";
+          card.innerHTML = `<img src="${anime.cover}" alt="${anime.title}" class="w-full h-40 object-cover rounded mb-2">
+                            <h2 class="text-xl font-bold text-center text-white">${anime.title}</h2>`;
+          list.appendChild(card);
+        }
+      });
+    }
+
+    // Initialize Anime Cards
+    window.onload = loadAnimeCards;
   </script>
 
 </body>
