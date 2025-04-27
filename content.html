@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anime Content - DOOSH HUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
+
+  <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
+  <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+  <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+  <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Meta -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+  <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+
+  <style>
+    body {
+      background: #0f0f0f;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      color: white;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      transition: all 0.3s ease-in-out;
+      padding: 10px 20px;
+    }
+
+    header.shrink {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px;
+    }
+
+    .anime-title {
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 100px;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500;
+    }
+
+    .anime-details {
+      margin: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+    }
+
+    .anime-details img {
+      width: 60%;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .anime-description {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 800px;
+      text-align: justify;
+    }
+
+    .anime-video {
+      margin-top: 30px;
+      width: 80%;
+      height: 400px;
+      background: black;
+      position: relative;
+    }
+
+    .anime-video iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #ff00ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background-color: #ff4500;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
+    <a href="index.html" class="text-white text-xl float-right">Back to Home</a>
+  </header>
+
+  <!-- Anime Title -->
+  <div class="anime-title">
+    <h1 id="animeTitle">Loading Anime...</h1>
+  </div>
+
+  <!-- Anime Content -->
+  <div class="anime-details">
+    <img id="animeImage" src="unnamed.jpg" alt="Anime Image" />
+    <p class="anime-description" id="animeDescription">
+      Loading description...
+    </p>
+
+    <!-- Video Section -->
+    <div class="anime-video">
+      <iframe id="animeVideo" src="https://www.youtube.com/embed/example" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-btn" onclick="window.location.href='index.html'">Back to Anime List</button>
+  </div>
+
+  <script>
+    // Get the anime identifier from URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const animeId = params.get('anime');
+
+    // Anime Data
+    const animeData = {
+      "dragon-ball": {
+        title: "Dragon Ball Prison Planet Full Movie",
+        image: "unnamed (4).jpg",
+        description: "Dragon Ball Prison Planet is a thrilling movie with intense battles and incredible transformations.",
+        video: "https://www.youtube.com/embed/abc123"
+      },
+      "shinchan-ninja": {
+        title: "Shinchan The Legend of Ninja Mononoke (Hindi)",
+        image: "unnamed (1).jpg",
+        description: "Join Shinchan in his epic battle as a ninja against dark forces in this exciting movie.",
+        video: "https://www.youtube.com/embed/xyz789"
+      },
+      "wind-breaker": {
+        title: "WIND BREAKER Season 2 in Hindi",
+        image: "WIND BREAKER S2.jpg",
+        description: "The second season of Wind Breaker continues with high-speed bike races and intense action.",
+        video: "https://www.youtube.com/embed/lmn456"
+      },
+      "tokyo-revengers": {
+        title: "Tokyo Revengers Season 1",
+        image: "unnamed (2).jpg",
+        description: "A gripping tale of time travel and gang wars, Tokyo Revengers brings suspense and drama.",
+        video: "https://www.youtube.com/embed/pqr123"
+      },
+      "do-patti": {
+        title: "Do Patti Movie",
+        image: "Do-patti-(2024)-hindi-movie.jpg",
+        description: "Do Patti is a movie that explores intense emotions, drama, and a gripping storyline.",
+        video: "https://www.youtube.com/embed/uvw321"
+      },
+      "flight-914": {
+        title: "FLIGHT 914 - Hollywood Action Movie",
+        image: "get.jpg",
+        description: "FLIGHT 914 is a high-octane action movie featuring a hijacking and a race against time.",
+        video: "https://www.youtube.com/embed/jkl654"
+      }
+    };
+
+    // Update the page with the selected anime data
+    const anime = animeData[animeId];
+    if (anime) {
+      document.getElementById('animeTitle').innerText = anime.title;
+      document.getElementById('animeImage').src = anime.image;
+      document.getElementById('animeDescription').innerText = anime.description;
+      document.getElementById('animeVideo').src = anime.video;
+    } else {
+      document.getElementById('animeTitle').innerText = "Anime Not Found";
+      document.getElementById('animeImage').src = "error.jpg";
+      document.getElementById('animeDescription').innerText = "Sorry, the selected anime does not exist.";
+      document.getElementById('animeVideo').style.display = "none";
+    }
+  </script>
+
+</body>
+
+</html>
