@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,10 +32,22 @@
       color: white;
       animation: fireGlow 10s infinite alternate;
     }
+
     @keyframes fireGlow {
-      0% { background-color: #0f0f0f; box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset; }
-      50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset; }
-      100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset; }
+      0% {
+        background-color: #0f0f0f;
+        box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
+      }
+
+      50% {
+        background-color: #1a1a1a;
+        box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
+      }
+
+      100% {
+        background-color: #0f0f0f;
+        box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
+      }
     }
 
     /* Navbar */
@@ -47,6 +60,7 @@
       z-index: 9999;
       transition: all 0.3s ease-in-out;
     }
+
     header.shrink {
       background: rgba(0, 0, 0, 0.9);
       padding: 10px;
@@ -58,10 +72,12 @@
       width: 100%;
       overflow: hidden;
     }
+
     #carousel {
       display: flex;
       transition: transform 0.7s ease-in-out;
     }
+
     #carousel a {
       flex-shrink: 0;
       width: 300px;
@@ -71,6 +87,7 @@
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
+
     #carousel img {
       width: 100%;
       height: 100%;
@@ -85,14 +102,17 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       background-color: #1a202c;
     }
+
     .anime-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 10px 30px #ff00ff;
       border: 2px solid #ff00ff;
     }
+
     .anime-card img {
       transition: transform 0.3s ease;
     }
+
     .anime-card:hover img {
       transform: scale(1.1);
     }
@@ -103,14 +123,21 @@
       border-radius: 8px;
       animation: shimmer 1.5s infinite linear;
     }
+
     .skeleton-card {
       width: 100%;
       height: 250px;
       margin-bottom: 20px;
     }
+
     @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
+      0% {
+        background-position: -1000px 0;
+      }
+
+      100% {
+        background-position: 1000px 0;
+      }
     }
 
     /* Ad Box */
@@ -128,6 +155,7 @@
       transition: opacity 0.5s ease;
       display: block;
     }
+
     #closeAd {
       position: absolute;
       top: 6px;
@@ -164,13 +192,27 @@
       color: #ff00ff;
       text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500;
     }
+
     @keyframes welcomeAnimation {
-      0% { opacity: 0; transform: translateY(-30px); }
-      100% { opacity: 1; transform: translateY(0); }
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes neonFire {
-      0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500; }
-      100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500, 0 0 40px #ff4500; }
+      0% {
+        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500;
+      }
+
+      100% {
+        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500, 0 0 40px #ff4500;
+      }
     }
   </style>
 
@@ -264,6 +306,7 @@
     }
 
     let carouselIndex = 0;
+
     function autoSlide() {
       const carousel = document.getElementById('carousel');
       const items = document.querySelectorAll('#carousel a');
@@ -279,6 +322,7 @@
         }, 700);
       }
     }
+
     setInterval(autoSlide, 3000);
 
     function filterAnime() {
@@ -302,15 +346,16 @@
       }
     };
 
-    document.getElementById('closeAd').addEventListener('click', function() {
+    document.getElementById('closeAd').addEventListener('click', function () {
       document.getElementById('adBox').style.display = 'none';
     });
 
-    window.onload = function() {
+    window.onload = function () {
       loadCarousel();
       setTimeout(loadAnimeCards, 1500);
     };
   </script>
 
 </body>
+
 </html>
