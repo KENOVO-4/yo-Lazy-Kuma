@@ -1,1 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chainsaw man all episodes in one video+ movie</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #adBox {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 90vw;
+      max-width: 728px;
+      background-color: #374151;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      z-index: 1000;
+      cursor: move;
+      transition: opacity 0.5s ease;
+    }
+    .ad-slot { display: none; }
+    .ad-slot.active { display: block; }
+    #closeAd {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+    @media (max-width: 640px) {
+      #adBox { bottom: 1rem; right: 1rem; }
+    }
+  </style>
+</head>
+<body class="bg-black text-white font-mono">
 
+  <div class="p-6">
+    <h1 class="text-4xl font-bold text-pink-600">chainsaw man all episodes in one video+ movie</h1>
+    <p class="text-gray-400 mb-6">chainsaw man all episodes in one video+ movie</p>
+
+    <!-- Video Player -->
+    <div class="mb-4">
+      <iframe id="videoPlayer" src="https://drive.google.com/file/d/1EFLsCYYSZ_0W0ovHCepvqUFIrZXEaH-V/preview" width="100%" height="400" frameborder="0" allow="autoplay" allowfullscreen class="rounded shadow"></iframe>
+      <div class="mt-2">
+        <h2 id="episodeTitle" class="text-xl font-semibold">chainsaw man all episodes in one video+ movie</h2>
+        <p id="episodeDesc" class="text-gray-400">chainsaw man all episodes in one video+ movie</p>
+        <p id="uploadDate" class="text-gray-600 text-sm">Uploaded: 2025-04-25</p>
+      </div>
+    </div>
+
+    <!-- Episode List -->
+    <div id="episodeList" class="space-y-3"></div>
+
+    <!-- New Separate Ad Placement -->
+    <div class="mt-6">
+      <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
+      <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
+    </div>
+
+  </div>
+
+  <!-- Ad Box (old rotating ads) -->
+  <div id="adBox">
+    <button id="closeAd" aria-label="Close ad">×</button>
+    <div class="ad-slot active" id="ad1">
+      <iframe
+        src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a"
+        width="100%"
+        height="90"
+        frameborder="0"
+        scrolling="no"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="ad-slot" id="ad2">
+      <script type="text/javascript">
+        atOptions = {
+          'key': '38c97041ba09133421880a5339a162a8',
+          'format': 'iframe',
+          'height': 90,
+          'width': 728,
+          'params': {}
+        };
+      </script>
+      <script src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    window.onbeforeunload = null;
+
+    const episodes = [
+      {
+        title: "chainsaw man all episodes in one video+ movie",
+        link: "https://drive.google.com/file/d/1EFLsCYYSZ_0W0ovHCepvqUFIrZXEaH-V/preview",
+        description: "Do_Patti_(2024)_Hindi_Movie.",
+        uploadDate: "2025-04-25"
+      }
+    ];
+
+    const list = document.getElementById('episodeList');
+    const player = document.getElementById('videoPlayer');
+    const title = document.getElementById('episodeTitle');
+    const desc = document.getElementById('episodeDesc');
+    const date = document.getElementById('uploadDate');
+
+    episodes.forEach((ep) => {
+      const btn = document.createElement('button');
+      btn.className = "w-full text-left bg-gray-800 hover:bg-gray-700 rounded p-3 shadow";
+      btn.innerText = ep.title;
+      btn.onclick = () => {
+        player.src = ep.link;
+        title.innerText = ep.title;
+        desc.innerText = ep.description;
+        date.innerText = "Uploaded: " + ep.uploadDate;
+      };
+      list.appendChild(btn);
+    });
+
+    // Rotate ads
+    let currentAd = 1;
+    setInterval(() => {
+      document.querySelectorAll('.ad-slot').forEach(el => el.classList.remove('active'));
+      currentAd = currentAd === 1 ? 2 : 1;
+      document.getElementById(`ad${currentAd}`).classList.add('active');
+    }, 10000);
+
+    // Draggable Ad Box
+    (function() {
+      const box = document.getElementById('adBox');
+      let offsetX, offsetY, dragging = false;
+      box.addEventListener('mousedown', e => {
+        dragging = true;
+        offsetX = e.clientX - box.offsetLeft;
+        offsetY = e.clientY - box.offsetTop;
+        document.body.style.userSelect = 'none';
+      });
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        box.style.left = `${e.clientX - offsetX}px`;
+        box.style.top = `${e.clientY - offsetY}px`;
+        box.style.bottom = 'auto';
+        box.style.right = 'auto';
+      });
+      document.addEventListener('mouseup', () => {
+        dragging = false;
+        document.body.style.userSelect = '';
+      });
+    })();
+
+    // Close ad
+    document.getElementById('closeAd').addEventListener('click', () => {
+      document.getElementById('adBox').style.display = 'none';
+    });
+  </script>
+</body>
+    </html>
