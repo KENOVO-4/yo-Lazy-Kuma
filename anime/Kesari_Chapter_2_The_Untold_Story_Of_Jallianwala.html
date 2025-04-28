@@ -36,8 +36,29 @@
     @media (max-width: 640px) {
       #adBox { bottom: 1rem; right: 1rem; }
     }
+    /* Bottom Ad Styling */
+    .bottom-ads {
+      margin-top: 30px;
+      padding: 20px;
+      background: #111;
+      border-top: 2px solid #0f0;
+      text-align: center;
+    }
+    .bottom-ads iframe {
+      width: 100%;
+      max-width: 728px;
+      height: 90px;
+      margin: 10px auto;
+      display: block;
+    }
+    .bottom-ads h2 {
+      font-size: 1.5rem;
+      color: #0f0;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
+
 <body class="bg-black text-white font-mono">
 
   <div class="p-6">
@@ -57,15 +78,24 @@
     <!-- Episode List -->
     <div id="episodeList" class="space-y-3"></div>
 
-    <!-- New Separate Ad Placement -->
-    <div class="mt-6">
-      <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
-      <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
+    <!-- Bottom Ads Section -->
+    <div class="bottom-ads">
+      <h2>Support Us</h2>
+
+      <!-- First banner ad -->
+      <div>
+        <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
+        <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
+      </div>
+
+      <!-- Second ad -->
+      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" frameborder="0" scrolling="no" allowfullscreen></iframe>
+
     </div>
 
   </div>
 
-  <!-- Ad Box (old rotating ads) -->
+  <!-- Floating Ad Box -->
   <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
     <div class="ad-slot active" id="ad1">
@@ -154,10 +184,11 @@
       });
     })();
 
-    // Close ad
+    // Close floating ad
     document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
     });
   </script>
+
 </body>
 </html>
