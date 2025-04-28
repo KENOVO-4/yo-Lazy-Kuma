@@ -107,6 +107,23 @@
       background-color: #5b6eae;
     }
 
+    /* New Support Us Button Styling */
+    .support-btn {
+      background-color: #ff5733;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      margin-top: 30px;
+    }
+
+    .support-btn:hover {
+      background-color: #ff2a00;
+    }
+
     /* Carousel Styling */
     .carousel-container {
       position: relative;
@@ -210,22 +227,14 @@
     <a href="index.2.html" class="main-btn">Go to Doosh Hub</a>
   </header>
 
-  <!-- Carousel Section (Top Slide) -->
-  <section class="carousel-container">
-    <div id="carousel">
-      <a href="anime/windbreakerseason1.html"><img src="InShot_20250427_105208488.jpg" alt="WIND BREAKER Season 1"></a>
-      <a href="anime/dragon-ball.html"><img src="unnamed (4).jpg" alt="Dragon Ball Prison Planet Full Movie"></a>
-      <a href="anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"><img src="unnamed (1).jpg" alt="Shinchan The Legend of Ninja Mononoke (Hindi)"></a>
-      <a href="anime/WIND BREAKER S2.html"><img src="WIND BREAKER S2.jpg" alt="WIND BREAKER Season 2"></a>
-      <a href="anime/tokyo-revengers.html"><img src="unnamed (2).jpg" alt="Tokyo Revengers"></a>
-    </div>
-  </section>
-
   <!-- Main Content -->
   <div class="main-content">
     <h1 class="text-3xl text-center font-bold mb-6">About Doosh Hub</h1>
     <p>Welcome to Doosh Hub, your premier online destination for a wide range of global entertainment. We bring the best of Bollywood, Hollywood, anime, K-dramas, C-dramas, and much more to your screen, offering an unparalleled entertainment experience that caters to all tastes...</p>
     <p>Explore our content, connect with other fans, and dive into the world of your favorite shows, movies, and animes. Whether you're into action-packed thrillers, emotional dramas, or light-hearted comedies, we have something for everyone!</p>
+    
+    <!-- New Support Us Button -->
+    <a href="support.html" class="support-btn">Support Us</a>
   </div>
 
   <!-- Carousel Section (Bottom Slide) -->
@@ -243,38 +252,6 @@
   <footer>
     <p>&copy; 2025 Doosh Hub. All rights reserved. | <a href="contact.html" class="text-purple-500">Contact Us</a> | <a href="copyright.html" class="text-purple-500">Copyright Information</a></p>
   </footer>
-
-  <script>
-    // JavaScript for Auto Sliding Carousel (Top)
-    let currentIndexTop = 0;
-    const carouselTop = document.getElementById('carousel');
-    const slidesTop = document.querySelectorAll('#carousel a');
-
-    function moveToNextSlideTop() {
-      currentIndexTop++;
-      if (currentIndexTop >= slidesTop.length) {
-        currentIndexTop = 0;
-      }
-      carouselTop.style.transform = `translateX(-${currentIndexTop * 320}px)`;
-    }
-
-    setInterval(moveToNextSlideTop, 3000); // Change slide every 3 seconds
-
-    // JavaScript for Auto Sliding Carousel (Bottom)
-    let currentIndexBottom = 0;
-    const carouselBottom = document.getElementById('carousel-bottom');
-    const slidesBottom = document.querySelectorAll('#carousel-bottom a');
-
-    function moveToNextSlideBottom() {
-      currentIndexBottom++;
-      if (currentIndexBottom >= slidesBottom.length) {
-        currentIndexBottom = 0;
-      }
-      carouselBottom.style.transform = `translateX(-${currentIndexBottom * 320}px)`;
-    }
-
-    setInterval(moveToNextSlideBottom, 3000); // Change slide every 3 seconds
-  </script>
 
 </body>
 
