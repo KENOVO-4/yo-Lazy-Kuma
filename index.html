@@ -42,6 +42,8 @@
       overflow-x: hidden;
       color: white;
       animation: fireGlow 10s infinite alternate;
+      margin: 0;
+      padding: 0;
     }
 
     @keyframes fireGlow {
@@ -149,15 +151,15 @@
       padding: 10px 0;
       text-align: center;
       font-size: 1.5rem;
-      animation: slideUp 5s infinite alternate;
+      animation: slideUpDown 5s infinite alternate;
     }
 
     .slide-bottom {
       bottom: 0;
-      animation: slideDown 5s infinite alternate;
+      animation: slideDownUp 5s infinite alternate;
     }
 
-    @keyframes slideUp {
+    @keyframes slideUpDown {
       0% {
         top: -50px;
       }
@@ -166,13 +168,24 @@
       }
     }
 
-    @keyframes slideDown {
+    @keyframes slideDownUp {
       0% {
         bottom: -50px;
       }
       100% {
         bottom: 10px;
       }
+    }
+
+    /* Center the Main Content */
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      z-index: 10000;
     }
 
     /* Responsive Adjustments */
@@ -230,11 +243,11 @@
   <div class="slide-top">Welcome to Doosh Hub, your premier online destination for global entertainment!</div>
   <div class="slide-bottom">Explore our content and join us on Discord for more updates!</div>
 
-  <!-- Content Section -->
-  <section class="p-6">
+  <!-- Main Content -->
+  <div class="main-content">
     <h1 class="text-3xl text-center font-bold mb-6">About Doosh Hub</h1>
     <p>Welcome to Doosh Hub, your premier online destination for a wide range of global entertainment. We bring the best of Bollywood, Hollywood, anime, K-dramas, C-dramas, and much more to your screen, offering an unparalleled entertainment experience that caters to all tastes...</p>
-  </section>
+  </div>
 
   <script>
     // Function for Toast Message
