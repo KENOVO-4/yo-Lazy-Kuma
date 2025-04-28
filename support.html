@@ -16,107 +16,54 @@
       text-align: center;
       animation: backgroundAnimation 10s infinite;
     }
-    header {
-      background: #222;
-      padding: 10px;
-      font-size: 24px;
-    }
+    header { background: #222; padding: 10px; font-size: 24px; }
     .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 20px auto;
-      background: #111;
-      padding: 20px;
-      border-radius: 10px;
+      width: 90%; max-width: 1200px; margin: 20px auto;
+      background: #111; padding: 20px; border-radius: 10px;
       box-shadow: 0 0 15px rgba(0,0,0,0.5);
     }
-    h2, h3 {
-      color: #0f0;
-    }
+    h2, h3 { color: #0f0; }
     button {
-      background: #0f0;
-      color: #000;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px 5px;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
+      background: #0f0; color: #000; border: none;
+      padding: 10px 20px; margin: 10px 5px;
+      border-radius: 5px; font-size: 16px; cursor: pointer;
       transition: all 0.3s ease;
     }
-    button:hover {
-      background: #0c0;
-      transform: scale(1.05);
-    }
-    .ads-section {
-      margin-top: 30px;
-    }
+    button:hover { background: #0c0; transform: scale(1.05); }
+
+    .ads-section { margin-top: 30px; }
     .floating-ad {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
-      width: 300px;
-      height: 250px;
-      background: #222;
-      border: 2px solid #0f0;
-      border-radius: 10px;
-      overflow: hidden;
-      z-index: 9999;
+      position: fixed; bottom: 80px; right: 20px;
+      width: 300px; height: 250px;
+      background: #222; border: 2px solid #0f0;
+      border-radius: 10px; overflow: hidden; z-index: 9999;
     }
-    .floating-ad iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .floating-ad iframe { width:100%; height:100%; border:none; }
     #closeAd {
-      position: absolute;
-      top: 5px;
-      right: 8px;
-      background: red;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 25px;
-      height: 25px;
-      font-size: 16px;
-      line-height: 23px;
-      cursor: pointer;
+      position: absolute; top: 5px; right: 8px;
+      background: red; color: white; border: none;
+      border-radius: 50%; width: 25px; height: 25px;
+      font-size: 16px; line-height: 23px; cursor: pointer;
     }
+
     .banners {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-      margin-bottom: 40px;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 10px;
+      margin: 20px 0 40px;
     }
     .banner-item {
-      flex: 1 1 30%;
-      min-width: 280px;
-      background: #222;
-      padding: 10px;
-      border-radius: 10px;
-      overflow: hidden;
-      display: none; /* Initially hide all banners */
+      flex: 1 1 30%; min-width: 280px;
+      padding: 10px; border-radius: 10px;
+      overflow: hidden; display: none; /* hidden by default */
     }
-    #banner1 { background: #f00; } /* Red */
-    #banner2 { background: #00f; } /* Blue */
-    #banner3 { background: #ff0; } /* Yellow */
-    .ad-banner {
-      background-color: #333;
-      color: white;
-      padding: 15px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      text-align: center;
-      z-index: 999;
-    }
+    /* distinct backgrounds for each slot */
+    #banner1 { background: #f00; }
+    #banner2 { background: #00f; }
+    #banner3 { background: #ff0; }
+
     .footer {
-      margin-top: 50px;
-      padding: 20px;
-      font-size: 14px;
-      color: #777;
+      margin-top: 50px; padding: 20px;
+      font-size: 14px; color: #777;
     }
     a { color: #0f0; text-decoration: none; }
 
@@ -125,139 +72,145 @@
       50% { background-color: #1a1a1a; }
       100% { background-color: #000; }
     }
-    /* Mobile Responsive */
     @media (max-width: 768px) {
-      .banners {
-        flex-direction: column;
-        align-items: center;
-      }
-      .banner-item {
-        width: 100%;
-      }
+      .banners { flex-direction: column; align-items: center; }
+      .banner-item { width: 100%; }
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Support Us - Doosh Hub</h1>
-</header>
+  <header><h1>Support Us - Doosh Hub</h1></header>
 
-<div class="container">
-  <h2>Support Me – Your Help Means Everything</h2>
-  <p>Hello dear visitor, ... Thank you for supporting!</p>
-</div>
+  <div class="container">
+   
+  <h2>Support Me – Your Help Means Everything</h2>  
+        <p>Hello dear visitor,</p>  
+        <p>First of all, thank you so much for considering supporting me. Your time and attention are incredibly valuable, and I'm truly grateful for your willingness to help. This website, and the work I create, wouldn't be possible without the support of kind people like you.</p>  
+        <p>To support me, I’ve partnered with ad networks that help fund the development and maintenance of this site. It's simple: by engaging with ads (like clicking a banner, popunder, or social bar), you help keep the website running and contribute to its growth. However, I want to make sure you have a safe and smooth experience, and I kindly ask that you follow a few important guidelines while interacting with the ads.</p>  <h3>Important: Please Read Carefully</h3>  
+    <ul>  
+        <li>Do not download anything: I do not promote or offer any downloads on this page. Please avoid downloading any files or software from external links, as they may not always be safe.</li>  
+        <li>Click responsibly: Please ensure that you only click on ads that are part of the supported content on the page. Click on ads only when you feel comfortable, and avoid excessive clicking to ensure the process remains fair and legitimate.</li>  
+        <li>Avoid spammy or suspicious links: If something feels odd or out of place, kindly avoid clicking. I work hard to keep everything safe and secure, but if you're unsure, trust your instincts.</li>  
+    </ul>  
 
-<div class="ads-section">
-  <h3>Support by Clicking on the Popunder Ads Below</h3>
-  <div id="popunderMessage" style="margin-bottom: 10px;"></div>
+    <h3>A Few Simple Steps to Support:</h3>  
+    <ol>  
+        <li>Wait a moment: After clicking an ad, please allow a few seconds (around 5 seconds) before returning to the page. This ensures that the ad is properly credited, and it’s much appreciated.</li>  
+        <li>Multiple clicks are optional: You’re welcome to click on the ads, but please keep the interaction natural. I kindly ask that you do not feel pressured to click excessively. Just engaging in a few honest clicks is incredibly helpful!</li>  
+    </ol>  
 
-  <button onclick="openPopunder(0)">Popunder 1</button>
-  <button onclick="openPopunder(1)">Popunder 2</button>
-  <button onclick="openPopunder(2)">Popunder 3</button>
-  <button onclick="openPopunder(3)">Popunder 4</button>
-  <button onclick="openPopunder(4)">Popunder 5</button>
+    <p>Once again, thank you so much for being here and helping me in this way. Your support, in whatever form, is truly appreciated.</p>  
+    <p>Please take care, stay safe, and feel free to explore the site further. If you have any questions or concerns, don’t hesitate to reach out!</p>  
+    <p>With gratitude,</p>  
+    <p><strong>Doosh Hub</strong></p>  
+</div>  
 
-  <div style="margin-top:20px;">
-    <button onclick="openSocialBar()">Open Social Bar</button>
+  <div class="ads-section">
+    <h3>Support by Clicking on the Popunder Ads Below</h3>
+    <div id="popunderMessage" style="margin-bottom:10px;"></div>
+    <button onclick="openPopunder(0)">Popunder 1</button>
+    <button onclick="openPopunder(1)">Popunder 2</button>
+    <button onclick="openPopunder(2)">Popunder 3</button>
+    <button onclick="openPopunder(3)">Popunder 4</button>
+    <button onclick="openPopunder(4)">Popunder 5</button>
+
+    <div style="margin-top:20px;">
+      <button onclick="openSocialBar()">Open Social Bar</button>
+    </div>
+
+    <div class="banners">
+      <div class="banner-item" id="banner1"></div>
+      <div class="banner-item" id="banner2"></div>
+      <div class="banner-item" id="banner3"></div>
+    </div>
   </div>
 
-  <!-- Rotating Banners Section -->
-  <div class="banners" id="bannerContainer">
-    <div class="banner-item" id="banner1"></div>
-    <div class="banner-item" id="banner2"></div>
-    <div class="banner-item" id="banner3"></div>
+  <div id="floatingAd" class="floating-ad">
+    <button id="closeAd" onclick="floatingAd.style.display='none'">&times;</button>
+    <iframe id="adFrame" src=""></iframe>
   </div>
-</div>
 
-<!-- Floating Ad -->
-<div id="floatingAd" class="floating-ad">
-  <button id="closeAd" onclick="document.getElementById('floatingAd').style.display='none'">&times;</button>
-  <iframe id="adFrame" src=""></iframe>
-</div>
+  <div class="footer">
+    &copy; 2025 Doosh Hub. All rights reserved.
+  </div>
 
-<!-- Footer -->
-<div class="footer">
-  Copyright &copy; 2025 Doosh Hub. All rights reserved.
-</div>
+  <script>
+    const popunderLinks = [
+      "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
+      "https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1",
+      "https://www.profitableratecpm.com/zwdx8nvb?key=00fcac8229b5807d1b638c111f5273f9",
+      "https://www.profitableratecpm.com/sf9h6ikx?key=25d87d94939190ddff9fa5cb0edf81df",
+      "https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe"
+    ];
 
-<script>
-  const popunderLinks = [
-    "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
-    "https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1",
-    "https://www.profitableratecpm.com/zwdx8nvb?key=00fcac8229b5807d1b638c111f5273f9",
-    "https://www.profitableratecpm.com/sf9h6ikx?key=25d87d94939190ddff9fa5cb0edf81df",
-    "https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe"
-  ];
+    function openPopunder(i) {
+      window.open(popunderLinks[i], '_blank');
+      popunderMessage.innerText = `Thanks for supporting Popunder ${i+1}!`;
+    }
+    function openSocialBar() {
+      const s = document.createElement('script');
+      s.src = "//pl26487838.profitableratecpm.com/b1/b5/3f/b1b53f67b160e09bda7bf4a781f629b2.js";
+      document.body.appendChild(s);
+    }
 
-  function openPopunder(index) {
-    window.open(popunderLinks[index], '_blank');
-    document.getElementById('popunderMessage').innerText = `Thanks for supporting Popunder ${index + 1}!`;
-  }
+    // dynamically inject each banner's scripts
+    function loadBanner1() {
+      const c = banner1;
+      c.innerHTML = ''; c.style.display = 'block';
+      const opts = document.createElement('script');
+      opts.type = 'text/javascript';
+      opts.text = "atOptions={key:'38c97041ba09133421880a5339a162a8',format:'iframe',height:60,width:468,params:{}};";
+      c.appendChild(opts);
+      const s = document.createElement('script');
+      s.src = "//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js";
+      c.appendChild(s);
+    }
+    function loadBanner2() {
+      const c = banner2;
+      c.innerHTML = ''; c.style.display = 'block';
+      const s = document.createElement('script');
+      s.async = true; s.dataset.cfasync = 'false';
+      s.src = "//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js";
+      c.appendChild(s);
+      c.appendChild(Object.assign(document.createElement('div'), {
+        id: 'container-9c8a5fd343f0c339fdb71a4da43f3a35'
+      }));
+    }
+    function loadBanner3() {
+      const c = banner3;
+      c.innerHTML = ''; c.style.display = 'block';
+      const opts = document.createElement('script');
+      opts.type = 'text/javascript';
+      opts.text = "atOptions={key:'dc2b98e1ad9fc907acb18e73b04f7c45',format:'iframe',height:50,width:320,params:{}};";
+      c.appendChild(opts);
+      const s = document.createElement('script');
+      s.src = "//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js";
+      c.appendChild(s);
+    }
 
-  function openSocialBar() {
-    var script = document.createElement('script');
-    script.src = "//pl26487838.profitableratecpm.com/b1/b5/3f/b1b53f67b160e09bda7bf4a781f629b2.js";
-    document.body.appendChild(script);
-  }
+    // rotation logic
+    const loaders = [loadBanner1, loadBanner2, loadBanner3];
+    let idx = 0;
+    function rotate() {
+      // hide all
+      [banner1, banner2, banner3].forEach(c => c.style.display = 'none');
+      // load & show current
+      loaders[idx]();
+      idx = (idx + 1) % loaders.length;
+    }
 
-  // Banner 1
-  function loadBanner1() {
-    document.getElementById('banner1').innerHTML = `
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '38c97041ba09133421880a5339a162a8',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 468,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
-    `;
-  }
+    // first banner immediately, then every 6s
+    rotate();
+    setInterval(rotate, 6000);
 
-  // Banner 2
-  function loadBanner2() {
-    document.getElementById('banner2').innerHTML = `
-      <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
-      <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
-    `;
-  }
-
-  // Banner 3
-  function loadBanner3() {
-    document.getElementById('banner3').innerHTML = `
-      <script type="text/javascript">
-        atOptions = {
-          'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js"></script>
-    `;
-  }
-
-  // Initialize banners
-  loadBanner1();
-  loadBanner2();
-  loadBanner3();
-
-  // Show first banner initially
-  document.getElementById('banner1').style.display = 'block';
-
-  // Rotate banners every 6 seconds
-  let currentBannerIndex = 0;
-  const banners = ['banner1', 'banner2', 'banner3'];
-
-  setInterval(function() {
-    // Hide all banners
-    banners.forEach((banner) => {
-      document.getElementById(banner).style.display = 'none';
-    });
-
-    // Show
+    // optional: floating ad rotation
+    let adIdx = 0;
+    setInterval(() => {
+      adFrame.src = popunderLinks[adIdx];
+      adIdx = (adIdx + 1) % popunderLinks.length;
+    }, 10000);
+  </script>
+</body>
+</html>
