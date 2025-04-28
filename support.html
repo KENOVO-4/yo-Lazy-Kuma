@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support Us - Doosh Hub (v2 Responsive)</title>
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support Us - Doosh Hub (v2 Fixed)</title>
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg">
 
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #000;
+      background: #000;
       color: #fff;
       margin: 0;
       padding: 0;
@@ -17,8 +17,8 @@
       animation: backgroundAnimation 10s infinite;
     }
     header {
-      background-color: #222;
-      padding: 10px 0;
+      background: #222;
+      padding: 10px;
       font-size: 24px;
     }
     .container {
@@ -91,9 +91,11 @@
     }
     .banner-item {
       flex: 1 1 30%;
+      min-width: 280px;
       background: #222;
       padding: 10px;
       border-radius: 10px;
+      overflow: hidden;
     }
     .ad-banner {
       background-color: #333;
@@ -118,7 +120,6 @@
       50% { background-color: #1a1a1a; }
       100% { background-color: #000; }
     }
-
     /* Mobile Responsive */
     @media (max-width: 768px) {
       .banners {
@@ -161,42 +162,31 @@
     <p><strong>Doosh Hub</strong></p>  
 </div>  
 
-    <div class="ads-section">
-        <h3>Support by Clicking on the Popunder Ads Below</h3>
-        <div id="popunderMessage"></div>
+<div class="ads-section">
+  <h3>Support by Clicking on the Popunder Ads Below</h3>
+  <div id="popunderMessage" style="margin-bottom: 10px;"></div>
 
-  <div class="ads-section">
-    <h3>Popunder Ads</h3>
-    <div id="popunderMessage" style="margin-bottom: 10px;"></div>
-    <button onclick="openPopunder(0)">Popunder 1</button>
-    <button onclick="openPopunder(1)">Popunder 2</button>
-    <button onclick="openPopunder(2)">Popunder 3</button>
-    <button onclick="openPopunder(3)">Popunder 4</button>
-    <button onclick="openPopunder(4)">Popunder 5</button>
+  <button onclick="openPopunder(0)">Popunder 1</button>
+  <button onclick="openPopunder(1)">Popunder 2</button>
+  <button onclick="openPopunder(2)">Popunder 3</button>
+  <button onclick="openPopunder(3)">Popunder 4</button>
+  <button onclick="openPopunder(4)">Popunder 5</button>
 
-    <div style="margin-top:20px;">
-      <button onclick="openSocialBar()">Open Social Bar</button>
-    </div>
+  <div style="margin-top:20px;">
+    <button onclick="openSocialBar()">Open Social Bar</button>
   </div>
 
-  <!-- Banners Side-by-Side on Desktop -->
-  <div class="banners">
+  <!-- Rotating Banners Section -->
+  <div class="banners" id="bannerContainer">
     <div class="banner-item">
-      <!-- Banner 1 -->
-      <div id="banner1"></div>
+      <iframe src="" id="bannerFrame1" style="width:100%;height:100px;border:none;"></iframe>
     </div>
     <div class="banner-item">
-      <!-- Banner 2 -->
-      <div id="banner2"></div>
+      <iframe src="" id="bannerFrame2" style="width:100%;height:100px;border:none;"></iframe>
     </div>
     <div class="banner-item">
-      <!-- Banner 3 -->
-      <div id="banner3"></div>
+      <iframe src="" id="bannerFrame3" style="width:100%;height:100px;border:none;"></iframe>
     </div>
-  </div>
-
-  <div style="margin-top: 20px;">
-    <button onclick="window.location.href='index.html'">Go to Main Page</button>
   </div>
 </div>
 
@@ -211,7 +201,6 @@
   Copyright &copy; 2025 Doosh Hub. All rights reserved.
 </div>
 
-<!-- Scripts -->
 <script>
   const popunderLinks = [
     "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
@@ -219,6 +208,13 @@
     "https://www.profitableratecpm.com/zwdx8nvb?key=00fcac8229b5807d1b638c111f5273f9",
     "https://www.profitableratecpm.com/sf9h6ikx?key=25d87d94939190ddff9fa5cb0edf81df",
     "https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe"
+  ];
+
+  const bannerLinks = [
+    "https://www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js",
+    "https://pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js",
+    "https://www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js",
+    "https://pl26487204.profitableratecpm.com/1248572134a6c429c55bc35f89b7845a/invoke.js"
   ];
 
   function openPopunder(index) {
@@ -232,49 +228,23 @@
     document.body.appendChild(script);
   }
 
-  // Floating ad rotation every 10s
+  // Rotate floating ads
   let adIndex = 0;
   setInterval(() => {
     document.getElementById('adFrame').src = popunderLinks[adIndex];
     adIndex = (adIndex + 1) % popunderLinks.length;
   }, 10000);
 
-  // Banners auto-refresh every 6 seconds
-  function loadBanners() {
-    document.getElementById('banner1').innerHTML = `
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '38c97041ba09133421880a5339a162a8',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 468,
-          'params' : {}
-        };
-      </script>
-      <script src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
-    `;
-
-    document.getElementById('banner2').innerHTML = `
-      <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
-      <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
-    `;
-
-    document.getElementById('banner3').innerHTML = `
-      <script type="text/javascript">
-        atOptions = {
-          'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script src="//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js"></script>
-    `;
+  // Rotate banners
+  let bannerIndex = 0;
+  function rotateBanners() {
+    document.getElementById('bannerFrame1').src = bannerLinks[(bannerIndex) % bannerLinks.length];
+    document.getElementById('bannerFrame2').src = bannerLinks[(bannerIndex + 1) % bannerLinks.length];
+    document.getElementById('bannerFrame3').src = bannerLinks[(bannerIndex + 2) % bannerLinks.length];
+    bannerIndex = (bannerIndex + 1) % bannerLinks.length;
   }
-
-  loadBanners();
-  setInterval(loadBanners, 6000);
+  rotateBanners();
+  setInterval(rotateBanners, 6000); // Every 6 sec
 </script>
 
 </body>
