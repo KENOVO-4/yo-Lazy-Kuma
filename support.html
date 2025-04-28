@@ -139,7 +139,6 @@
 <header>
   <h1>Support Us - Doosh Hub</h1>
 </header>
-
 <div class="container">
     <h2>Support Me – Your Help Means Everything</h2>  
         <p>Hello dear visitor,</p>  
@@ -245,6 +244,7 @@
   // Rotate banners every 6 seconds
   let bannerIndex = 0;
   function rotateBanners() {
+    // Refresh each banner iframe without clearing its content
     document.getElementById('banner1').innerHTML = `
       <script type="text/javascript">
         atOptions = {
@@ -274,10 +274,12 @@
       <script type="text/javascript" src="//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js"></script>
     `;
   }
+
   rotateBanners();
   setInterval(rotateBanners, 6000); // Every 6 sec
 </script>
 
 </body>
 </html>
+
 
