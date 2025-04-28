@@ -6,20 +6,20 @@
   <script src="https://cdn.tailwindcss.com"></script>  
   <!-- Favicon -->
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
-  
+
   <!-- Open Graph Meta -->
   <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
   <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
   <meta property="og:type" content="website" />
-  
+
   <!-- Twitter Card Meta -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
-  
+
   <style>
     /* Neon Sparkling Animation */
     @keyframes neonGlow {
@@ -84,27 +84,6 @@
       text-align: center;
     }
 
-    /* Discord Button */
-    #discordBtn {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #7289da;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      text-align: center;
-      text-decoration: none;
-      animation: neonGlow 1.5s infinite alternate;
-      z-index: 9999;
-    }
-
-    #discordBtn:hover {
-      background-color: #5b6eae;
-    }
-
     /* Footer */
     footer {
       text-align: center;
@@ -114,12 +93,46 @@
       background-color: rgba(0, 0, 0, 0.8);
       padding: 10px;
     }
+
+    /* Permanent "Support Us" Button at the bottom */
+    #supportBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff00ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      animation: neonGlow 1.5s infinite alternate;
+      z-index: 9999;
+      text-decoration: none;
+    }
+
+    #supportBtn:hover {
+      background-color: #ff4500;
+    }
+
+    /* Discord Button placed below Copyright Info */
+    #discordBtn {
+      background-color: #7289da;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      animation: neonGlow 1.5s infinite alternate;
+      z-index: 9999;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    #discordBtn:hover {
+      background-color: #5e6e8e;
+    }
   </style>
 </head>
 <body>
-  <!-- Discord Button -->
-  <a id="discordBtn" href="https://discord.gg/Wj32meHh" target="_blank">Join Us on Discord</a>
-
   <!-- Header with Logo and Button -->
   <header id="header">
     <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" />
@@ -146,5 +159,11 @@
   <footer>
     <p>&copy; 2025 Doosh Hub. All rights reserved. | <a href="contact.html" class="text-purple-500">Contact Us</a></p>
   </footer>
+
+  <!-- Discord Button below Copyright Info -->
+  <a id="discordBtn" href="https://discord.com" target="_blank">Join Our Discord</a>
+
+  <!-- Permanent Support Us Button -->
+  <a id="supportBtn" href="support.html">Support Us</a>
 </body>
 </html>
