@@ -1,216 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support Us - Doosh Hub</title>
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOOSH HUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
+      background: #0f0f0f;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      z-index: 1000;
+    }
+    header img { width: 40px; height: 40px; border-radius: 50%; }
+    .main-content {
+      padding: 100px 20px 80px; /* space for header + banner */
       text-align: center;
-      animation: backgroundAnimation 10s infinite;
     }
-    header { background: #222; padding: 10px; font-size: 24px; }
-    .container {
-      width: 90%; max-width: 1200px; margin: 20px auto;
-      background: #111; padding: 20px; border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.8);
     }
-    h2, h3 { color: #0f0; }
-    button {
-      background: #0f0; color: #000; border: none;
-      padding: 10px 20px; margin: 10px 5px;
-      border-radius: 5px; font-size: 16px; cursor: pointer;
-      transition: all 0.3s ease;
+    /* Responsive Banner Container */
+    #ad-banner {
+      position: fixed;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%; max-width: 468px;
+      background: #000;
+      text-align: center;
+      z-index: 1000;
+      padding: 5px 0;
     }
-    button:hover { background: #0c0; transform: scale(1.05); }
-
-    .ads-section { margin-top: 30px; }
-    .floating-ad {
-      position: fixed; bottom: 80px; right: 20px;
-      width: 300px; height: 250px;
-      background: #222; border: 2px solid #0f0;
-      border-radius: 10px; overflow: hidden; z-index: 9999;
+    /* Make inner script occupy full width */
+    #ad-banner > div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
     }
-    .floating-ad iframe { width:100%; height:100%; border:none; }
-    #closeAd {
-      position: absolute; top: 5px; right: 8px;
-      background: red; color: white; border: none;
-      border-radius: 50%; width: 25px; height: 25px;
-      font-size: 16px; line-height: 23px; cursor: pointer;
+    /* Ensure iframe from ad fits responsively */
+    #ad-banner iframe {
+      max-width: 100%;
     }
-
-    .banners {
-      display: flex; flex-wrap: wrap;
-      justify-content: center; gap: 10px;
-      margin: 20px 0 40px;
-    }
-    .banner-item {
-      flex: 1 1 30%; min-width: 280px;
-      padding: 10px; border-radius: 10px;
-      overflow: hidden; display: none; /* hidden by default */
-    }
-    /* distinct backgrounds for each slot */
-    #banner1 { background: #f00; }
-    #banner2 { background: #00f; }
-    #banner3 { background: #ff0; }
-
-    .footer {
-      margin-top: 50px; padding: 20px;
-      font-size: 14px; color: #777;
-    }
-    a { color: #0f0; text-decoration: none; }
-
-    @keyframes backgroundAnimation {
-      0% { background-color: #000; }
-      50% { background-color: #1a1a1a; }
-      100% { background-color: #000; }
-    }
-    @media (max-width: 768px) {
-      .banners { flex-direction: column; align-items: center; }
-      .banner-item { width: 100%; }
+    @media (max-width: 500px) {
+      /* On small phones, limit width to 320px */
+      #ad-banner { max-width: 320px; }
     }
   </style>
 </head>
-
 <body>
 
-  <header><h1>Support Us - Doosh Hub</h1></header>
+  <!-- Header -->
+  <header>
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo">
+    <a href="index.2.html" class="text-pink-500 font-bold">Doosh Hub</a>
+  </header>
 
-  <div class="container">
-   
-  <h2>Support Me – Your Help Means Everything</h2>  
-        <p>Hello dear visitor,</p>  
-        <p>First of all, thank you so much for considering supporting me. Your time and attention are incredibly valuable, and I'm truly grateful for your willingness to help. This website, and the work I create, wouldn't be possible without the support of kind people like you.</p>  
-        <p>To support me, I’ve partnered with ad networks that help fund the development and maintenance of this site. It's simple: by engaging with ads (like clicking a banner, popunder, or social bar), you help keep the website running and contribute to its growth. However, I want to make sure you have a safe and smooth experience, and I kindly ask that you follow a few important guidelines while interacting with the ads.</p>  <h3>Important: Please Read Carefully</h3>  
-    <ul>  
-        <li>Do not download anything: I do not promote or offer any downloads on this page. Please avoid downloading any files or software from external links, as they may not always be safe.</li>  
-        <li>Click responsibly: Please ensure that you only click on ads that are part of the supported content on the page. Click on ads only when you feel comfortable, and avoid excessive clicking to ensure the process remains fair and legitimate.</li>  
-        <li>Avoid spammy or suspicious links: If something feels odd or out of place, kindly avoid clicking. I work hard to keep everything safe and secure, but if you're unsure, trust your instincts.</li>  
-    </ul>  
-
-    <h3>A Few Simple Steps to Support:</h3>  
-    <ol>  
-        <li>Wait a moment: After clicking an ad, please allow a few seconds (around 5 seconds) before returning to the page. This ensures that the ad is properly credited, and it’s much appreciated.</li>  
-        <li>Multiple clicks are optional: You’re welcome to click on the ads, but please keep the interaction natural. I kindly ask that you do not feel pressured to click excessively. Just engaging in a few honest clicks is incredibly helpful!</li>  
-    </ol>  
-
-    <p>Once again, thank you so much for being here and helping me in this way. Your support, in whatever form, is truly appreciated.</p>  
-    <p>Please take care, stay safe, and feel free to explore the site further. If you have any questions or concerns, don’t hesitate to reach out!</p>  
-    <p>With gratitude,</p>  
-    <p><strong>Doosh Hub</strong></p>  
-</div>  
-
-  <div class="ads-section">
-    <h3>Support by Clicking on the Popunder Ads Below</h3>
-    <div id="popunderMessage" style="margin-bottom:10px;"></div>
-    <button onclick="openPopunder(0)">Popunder 1</button>
-    <button onclick="openPopunder(1)">Popunder 2</button>
-    <button onclick="openPopunder(2)">Popunder 3</button>
-    <button onclick="openPopunder(3)">Popunder 4</button>
-    <button onclick="openPopunder(4)">Popunder 5</button>
-
-    <div style="margin-top:20px;">
-      <button onclick="openSocialBar()">Open Social Bar</button>
-    </div>
-
-    <div class="banners">
-      <div class="banner-item" id="banner1"></div>
-      <div class="banner-item" id="banner2"></div>
-      <div class="banner-item" id="banner3"></div>
-    </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <h1 class="text-4xl mb-4">Welcome to Doosh Hub</h1>
+    <p>Your gateway to anime, movies, and more.</p>
   </div>
 
-  <div id="floatingAd" class="floating-ad">
-    <button id="closeAd" onclick="floatingAd.style.display='none'">&times;</button>
-    <iframe id="adFrame" src=""></iframe>
-  </div>
-
-  <div class="footer">
+  <!-- Footer -->
+  <footer>
     &copy; 2025 Doosh Hub. All rights reserved.
-  </div>
+  </footer>
+
+  <!-- Ad Banner Container -->
+  <div id="ad-banner"><div id="ad-inner"></div></div>
 
   <script>
-    const popunderLinks = [
-      "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
-      "https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1",
-      "https://www.profitableratecpm.com/zwdx8nvb?key=00fcac8229b5807d1b638c111f5273f9",
-      "https://www.profitableratecpm.com/sf9h6ikx?key=25d87d94939190ddff9fa5cb0edf81df",
-      "https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe"
+    // Wrap each ad snippet as a function that injects it into #ad-inner
+    const adLoaders = [
+      function loadBanner1() {
+        const container = document.getElementById('ad-inner');
+        container.innerHTML = ''; // clear
+        // atOptions script
+        const s1 = document.createElement('script');
+        s1.text = `
+          atOptions = {
+            'key' : '38c97041ba09133421880a5339a162a8',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        `;
+        // invoke script
+        const s2 = document.createElement('script');
+        s2.src = '//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js';
+        container.appendChild(s1);
+        container.appendChild(s2);
+      },
+      function loadBanner2() {
+        const container = document.getElementById('ad-inner');
+        container.innerHTML = '';
+        const s = document.createElement('script');
+        s.async = true;
+        s.dataset.cfasync = 'false';
+        s.src = '//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js';
+        const div = document.createElement('div');
+        div.id = 'container-9c8a5fd343f0c339fdb71a4da43f3a35';
+        container.appendChild(s);
+        container.appendChild(div);
+      },
+      function loadBanner3() {
+        const container = document.getElementById('ad-inner');
+        container.innerHTML = '';
+        const s1 = document.createElement('script');
+        s1.text = `
+          atOptions = {
+            'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
+            'format' : 'iframe',
+            'height' : 50,
+            'width' : 320,
+            'params' : {}
+          };
+        `;
+        const s2 = document.createElement('script');
+        s2.src = '//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js';
+        container.appendChild(s1);
+        container.appendChild(s2);
+      }
     ];
 
-    function openPopunder(i) {
-      window.open(popunderLinks[i], '_blank');
-      popunderMessage.innerText = `Thanks for supporting Popunder ${i+1}!`;
-    }
-    function openSocialBar() {
-      const s = document.createElement('script');
-      s.src = "//pl26487838.profitableratecpm.com/b1/b5/3f/b1b53f67b160e09bda7bf4a781f629b2.js";
-      document.body.appendChild(s);
+    let current = 0;
+    function rotateAds() {
+      adLoaders[current]();
+      current = (current + 1) % adLoaders.length;
     }
 
-    // dynamically inject each banner's scripts
-    function loadBanner1() {
-      const c = banner1;
-      c.innerHTML = ''; c.style.display = 'block';
-      const opts = document.createElement('script');
-      opts.type = 'text/javascript';
-      opts.text = "atOptions={key:'38c97041ba09133421880a5339a162a8',format:'iframe',height:60,width:468,params:{}};";
-      c.appendChild(opts);
-      const s = document.createElement('script');
-      s.src = "//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js";
-      c.appendChild(s);
-    }
-    function loadBanner2() {
-      const c = banner2;
-      c.innerHTML = ''; c.style.display = 'block';
-      const s = document.createElement('script');
-      s.async = true; s.dataset.cfasync = 'false';
-      s.src = "//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js";
-      c.appendChild(s);
-      c.appendChild(Object.assign(document.createElement('div'), {
-        id: 'container-9c8a5fd343f0c339fdb71a4da43f3a35'
-      }));
-    }
-    function loadBanner3() {
-      const c = banner3;
-      c.innerHTML = ''; c.style.display = 'block';
-      const opts = document.createElement('script');
-      opts.type = 'text/javascript';
-      opts.text = "atOptions={key:'dc2b98e1ad9fc907acb18e73b04f7c45',format:'iframe',height:50,width:320,params:{}};";
-      c.appendChild(opts);
-      const s = document.createElement('script');
-      s.src = "//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js";
-      c.appendChild(s);
-    }
-
-    // rotation logic
-    const loaders = [loadBanner1, loadBanner2, loadBanner3];
-    let idx = 0;
-    function rotate() {
-      // hide all
-      [banner1, banner2, banner3].forEach(c => c.style.display = 'none');
-      // load & show current
-      loaders[idx]();
-      idx = (idx + 1) % loaders.length;
-    }
-
-    // first banner immediately, then every 6s
-    rotate();
-    setInterval(rotate, 6000);
-
-    // optional: floating ad rotation
-    let adIdx = 0;
-    setInterval(() => {
-      adFrame.src = popunderLinks[adIdx];
-      adIdx = (adIdx + 1) % popunderLinks.length;
-    }, 10000);
+    // Initial load + start cycling every 5 seconds
+    rotateAds();
+    setInterval(rotateAds, 5000);
   </script>
 </body>
 </html>
