@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,7 +9,7 @@
   <!-- Favicon -->
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
 
-  <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
+  <!-- Open Graph Meta -->
   <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
@@ -26,14 +25,11 @@
   <style>
     /* Neon Sparkling Animation */
     @keyframes neonGlow {
-      0% {
+      0%, 100% {
         text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff4500, 0 0 60px #ff4500;
       }
       50% {
         text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 60px #ff4500, 0 0 80px #ff4500;
-      }
-      100% {
-        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff4500, 0 0 60px #ff4500;
       }
     }
 
@@ -42,46 +38,52 @@
       font-family: 'Roboto', sans-serif;
       overflow-x: hidden;
       color: white;
-      animation: fireGlow 10s infinite alternate;
       margin: 0;
       padding: 0;
     }
 
-    /* Buttons with Neon Sparkling effect */
+    /* Header Styling */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    /* Button */
     .button {
       background-color: #ff00ff;
       color: white;
-      padding: 15px 30px;
-      border-radius: 10px;
-      font-size: 1.5rem;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
       font-weight: bold;
-      text-align: center;
-      display: inline-block;
-      margin-top: 20px;
-      transition: background-color 0.3s ease;
       animation: neonGlow 1.5s infinite alternate;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
     }
 
     .button:hover {
       background-color: #ff4500;
     }
 
-    /* Button Container Styling */
-    .button-container {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    /* Other Styles */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 9999;
-      transition: all 0.3s ease-in-out;
+    /* Main Content */
+    .main-content {
+      margin-top: 120px; /* This creates space below the fixed header */
       padding: 20px;
+      text-align: center;
     }
 
     /* Discord Button */
@@ -96,15 +98,16 @@
       border-radius: 8px;
       font-size: 1.2rem;
       text-align: center;
-      display: block;
       text-decoration: none;
       animation: neonGlow 1.5s infinite alternate;
+      z-index: 9999;
     }
 
     #discordBtn:hover {
       background-color: #5b6eae;
     }
 
+    /* Footer */
     footer {
       text-align: center;
       margin-top: 50px;
@@ -117,24 +120,26 @@
 </head>
 
 <body>
+
   <!-- Discord Button -->
   <a id="discordBtn" href="https://discord.gg/Wj32meHh" target="_blank">Join Us on Discord</a>
 
-  <!-- Header with Button -->
+  <!-- Header with Logo and Button -->
   <header id="header">
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" />
     <a href="index.2.html" class="button">Go to Doosh Hub</a>
   </header>
 
   <!-- Main Content -->
   <div class="main-content">
-    <h1 class="text-3xl text-center font-bold mb-6">About Doosh Hub</h1>
-    <p>Welcome to Doosh Hub — your ultimate gateway to global entertainment! Step into a world where Bollywood blockbusters, Hollywood hits, mesmerizing anime, heart-fluttering K-dramas, addictive C-dramas, and so much more come alive, all in one place.</p>
-    <p>At Doosh Hub, we don’t just bring you entertainment — we bring you experiences. Discover stories that thrill you, move you, and make you laugh out loud. Dive into action-packed adventures, soul-stirring dramas, and feel-good comedies, handpicked to match every mood and every moment.</p>
-    <p>Connect. Explore. Indulge. Join a vibrant community of fans from around the world, explore endless content, and lose yourself in the magic of your favorite movies, shows, and anime. Whatever your passion, Doosh Hub is where it all begins.</p>
-    <p>Your next binge-worthy obsession is just a click away. Welcome home!</p>
+    <h1 class="text-4xl font-bold mb-6">About Doosh Hub</h1>
+    <p class="mb-4">Welcome to Doosh Hub — your ultimate gateway to global entertainment! Step into a world where Bollywood blockbusters, Hollywood hits, mesmerizing anime, heart-fluttering K-dramas, addictive C-dramas, and so much more come alive, all in one place.</p>
+    <p class="mb-4">At Doosh Hub, we don’t just bring you entertainment — we bring you experiences. Discover stories that thrill you, move you, and make you laugh out loud. Dive into action-packed adventures, soul-stirring dramas, and feel-good comedies, handpicked to match every mood and every moment.</p>
+    <p class="mb-4">Connect. Explore. Indulge. Join a vibrant community of fans from around the world, explore endless content, and lose yourself in the magic of your favorite movies, shows, and anime. Whatever your passion, Doosh Hub is where it all begins.</p>
+    <p class="mb-8">Your next binge-worthy obsession is just a click away. Welcome home!</p>
 
-    <div class="button-container">
+    <!-- Support Buttons -->
+    <div class="flex justify-center gap-6">
       <a href="support.html" class="button">Support Us</a>
       <a href="copyright.html" class="button">Copyright Info</a>
     </div>
@@ -144,6 +149,6 @@
   <footer>
     <p>&copy; 2025 Doosh Hub. All rights reserved. | <a href="contact.html" class="text-purple-500">Contact Us</a></p>
   </footer>
-</body>
 
+</body>
 </html>
