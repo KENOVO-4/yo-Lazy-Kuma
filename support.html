@@ -22,115 +22,110 @@
     <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
 
     <style>
-        /* Your styles exactly as you sent earlier */
+        /* Basic Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #000;
+            color: #fff;
             margin: 0;
             padding: 0;
             text-align: center;
             animation: backgroundAnimation 10s infinite;
         }
         header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-            animation: fadeIn 2s;
+            background-color: #222;
+            padding: 10px 0;
+            font-size: 24px;
         }
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 800px;
             margin: 20px auto;
-            background-color: white;
+            background: #111;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            animation: slideIn 2s ease-out;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
         }
-        .message {
-            margin-bottom: 20px;
-            line-height: 1.6;
+        h2, h3 {
+            color: #0f0;
+        }
+        ul, ol {
+            text-align: left;
+            margin: 10px auto;
+            padding: 0 20px;
         }
         button {
-            background-color: #4CAF50;
-            color: white;
+            background: #0f0;
+            color: #000;
             border: none;
             padding: 10px 20px;
-            cursor: pointer;
-            margin: 10px;
-            font-size: 16px;
+            margin: 10px 5px;
             border-radius: 5px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         button:hover {
-            background-color: #45a049;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
-            transform: scale(1.1);
-        }
-        button:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background-color: rgba(255, 255, 255, 0.5);
-            transition: all 0.5s ease;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: buttonGlow 2s infinite;
-        }
-        @keyframes buttonGlow {
-            0% { box-shadow: 0 0 8px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.7); }
-            50% { box-shadow: 0 0 12px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.8); }
-            100% { box-shadow: 0 0 8px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.7); }
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-        @keyframes slideIn {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(0); }
-        }
-        @keyframes backgroundAnimation {
-            0% { background-color: #000; }
-            50% { background-color: #1a1a1a; }
-            100% { background-color: #000; }
+            background: #0c0;
+            transform: scale(1.05);
         }
         .ads-section {
-            margin-top: 20px;
-            text-align: center;
-            animation: fadeIn 2s;
+            margin-top: 30px;
         }
-        .ads-section iframe {
-            width: 100%;
+        #floatingAd {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
             height: 250px;
+            background: #222;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 9999;
+        }
+        #floatingAd iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            margin: 10px 0;
         }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
-            color: #777;
-        }
-        .footer a {
-            color: #333;
-            text-decoration: none;
+        #closeAd {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            font-size: 16px;
+            line-height: 23px;
+            cursor: pointer;
         }
         .ad-banner {
             background-color: #333;
             color: white;
-            padding: 10px 0;
+            padding: 15px;
             position: fixed;
             bottom: 0;
-            left: 0;
             width: 100%;
             text-align: center;
+            z-index: 999;
+        }
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 14px;
+            color: #777;
+        }
+        a { color: #0f0; text-decoration: none; }
+
+        /* Background Animation */
+        @keyframes backgroundAnimation {
+            0% { background-color: #000; }
+            50% { background-color: #1a1a1a; }
+            100% { background-color: #000; }
         }
     </style>
 </head>
@@ -142,7 +137,7 @@
 </header>
 
 <div class="container">
-    <h2>Support Me – Your Help Means Everything</h2>  
+   <h2>Support Me – Your Help Means Everything</h2>  
         <p>Hello dear visitor,</p>  
         <p>First of all, thank you so much for considering supporting me. Your time and attention are incredibly valuable, and I'm truly grateful for your willingness to help. This website, and the work I create, wouldn't be possible without the support of kind people like you.</p>  
         <p>To support me, I’ve partnered with ad networks that help fund the development and maintenance of this site. It's simple: by engaging with ads (like clicking a banner, popunder, or social bar), you help keep the website running and contribute to its growth. However, I want to make sure you have a safe and smooth experience, and I kindly ask that you follow a few important guidelines while interacting with the ads.</p>  <h3>Important: Please Read Carefully</h3>  
@@ -161,54 +156,76 @@
     <p>Once again, thank you so much for being here and helping me in this way. Your support, in whatever form, is truly appreciated.</p>  
     <p>Please take care, stay safe, and feel free to explore the site further. If you have any questions or concerns, don’t hesitate to reach out!</p>  
     <p>With gratitude,</p>  
-    <p><strong>Doosh Hub</strong></p>  
-</div>  
+    <p><strong>– Doosh Hub</strong></p>
 
     <div class="ads-section">
-        <h3>Support by Clicking on the Popunder Ads Below</h3>
-        <div id="popunderMessage"></div>
+        <h3>Support by Clicking Popunder Ads</h3>
+        <div id="popunderMessage" style="margin-bottom: 10px;"></div>
 
-        <!-- Popunder Ad 1 -->
-        <script type='text/javascript' src='//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js'></script>
-        <button id="popunder1" onclick="showPopunderMessage(1)">Click to Support Popunder 1</button>
-        <button id="popunder2" onclick="showPopunderMessage(2)">Click to Support Popunder 2</button>
-        <button id="popunder3" onclick="showPopunderMessage(3)">Click to Support Popunder 3</button>
+        <!-- Popunder Ad Scripts -->
+        <button onclick="openPopunder1()">Click to Support Popunder 1</button>
+        <button onclick="openPopunder2()">Click to Support Popunder 2</button>
+        <button onclick="openPopunder3()">Click to Support Popunder 3</button>
     </div>
 
-    <div>
+    <div style="margin-top: 20px;">
         <button onclick="window.location.href='index.html'">Go to Main Page</button>
     </div>
 </div>
 
-<!-- Banner Ad script -->
-<script type="text/javascript">
-    atOptions = {
-        'key' : '38c97041ba09133421880a5339a162a8',
-        'format' : 'iframe',
-        'height' : 250,
-        'width' : 300,
-        'params' : {}
-    };
-    document.write('<scr' + 'ipt type="text/javascript" src="//www.profitablecreativeformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></scr' + 'ipt>');
-</script>
-
-<div class="footer">
-    <p>Copyright &copy; 2025 Doosh Hub. All rights reserved.</p>
+<!-- Floating Ad Box -->
+<div id="floatingAd">
+    <button id="closeAd" onclick="document.getElementById('floatingAd').style.display='none'">&times;</button>
+    <iframe id="adFrame" src="https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1"></iframe>
 </div>
 
+<!-- Banner Ad Fixed at Bottom -->
 <div class="ad-banner">
-    Enjoying Doosh Hub? Support by clicking ads!
+    Enjoying Doosh Hub? Support us by clicking ads!
+    <div style="margin-top: 5px;">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '38c97041ba09133421880a5339a162a8',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="//www.profitablecreativeformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></scr' + 'ipt>');
+        </script>
+    </div>
 </div>
 
+<!-- Footer -->
+<div class="footer">
+    Copyright &copy; 2025 Doosh Hub. All rights reserved.
+</div>
+
+<!-- JavaScript for Popunder and Ad Rotation -->
 <script>
-    function showPopunderMessage(num) {
-        const messages = [
-            "Thanks for supporting Popunder 1!",
-            "You rock! Thanks for supporting Popunder 2!",
-            "You're amazing! Thanks for supporting Popunder 3!"
-        ];
-        document.getElementById('popunderMessage').innerText = messages[num - 1];
+    function openPopunder1() {
+        window.open("//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js", '_blank');
+        document.getElementById('popunderMessage').innerText = "Thanks for supporting Popunder 1!";
     }
+    function openPopunder2() {
+        window.open("//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js", '_blank');
+        document.getElementById('popunderMessage').innerText = "Thanks for supporting Popunder 2!";
+    }
+    function openPopunder3() {
+        window.open("//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js", '_blank');
+        document.getElementById('popunderMessage').innerText = "Thanks for supporting Popunder 3!";
+    }
+
+    // Switch Floating Ads every 10 seconds
+    const adLinks = [
+        "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
+        "https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1"
+    ];
+    let adIndex = 0;
+    setInterval(() => {
+        adIndex = (adIndex + 1) % adLinks.length;
+        document.getElementById('adFrame').src = adLinks[adIndex];
+    }, 10000);
 </script>
 
 </body>
