@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOOSH HUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
+
+  <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
+  <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+  <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+  <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card Meta -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+  <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+
+  <style>
+    /* Fire Neon Background */
+    body {
+      background: #0f0f0f;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      color: white;
+      animation: fireGlow 10s infinite alternate;
+    }
+
+    @keyframes fireGlow {
+      0% {
+        background-color: #0f0f0f;
+        box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
+      }
+
+      50% {
+        background-color: #1a1a1a;
+        box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
+      }
+
+      100% {
+        background-color: #0f0f0f;
+        box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
+      }
+    }
+
+    /* Navbar */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      transition: all 0.3s ease-in-out;
+    }
+
+    header.shrink {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px;
+    }
+
+    /* Carousel */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #carousel {
+      display: flex;
+      transition: transform 0.7s ease-in-out;
+    }
+
+    #carousel a {
+      flex-shrink: 0;
+      width: 300px;
+      height: 200px;
+      margin-right: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    #carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Anime Cards */
+    .anime-card {
+      transition: all 0.3s ease;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      background-color: #1a202c;
+    }
+
+    .anime-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px #ff00ff;
+      border: 2px solid #ff00ff;
+    }
+
+    .anime-card img {
+      transition: transform 0.3s ease;
+    }
+
+    .anime-card:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Skeleton Loader */
+    .skeleton {
+      background-color: #333;
+      border-radius: 8px;
+      animation: shimmer 1.5s infinite linear;
+    }
+
+    .skeleton-card {
+      width: 100%;
+      height: 250px;
+      margin-bottom: 20px;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    /* Ad Box */
+    #adBox {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 300px;
+      background-color: #374151;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      cursor: move;
+      transition: opacity 0.5s ease;
+      display: block;
+    }
+
+    #closeAd {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Scroll-to-Top Button */
+    #scrollToTop {
+      position: fixed;
+      bottom: 10px;
+      right: 70px;
+      background-color: #ff00ff;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Welcome Message */
+    .welcome-message {
+      animation: welcomeAnimation 2s ease-in-out, neonFire 1.5s infinite alternate;
+      text-align: center;
+      margin-top: 120px;
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #ff00ff;
+      text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500;
+    }
+
+    @keyframes welcomeAnimation {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes neonFire {
+      0% {
+        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500;
+      }
+
+      100% {
+        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500, 0 0 40px #ff4500;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Scroll-to-Top Button -->
+  <button id="scrollToTop" onclick="scrollToTop()">↑</button>
+
+  <!-- Header -->
+  <header id="header" class="p-4">
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
+    <input type="text" id="search" placeholder="Search animes, movies, drama..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
+  </header>
+
+  <!-- Welcome Message -->
+  <div class="welcome-message">
+    Welcome to DOOSH HUB!
+  </div>
+
+  <!-- Carousel -->
+  <section class="carousel-container p-4">
+    <div id="carousel"></div>
+  </section>
+
+  <!-- Anime List -->
+  <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList">
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+  </main>
+
+  <!-- Ad Box -->
+  <div id="adBox">
+    <button id="closeAd" aria-label="Close ad">×</button>
+    <div class="ad-slot active" id="ad1">
+      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a" width="100%" height="90" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    </div>
+    <div class="ad-slot" id="ad2" style="display:none;">
+      <script type="text/javascript">
+        atOptions = {
+          'key': '38c97041ba09133421880a5339a162a8',
+          'format': 'iframe',
+          'height': 90,
+          'width': 300,
+          'params': {}
+        };
+      </script>
+      <script src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    const animeData = {
+      "wind-breaker season 1 ": { title: "WIND BREAKER Season 1 in Hindi", cover: "InShot_20250427_105208488.jpg", link: "anime/windbreakerseason1.html" },
+      "dragon-ball": { title: "Dragon Ball Prison Planet Full Movie", cover: "unnamed (4).jpg", link: "anime/dragon-ball.html" },
+      "shinchan-ninja": { title: "Shinchan The Legend of Ninja Mononoke (Hindi)", cover: "unnamed (1).jpg", link: "anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html" },
+      "wind-breaker": { title: "WIND BREAKER Season 2 in Hindi", cover: "WIND BREAKER S2.jpg", link: "anime/WIND BREAKER S2.html" },
+      "tokyo-revengers": { title: "Tokyo Revengers Season 1", cover: "unnamed (2).jpg", link: "anime/Tokyo Revengers season 1.html" },
+      "do-patti": { title: "Do Patti Movie", cover: "dopatti.jpeg", link: "anime/do pati.html" },
+      "the shawshank redemption full movie in hindi ": { title: "the shawshank redemption full movie in hindi", cover: "download.jpg", link: "anime/the shawshank redemption full movie in hindi.html" },
+      "flight-914": { title: "FLIGHT 914 - Hollywood Action Movie", cover: "get.jpg", link: "anime/FLIGHT 914 - Hollywood Action Movie Hindi  .html" },
+      "chainsaw man all episodes in one video+ movie": { title: "chainsaw man all episodes in one video+ movie", cover: "images (7).jpeg", link: "anime/chainsaw man.html" }
+    };
+
+    function loadAnimeCards() {
+      const list = document.getElementById('animeList');
+      list.innerHTML = '';
+      Object.values(animeData).forEach(a => {
+        const card = document.createElement('a');
+        card.href = a.link;
+        card.className = "anime-card p-4 block";
+        card.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-40 object-cover rounded mb-2">
+                          <h2 class="text-xl font-bold text-center">${a.title}</h2>`;
+        list.appendChild(card);
+      });
+    }
+
+    function loadCarousel() {
+      const carousel = document.getElementById('carousel');
+      carousel.innerHTML = '';
+      Object.values(animeData).forEach(a => {
+        const slide = document.createElement('a');
+        slide.href = a.link;
+        slide.className = "w-64 h-40 rounded overflow-hidden shadow-md";
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
+        carousel.appendChild(slide);
+      });
+
+      const firstClone = carousel.firstElementChild.cloneNode(true);
+      carousel.appendChild(firstClone);
+    }
+
+    let carouselIndex = 0;
+
+    function autoSlide() {
+      const carousel = document.getElementById('carousel');
+      const items = document.querySelectorAll('#carousel a');
+      const itemWidth = items[0].offsetWidth + 16;
+      carouselIndex++;
+      carousel.style.transition = "transform 0.7s ease-in-out";
+      carousel.style.transform = `translateX(-${carouselIndex * itemWidth}px)`;
+      if (carouselIndex >= items.length - 1) {
+        setTimeout(() => {
+          carousel.style.transition = "none";
+          carousel.style.transform = `translateX(0px)`;
+          carouselIndex = 0;
+        }, 700);
+      }
+    }
+
+    setInterval(autoSlide, 3000);
+
+    function filterAnime() {
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('#animeList a').forEach(card => {
+        const title = card.querySelector('h2').innerText.toLowerCase();
+        card.style.display = title.includes(q) ? 'block' : 'none';
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onscroll = function () {
+      const scrollButton = document.getElementById('scrollToTop');
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollButton.style.display = "block";
+      } else {
+        scrollButton.style.display = "none";
+      }
+    };
+
+    document.getElementById('closeAd').addEventListener('click', function () {
+      document.getElementById('adBox').style.display = 'none';
+    });
+
+    window.onload = function () {
+      loadCarousel();
+      setTimeout(loadAnimeCards, 1500);
+    };
+  </script>
+
+</body>
+
+</html>
