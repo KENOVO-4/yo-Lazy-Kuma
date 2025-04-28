@@ -69,16 +69,18 @@
     <div id="episodeList" class="space-y-3"></div>
 
     <!-- Bottom Ads Section -->
-    <div class="bottom-ads">
+    <div class="bottom-ads" id="bottomAds">
       <h2>Support Us</h2>
-      <img id="bottomBanner" src="https://via.placeholder.com/728x90.png?text=Ad+Banner+1" alt="Advertisement" />
+      <div id="banner1"></div>
+      <div id="banner2"></div>
+      <div id="banner3"></div>
     </div>
   </div>
 
   <!-- Floating Ad Box -->
   <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
-    <img id="floatingBanner" src="https://via.placeholder.com/728x90.png?text=Floating+Ad+1" alt="Floating Ad" />
+    <div id="floatingBanner"></div>
   </div>
 
   <script type="text/javascript">
@@ -112,32 +114,71 @@
       list.appendChild(btn);
     });
 
-    // Ad Banner Images
-    const bannerImages = [
-      "https://via.placeholder.com/728x90.png?text=Ad+Banner+1",
-      "https://via.placeholder.com/728x90.png?text=Ad+Banner+2",
-      "https://via.placeholder.com/728x90.png?text=Ad+Banner+3",
-      "https://via.placeholder.com/728x90.png?text=Ad+Banner+4"
-    ];
+    // Banner 1 (auto-refresh every 6 seconds)
+    const banner1 = document.getElementById('banner1');
+    const banner1Script = document.createElement('script');
+    banner1Script.type = 'text/javascript';
+    banner1Script.innerHTML = `
+      atOptions = {
+        'key' : '38c97041ba09133421880a5339a162a8',
+        'format' : 'iframe',
+        'height' : 60,
+        'width' : 468,
+        'params' : {}
+      };
+    `;
+    banner1.appendChild(banner1Script);
+    const banner1Invoke = document.createElement('script');
+    banner1Invoke.type = 'text/javascript';
+    banner1Invoke.src = "//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js";
+    banner1.appendChild(banner1Invoke);
 
-    const floatingImages = [
-      "https://via.placeholder.com/728x90.png?text=Floating+Ad+1",
-      "https://via.placeholder.com/728x90.png?text=Floating+Ad+2",
-      "https://via.placeholder.com/728x90.png?text=Floating+Ad+3"
-    ];
+    // Banner 2 (auto-refresh every 6 seconds)
+    const banner2 = document.getElementById('banner2');
+    const banner2Script = document.createElement('script');
+    banner2Script.async = true;
+    banner2Script.setAttribute('data-cfasync', 'false');
+    banner2Script.src = "//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js";
+    banner2.appendChild(banner2Script);
+    const banner2Container = document.createElement('div');
+    banner2Container.id = "container-9c8a5fd343f0c339fdb71a4da43f3a35";
+    banner2.appendChild(banner2Container);
 
-    let bannerIndex = 0;
-    let floatingIndex = 0;
+    // Banner 3 (auto-refresh every 6 seconds)
+    const banner3 = document.getElementById('banner3');
+    const banner3Script = document.createElement('script');
+    banner3Script.type = 'text/javascript';
+    banner3Script.innerHTML = `
+      atOptions = {
+        'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    `;
+    banner3.appendChild(banner3Script);
+    const banner3Invoke = document.createElement('script');
+    banner3Invoke.type = 'text/javascript';
+    banner3Invoke.src = "//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js";
+    banner3.appendChild(banner3Invoke);
 
-    setInterval(() => {
-      // Rotate Bottom Banner
-      bannerIndex = (bannerIndex + 1) % bannerImages.length;
-      document.getElementById('bottomBanner').src = bannerImages[bannerIndex] + '&t=' + new Date().getTime(); // Force reload with timestamp
+    // Auto-refresh function for all banners
+    function refreshBanners() {
+      banner1.innerHTML = '';
+      banner2.innerHTML = '';
+      banner3.innerHTML = '';
+      
+      // Re-create banners
+      banner1.appendChild(banner1Script);
+      banner1.appendChild(banner1Invoke);
+      banner2.appendChild(banner2Script);
+      banner2.appendChild(banner2Container);
+      banner3.appendChild(banner3Script);
+      banner3.appendChild(banner3Invoke);
+    }
 
-      // Rotate Floating Banner
-      floatingIndex = (floatingIndex + 1) % floatingImages.length;
-      document.getElementById('floatingBanner').src = floatingImages[floatingIndex] + '&t=' + new Date().getTime();
-    }, 6000); // Every 6 seconds
+    setInterval(refreshBanners, 6000); // Refresh every 6 seconds
 
     // Draggable Floating Ad
     (function() {
