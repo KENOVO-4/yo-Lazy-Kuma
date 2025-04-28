@@ -1,149 +1,150 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DOOSH HUB</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
+  <script src="https://cdn.tailwindcss.com"></script>  
+  <!-- Favicon -->
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
+  
+  <!-- Open Graph Meta -->
+  <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+  <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+  <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Twitter Card Meta -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+  <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+  
   <style>
-    body {
-      margin: 0; padding: 0;
-      background: #0f0f0f;
-      color: white;
-      font-family: 'Roboto', sans-serif;
+    /* Neon Sparkling Animation */
+    @keyframes neonGlow {
+      0%, 100% {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff4500, 0 0 60px #ff4500;
+      }
+      50% {
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 60px #ff4500, 0 0 80px #ff4500;
+      }
     }
+
+    body {
+      background: #0f0f0f;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Styling */
     header {
       position: fixed;
-      top: 0; left: 0; width: 100%;
-      background: rgba(0,0,0,0.7);
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
       padding: 10px 20px;
-      display: flex; align-items: center; justify-content: space-between;
-      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    header img { width: 40px; height: 40px; border-radius: 50%; }
+
+    header img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    /* Button */
+    .button {
+      background-color: #ff00ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      animation: neonGlow 1.5s infinite alternate;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ff4500;
+    }
+
+    /* Main Content */
     .main-content {
-      padding: 100px 20px 80px; /* space for header + banner */
+      margin-top: 120px; /* This creates space below the fixed header */
+      padding: 20px;
       text-align: center;
     }
+
+    /* Discord Button */
+    #discordBtn {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #7289da;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      text-align: center;
+      text-decoration: none;
+      animation: neonGlow 1.5s infinite alternate;
+      z-index: 9999;
+    }
+
+    #discordBtn:hover {
+      background-color: #5b6eae;
+    }
+
+    /* Footer */
     footer {
       text-align: center;
-      padding: 20px;
-      background: rgba(0,0,0,0.8);
-    }
-    /* Responsive Banner Container */
-    #ad-banner {
-      position: fixed;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 100%; max-width: 468px;
-      background: #000;
-      text-align: center;
-      z-index: 1000;
-      padding: 5px 0;
-    }
-    /* Make inner script occupy full width */
-    #ad-banner > div {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    /* Ensure iframe from ad fits responsively */
-    #ad-banner iframe {
-      max-width: 100%;
-    }
-    @media (max-width: 500px) {
-      /* On small phones, limit width to 320px */
-      #ad-banner { max-width: 320px; }
+      margin-top: 50px;
+      font-size: 1rem;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
     }
   </style>
 </head>
 <body>
+  <!-- Discord Button -->
+  <a id="discordBtn" href="https://discord.gg/Wj32meHh" target="_blank">Join Us on Discord</a>
 
-  <!-- Header -->
-  <header>
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo">
-    <a href="index.2.html" class="text-pink-500 font-bold">Doosh Hub</a>
+  <!-- Header with Logo and Button -->
+  <header id="header">
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" />
+    <a href="index.2.html" class="button">Go to Doosh Hub</a>
   </header>
 
   <!-- Main Content -->
   <div class="main-content">
-    <h1 class="text-4xl mb-4">Welcome to Doosh Hub</h1>
-    <p>Your gateway to anime, movies, and more.</p>
+    <h1 class="text-4xl font-bold mb-6">About Doosh Hub</h1>
+    <p class="mb-4">Welcome to Doosh Hub — your ultimate gateway to global entertainment! Step into a world where Bollywood blockbusters, Hollywood hits, mesmerizing anime, heart-fluttering K-dramas, addictive C-dramas, and so much more come alive, all in one place.</p>
+    <p class="mb-4">At Doosh Hub, we don’t just bring you entertainment — we bring you experiences. Discover stories that thrill you, move you, and make you laugh out loud. Dive into action-packed adventures, soul-stirring dramas, and feel-good comedies, handpicked to match every mood and every moment.</p>
+    <p class="mb-4">Connect. Explore. Indulge. Join a vibrant community of fans from around the world, explore endless content, and lose yourself in the magic of your favorite movies, shows, and anime. Whatever your passion, Doosh Hub is where it all begins.</p>
+    <p class="mb-8">Your next binge-worthy obsession is just a click away. Welcome home!</p>
+
+    <!-- Support Buttons -->
+    <div class="flex justify-center gap-6">
+      <a href="support.html" class="button">Support Us</a>
+      <a href="copyright.html" class="button">Copyright Info</a>
+    </div>
+
   </div>
 
   <!-- Footer -->
   <footer>
-    &copy; 2025 Doosh Hub. All rights reserved.
+    <p>&copy; 2025 Doosh Hub. All rights reserved. | <a href="contact.html" class="text-purple-500">Contact Us</a></p>
   </footer>
-
-  <!-- Ad Banner Container -->
-  <div id="ad-banner"><div id="ad-inner"></div></div>
-
-  <script>
-    // Wrap each ad snippet as a function that injects it into #ad-inner
-    const adLoaders = [
-      function loadBanner1() {
-        const container = document.getElementById('ad-inner');
-        container.innerHTML = ''; // clear
-        // atOptions script
-        const s1 = document.createElement('script');
-        s1.text = `
-          atOptions = {
-            'key' : '38c97041ba09133421880a5339a162a8',
-            'format' : 'iframe',
-            'height' : 60,
-            'width' : 468,
-            'params' : {}
-          };
-        `;
-        // invoke script
-        const s2 = document.createElement('script');
-        s2.src = '//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js';
-        container.appendChild(s1);
-        container.appendChild(s2);
-      },
-      function loadBanner2() {
-        const container = document.getElementById('ad-inner');
-        container.innerHTML = '';
-        const s = document.createElement('script');
-        s.async = true;
-        s.dataset.cfasync = 'false';
-        s.src = '//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js';
-        const div = document.createElement('div');
-        div.id = 'container-9c8a5fd343f0c339fdb71a4da43f3a35';
-        container.appendChild(s);
-        container.appendChild(div);
-      },
-      function loadBanner3() {
-        const container = document.getElementById('ad-inner');
-        container.innerHTML = '';
-        const s1 = document.createElement('script');
-        s1.text = `
-          atOptions = {
-            'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
-            'format' : 'iframe',
-            'height' : 50,
-            'width' : 320,
-            'params' : {}
-          };
-        `;
-        const s2 = document.createElement('script');
-        s2.src = '//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js';
-        container.appendChild(s1);
-        container.appendChild(s2);
-      }
-    ];
-
-    let current = 0;
-    function rotateAds() {
-      adLoaders[current]();
-      current = (current + 1) % adLoaders.length;
-    }
-
-    // Initial load + start cycling every 5 seconds
-    rotateAds();
-    setInterval(rotateAds, 5000);
-  </script>
 </body>
 </html>
