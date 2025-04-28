@@ -10,7 +10,7 @@
   <!-- Favicon -->
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
 
-  <!-- Open Graph Meta -->
+  <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
   <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
@@ -23,101 +23,233 @@
   <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
 
-  <!-- Google Analytics (replace YOUR-GA-ID) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+    function gtag() {
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
     gtag('config', 'YOUR-GA-ID');
   </script>
 
   <style>
+    /* Fantasy Fire Animation */
     body {
       background: #0f0f0f;
       font-family: 'Roboto', sans-serif;
-      color: white;
       overflow-x: hidden;
+      color: white;
       animation: fireGlow 10s infinite alternate;
     }
 
     @keyframes fireGlow {
-      0% { background-color: #0f0f0f; box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset; }
-      50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset; }
-      100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset; }
+      0% {
+        background-color: #0f0f0f;
+        box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
+      }
+
+      50% {
+        background-color: #1a1a1a;
+        box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
+      }
+
+      100% {
+        background-color: #0f0f0f;
+        box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
+      }
     }
 
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 9999;
+      transition: all 0.3s ease-in-out;
+      padding: 20px;
+    }
+
+    header.shrink {
+      background: rgba(0, 0, 0, 0.9);
+      padding: 10px;
+    }
+
+    /* Button Styling */
+    .main-btn {
+      background-color: #ff00ff;
+      color: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+      margin-top: 150px;
+    }
+
+    .main-btn:hover {
+      background-color: #ff4500;
+    }
+
+    /* Toast Animation (Copy Button) */
     .toast {
       position: fixed;
-      bottom: 20px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.7);
       padding: 12px 20px;
-      border-radius: 10px;
+      border-radius: 8px;
       color: #ff00ff;
-      font-size: 1.2rem;
       display: none;
+      font-size: 1.2rem;
       animation: slideToast 3s ease-in-out;
-      z-index: 9999;
     }
 
     @keyframes slideToast {
-      0% { opacity: 0; bottom: 0; }
-      50% { opacity: 1; bottom: 20px; }
-      100% { opacity: 0; bottom: 0; }
+      0% {
+        bottom: -50px;
+      }
+      100% {
+        bottom: 10px;
+      }
+    }
+
+    /* Discord Button Styling */
+    #discordBtn {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #7289da;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+    }
+
+    #discordBtn:hover {
+      background-color: #5b6eae;
+    }
+
+    /* Sliding Effects (Top and Bottom) */
+    .slide-top, .slide-bottom {
+      position: absolute;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      font-size: 1.5rem;
+      animation: slideUp 5s infinite alternate;
+    }
+
+    .slide-bottom {
+      bottom: 0;
+      animation: slideDown 5s infinite alternate;
+    }
+
+    @keyframes slideUp {
+      0% {
+        top: -50px;
+      }
+      100% {
+        top: 10px;
+      }
+    }
+
+    @keyframes slideDown {
+      0% {
+        bottom: -50px;
+      }
+      100% {
+        bottom: 10px;
+      }
+    }
+
+    /* Responsive Adjustments */
+    @media screen and (max-width: 768px) {
+      .main-btn {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+      }
+
+      #discordBtn {
+        font-size: 1rem;
+      }
+
+      header img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .main-btn {
+        font-size: 1rem;
+        padding: 8px 15px;
+      }
+
+      #discordBtn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+
+      header img {
+        width: 40px;
+        height: 40px;
+      }
     }
   </style>
+
 </head>
 
-<body class="flex flex-col min-h-screen">
+<body>
 
-  <!-- Toast -->
+  <!-- Toast Message -->
   <div id="copyToast" class="toast">Copied to Clipboard!</div>
 
-  <!-- Header -->
-  <header class="w-full fixed top-0 left-0 bg-black/60 flex items-center justify-between px-6 py-4 z-50 shadow-md">
-    <div class="flex items-center gap-3">
-      <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full" />
-      <h1 class="text-2xl font-bold text-pink-500">DOOSH HUB</h1>
-    </div>
-    <a href="index.2.html" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-xl text-lg font-semibold transition-all">Enter Hub</a>
+  <!-- Discord Button -->
+  <a id="discordBtn" href="https://discord.gg/Wj32meHh" target="_blank">Join Us on Discord</a>
+
+  <!-- Header with Button -->
+  <header id="header">
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
+    <a href="index.2.html" class="main-btn">Go to Doosh Hub</a>
   </header>
 
-  <!-- Spacer for header -->
-  <div class="h-24"></div>
+  <!-- Sliding Top and Bottom -->
+  <div class="slide-top">Welcome to Doosh Hub, your premier online destination for global entertainment!</div>
+  <div class="slide-bottom">Explore our content and join us on Discord for more updates!</div>
 
-  <!-- Main Content -->
-  <main class="flex-grow flex flex-col items-center justify-center text-center px-4">
-    <h2 class="text-4xl md:text-6xl font-extrabold mb-6 text-pink-400 animate-pulse">Welcome to Doosh Hub</h2>
-    <p class="max-w-3xl text-lg md:text-xl text-gray-300 mb-8">
-      Your premier destination for streaming animes, movies, and more — all with a 🔥 neon vibe!
-    </p>
-    <a href="https://discord.gg/Wj32meHh" target="_blank"
-      class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-full text-xl font-bold transition-all mb-4">
-      Join Us on Discord
-    </a>
-  </main>
-
-  <!-- Footer -->
-  <footer class="text-center py-6 text-gray-400 text-sm">
-    © 2025 DOOSH HUB. All Rights Reserved.
-  </footer>
+  <!-- Content Section -->
+  <section class="p-6">
+    <h1 class="text-3xl text-center font-bold mb-6">About Doosh Hub</h1>
+    <p>Welcome to Doosh Hub, your premier online destination for a wide range of global entertainment. We bring the best of Bollywood, Hollywood, anime, K-dramas, C-dramas, and much more to your screen, offering an unparalleled entertainment experience that caters to all tastes...</p>
+  </section>
 
   <script>
-    // Toast logic
+    // Function for Toast Message
     function showToast() {
       const toast = document.getElementById('copyToast');
       toast.style.display = 'block';
-      setTimeout(() => {
+      setTimeout(function () {
         toast.style.display = 'none';
       }, 3000);
     }
 
-    // Example toast on page load
+    // Trigger Copy Toast on Page Load (Example)
     window.onload = function () {
-      setTimeout(showToast, 1000);
-    };
+      setTimeout(showToast, 1000); // Example showing toast after 1 second
+    }
   </script>
 
 </body>
