@@ -249,8 +249,7 @@
       "flight-914": { title: "FLIGHT 914 - Hollywood Action Movie", cover: "get.jpg", link: "anime/FLIGHT 914 - Hollywood Action Movie Hindi  .html" },
       "chainsaw man all episodes in one video+ movie": { title: "chainsaw man all episodes in one video+ movie", cover: "images (7).jpeg", link: "anime/chainsaw man.html" }
     };
-
-    function loadAnimeCards() {
+  function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
       Object.values(animeData).forEach(a => {
@@ -269,7 +268,8 @@
       Object.values(animeData).forEach(a => {
         const slide = document.createElement('a');
         slide.href = a.link;
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" />`;
+        slide.className = "w-64 h-40 rounded overflow-hidden shadow-md";
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
         carousel.appendChild(slide);
       });
 
