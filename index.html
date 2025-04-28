@@ -94,7 +94,25 @@
       padding: 10px;
     }
 
-    /* Permanent "Support Us" Button at the bottom */
+    /* Discord Button below Copyright Info */
+    #discordBtn {
+      display: block;
+      background-color: #7289da;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      animation: neonGlow 1.5s infinite alternate;
+      z-index: 9999;
+      text-decoration: none;
+      margin: 10px auto 20px auto; /* Center the button and add space */
+    }
+
+    #discordBtn:hover {
+      background-color: #5e6e8e;
+    }
+
+    /* Permanent Support Us Button at the bottom */
     #supportBtn {
       position: fixed;
       bottom: 20px;
@@ -108,27 +126,11 @@
       animation: neonGlow 1.5s infinite alternate;
       z-index: 9999;
       text-decoration: none;
+      cursor: pointer;
     }
 
     #supportBtn:hover {
       background-color: #ff4500;
-    }
-
-    /* Discord Button placed below Copyright Info */
-    #discordBtn {
-      background-color: #7289da;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      animation: neonGlow 1.5s infinite alternate;
-      z-index: 9999;
-      text-decoration: none;
-      margin-top: 10px;
-    }
-
-    #discordBtn:hover {
-      background-color: #5e6e8e;
     }
   </style>
 </head>
@@ -152,7 +154,6 @@
       <a href="support.html" class="button">Support Us</a>
       <a href="copyright.html" class="button">Copyright Info</a>
     </div>
-
   </div>
 
   <!-- Footer -->
@@ -164,6 +165,13 @@
   <a id="discordBtn" href="https://discord.com" target="_blank">Join Our Discord</a>
 
   <!-- Permanent Support Us Button -->
-  <a id="supportBtn" href="support.html">Support Us</a>
+  <button id="supportBtn" onclick="navigateToSupport()">Support Us</button>
+
+  <script>
+    // Function to navigate to the support page
+    function navigateToSupport() {
+      window.location.href = "support.html";
+    }
+  </script>
 </body>
 </html>
