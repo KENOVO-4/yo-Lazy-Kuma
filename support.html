@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support Us - Doosh Hub (v2 Fixed)</title>
+  <title>Support Us - Doosh Hub</title>
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg">
 
   <style>
@@ -88,7 +88,7 @@
       justify-content: center;
       gap: 10px;
       margin-top: 20px;
-      margin-bottom: 40px; /* Added margin for space below banners */
+      margin-bottom: 40px;
     }
     .banner-item {
       flex: 1 1 30%;
@@ -139,29 +139,11 @@
 <header>
   <h1>Support Us - Doosh Hub</h1>
 </header>
+
 <div class="container">
-    <h2>Support Me – Your Help Means Everything</h2>  
-        <p>Hello dear visitor,</p>  
-        <p>First of all, thank you so much for considering supporting me. Your time and attention are incredibly valuable, and I'm truly grateful for your willingness to help. This website, and the work I create, wouldn't be possible without the support of kind people like you.</p>  
-        <p>To support me, I’ve partnered with ad networks that help fund the development and maintenance of this site. It's simple: by engaging with ads (like clicking a banner, popunder, or social bar), you help keep the website running and contribute to its growth. However, I want to make sure you have a safe and smooth experience, and I kindly ask that you follow a few important guidelines while interacting with the ads.</p>  <h3>Important: Please Read Carefully</h3>  
-    <ul>  
-        <li>Do not download anything: I do not promote or offer any downloads on this page. Please avoid downloading any files or software from external links, as they may not always be safe.</li>  
-        <li>Click responsibly: Please ensure that you only click on ads that are part of the supported content on the page. Click on ads only when you feel comfortable, and avoid excessive clicking to ensure the process remains fair and legitimate.</li>  
-        <li>Avoid spammy or suspicious links: If something feels odd or out of place, kindly avoid clicking. I work hard to keep everything safe and secure, but if you're unsure, trust your instincts.</li>  
-    </ul>  
-
-    <h3>A Few Simple Steps to Support:</h3>  
-    <ol>  
-        <li>Wait a moment: After clicking an ad, please allow a few seconds (around 5 seconds) before returning to the page. This ensures that the ad is properly credited, and it’s much appreciated.</li>  
-        <li>Multiple clicks are optional: You’re welcome to click on the ads, but please keep the interaction natural. I kindly ask that you do not feel pressured to click excessively. Just engaging in a few honest clicks is incredibly helpful!</li>  
-    </ol>  
-
-    <p>Once again, thank you so much for being here and helping me in this way. Your support, in whatever form, is truly appreciated.</p>  
-    <p>Please take care, stay safe, and feel free to explore the site further. If you have any questions or concerns, don’t hesitate to reach out!</p>  
-    <p>With gratitude,</p>  
-    <p><strong>Doosh Hub</strong></p>  
-</div>  
-
+  <h2>Support Me – Your Help Means Everything</h2>
+  <p>Hello dear visitor, ... Thank you for supporting!</p>
+</div>
 
 <div class="ads-section">
   <h3>Support by Clicking on the Popunder Ads Below</h3>
@@ -179,34 +161,9 @@
 
   <!-- Rotating Banners Section -->
   <div class="banners" id="bannerContainer">
-    <div class="banner-item" id="banner1">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '38c97041ba09133421880a5339a162a8',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 468,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
-    </div>
-    <div class="banner-item" id="banner2">
-      <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
-      <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
-    </div>
-    <div class="banner-item" id="banner3">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js"></script>
-    </div>
+    <div class="banner-item" id="banner1"></div>
+    <div class="banner-item" id="banner2"></div>
+    <div class="banner-item" id="banner3"></div>
   </div>
 </div>
 
@@ -241,10 +198,8 @@
     document.body.appendChild(script);
   }
 
-  // Rotate banners every 6 seconds
-  let bannerIndex = 0;
-  function rotateBanners() {
-    // Refresh each banner iframe without clearing its content
+  // Banner 1
+  function loadBanner1() {
     document.getElementById('banner1').innerHTML = `
       <script type="text/javascript">
         atOptions = {
@@ -257,10 +212,18 @@
       </script>
       <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
     `;
+  }
+
+  // Banner 2
+  function loadBanner2() {
     document.getElementById('banner2').innerHTML = `
       <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
       <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
     `;
+  }
+
+  // Banner 3
+  function loadBanner3() {
     document.getElementById('banner3').innerHTML = `
       <script type="text/javascript">
         atOptions = {
@@ -275,11 +238,18 @@
     `;
   }
 
-  rotateBanners();
-  setInterval(rotateBanners, 6000); // Every 6 sec
+  // Initialize banners
+  loadBanner1();
+  loadBanner2();
+  loadBanner3();
+
+  // Rotate banners every 6 seconds
+  setInterval(function() {
+    loadBanner1();
+    loadBanner2();
+    loadBanner3();
+  }, 6000); // Every 6 sec
 </script>
 
 </body>
 </html>
-
-
