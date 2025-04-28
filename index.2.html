@@ -10,7 +10,7 @@
   <!-- Favicon -->
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
 
-  <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
+  <!-- Open Graph Meta -->
   <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
@@ -38,19 +38,17 @@
         background-color: #0f0f0f;
         box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
       }
-
       50% {
         background-color: #1a1a1a;
         box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
       }
-
       100% {
         background-color: #0f0f0f;
         box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
       }
     }
 
-    /* Navbar */
+    /* Header */
     header {
       position: fixed;
       top: 0;
@@ -109,14 +107,6 @@
       border: 2px solid #ff00ff;
     }
 
-    .anime-card img {
-      transition: transform 0.3s ease;
-    }
-
-    .anime-card:hover img {
-      transform: scale(1.1);
-    }
-
     /* Skeleton Loader */
     .skeleton {
       background-color: #333;
@@ -131,47 +121,45 @@
     }
 
     @keyframes shimmer {
-      0% {
-        background-position: -1000px 0;
-      }
-
-      100% {
-        background-position: 1000px 0;
-      }
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
     }
 
-    /* Ad Box */
+    /* Floating Ad Box */
     #adBox {
       position: fixed;
-      bottom: 10px;
-      right: 10px;
+      bottom: 15px;
+      right: 15px;
       width: 300px;
-      background-color: #374151;
-      padding: 12px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-      z-index: 1000;
-      cursor: move;
-      transition: opacity 0.5s ease;
-      display: block;
+      background: #1f2937;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      z-index: 99999;
+    }
+
+    #adContent iframe {
+      width: 100%;
+      height: 250px;
+      border: none;
     }
 
     #closeAd {
       position: absolute;
-      top: 6px;
-      right: 8px;
+      top: 5px;
+      right: 10px;
+      color: white;
       background: transparent;
       border: none;
-      color: white;
-      font-size: 1.5rem;
+      font-size: 20px;
       cursor: pointer;
     }
 
     /* Scroll-to-Top Button */
     #scrollToTop {
       position: fixed;
-      bottom: 10px;
-      right: 70px;
+      bottom: 15px;
+      right: 340px;
       background-color: #ff00ff;
       color: white;
       border: none;
@@ -180,6 +168,7 @@
       font-size: 20px;
       cursor: pointer;
       display: none;
+      z-index: 9999;
     }
 
     /* Welcome Message */
@@ -194,28 +183,15 @@
     }
 
     @keyframes welcomeAnimation {
-      0% {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(-30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes neonFire {
-      0% {
-        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500;
-      }
-
-      100% {
-        text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500, 0 0 40px #ff4500;
-      }
+      0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500; }
+      100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500, 0 0 40px #ff4500; }
     }
   </style>
-
 </head>
 
 <body>
@@ -224,16 +200,11 @@
   <button id="scrollToTop" onclick="scrollToTop()">↑</button>
 
   <!-- Header -->
-  <header id="header" class="p-4">
+  <header class="p-4">
     <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
     <input type="text" id="search" placeholder="Search animes, movies, drama..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
   </header>
-<!-- Support Us Button -->
-<a href="support.html">
-  <button class="support-btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mr-4">
-    Support Us
-  </button>
-</a>
+
   <!-- Welcome Message -->
   <div class="welcome-message">
     Welcome to DOOSH HUB!
@@ -250,20 +221,18 @@
     <div class="skeleton skeleton-card"></div>
     <div class="skeleton skeleton-card"></div>
   </main>
-<!-- Support Us Button -->
-<a href="support.html">
-  <button class="support-btn bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mr-4">
-    Support Us
-  </button>
-</a>
-      </script>
-      <script src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
+
+  <!-- Floating Ad Box -->
+  <div id="adBox">
+    <button id="closeAd">×</button>
+    <div id="adContent">
+      <iframe src="https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1" frameborder="0"></iframe>
     </div>
   </div>
 
   <!-- Scripts -->
   <script>
-    const animeData = {
+   const animeData = {
       "wind-breaker season 1 ": { title: "WIND BREAKER Season 1 in Hindi", cover: "InShot_20250427_105208488.jpg", link: "anime/windbreakerseason1.html" },
       "dragon-ball": { title: "Dragon Ball Prison Planet Full Movie", cover: "unnamed (4).jpg", link: "anime/dragon-ball.html" },
          "The_Curious_Case_of_Benjamin_Button_2008_Hindi": { title: "The_Curious_Case_of_Benjamin_Button_2008_Hindi", cover: "download (1).jpg", link: "anime/The_Curious_Case_of_Benjamin_Button_2008_Hindi.html" },
@@ -276,7 +245,6 @@
       "The_Dark_Knight": { title: "The_Dark_Knight", cover: "photos/74906de0-d644-4b0d-bf22-e2a321583a93.avif", link: "anime/The_Dark_Knight.html" },
       "Eternals_2021_Dual_Audio_Hindi_Dubbed_Full_Movie": { title: "Eternals_2021_Dual_Audio_Hindi_Dubbed_Full_Movie", cover: "photos/eternals-6qggyrv4n3sv5r3n.jpg", link: "anime/Eternals_2021_Dual_Audio_Hindi_Dubbed_Full_Movie.html" },
       "Forbidden_Fairytale_2025_Hindi_Dubbed_Full_Movie": { title: "Forbidden_Fairytale_2025_Hindi_Dubbed_Full_Movie", cover: "download (3).jpg", link: "anime/Forbidden_Fairytale_2025_Hindi_Dubbed_Full_Movie.html" },
-      "flight-914": { title: "FLIGHT 914 - Hollywood Action Movie", cover: "get.jpg", link: "anime/FLIGHT 914 - Hollywood Action Movie Hindi  .html" },
       "the shawshank redemption full movie in hindi ": { title: "the shawshank redemption full movie in hindi", cover: "download.jpg", link: "anime/the shawshank redemption full movie in hindi.html" },
       "flight-914": { title: "FLIGHT 914 - Hollywood Action Movie", cover: "get.jpg", link: "anime/FLIGHT 914 - Hollywood Action Movie Hindi  .html" },
       "chainsaw man all episodes in one video+ movie": { title: "chainsaw man all episodes in one video+ movie", cover: "images (7).jpeg", link: "anime/chainsaw man.html" }
@@ -301,8 +269,7 @@
       Object.values(animeData).forEach(a => {
         const slide = document.createElement('a');
         slide.href = a.link;
-        slide.className = "w-64 h-40 rounded overflow-hidden shadow-md";
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" />`;
         carousel.appendChild(slide);
       });
 
@@ -351,7 +318,18 @@
       }
     };
 
-    document.getElementById('closeAd').addEventListener('click', function () {
+    // Ad Switching
+    const ads = [
+      "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
+      "https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1"
+    ];
+    let adIndex = 0;
+    setInterval(() => {
+      adIndex = (adIndex + 1) % ads.length;
+      document.getElementById('adContent').innerHTML = `<iframe src="${ads[adIndex]}" frameborder="0"></iframe>`;
+    }, 10000);
+
+    document.getElementById('closeAd').addEventListener('click', () => {
       document.getElementById('adBox').style.display = 'none';
     });
 
@@ -362,5 +340,4 @@
   </script>
 
 </body>
-
 </html>
