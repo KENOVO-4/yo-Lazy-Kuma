@@ -52,6 +52,7 @@
         <h2 id="episodeTitle" class="text-xl font-semibold">Wind Breaker S01</h2>
         <p id="episodeDesc" class="text-gray-400">Wind Breaker S01</p>
         <p id="uploadDate" class="text-gray-600 text-sm">Uploaded: 2025-04-27</p>
+        <p class="text-gray-500 text-xs mt-2">Note: After clicking an episode, you may see up to 2 ads before your episode starts playing. Thanks for supporting us!</p>
       </div>
     </div>
 
@@ -181,12 +182,24 @@
       const btn = document.createElement('button');
       btn.className = "w-full text-left bg-gray-800 hover:bg-gray-700 rounded p-3 shadow";
       btn.innerText = ep.title;
-      btn.onclick = () => {
-        player.src = ep.link;
-        title.innerText = ep.title;
-        desc.innerText = ep.description;
-        date.innerText = "Uploaded: " + ep.uploadDate;
+
+      let clickCount = 0;
+
+      btn.onclick = (e) => {
+        clickCount++;
+        if (clickCount <= 2) {
+          const adScript = document.createElement('script');
+          adScript.src = "//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js";
+          document.body.appendChild(adScript);
+        } else {
+          player.src = ep.link;
+          title.innerText = ep.title;
+          desc.innerText = ep.description;
+          date.innerText = "Uploaded: " + ep.uploadDate;
+          clickCount = 0; // reset click count after showing episode
+        }
       };
+
       list.appendChild(btn);
     });
 
