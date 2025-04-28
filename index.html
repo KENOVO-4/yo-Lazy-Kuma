@@ -23,17 +23,6 @@
   <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR-GA-ID"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'YOUR-GA-ID');
-  </script>
-
   <style>
     /* Fantasy Fire Animation */
     body {
@@ -91,35 +80,11 @@
       font-weight: bold;
       transition: background-color 0.3s ease;
       display: inline-block;
-      margin-top: 150px;
+      margin-top: 20px;
     }
 
     .main-btn:hover {
       background-color: #ff4500;
-    }
-
-    /* Toast Animation (Copy Button) */
-    .toast {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.7);
-      padding: 12px 20px;
-      border-radius: 8px;
-      color: #ff00ff;
-      display: none;
-      font-size: 1.2rem;
-      animation: slideToast 3s ease-in-out;
-    }
-
-    @keyframes slideToast {
-      0% {
-        bottom: -50px;
-      }
-      100% {
-        bottom: 10px;
-      }
     }
 
     /* Discord Button Styling */
@@ -142,39 +107,33 @@
       background-color: #5b6eae;
     }
 
-    /* Sliding Effects (Top and Bottom) */
-    .slide-top, .slide-bottom {
-      position: absolute;
+    /* Carousel Styling */
+    .carousel-container {
+      position: relative;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      color: white;
-      padding: 10px 0;
-      text-align: center;
-      font-size: 1.5rem;
-      animation: slideUpDown 5s infinite alternate;
+      overflow: hidden;
+      margin-top: 80px;
     }
 
-    .slide-bottom {
-      bottom: 0;
-      animation: slideDownUp 5s infinite alternate;
+    #carousel, #carousel-bottom {
+      display: flex;
+      transition: transform 0.7s ease-in-out;
     }
 
-    @keyframes slideUpDown {
-      0% {
-        top: -50px;
-      }
-      100% {
-        top: 10px;
-      }
+    #carousel a, #carousel-bottom a {
+      flex-shrink: 0;
+      width: 300px;
+      height: 200px;
+      margin-right: 16px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
-    @keyframes slideDownUp {
-      0% {
-        bottom: -50px;
-      }
-      100% {
-        bottom: 10px;
-      }
+    #carousel img, #carousel-bottom img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     /* Center the Main Content */
@@ -186,6 +145,22 @@
       flex-direction: column;
       text-align: center;
       z-index: 10000;
+    }
+
+    .main-content p {
+      max-width: 800px;
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    /* Footer Styling */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 1rem;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 10px;
     }
 
     /* Responsive Adjustments */
@@ -222,13 +197,9 @@
       }
     }
   </style>
-
 </head>
 
 <body>
-
-  <!-- Toast Message -->
-  <div id="copyToast" class="toast">Copied to Clipboard!</div>
 
   <!-- Discord Button -->
   <a id="discordBtn" href="https://discord.gg/Wj32meHh" target="_blank">Join Us on Discord</a>
@@ -236,33 +207,73 @@
   <!-- Header with Button -->
   <header id="header">
     <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
-    <a href="index.2.html" class="main-btn">Go to Doosh Hub</a>
+    <a href="index.html" class="main-btn">Go to Doosh Hub</a>
   </header>
 
-  <!-- Sliding Top and Bottom -->
-  <div class="slide-top">Welcome to Doosh Hub, your premier online destination for global entertainment!</div>
-  <div class="slide-bottom">Explore our content and join us on Discord for more updates!</div>
+  <!-- Carousel Section (Top Slide) -->
+  <section class="carousel-container">
+    <div id="carousel">
+      <a href="anime/windbreakerseason1.html"><img src="InShot_20250427_105208488.jpg" alt="WIND BREAKER Season 1"></a>
+      <a href="anime/dragon-ball.html"><img src="unnamed (4).jpg" alt="Dragon Ball Prison Planet Full Movie"></a>
+      <a href="anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"><img src="unnamed (1).jpg" alt="Shinchan The Legend of Ninja Mononoke (Hindi)"></a>
+      <a href="anime/WIND BREAKER S2.html"><img src="WIND BREAKER S2.jpg" alt="WIND BREAKER Season 2"></a>
+      <a href="anime/tokyo-revengers.html"><img src="tokyo-revengers.jpg" alt="Tokyo Revengers"></a>
+    </div>
+  </section>
 
   <!-- Main Content -->
   <div class="main-content">
     <h1 class="text-3xl text-center font-bold mb-6">About Doosh Hub</h1>
     <p>Welcome to Doosh Hub, your premier online destination for a wide range of global entertainment. We bring the best of Bollywood, Hollywood, anime, K-dramas, C-dramas, and much more to your screen, offering an unparalleled entertainment experience that caters to all tastes...</p>
+    <p>Explore our content, connect with other fans, and dive into the world of your favorite shows, movies, and animes. Whether you're into action-packed thrillers, emotional dramas, or light-hearted comedies, we have something for everyone!</p>
   </div>
 
+  <!-- Carousel Section (Bottom Slide) -->
+  <section class="carousel-container">
+    <div id="carousel-bottom">
+      <a href="anime/windbreakerseason1.html"><img src="InShot_20250427_105208488.jpg" alt="WIND BREAKER Season 1"></a>
+      <a href="anime/dragon-ball.html"><img src="unnamed (4).jpg" alt="Dragon Ball Prison Planet Full Movie"></a>
+      <a href="anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"><img src="unnamed (1).jpg" alt="Shinchan The Legend of Ninja Mononoke (Hindi)"></a>
+      <a href="anime/WIND BREAKER S2.html"><img src="WIND BREAKER S2.jpg" alt="WIND BREAKER Season 2"></a>
+      <a href="anime/tokyo-revengers.html"><img src="tokyo-revengers.jpg" alt="Tokyo Revengers"></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Doosh Hub. All rights reserved. | <a href="contact.html" class="text-purple-500">Contact Us</a> | <a href="copyright.html" class="text-purple-500">Copyright Information</a></p>
+  </footer>
+
   <script>
-    // Function for Toast Message
-    function showToast() {
-      const toast = document.getElementById('copyToast');
-      toast.style.display = 'block';
-      setTimeout(function () {
-        toast.style.display = 'none';
-      }, 3000);
+    // JavaScript for Auto Sliding Carousel (Top)
+    let currentIndexTop = 0;
+    const carouselTop = document.getElementById('carousel');
+    const slidesTop = document.querySelectorAll('#carousel a');
+
+    function moveToNextSlideTop() {
+      currentIndexTop++;
+      if (currentIndexTop >= slidesTop.length) {
+        currentIndexTop = 0;
+      }
+      carouselTop.style.transform = `translateX(-${currentIndexTop * 320}px)`;
     }
 
-    // Trigger Copy Toast on Page Load (Example)
-    window.onload = function () {
-      setTimeout(showToast, 1000); // Example showing toast after 1 second
+    setInterval(moveToNextSlideTop, 3000); // Change slide every 3 seconds
+
+    // JavaScript for Auto Sliding Carousel (Bottom)
+    let currentIndexBottom = 0;
+    const carouselBottom = document.getElementById('carousel-bottom');
+    const slidesBottom = document.querySelectorAll('#carousel-bottom a');
+
+    function moveToNextSlideBottom() {
+      currentIndexBottom++;
+      if (currentIndexBottom >= slidesBottom.length) {
+        currentIndexBottom = 0;
+      }
+      carouselBottom.style.transform = `translateX(-${currentIndexBottom * 320}px)`;
     }
+
+    setInterval(moveToNextSlideBottom, 3000); // Change slide every 3 seconds
   </script>
 
 </body>
