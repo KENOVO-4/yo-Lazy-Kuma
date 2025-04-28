@@ -1,200 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DOOSH HUB</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Favicon -->
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
-
-  <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
-  <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
-  <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
-  <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
-  <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card Meta -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
-  <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
-  <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doosh Hub</title>
   <style>
-    /* Fantasy Fire Animation */
-    body {
-      background: #0f0f0f;
-      font-family: 'Roboto', sans-serif;
-      overflow-x: hidden;
-      color: white;
-      animation: fireGlow 10s infinite alternate;
+    /* Basic Reset */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    @keyframes fireGlow {
+    /* Body with sliding background */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: white;
+      text-align: center;
+      background: url('bg1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      animation: slideBackground 30s infinite alternate;
+    }
+
+    @keyframes slideBackground {
       0% {
-        background-color: #0f0f0f;
-        box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
+        background-image: url('bg1.jpg');
       }
-
-      50% {
-        background-color: #1a1a1a;
-        box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
+      33% {
+        background-image: url('bg2.jpg');
       }
-
+      66% {
+        background-image: url('bg3.jpg');
+      }
       100% {
-        background-color: #0f0f0f;
-        box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
+        background-image: url('bg1.jpg');
       }
     }
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 9999;
-      transition: all 0.3s ease-in-out;
-      padding: 20px;
-    }
-
-    header.shrink {
-      background: rgba(0, 0, 0, 0.9);
-      padding: 10px;
-    }
-
-    /* Button Styling */
-    .main-btn, .support-btn, #discordBtn, .footer-btn {
-      background-color: #ff00ff;
-      color: white;
-      padding: 15px 30px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-      margin-top: 20px;
-    }
-
-    .main-btn:hover, .support-btn:hover, #discordBtn:hover, .footer-btn:hover {
-      background-color: #ff4500;
-    }
-
-    /* Discord Button Styling */
-    #discordBtn {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #7289da;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 1.2rem;
-      text-align: center;
-      display: block;
-      text-decoration: none;
-    }
-
-    /* Carousel Styling */
-    .carousel-container {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      margin-top: 80px;
-    }
-
-    #carousel, #carousel-bottom {
-      display: flex;
-      transition: transform 0.7s ease-in-out;
-    }
-
-    #carousel a, #carousel-bottom a {
-      flex-shrink: 0;
-      width: 300px;
-      height: 200px;
-      margin-right: 16px;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    #carousel img, #carousel-bottom img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* Center the Main Content */
+    /* Main Content */
     .main-content {
+      padding: 80px 20px 40px;
+      background: rgba(0, 0, 0, 0.5);
+      min-height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      flex-direction: column;
-      text-align: center;
-      z-index: 10000;
+    }
+
+    .main-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
     }
 
     .main-content p {
-      max-width: 800px;
-      margin-top: 20px;
       font-size: 1.2rem;
+      margin-bottom: 16px;
+      max-width: 800px;
+      line-height: 1.6;
     }
 
-    /* Footer Styling */
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 1rem;
+    /* Wildfire Button Styling */
+    .wildfire-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 12px;
+      font-size: 1.1rem;
       color: white;
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 10px;
+      text-decoration: none;
+      border: 2px solid #ff6a00;
+      border-radius: 50px;
+      position: relative;
+      overflow: hidden;
+      background-color: transparent;
+      transition: all 0.4s ease;
     }
 
-    /* Footer Button */
-    .footer-btn {
-      margin-top: 30px;
+    .wildfire-btn::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #ff6a00, #ffcc00, #ff6a00, #ff0000, #ff6a00);
+      background-size: 400% 400%;
+      animation: wildfire 3s linear infinite;
+      z-index: 0;
+      opacity: 0.7;
+      transform: rotate(25deg);
     }
 
-    /* Responsive Adjustments */
-    @media screen and (max-width: 768px) {
-      .main-btn, .support-btn, .footer-btn {
-        font-size: 1.2rem;
-        padding: 10px 20px;
-      }
+    .wildfire-btn span {
+      position: relative;
+      z-index: 1;
+    }
 
-      #discordBtn {
-        font-size: 1rem;
-      }
+    .wildfire-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 20px #ff6a00;
+    }
 
-      header img {
-        width: 50px;
-        height: 50px;
+    @keyframes wildfire {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
       }
     }
 
-    @media screen and (max-width: 480px) {
-      .main-btn, .support-btn, .footer-btn {
-        font-size: 1rem;
-        padding: 8px 15px;
-      }
+    /* Footer Buttons */
+    .footer-buttons {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
 
-      #discordBtn {
-        font-size: 0.9rem;
-        padding: 8px 16px;
-      }
-
-      header img {
-        width: 40px;
-        height: 40px;
+    @media (min-width: 600px) {
+      .footer-buttons {
+        flex-direction: row;
       }
     }
   </style>
@@ -202,42 +131,20 @@
 
 <body>
 
-  <!-- Discord Button -->
-  <a id="discordBtn" href="https://discord.gg/Wj32meHh" target="_blank">Join Us on Discord</a>
-
-  <!-- Header with Button -->
-  <header id="header">
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
-  </header>
-
-  <!-- Main Content -->
   <div class="main-content">
-    <h1 class="text-3xl text-center font-bold mb-6">About Doosh Hub</h1>
-    <p>Welcome to Doosh Hub, your premier online destination for a wide range of global entertainment. We bring the best of Bollywood, Hollywood, anime, K-dramas, C-dramas, and much more to your screen, offering an unparalleled entertainment experience that caters to all tastes...</p>
-    <p>Explore our content, connect with other fans, and dive into the world of your favorite shows, movies, and animes. Whether you're into action-packed thrillers, emotional dramas, or light-hearted comedies, we have something for everyone!</p>
+    <h1>About Doosh Hub</h1>
+    <p>Welcome to Doosh Hub — your ultimate gateway to global entertainment!</p>
+    <p>Step into a world where Bollywood blockbusters, Hollywood hits, mesmerizing anime, heart-fluttering K-dramas, addictive C-dramas, and so much more come alive, all in one place.</p>
+    <p>At Doosh Hub, we don’t just bring you entertainment — we bring you experiences. Discover stories that thrill you, move you, and make you laugh out loud. Dive into action-packed adventures, soul-stirring dramas, and feel-good comedies, handpicked to match every mood and every moment.</p>
+    <p>Connect. Explore. Indulge. Join a vibrant community of fans from around the world, explore endless content, and lose yourself in the magic of your favorite movies, shows, and anime.</p>
+    <p>Whatever your passion, Doosh Hub is where it all begins. Your next binge-worthy obsession is just a click away. Welcome home!</p>
 
-    <!-- Buttons after the About message -->
-    <a href="index.2.html" class="main-btn">Go to Doosh Hub</a>
-    <a href="support.html" class="support-btn">Support Us</a>
+    <!-- Footer Buttons -->
+    <div class="footer-buttons">
+      <a href="index.2.html" class="wildfire-btn"><span>Go to Doosh Hub</span></a>
+      <a href="support.html" class="wildfire-btn"><span>Support Us</span></a>
+    </div>
   </div>
 
-  <!-- Carousel Section (Bottom Slide) -->
-  <section class="carousel-container">
-    <div id="carousel-bottom">
-      <a href="anime/windbreakerseason1.html"><img src="InShot_20250427_105208488.jpg" alt="WIND BREAKER Season 1"></a>
-      <a href="anime/dragon-ball.html"><img src="unnamed (4).jpg" alt="Dragon Ball Prison Planet Full Movie"></a>
-      <a href="anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html"><img src="unnamed (1).jpg" alt="Shinchan The Legend of Ninja Mononoke (Hindi)"></a>
-      <a href="anime/WIND BREAKER S2.html"><img src="WIND BREAKER S2.jpg" alt="WIND BREAKER Season 2"></a>
-      <a href="anime/tokyo-revengers.html"><img src="unnamed (2).jpg" alt="Tokyo Revengers"></a>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <a href="contact.html" class="footer-btn">Contact Us</a> | 
-    <a href="copyright.html" class="footer-btn">Copyright Information</a>
-  </footer>
-
 </body>
-
 </html>
