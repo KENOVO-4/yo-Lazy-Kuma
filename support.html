@@ -97,7 +97,11 @@
       padding: 10px;
       border-radius: 10px;
       overflow: hidden;
+      display: none; /* Initially hide all banners */
     }
+    #banner1 { background: #f00; } /* Red */
+    #banner2 { background: #00f; } /* Blue */
+    #banner3 { background: #ff0; } /* Yellow */
     .ad-banner {
       background-color: #333;
       color: white;
@@ -243,13 +247,17 @@
   loadBanner2();
   loadBanner3();
 
-  // Rotate banners every 6 seconds
-  setInterval(function() {
-    loadBanner1();
-    loadBanner2();
-    loadBanner3();
-  }, 6000); // Every 6 sec
-</script>
+  // Show first banner initially
+  document.getElementById('banner1').style.display = 'block';
 
-</body>
-</html>
+  // Rotate banners every 6 seconds
+  let currentBannerIndex = 0;
+  const banners = ['banner1', 'banner2', 'banner3'];
+
+  setInterval(function() {
+    // Hide all banners
+    banners.forEach((banner) => {
+      document.getElementById(banner).style.display = 'none';
+    });
+
+    // Show
