@@ -4,6 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support Us - Doosh Hub</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
+
+    <!-- Open Graph Meta (for Facebook, WhatsApp sharing) -->
+    <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+    <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+    <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+    <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+    <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
+    <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,13 +29,17 @@
             margin: 0;
             padding: 0;
             text-align: center;
+            animation: backgroundAnimation 10s infinite;
         }
+
         header {
             background-color: #333;
             color: white;
             padding: 10px 20px;
             text-align: center;
+            animation: fadeIn 2s;
         }
+
         .container {
             width: 80%;
             margin: 20px auto;
@@ -26,11 +47,14 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            animation: slideIn 2s ease-out;
         }
+
         .message {
             margin-bottom: 20px;
             line-height: 1.6;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -40,33 +64,114 @@
             margin: 10px;
             font-size: 16px;
             border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
+
         button:hover {
             background-color: #45a049;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);
+            transform: scale(1.1);
         }
+
+        button:before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.5s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: buttonGlow 2s infinite;
+        }
+
+        @keyframes buttonGlow {
+            0% {
+                box-shadow: 0 0 8px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 12px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.8);
+            }
+            100% {
+                box-shadow: 0 0 8px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.7);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Neon background animation */
+        @keyframes backgroundAnimation {
+            0% {
+                background-color: #000;
+            }
+            50% {
+                background-color: #1a1a1a;
+            }
+            100% {
+                background-color: #000;
+            }
+        }
+
         .ads-section {
             margin-top: 20px;
             text-align: center;
+            animation: fadeIn 2s;
         }
+
         .ads-section iframe {
             width: 100%;
             height: 250px;
             border: none;
             margin: 10px 0;
         }
+
         .footer {
             text-align: center;
             margin-top: 40px;
             font-size: 14px;
             color: #777;
         }
+
         .footer a {
             color: #333;
             text-decoration: none;
         }
+
+        /* Ad Banner */
+        .ad-banner {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+
     <header>
         <h1>Support Us - Doosh Hub</h1>
     </header>
@@ -105,80 +210,12 @@
             <!-- Popunder Ad 1 -->
             <script type='text/javascript' src='//pl26487390.profitableratecpm.com/4b/cd/23/4bcd23553cd7968d87499a86650ba732.js'></script>
             <button id="popunder1" onclick="showPopunderMessage(1)">Click to Support Popunder 1</button>
-            
-            <!-- Popunder Ad 2 -->
+
+            <!-- More Popunder Buttons (as before) -->
             <button id="popunder2" onclick="showPopunderMessage(2)">Click to Support Popunder 2</button>
-            
-            <!-- Popunder Ad 3 -->
             <button id="popunder3" onclick="showPopunderMessage(3)">Click to Support Popunder 3</button>
-            
-            <!-- Continue with popunder buttons -->
-            <button id="popunder4" onclick="showPopunderMessage(4)">Click to Support Popunder 4</button>
-            <button id="popunder5" onclick="showPopunderMessage(5)">Click to Support Popunder 5</button>
-            <button id="popunder6" onclick="showPopunderMessage(6)">Click to Support Popunder 6</button>
-            <button id="popunder7" onclick="showPopunderMessage(7)">Click to Support Popunder 7</button>
-            <button id="popunder8" onclick="showPopunderMessage(8)">Click to Support Popunder 8</button>
-            <button id="popunder9" onclick="showPopunderMessage(9)">Click to Support Popunder 9</button>
-            <button id="popunder10" onclick="showPopunderMessage(10)">Click to Support Popunder 10</button>
         </div>
 
         <!-- Navigation Buttons Section -->
         <div>
             <button onclick="window.location.href='index.html'">Go to Main Page</button>
-            <button onclick="window.location.href='index.2.html'">Go to Content Page</button>
-            <button onclick="window.location.href='copyright.html'">View Copyright Information</button>
-        </div>
-    </div>
-
-    <div class="footer">
-        <p>© 2025 Doosh Hub. All Rights Reserved.</p>
-    </div>
-
-    <script>
-        var clickCount = 0;
-
-        function showPopunderMessage(count) {
-            clickCount = count;
-            var message = "";
-
-            switch (clickCount) {
-                case 1:
-                    message = "First time – You did it! Thank you for supporting us!";
-                    break;
-                case 2:
-                    message = "Second time – Wow! You're amazing, thank you so much!";
-                    break;
-                case 3:
-                    message = "Third time – Thank you for your continued support!";
-                    break;
-                case 4:
-                    message = "Fourth time – You're truly helping us grow, thanks!";
-                    break;
-                case 5:
-                    message = "Fifth time – Wow, five clicks! You rock!";
-                    break;
-                case 6:
-                    message = "Sixth time – You're so generous, thank you!";
-                    break;
-                case 7:
-                    message = "Seventh time – Incredible! We appreciate you!";
-                    break;
-                case 8:
-                    message = "Eighth time – You're making a huge difference, thank you!";
-                    break;
-                case 9:
-                    message = "Ninth time – Almost there! You're awesome!";
-                    break;
-                case 10:
-                    message = "Tenth time – Thank you so much! You've really helped us!";
-                    break;
-                default:
-                    message = "Thanks for supporting us!";
-            }
-
-            document.getElementById("popunderMessage").innerHTML = message;
-        }
-    </script>
-
-</body>
-</html>
