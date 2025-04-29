@@ -222,14 +222,6 @@
     <div class="skeleton skeleton-card"></div>
   </main>
 
-  <!-- Floating Ad Box -->
-  <div id="adBox">
-    <button id="closeAd">×</button>
-    <div id="adContent">
-      <iframe src="https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1" frameborder="0"></iframe>
-    </div>
-  </div>
-
   <!-- Scripts -->
   <script>
    const animeData = {
@@ -317,20 +309,6 @@
       }
     };
 
-    // Ad Switching
-    const ads = [
-      "https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1",
-      "https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1"
-    ];
-    let adIndex = 0;
-    setInterval(() => {
-      adIndex = (adIndex + 1) % ads.length;
-      document.getElementById('adContent').innerHTML = `<iframe src="${ads[adIndex]}" frameborder="0"></iframe>`;
-    }, 10000);
-
-    document.getElementById('closeAd').addEventListener('click', () => {
-      document.getElementById('adBox').style.display = 'none';
-    });
 
     window.onload = function () {
       loadCarousel();
