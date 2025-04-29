@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala</title>
+  <title>Kesari Chapter 2 - The Untold Story Of Jallianwala</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     #adBox {
@@ -38,29 +38,24 @@
       border-top: 2px solid #0f0;
       text-align: center;
     }
-    .bottom-ads img {
-      width: 100%;
-      max-width: 728px;
-      height: 90px;
-      object-fit: cover;
-      margin: 10px auto;
-      display: block;
+    .bottom-ads > div {
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body class="bg-black text-white font-mono">
 
-  <div class="p-6">
-    <h1 class="text-4xl font-bold text-pink-600">Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala</h1>
-    <p class="text-gray-400 mb-6">Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala</p>
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-4xl font-bold text-pink-600 mb-2">Kesari Chapter 2 - The Untold Story Of Jallianwala</h1>
+    <p class="text-gray-400 mb-6">Watch Kesari Chapter 2 in Hindi Dubbed - Full Movie.</p>
 
     <!-- Video Player -->
-    <div class="mb-4">
+    <div class="mb-6">
       <iframe id="videoPlayer" src="https://drive.google.com/file/d/1O8M6knElwSTCJMWDj3XZgWw4We3dytAA/preview" width="100%" height="400" frameborder="0" allow="autoplay" allowfullscreen class="rounded shadow"></iframe>
-      <div class="mt-2">
-        <h2 id="episodeTitle" class="text-xl font-semibold">Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala</h2>
-        <p id="episodeDesc" class="text-gray-400">Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala</p>
+      <div class="mt-3">
+        <h2 id="episodeTitle" class="text-xl font-semibold">Kesari Chapter 2 - The Untold Story Of Jallianwala</h2>
+        <p id="episodeDesc" class="text-gray-400">The Untold Story Of Jallianwala.</p>
         <p id="uploadDate" class="text-gray-600 text-sm">Uploaded: 2025-04-25</p>
       </div>
     </div>
@@ -69,8 +64,8 @@
     <div id="episodeList" class="space-y-3"></div>
 
     <!-- Bottom Ads Section -->
-    <div class="bottom-ads" id="bottomAds">
-      <h2>Support Us</h2>
+    <div class="bottom-ads">
+      <h2 class="text-xl font-bold mb-4 text-green-400">Support Us</h2>
       <div id="banner1"></div>
       <div id="banner2"></div>
       <div id="banner3"></div>
@@ -80,135 +75,101 @@
   <!-- Floating Ad Box -->
   <div id="adBox">
     <button id="closeAd" aria-label="Close ad">×</button>
-    <div id="floatingBanner"></div>
+    <div id="floatingBanner">
+      <!-- You can insert an ad here manually if you want -->
+    </div>
   </div>
 
-  <script type="text/javascript">
-    window.onbeforeunload = null;
+<script type="text/javascript">
+  window.onbeforeunload = null;
 
-    const episodes = [
-      {
-        title: "Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala",
-        link: "https://drive.google.com/file/d/1O8M6knElwSTCJMWDj3XZgWw4We3dytAA/preview",
-        description: "Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala",
-        uploadDate: "2025-04-25"
-      }
-    ];
-
-    const list = document.getElementById('episodeList');
-    const player = document.getElementById('videoPlayer');
-    const title = document.getElementById('episodeTitle');
-    const desc = document.getElementById('episodeDesc');
-    const date = document.getElementById('uploadDate');
-
-    episodes.forEach((ep) => {
-      const btn = document.createElement('button');
-      btn.className = "w-full text-left bg-gray-800 hover:bg-gray-700 rounded p-3 shadow";
-      btn.innerText = ep.title;
-      btn.onclick = () => {
-        player.src = ep.link;
-        title.innerText = ep.title;
-        desc.innerText = ep.description;
-        date.innerText = "Uploaded: " + ep.uploadDate;
-      };
-      list.appendChild(btn);
-    });
-
-    // Banner 1 (auto-refresh every 6 seconds)
-    const banner1 = document.getElementById('banner1');
-    const banner1Script = document.createElement('script');
-    banner1Script.type = 'text/javascript';
-    banner1Script.innerHTML = `
-      atOptions = {
-        'key' : '38c97041ba09133421880a5339a162a8',
-        'format' : 'iframe',
-        'height' : 60,
-        'width' : 468,
-        'params' : {}
-      };
-    `;
-    banner1.appendChild(banner1Script);
-    const banner1Invoke = document.createElement('script');
-    banner1Invoke.type = 'text/javascript';
-    banner1Invoke.src = "//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js";
-    banner1.appendChild(banner1Invoke);
-
-    // Banner 2 (auto-refresh every 6 seconds)
-    const banner2 = document.getElementById('banner2');
-    const banner2Script = document.createElement('script');
-    banner2Script.async = true;
-    banner2Script.setAttribute('data-cfasync', 'false');
-    banner2Script.src = "//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js";
-    banner2.appendChild(banner2Script);
-    const banner2Container = document.createElement('div');
-    banner2Container.id = "container-9c8a5fd343f0c339fdb71a4da43f3a35";
-    banner2.appendChild(banner2Container);
-
-    // Banner 3 (auto-refresh every 6 seconds)
-    const banner3 = document.getElementById('banner3');
-    const banner3Script = document.createElement('script');
-    banner3Script.type = 'text/javascript';
-    banner3Script.innerHTML = `
-      atOptions = {
-        'key' : 'dc2b98e1ad9fc907acb18e73b04f7c45',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
-    `;
-    banner3.appendChild(banner3Script);
-    const banner3Invoke = document.createElement('script');
-    banner3Invoke.type = 'text/javascript';
-    banner3Invoke.src = "//www.highperformanceformat.com/dc2b98e1ad9fc907acb18e73b04f7c45/invoke.js";
-    banner3.appendChild(banner3Invoke);
-
-    // Auto-refresh function for all banners
-    function refreshBanners() {
-      banner1.innerHTML = '';
-      banner2.innerHTML = '';
-      banner3.innerHTML = '';
-      
-      // Re-create banners
-      banner1.appendChild(banner1Script);
-      banner1.appendChild(banner1Invoke);
-      banner2.appendChild(banner2Script);
-      banner2.appendChild(banner2Container);
-      banner3.appendChild(banner3Script);
-      banner3.appendChild(banner3Invoke);
+  const episodes = [
+    {
+      title: "Kesari Chapter 2 - The Untold Story Of Jallianwala",
+      link: "https://drive.google.com/file/d/1O8M6knElwSTCJMWDj3XZgWw4We3dytAA/preview",
+      description: "The Untold Story Of Jallianwala",
+      uploadDate: "2025-04-25"
     }
+  ];
 
-    setInterval(refreshBanners, 6000); // Refresh every 6 seconds
+  const list = document.getElementById('episodeList');
+  const player = document.getElementById('videoPlayer');
+  const title = document.getElementById('episodeTitle');
+  const desc = document.getElementById('episodeDesc');
+  const date = document.getElementById('uploadDate');
 
-    // Draggable Floating Ad
-    (function() {
-      const box = document.getElementById('adBox');
-      let offsetX, offsetY, dragging = false;
-      box.addEventListener('mousedown', e => {
-        dragging = true;
-        offsetX = e.clientX - box.offsetLeft;
-        offsetY = e.clientY - box.offsetTop;
-        document.body.style.userSelect = 'none';
-      });
-      document.addEventListener('mousemove', e => {
-        if (!dragging) return;
-        box.style.left = `${e.clientX - offsetX}px`;
-        box.style.top = `${e.clientY - offsetY}px`;
-        box.style.bottom = 'auto';
-        box.style.right = 'auto';
-      });
-      document.addEventListener('mouseup', () => {
-        dragging = false;
-        document.body.style.userSelect = '';
-      });
-    })();
+  episodes.forEach((ep) => {
+    const btn = document.createElement('button');
+    btn.className = "w-full text-left bg-gray-800 hover:bg-gray-700 rounded p-3 shadow";
+    btn.innerText = ep.title;
+    btn.onclick = () => {
+      player.src = ep.link;
+      title.innerText = ep.title;
+      desc.innerText = ep.description;
+      date.innerText = "Uploaded: " + ep.uploadDate;
+    };
+    list.appendChild(btn);
+  });
 
-    // Close Floating Ad
-    document.getElementById('closeAd').addEventListener('click', () => {
-      document.getElementById('adBox').style.display = 'none';
+  function loadBanner(divId, key, width, height) {
+    const container = document.getElementById(divId);
+    container.innerHTML = '';
+    const scriptOptions = document.createElement('script');
+    scriptOptions.type = 'text/javascript';
+    scriptOptions.innerHTML = `
+      atOptions = {
+        'key': '${key}',
+        'format': 'iframe',
+        'height': ${height},
+        'width': ${width},
+        'params': {}
+      };
+    `;
+    container.appendChild(scriptOptions);
+    const scriptInvoke = document.createElement('script');
+    scriptInvoke.type = 'text/javascript';
+    scriptInvoke.src = "//www.highperformanceformat.com/" + key + "/invoke.js";
+    container.appendChild(scriptInvoke);
+  }
+
+  function refreshBanners() {
+    loadBanner('banner1', '38c97041ba09133421880a5339a162a8', 468, 60);
+    loadBanner('banner2', '9c8a5fd343f0c339fdb71a4da43f3a35', 728, 90);
+    loadBanner('banner3', 'dc2b98e1ad9fc907acb18e73b04f7c45', 320, 50);
+  }
+
+  refreshBanners();
+  setInterval(refreshBanners, 6000); // Refresh every 6 seconds
+
+  // Draggable Floating Ad
+  (function() {
+    const box = document.getElementById('adBox');
+    let offsetX, offsetY, dragging = false;
+    box.addEventListener('mousedown', e => {
+      dragging = true;
+      offsetX = e.clientX - box.offsetLeft;
+      offsetY = e.clientY - box.offsetTop;
+      document.body.style.userSelect = 'none';
     });
+    document.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      box.style.left = `${e.clientX - offsetX}px`;
+      box.style.top = `${e.clientY - offsetY}px`;
+      box.style.bottom = 'auto';
+      box.style.right = 'auto';
+    });
+    document.addEventListener('mouseup', () => {
+      dragging = false;
+      document.body.style.userSelect = '';
+    });
+  })();
 
-  </script>
+  // Close Floating Ad
+  document.getElementById('closeAd').addEventListener('click', () => {
+    document.getElementById('adBox').style.display = 'none';
+  });
+
+</script>
 
 </body>
 </html>
