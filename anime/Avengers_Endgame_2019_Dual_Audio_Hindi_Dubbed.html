@@ -72,14 +72,7 @@
       list.appendChild(btn);
     });
 
-    // Auto-refresh ad iframes every 30 seconds
-    setInterval(() => {
-      for (let i = 1; i <= 5; i++) {
-        const iframe = document.getElementById(`ad${i}`);
-        const src = iframe.src;
-        iframe.src = src; // reload iframe
-      }
-    }, 30000); // 30 seconds
-  </script>
+    
+
 </body>
 </html>
