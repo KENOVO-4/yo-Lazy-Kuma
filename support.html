@@ -19,6 +19,26 @@
       padding: 15px 10px;
       font-size: 24px;
     }
+    .nav-buttons {
+      margin: 20px 0;
+    }
+    .nav-buttons button {
+      background: linear-gradient(to right, #ff758c, #ff7eb3);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      margin: 0 10px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s, background 0.3s;
+    }
+    .nav-buttons button:hover {
+      background: linear-gradient(to right, #ff5c85, #ff6cae);
+      transform: scale(1.05);
+    }
     .container {
       width: 95%;
       max-width: 1000px;
@@ -78,6 +98,12 @@
   <header>
     Support Us - Doosh Hub
   </header>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button onclick="location.href='index.html'">Main Page</button>
+    <button onclick="location.href='index.2.html'">Content Page</button>
+  </div>
 
   <div class="container">
     <div class="message">
