@@ -32,12 +32,12 @@
       background: linear-gradient(to right, #ff758c, #ff7eb3);
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 22px;
       margin: 10px;
       font-size: 16px;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
     }
     button:hover {
       background: linear-gradient(to right, #ff5c85, #ff6cae);
@@ -45,24 +45,27 @@
     .ads-section {
       margin-top: 30px;
     }
+    .ad-banner {
+      margin: 15px auto;
+      width: 90%;
+      max-width: 728px;
+      height: 90px;
+      background: #ffe4f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff4081;
+    }
     .footer {
       margin: 40px 0 20px;
       font-size: 14px;
       color: #555;
-    }
-    .ad-banner {
-      margin: 15px auto;
-      width: 468px;
-      height: 60px;
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .ad-banner iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
     }
     ul, ol {
       text-align: left;
@@ -92,7 +95,7 @@
 
       <h3>Steps to Support:</h3>
       <ol>
-        <li>Click on ads and wait 5 seconds before returning.</li>
+        <li>Click on ads and wait 10 seconds before returning.</li>
         <li>Multiple clicks are optional but appreciated!</li>
       </ol>
 
@@ -115,13 +118,16 @@
     </div>
   </div>
 
-  <!-- Banner Ads (Simulated with iframe) -->
+  <!-- Banner Ads Section -->
   <div class="ads-section">
-    <div class="ad-banner" id="ad1"></div>
-    <div class="ad-banner" id="ad2"></div>
-    <div class="ad-banner" id="ad3"></div>
-    <div class="ad-banner" id="ad4"></div>
-    <div class="ad-banner" id="ad5"></div>
+    <div class="ad-banner" id="ad1">Loading...</div>
+    <div class="ad-banner" id="ad2">Loading...</div>
+    <div class="ad-banner" id="ad3">Loading...</div>
+    <div class="ad-banner" id="ad4">Loading...</div>
+    <div class="ad-banner" id="ad5">Loading...</div>
+    <div class="ad-banner" id="ad6">Loading...</div>
+    <div class="ad-banner" id="ad7">Loading...</div>
+    <div class="ad-banner" id="ad8">Loading...</div>
   </div>
 
   <div class="footer">
@@ -147,15 +153,19 @@
       'https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe'
     ];
 
-    function loadBanners() {
-      for (let i = 0; i < 10; i++) {
-        document.getElementById('ad' + (i + 1)).innerHTML =
-          `<iframe src="${bannerLinks[i]}" loading="lazy"></iframe>`;
+    function refreshBanners() {
+      for (let i = 1; i <= 8; i++) {
+        const banner = document.getElementById('ad' + i);
+        const randomLink = bannerLinks[Math.floor(Math.random() * bannerLinks.length)];
+        banner.innerHTML = "Click Here To Support";
+        banner.onclick = function() {
+          window.open(randomLink, '_blank');
+        }
       }
     }
 
-    loadBanners();
-    setInterval(loadBanners, 5000);
+    refreshBanners();
+    setInterval(refreshBanners, 7000); // refresh every 7 seconds
   </script>
 
 </body>
