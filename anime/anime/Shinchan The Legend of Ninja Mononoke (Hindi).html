@@ -3,83 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shinchan The Legend of Ninja Mononoke (Hindi)</title>
+  <title>Shinchan Movie - Hindi Dubbed Full</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Responsive Aspect Ratio */
+    .aspect-w-16 {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+    }
+    .aspect-w-16 iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+    }
+
+    /* Floating Ad Box */
     #adBox {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: rgba(30, 30, 30, 0.95);
-      border: 2px solid #f472b6;
-      border-radius: 1rem;
-      padding: 16px;
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
-      z-index: 9999;
-      width: 320px;
+      bottom: 1rem;
+      right: 1rem;
+      width: 90%;
+      max-width: 360px;
+      background-color: #374151;
+      padding: 12px;
+      border-radius: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      z-index: 1000;
       cursor: move;
+      transition: opacity 0.3s ease;
     }
-    #closeAd {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      cursor: pointer;
-      color: #f472b6;
-      font-weight: bold;
+    @media (min-width: 640px) {
+      #adBox {
+        max-width: 728px;
+      }
     }
   </style>
 </head>
+
 <body class="bg-black text-white font-mono">
 
-  <div class="p-6">
-    <h1 class="text-4xl font-bold text-pink-600">Shinchan The Legend of Ninja Mononoke (Hindi)</h1>
-    <p class="text-gray-400 mb-6">Shinchan The Legend of Ninja Mononoke (Hindi)</p>
+  <div class="p-4 sm:p-6 w-full max-w-4xl mx-auto">
+    <h1 class="text-2xl sm:text-4xl font-bold text-yellow-400 mb-4 text-center sm:text-left">
+      Shinchan Movie - Hindi Dubbed
+    </h1>
+    <p class="text-gray-400 mb-6 text-center sm:text-left">
+      Full Movie | Hindi Dubbed | Watch Online
+    </p>
 
     <!-- Video Player -->
-    <div class="mb-4">
-      <iframe id="videoPlayer" src="https://drive.google.com/file/d/1AS3NjcmQdBkalfSxzBZfXq5Y80lUCReg/preview" width="100%" height="400" frameborder="0" allow="autoplay" allowfullscreen class="rounded shadow"></iframe>
-      <div class="mt-2">
-        <h2 id="episodeTitle" class="text-xl font-semibold">Shinchan The Legend of Ninja Mononoke (Hindi)</h2>
-        <p id="episodeDesc" class="text-gray-400">Shinchan The Legend of Ninja Mononoke (Hindi) full movie hosted on Google Drive.</p>
-        <p id="uploadDate" class="text-gray-600 text-sm">Uploaded: 2025-04-25</p>
+    <div class="mb-6">
+      <div class="aspect-w-16">
+        <iframe id="videoPlayer"
+          src="https://drive.google.com/file/d/1Yf7i2BzEaHdMjeAqN7hOq0P3g_PVtM1W/preview"
+          class="rounded shadow" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+      </div>
+      <div class="mt-4">
+        <h2 id="episodeTitle" class="text-lg sm:text-xl font-semibold">Shinchan Movie - Hindi Dubbed</h2>
+        <p id="episodeDesc" class="text-gray-400">Enjoy Shinchan's full adventure in Hindi, hosted on Google Drive.</p>
+        <p id="uploadDate" class="text-gray-500 text-sm">Uploaded: 2025-04-28</p>
       </div>
     </div>
 
     <!-- Episode List -->
-    <div id="episodeList" class="space-y-3">
-      <!-- Populated by JS -->
+    <div id="episodeList" class="space-y-3 mb-8"></div>
+
+    <!-- Inline Ad Section -->
+    <div class="my-8">
+      <div class="w-full max-w-md mx-auto">
+        <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
+        <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
+      </div>
     </div>
   </div>
 
-  <!-- Ad Box with Your Script -->
+  <!-- Floating Ad Box -->
   <div id="adBox">
-    <div id="closeAd" onclick="document.getElementById('adBox').style.display='none'">✖</div>
-
-    <!-- Your Actual Ad Script -->
-    <div id="customAdContainer">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : '38c97041ba09133421880a5339a162a8',
-          'format' : 'iframe',
-          'height' : 60,
-          'width' : 468,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/38c97041ba09133421880a5339a162a8/invoke.js"></script>
+    <button id="closeAd" class="absolute top-2 right-3 text-white text-xl">×</button>
+    <div class="w-full">
+      <iframe src="https://www.profitableratecpm.com/n7eqkd8462?key=d1bf84aaada8c239b6538b9e4ff2781a"
+        class="w-full h-24 rounded" frameborder="0" scrolling="no" allowfullscreen></iframe>
     </div>
-
-    <p class="text-sm text-center mt-2 text-pink-400">Sponsored Ad</p>
   </div>
 
+  <!-- JavaScript Section -->
   <script>
     const episodes = [
       {
-        title: "Shinchan The Legend of Ninja Mononoke (Hindi)",
-        link: "https://drive.google.com/file/d/1AS3NjcmQdBkalfSxzBZfXq5Y80lUCReg/preview",
-        description: "Shinchan The Legend of Ninja Mononoke (Hindi)",
-        uploadDate: "2025-04-25"
-      },
+        title: "Shinchan Movie - Hindi Dubbed",
+        link: "https://drive.google.com/file/d/1Yf7i2BzEaHdMjeAqN7hOq0P3g_PVtM1W/preview",
+        description: "Enjoy Shinchan's full adventure in Hindi, hosted on Google Drive.",
+        uploadDate: "2025-04-28"
+      }
     ];
 
     const list = document.getElementById('episodeList');
@@ -101,32 +117,33 @@
       list.appendChild(btn);
     });
 
-    // Make ad draggable
-    const adBox = document.getElementById('adBox');
-    adBox.onmousedown = function(event) {
-      let shiftX = event.clientX - adBox.getBoundingClientRect().left;
-      let shiftY = event.clientY - adBox.getBoundingClientRect().top;
+    // Floating Ad Drag
+    (function() {
+      const box = document.getElementById('adBox');
+      let offsetX, offsetY, dragging = false;
+      box.addEventListener('mousedown', e => {
+        dragging = true;
+        offsetX = e.clientX - box.offsetLeft;
+        offsetY = e.clientY - box.offsetTop;
+        document.body.style.userSelect = 'none';
+      });
+      document.addEventListener('mousemove', e => {
+        if (!dragging) return;
+        box.style.left = `${e.clientX - offsetX}px`;
+        box.style.top = `${e.clientY - offsetY}px`;
+        box.style.bottom = 'auto';
+        box.style.right = 'auto';
+      });
+      document.addEventListener('mouseup', () => {
+        dragging = false;
+        document.body.style.userSelect = '';
+      });
+    })();
 
-      function moveAt(pageX, pageY) {
-        adBox.style.left = pageX - shiftX + 'px';
-        adBox.style.top = pageY - shiftY + 'px';
-      }
-
-      function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-      }
-
-      document.addEventListener('mousemove', onMouseMove);
-
-      adBox.onmouseup = function() {
-        document.removeEventListener('mousemove', onMouseMove);
-        adBox.onmouseup = null;
-      };
-    };
-
-    adBox.ondragstart = function() {
-      return false;
-    };
+    // Close Floating Ad
+    document.getElementById('closeAd').addEventListener('click', () => {
+      document.getElementById('adBox').style.display = 'none';
+    });
   </script>
 
 </body>
