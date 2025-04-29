@@ -6,7 +6,6 @@
   <title>Forbidden Fairytale 2025 - Hindi Dubbed Full Movie</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Responsive Aspect Ratio for iframe */
     .aspect-w-16 {
       position: relative;
       width: 100%;
@@ -17,29 +16,6 @@
       width: 100%;
       height: 100%;
       top: 0; left: 0;
-    }
-
-    /* Floating Ad Box */
-    #adBox {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      width: 90%;
-      max-width: 360px;
-      background-color: #374151;
-      padding: 12px;
-      border-radius: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      z-index: 1000;
-      cursor: move;
-      transition: opacity 0.3s ease;
-    }
-
-    /* Adjust adBox on larger screens */
-    @media (min-width: 640px) {
-      #adBox {
-        max-width: 728px;
-      }
     }
   </style>
 </head>
@@ -70,28 +46,10 @@
 
     <!-- Episode List -->
     <div id="episodeList" class="space-y-3 mb-8"></div>
-
-    <!-- Inline Ad (Mobile friendly) -->
-    <div class="my-8">
-      <div class="w-full max-w-md mx-auto">
-        <script async="async" data-cfasync="false" src="//pl26487204.profitableratecpm.com/9c8a5fd343f0c339fdb71a4da43f3a35/invoke.js"></script>
-        <div id="container-9c8a5fd343f0c339fdb71a4da43f3a35"></div>
-      </div>
-    </div>
   </div>
 
-  <!-- Floating Ad Box -->
-  <div id="adBox">
-    <button id="closeAd" class="absolute top-2 right-3 text-white text-xl">×</button>
-    <div class="w-full">
-      <iframe src="https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1"
-        class="w-full h-24 rounded" frameborder="0" scrolling="no" allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <!-- JavaScript Section -->
+  <!-- JavaScript for Episode Switching -->
   <script>
-    // Video episodes (future support if needed)
     const episodes = [
       {
         title: "Forbidden Fairytale 2025 - Hindi Dubbed",
@@ -118,34 +76,6 @@
         date.innerText = "Uploaded: " + ep.uploadDate;
       };
       list.appendChild(btn);
-    });
-
-    // Draggable Floating Ad
-    (function() {
-      const box = document.getElementById('adBox');
-      let offsetX, offsetY, dragging = false;
-      box.addEventListener('mousedown', e => {
-        dragging = true;
-        offsetX = e.clientX - box.offsetLeft;
-        offsetY = e.clientY - box.offsetTop;
-        document.body.style.userSelect = 'none';
-      });
-      document.addEventListener('mousemove', e => {
-        if (!dragging) return;
-        box.style.left = `${e.clientX - offsetX}px`;
-        box.style.top = `${e.clientY - offsetY}px`;
-        box.style.bottom = 'auto';
-        box.style.right = 'auto';
-      });
-      document.addEventListener('mouseup', () => {
-        dragging = false;
-        document.body.style.userSelect = '';
-      });
-    })();
-
-    // Close floating ad
-    document.getElementById('closeAd').addEventListener('click', () => {
-      document.getElementById('adBox').style.display = 'none';
     });
   </script>
 
