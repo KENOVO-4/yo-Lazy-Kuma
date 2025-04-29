@@ -1,9 +1,16 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DOOSH HUB</title>
-  <script src="https://cdn.tailwindcss.com"></script>  
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AdQuake Script -->
+  <script async src="https://script.adquake.com/js/adquake.js" adquake-key="gxsBjEFJP0SDjW7Z7Iqqhg=="></script>
+
   <!-- Favicon -->
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
 
@@ -21,7 +28,6 @@
   <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
 
   <style>
-    /* Neon Sparkling Animation */
     @keyframes neonGlow {
       0%, 100% {
         text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff4500, 0 0 60px #ff4500;
@@ -40,7 +46,6 @@
       padding: 0;
     }
 
-    /* Header Styling */
     header {
       position: fixed;
       top: 0;
@@ -60,7 +65,6 @@
       border-radius: 50%;
     }
 
-    /* Button */
     .button {
       background-color: #ff00ff;
       color: white;
@@ -77,14 +81,12 @@
       background-color: #ff4500;
     }
 
-    /* Main Content */
     .main-content {
-      margin-top: 120px; /* This creates space below the fixed header */
+      margin-top: 120px;
       padding: 20px;
       text-align: center;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       margin-top: 50px;
@@ -94,7 +96,6 @@
       padding: 10px;
     }
 
-    /* Discord Button below Copyright Info */
     #discordBtn {
       display: block;
       background-color: #7289da;
@@ -105,14 +106,13 @@
       animation: neonGlow 1.5s infinite alternate;
       z-index: 9999;
       text-decoration: none;
-      margin: 10px auto 20px auto; /* Center the button and add space */
+      margin: 10px auto 20px auto;
     }
 
     #discordBtn:hover {
       background-color: #5e6e8e;
     }
 
-    /* Permanent Support Us Button at the bottom */
     #supportBtn {
       position: fixed;
       bottom: 20px;
@@ -135,7 +135,7 @@
   </style>
 </head>
 <body>
-  <!-- Header with Logo and Button -->
+  <!-- Header -->
   <header id="header">
     <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" />
     <a href="index.2.html" class="button">Go to Doosh Hub</a>
@@ -149,7 +149,6 @@
     <p class="mb-4">Connect. Explore. Indulge. Join a vibrant community of fans from around the world, explore endless content, and lose yourself in the magic of your favorite movies, shows, and anime. Whatever your passion, Doosh Hub is where it all begins.</p>
     <p class="mb-8">Your next binge-worthy obsession is just a click away. Welcome home!</p>
 
-    <!-- Support Buttons -->
     <div class="flex justify-center gap-6">
       <a href="support.html" class="button">Support Us</a>
       <a href="copyright.html" class="button">Copyright Info</a>
@@ -161,14 +160,13 @@
     <p>&copy; 2025 Doosh Hub. All rights reserved. | <a href="contact.html" class="text-purple-500">Contact Us</a></p>
   </footer>
 
-  <!-- Discord Button below Copyright Info -->
+  <!-- Discord Button -->
   <a id="discordBtn" href="https://discord.com" target="_blank">Join Our Discord</a>
 
-  <!-- Permanent Support Us Button -->
+  <!-- Permanent Support Button -->
   <button id="supportBtn" onclick="navigateToSupport()">Support Us</button>
 
   <script>
-    // Function to navigate to the support page
     function navigateToSupport() {
       window.location.href = "support.html";
     }
