@@ -21,7 +21,7 @@
     .video-container {
       position: relative;
       padding-top: 56.25%;
-      background-color: black; /* Ensure video container has a background */
+      background-color: black;
     }
     .video-container #videoPlayer {
       position: absolute;
@@ -39,6 +39,7 @@
       height: 100%;
       background: transparent;
       z-index: 2;
+      pointer-events: auto;
     }
     .controls {
       position: absolute;
@@ -74,18 +75,17 @@
     #themeList {
       display: none;
     }
-    /* Fix for full-screen and mobile landscape mode */
     .video-container.fullscreen {
-      height: 100vh; /* Full height in fullscreen */
-      width: 100vw; /* Full width in fullscreen */
+      height: 100vh;
+      width: 100vw;
     }
     .controls.fullscreen {
-      position: fixed; /* Fix controls at the bottom */
+      position: fixed;
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      z-index: 9999; /* Keep the controls on top */
+      z-index: 9999;
     }
   </style>
 </head>
@@ -135,15 +135,14 @@
   <div class="mt-4 bg-gray-800 p-4 rounded-lg">
     <h2 class="text-xl font-semibold mb-1">About Wind Breaker</h2>
     <p>
-      Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
+      Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town...
     </p>
   </div>
 
   <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
 
   <footer class="mt-10 text-sm text-center text-gray-400">
-    <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life. Your work has touched fans around the world with its powerful characters, stunning animation, and emotional storytelling.</p>
-    <p>We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region. Your efforts in promoting and streaming quality anime are deeply appreciated by the entire community.</p>
+    <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong>...</p>
     <p class="mt-2">Thank you for everything!</p>
   </footer>
 </div>
@@ -180,8 +179,7 @@
 
   function seek(seconds) {
     if (player && player.getCurrentTime) {
-      const currentTime = player.getCurrentTime();
-      player.seekTo(currentTime + seconds, true);
+      player.seekTo(player.getCurrentTime() + seconds, true);
     }
   }
 
@@ -220,9 +218,7 @@
   }
 
   function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) {
-      playNextEpisode();
-    }
+    if (event.data === YT.PlayerState.ENDED) playNextEpisode();
   }
 
   function toggleThemes() {
