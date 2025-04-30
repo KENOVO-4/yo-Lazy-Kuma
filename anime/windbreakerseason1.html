@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,156 +9,151 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
     }
-    html, body {
-      user-select: none;
+    #overlay-block {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
     }
-    iframe {
-      pointer-events: auto !important;
-    }
-    .theme-purple { --bg: #1f103f; --text: #dcd6f7; --accent: #7f5af0; }
-    .theme-blue { --bg: #0f172a; --text: #e0f2fe; --accent: #3b82f6; }
-    .theme-gray { --bg: #1f2937; --text: #f9fafb; --accent: #9ca3af; }
-    .theme-pink { --bg: #2a0e37; --text: #ffe4f0; --accent: #ec4899; }
-    .theme-green { --bg: #112c22; --text: #e7fbe7; --accent: #10b981; }
-    .theme-light1 { --bg: #f3f4f6; --text: #1f2937; --accent: #6366f1; }
-    .theme-light2 { --bg: #ffffff; --text: #111827; --accent: #3b82f6; }
-    .theme-light3 { --bg: #f9fafb; --text: #111827; --accent: #ef4444; }
-    .theme-light4 { --bg: #fff7ed; --text: #1c1917; --accent: #f97316; }
-    .theme-light5 { --bg: #f0fdf4; --text: #064e3b; --accent: #22c55e; }
-    [data-theme] {
-      background-color: var(--bg);
-      color: var(--text);
-    }
-    .btn {
-      transition: all 0.3s ease;
-      transform-origin: center;
-    }
-    .btn:hover {
-      transform: scale(1.05) rotate(1deg);
+    .hidden-overlay {
+      display: none !important;
     }
   </style>
 </head>
-<body class="min-h-screen transition-all duration-300" data-theme="theme-purple" oncontextmenu="return false;">
-  <div class="max-w-4xl mx-auto p-6 space-y-6"><!-- Theme Switcher -->
-<div class="flex justify-end space-x-2">
-  <select id="themeSelect" class="p-2 rounded bg-gray-800 text-white">
-    <option value="theme-purple">Purple</option>
-    <option value="theme-blue">Blue</option>
-    <option value="theme-gray">Gray</option>
-    <option value="theme-pink">Pink</option>
-    <option value="theme-green">Green</option>
-    <option value="theme-light1">Light Indigo</option>
-    <option value="theme-light2">White Blue</option>
-    <option value="theme-light3">Light Red</option>
-    <option value="theme-light4">Orange Cream</option>
-    <option value="theme-light5">Mint Green</option>
-  </select>
-</div>
+<body class="bg-gray-900 text-white transition-all duration-500" oncontextmenu="return false;">
+  <div class="max-w-5xl mx-auto p-4 space-y-6">
 
-<!-- Header -->
-<header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
-  <h1 class="text-4xl font-bold">Wind Breaker Season 1</h1>
-  <div class="flex space-x-3">
-    <a href="index.2.html" class="btn px-4 py-2 bg-[var(--accent)] text-white rounded-xl shadow">← Go Back</a>
-    <a href="support.html" class="btn px-4 py-2 bg-[var(--accent)] text-white rounded-xl shadow">💖 Support Us</a>
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0">
+      <h1 class="text-4xl font-bold text-purple-400">Wind Breaker - Season 1</h1>
+      <div class="flex flex-wrap gap-2">
+        <select id="themeSwitcher" class="rounded px-3 py-2 bg-purple-800 text-white">
+          <option value="theme-dark-1">Dark Purple</option>
+          <option value="theme-dark-2">Dark Blue</option>
+          <option value="theme-dark-3">Dark Gray</option>
+          <option value="theme-dark-4">Dark Green</option>
+          <option value="theme-dark-5">Dark Red</option>
+          <option value="theme-light-1">Light Cream</option>
+          <option value="theme-light-2">Light Sky</option>
+          <option value="theme-light-3">Light Pink</option>
+          <option value="theme-light-4">Light Gray</option>
+          <option value="theme-light-5">Light Mint</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="Search episodes..." class="px-3 py-2 rounded bg-gray-800 text-white" />
+        <a href="support.html" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded transition">💖 Support Us</a>
+      </div>
+    </header>
+
+    <!-- Video Player -->
+    <div class="relative aspect-video bg-black rounded shadow overflow-hidden">
+      <iframe id="videoPlayer" class="w-full h-full" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+      <div id="overlay-block"></div>
+    </div>
+
+    <!-- Description -->
+    <div class="bg-black bg-opacity-30 p-4 rounded">
+      <h2 class="text-xl font-semibold">About Wind Breaker</h2>
+      <p class="text-sm text-gray-300 mt-2">
+        Haruka Sakura enters Furin High School, a school full of delinquents who actually protect the city. Watch him fight to find his place.
+      </p>
+    </div>
+
+    <!-- Episode Info -->
+    <div class="p-4 bg-gray-800 rounded space-y-1">
+      <h3 id="episodeTitle" class="text-lg font-semibold text-pink-400">Select an episode</h3>
+      <p id="episodeDesc" class="text-sm text-gray-300">Click an episode to play</p>
+      <p id="uploadDate" class="text-xs text-gray-400">Uploaded: —</p>
+    </div>
+
+    <!-- Episode List -->
+    <div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-400 mt-10 border-t border-gray-600 pt-4">
+      <p>Special thanks to the original creators, studios & copyright holders of <strong>Wind Breaker</strong>.</p>
+      <p class="italic mt-1">All videos are property of their respective owners. Support official releases.</p>
+    </footer>
   </div>
-</header>
 
-<!-- Video Player -->
-<div class="relative bg-black rounded-lg shadow-lg overflow-hidden aspect-video">
-  <iframe id="videoPlayer" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>
-  <div id="videoOverlay" class="absolute inset-0 z-10 cursor-pointer"></div>
-</div>
-
-<!-- Description -->
-<div id="animeDesc" class="p-4 rounded-lg text-sm shadow">
-  <h3 class="text-lg font-semibold mb-1">About Wind Breaker</h3>
-  <p>Haruka Sakura joins Furin High, a school of delinquents who protect their town. Packed with action, emotion, and brotherhood.</p>
-</div>
-
-<!-- Search -->
-<input type="text" id="searchBox" placeholder="Search episodes..." class="w-full p-2 rounded bg-gray-700 text-white placeholder-gray-300">
-
-<!-- Metadata -->
-<div class="p-4 rounded shadow-inner">
-  <h2 id="episodeTitle" class="text-xl font-semibold">Select an episode</h2>
-  <p id="episodeDesc" class="text-sm">Click any episode below to start watching.</p>
-  <p id="uploadDate" class="text-xs">Uploaded: —</p>
-</div>
-
-<!-- Episode List -->
-<div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-
-<!-- Footer -->
-<footer class="mt-12 text-center text-sm border-t pt-6">
-  <p>Special thanks to the original creators, production studios, and copyright holders of <strong>Wind Breaker</strong>.</p>
-  <p class="italic mt-2">All video content is property of respective owners. Support the official release.</p>
-</footer>
-
-  </div>  <script>
-    const themes = document.getElementById("themeSelect");
-    themes.addEventListener("change", () => {
-      document.body.setAttribute("data-theme", themes.value);
-      localStorage.setItem("selectedTheme", themes.value);
+  <!-- Popunder Script -->
+  <script>
+    document.getElementById('overlay-block').addEventListener('click', () => {
+      (function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})
+      (document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement);
     });
+  </script>
 
-    if(localStorage.getItem("selectedTheme")){
-      document.body.setAttribute("data-theme", localStorage.getItem("selectedTheme"));
-      themes.value = localStorage.getItem("selectedTheme");
-    }
-
+  <script>
     const episodes = [
       { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE", date:"2025-04-25" },
-      { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g", date:"2025-04-25" },
-      { title: "Episode 3", link: "https://www.youtube.com/embed/QOMv17IjJAU", date:"2025-04-25" },
-      { title: "Episode 4", link: "https://www.youtube.com/embed/MT7WzTJZCxg", date:"2025-04-25" }
+      { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g", date:"2025-04-26" },
+      { title: "Episode 3", link: "https://www.youtube.com/embed/QOMv17IjJAU", date:"2025-04-27" },
+      { title: "Episode 4", link: "https://www.youtube.com/embed/MT7WzTJZCxg", date:"2025-04-28" },
+      { title: "Episode 5", link: "https://www.youtube.com/embed/4sRfndp1vAM", date:"2025-04-29" },
+      // Add more as needed
     ];
 
-    const player = document.getElementById("videoPlayer");
-    const overlay = document.getElementById("videoOverlay");
-    const list = document.getElementById("episodeList");
-    const title = document.getElementById("episodeTitle");
-    const desc = document.getElementById("episodeDesc");
-    const date = document.getElementById("uploadDate");
-    const search = document.getElementById("searchBox");
+    const list = document.getElementById('episodeList');
+    const player = document.getElementById('videoPlayer');
+    const title = document.getElementById('episodeTitle');
+    const desc  = document.getElementById('episodeDesc');
+    const date  = document.getElementById('uploadDate');
+    const searchInput = document.getElementById('searchInput');
 
-    const renderEpisodes = (filter = "") => {
+    function renderEpisodes(filter = "") {
       list.innerHTML = "";
       episodes.filter(ep => ep.title.toLowerCase().includes(filter.toLowerCase())).forEach(ep => {
-        const btn = document.createElement("button");
-        btn.className = "btn flex items-center space-x-3 p-3 bg-[var(--accent)] text-white rounded-xl shadow-md w-full";
-        btn.innerHTML = `<span>▶</span><span>${ep.title}</span>`;
+        const btn = document.createElement('button');
+        btn.className = 'flex items-center p-3 bg-purple-800 hover:bg-purple-700 rounded shadow transition-all duration-200 transform hover:scale-105';
+        btn.innerHTML = '<span class="mr-2 text-pink-300">▶</span><span>' + ep.title + '</span>';
         btn.onclick = () => {
-          player.src = ep.link + "?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1";
+          const url = `${ep.link}?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1`;
+          player.src = url;
           title.textContent = ep.title;
-          desc.textContent = "Wind Breaker Season 1 — " + ep.title;
-          date.textContent = "Uploaded: " + ep.date;
-          localStorage.setItem("lastWatched", ep.title);
+          desc.textContent = 'Now playing: ' + ep.title;
+          date.textContent = 'Uploaded: ' + ep.date;
+          localStorage.setItem('lastWatched', JSON.stringify(ep));
         };
         list.appendChild(btn);
       });
     }
 
-    search.addEventListener("input", e => renderEpisodes(e.target.value));
+    searchInput.addEventListener('input', e => renderEpisodes(e.target.value));
     renderEpisodes();
 
-    const last = localStorage.getItem("lastWatched");
+    // Load last watched
+    const last = localStorage.getItem('lastWatched');
     if (last) {
-      const ep = episodes.find(e => e.title === last);
-      if (ep) {
-        player.src = ep.link + "?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1";
-        title.textContent = ep.title;
-        desc.textContent = "Wind Breaker Season 1 — " + ep.title;
-        date.textContent = "Uploaded: " + ep.date;
-      }
+      const ep = JSON.parse(last);
+      player.src = `${ep.link}?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1`;
+      title.textContent = ep.title;
+      desc.textContent = 'Now playing: ' + ep.title;
+      date.textContent = 'Uploaded: ' + ep.date;
     }
 
-    overlay.addEventListener("click", () => {
-      const script = document.createElement('script');
-      script.src = 'https://shebudriftaiter.net/tag.min.js';
-      script.setAttribute('data-zone', '9277886');
-      (document.body || document.documentElement).appendChild(script);
+    // Themes
+    const themes = {
+      "theme-dark-1": { bg: "bg-gray-900", text: "text-white" },
+      "theme-dark-2": { bg: "bg-blue-900", text: "text-white" },
+      "theme-dark-3": { bg: "bg-gray-800", text: "text-white" },
+      "theme-dark-4": { bg: "bg-green-900", text: "text-white" },
+      "theme-dark-5": { bg: "bg-red-900", text: "text-white" },
+      "theme-light-1": { bg: "bg-yellow-100", text: "text-black" },
+      "theme-light-2": { bg: "bg-blue-100", text: "text-black" },
+      "theme-light-3": { bg: "bg-pink-100", text: "text-black" },
+      "theme-light-4": { bg: "bg-gray-100", text: "text-black" },
+      "theme-light-5": { bg: "bg-green-100", text: "text-black" },
+    };
+
+    document.getElementById('themeSwitcher').addEventListener('change', e => {
+      const val = e.target.value;
+      document.body.className = themes[val].bg + ' ' + themes[val].text + ' transition-all duration-500';
     });
-  </script></body>
+  </script>
+</body>
 </html>
