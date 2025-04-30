@@ -55,6 +55,15 @@
       opacity: 0;
       pointer-events: none;
     }
+    .theme-toggle {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0,0,0,0.6);
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body class="bg-[#0b0f1a] text-white">
@@ -81,6 +90,7 @@
         <button class="control-btn" onclick="playNextEpisode()">➡️</button>
         <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
       </div>
+      <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
     </div>
 
     <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
@@ -235,6 +245,19 @@
         controls.classList.add("hide");
       }, 4000);
     });
+
+    function toggleTheme() {
+      const currentTheme = document.body.classList.contains('bg-[#0b0f1a]') ? 'dark' : 'light';
+      if (currentTheme === 'dark') {
+        document.body.classList.remove('bg-[#0b0f1a]', 'text-white');
+        document.body.classList.add('bg-white', 'text-black');
+        document.querySelector('.theme-toggle').innerText = '🌞';
+      } else {
+        document.body.classList.remove('bg-white', 'text-black');
+        document.body.classList.add('bg-[#0b0f1a]', 'text-white');
+        document.querySelector('.theme-toggle').innerText = '🌙';
+      }
+    }
   </script>
 </body>
 </html>
