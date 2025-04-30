@@ -5,75 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Support Us - Doosh Hub</title>
   <style>
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+      50% { box-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
+      100% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+    }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #ffe5ec, #ffd6f6);
+      background: linear-gradient(to bottom right, #0f0f0f, #1a1a1a);
+      color: #fff;
       margin: 0;
       padding: 0;
       text-align: center;
-      color: #333;
     }
+
     header {
-      background-color: #ff6f91;
-      color: white;
-      padding: 15px 10px;
-      font-size: 24px;
+      background-color: #111;
+      padding: 20px 10px;
+      font-size: 26px;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
     }
-    .nav-buttons {
-      margin: 20px 0;
-    }
+
     .nav-buttons button {
-      background: linear-gradient(to right, #ff758c, #ff7eb3);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      margin: 0 10px;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 10px;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-      transition: transform 0.2s, background 0.3s;
-    }
-    .nav-buttons button:hover {
-      background: linear-gradient(to right, #ff5c85, #ff6cae);
-      transform: scale(1.05);
-    }
-    .container {
-      width: 95%;
-      max-width: 1000px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-    button {
-      background: linear-gradient(to right, #ff758c, #ff7eb3);
-      color: white;
-      border: none;
-      padding: 12px 22px;
+      background-color: transparent;
+      color: #fff;
+      border: 2px solid #00ffff;
+      padding: 10px 20px;
       margin: 10px;
-      font-size: 16px;
-      border-radius: 8px;
+      font-size: 18px;
+      border-radius: 12px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      animation: glow 2s infinite;
+      transition: transform 0.3s, background 0.3s;
     }
-    button:hover {
-      background: linear-gradient(to right, #ff5c85, #ff6cae);
+
+    .nav-buttons button:hover {
+      transform: scale(1.05);
+      background: rgba(0, 255, 255, 0.1);
     }
-    .ads-section {
-      margin-top: 30px;
+
+    .container {
+      max-width: 960px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #121212;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.1);
     }
+
+    .ads-section button {
+      background-color: transparent;
+      border: 2px solid #ff00ff;
+      color: #fff;
+      font-size: 18px;
+      padding: 12px 30px;
+      border-radius: 14px;
+      margin: 10px;
+      cursor: pointer;
+      animation: glow 2s infinite;
+    }
+
+    .ads-section button:hover {
+      background-color: rgba(255, 0, 255, 0.1);
+    }
+
+    h2, h3 {
+      color: #00ffff;
+      text-shadow: 0 0 6px #00ffff;
+    }
+
     .footer {
       margin: 40px 0 20px;
       font-size: 14px;
-      color: #555;
+      color: #aaa;
     }
+
     ul, ol {
       text-align: left;
       max-width: 700px;
       margin: 10px auto;
+    }
+
+    .message p {
+      line-height: 1.7;
+      color: #ccc;
     }
   </style>
 </head>
@@ -91,31 +108,35 @@
     <div class="message">
       <h2>Support Me – Your Help Means Everything</h2>
       <p>Hello dear visitor,</p>
-      <p>Thank you for considering supporting me. This website wouldn't be possible without kind people like you.</p>
-      <h3>Important: Please Read Carefully</h3>
+      <p>Thank you for visiting and considering supporting this platform. Your kindness is what keeps this site running and improving.</p>
+
+      <h3>Important Guidelines</h3>
       <ul>
         <li>Do not download anything from ads.</li>
-        <li>Click responsibly and naturally.</li>
+        <li>Click responsibly and wait for 10 seconds.</li>
         <li>Avoid spammy or suspicious links.</li>
       </ul>
-      <h3>Steps to Support:</h3>
+
+      <h3>How to Support</h3>
       <ol>
-        <li>Click on ads and wait 10 seconds before returning.</li>
-        <li>Multiple clicks are optional but appreciated!</li>
+        <li>Click on the buttons below and stay on the page for at least 10 seconds.</li>
+        <li>Repeat as much as you like – every click helps!</li>
       </ol>
-      <p><strong>Thank you again!</strong></p>
+
+      <p><strong>Please Note:</strong> The ads shown are automated and selected by ad providers. I do not control which ads appear, but I deeply appreciate your patience and support.</p>
+
+      <p><strong>From the bottom of my heart – thank you for supporting me!</strong></p>
     </div>
 
-    <!-- Redirect Ad Buttons -->
     <div class="ads-section">
       <h3>Click to Support:</h3>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Redirect Ad 1</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Redirect Ad 2</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Redirect Ad 3</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Redirect Ad 4</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Your First Support</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Your Second Support</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Your Third Support</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Your Fourth Support</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Your Fifth Support</button>
 
-      <!-- Interstitial Ad Buttons -->
+      <!-- Banners kept as they are -->
       <br><br>
       <button onclick="intstl('show')">Interstitial Ad 1</button>
       <button onclick="intstl('show')">Interstitial Ad 2</button>
@@ -152,7 +173,7 @@
     })(window, document);
   </script>
 
-  <!-- Inpage Push Ad 1 -->
+  <!-- Inpage Push Ads -->
   <script>
     (function(i,n,p,a,g,e){
       i.inpagepush = i.inpagepush || function() {
@@ -178,7 +199,6 @@
     })(window, document);
   </script>
 
-  <!-- Inpage Push Ad 2 -->
   <script>
     (function(i,n,p,a,g,e){
       i.inpagepush = i.inpagepush || function() {
