@@ -3,135 +3,208 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wind Breaker Season 1</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Poppins Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
-    body, html { margin:0; padding:0; width:100%; height:100%; background-color:#1f2937; color:#e5e7eb; font-family:'Poppins',sans-serif; }
-    .container { max-width:960px; margin:0 auto; padding:1rem; }
-    header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }/* Video container */
-.video-container { position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:0.5rem; overflow:hidden; }
-.video-container.fullscreen { position:fixed; top:0; left:0; width:100vw; height:100vh; padding-top:0; z-index:50; }
-.video-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
-
-/* Logo overlay only */
-.logo-overlay { position:absolute; bottom:0.5rem; right:0.5rem; width:3rem; height:2rem; background:transparent; cursor:pointer; z-index:30; }
-
-/* Controls layer */
-.controls { position:absolute; bottom:1rem; left:50%; transform:translateX(-50%); display:flex; gap:1rem; z-index:40; }
-.controls button { background:rgba(31,41,55,0.8); color:#f3f4f6; border:none; padding:0.5rem 1rem; border-radius:0.375rem; cursor:pointer; }
-
-/* Episode list */
-#episodeList { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:0.5rem; }
-
-/* Description */
-.description { background:rgba(31,41,55,0.8); padding:1rem; border-radius:0.5rem; margin-top:1rem; }
-
-/* Theme/Search */
-.controls-top { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem; }
-.controls-top select, .controls-top input { padding:0.5rem; border-radius:0.375rem; border:none; }
-.controls-top a { padding:0.5rem 1rem; border-radius:0.375rem; background:#4b5563; color:#f3f4f6; text-decoration:none; }
-
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    html, body {
+      user-select: none;
+      scroll-behavior: smooth;
+    }
+    .video-container {
+      position: relative;
+      padding-top: 56.25%;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 10;
+    }
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      z-index: 20;
+    }
+    .control-btn {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .theme-button {
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background-color: #2d2d2d;
+      color: white;
+    }
+    #themeList {
+      display: none;
+    }
   </style>
 </head>
-<body>
-  <div class="container">
-    <!-- Header + controls top -->
-    <header>
-      <h1 class="text-2xl font-semibold">Wind Breaker Season 1</h1>
-      <div class="controls-top">
-        <a href="index.2.html">← Go Back</a>
-        <a href="support.html">💖 Support Us</a>
-        <input id="search" type="text" placeholder="Search episodes…" class="text-black" />
-        <select id="theme" class="bg-gray-700 text-white">
-          <optgroup label="Dark Themes">
-            <option value="bg-gray-800 text-gray-100">Grey</option>
-            <option value="bg-purple-900 text-purple-100">Purple</option>
-            <option value="bg-blue-900 text-blue-100">Blue</option>
-            <option value="bg-black text-white">Black</option>
-            <option value="bg-teal-800 text-teal-100">Teal</option>
-          </optgroup>
-          <optgroup label="Light Themes">
-            <option value="bg-gray-100 text-gray-900">Light Grey</option>
-            <option value="bg-blue-100 text-blue-900">Sky</option>
-            <option value="bg-yellow-100 text-yellow-900">Cream</option>
-            <option value="bg-pink-100 text-pink-900">Pink</option>
-            <option value="bg-green-100 text-green-900">Mint</option>
-          </optgroup>
-        </select>
+<body class="bg-gray-900 text-white">
+  <div class="max-w-4xl mx-auto p-4">
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+      <h1 class="text-3xl font-bold text-purple-300">Wind Breaker Season 1</h1>
+      <div class="flex gap-3 mt-2 sm:mt-0">
+        <a href="index.2.html" class="theme-button">← Go Back</a>
+        <a href="support.html" class="theme-button">Support Us</a>
       </div>
-    </header><!-- Video Player -->
-<div id="videoContainer" class="video-container">
-  <iframe id="player" src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&enablejsapi=1&autoplay=1&controls=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
-  <div class="logo-overlay" onclick="window.open('https://sawutser.top/4/9278457','_blank')"></div>
+    </header><!-- Theme Selector -->
+<div class="mb-4">
+  <button onclick="toggleThemes()" class="theme-button">Choose Theme</button>
+  <div id="themeList" class="mt-2 grid grid-cols-2 gap-2">
+    <button onclick="setTheme('dark1')" class="theme-button">Dark Grey</button>
+    <button onclick="setTheme('dark2')" class="theme-button">Dark Purple</button>
+    <button onclick="setTheme('dark3')" class="theme-button">Dark Blue</button>
+    <button onclick="setTheme('dark4')" class="theme-button">Charcoal</button>
+    <button onclick="setTheme('dark5')" class="theme-button">Navy</button>
+    <button onclick="setTheme('light1')" class="theme-button">Light Cream</button>
+    <button onclick="setTheme('light2')" class="theme-button">Light Gray</button>
+    <button onclick="setTheme('light3')" class="theme-button">Pastel Blue</button>
+    <button onclick="setTheme('light4')" class="theme-button">Soft Pink</button>
+    <button onclick="setTheme('light5')" class="theme-button">Sky White</button>
+  </div>
+</div>
+
+<!-- Search -->
+<input type="text" id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes..." class="w-full p-2 mb-4 bg-gray-800 text-white rounded" />
+
+<!-- Video Player -->
+<div class="video-container rounded-xl shadow-lg overflow-hidden">
+  <iframe id="videoPlayer" src="https://www.youtube.com/embed/ne0Y0vyjxpE?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+  <div class="overlay" onclick="window.open('https://sawutser.top/4/9278457', '_blank')"></div>
   <div class="controls">
-    <button onclick="seek(-15)">⏪ 15s</button>
-    <button id="playBtn" onclick="togglePlay()">⏯️</button>
-    <button onclick="seek(15)">15s ⏩</button>
-    <button onclick="toggleFullscreen()">⛶</button>
+    <button class="control-btn" onclick="seek(-15)">⏪ 15s</button>
+    <button class="control-btn" onclick="togglePlay()">▶️ / ⏸️</button>
+    <button class="control-btn" onclick="seek(15)">15s ⏩</button>
+    <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
   </div>
 </div>
 
 <!-- Description -->
-<div class="description">
-  <h2 class="text-xl font-semibold">About Wind Breaker</h2>
-  <p>Haruka Sakura joins Furin High, a school of delinquents who protect their town. High‑octane fights, camaraderie, and redemption await.</p>
+<div class="mt-4 bg-gray-800 p-4 rounded-lg">
+  <h2 class="text-xl font-semibold mb-1">About Wind Breaker</h2>
+  <p>
+    Haruka Sakura joins the feared Furin High, only to discover its delinquents protect their town.
+    With intense fights and emotional growth, Wind Breaker balances action with heart.
+  </p>
 </div>
 
-<!-- Episode List -->
-<div id="episodeList" class="mt-4"></div>
+<!-- Episodes -->
+<div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
 
-<footer class="text-center text-sm text-gray-400 mt-8">
-  <p>Special thanks to the original creators &amp; copyright holders.</p>
-  <p class="italic">All video content is property of their respective owners.</p>
+<!-- Footer -->
+<footer class="mt-10 text-sm text-center text-gray-400">
+  <p>Special thanks to the original creators and copyright holders of <strong>Wind Breaker</strong>.</p>
+  <p class="italic">Support the official release when possible.</p>
 </footer>
 
   </div>  <script>
-    // Episodes data
     const episodes = [
-      {title:'Episode 1',id:'ne0Y0vyjxpE',date:'2025‑04‑25'},
-      {title:'Episode 2',id:'J2568cnOa1g',date:'2025‑04‑26'},
-      {title:'Episode 3',id:'QOMv17IjJAU',date:'2025‑04‑27'},
-      {title:'Episode 4',id:'MT7WzTJZCxg',date:'2025‑04‑28'},
-      {title:'Episode 5',id:'4sRfndp1vAM',date:'2025‑04‑29'},
-      {title:'Episode 6',id:'oTvQ-5BNC6w',date:'2025‑04‑30'},
-      {title:'Episode 7',id:'Em5lFIz_kxU',date:'2025‑05‑01'},
-      {title:'Episode 8',id:'SBaGblvd4mU',date:'2025‑05‑02'},
-      {title:'Episode 9',id:'43Hj2GySjgA',date:'2025‑05‑03'},
-      {title:'Episode 10',id:'TIpodnZtFP4',date:'2025‑05‑04'},
-      {title:'Episode 11',id:'_L-UG_jvnM4',date:'2025‑05‑05'},
-      {title:'Episode 12',id:'skAwsc6UL8A',date:'2025‑05‑06'},
-      {title:'Episode 13',id:'-xUk9E2iQQY',date:'2025‑05‑07'}
+      { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE" },
+      { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g" },
+      { title: "Episode 3", link: "https://www.youtube.com/embed/QOMv17IjJAU" },
+      { title: "Episode 4", link: "https://www.youtube.com/embed/MT7WzTJZCxg" },
+      { title: "Episode 5", link: "https://www.youtube.com/embed/4sRfndp1vAM" },
+      { title: "Episode 6", link: "https://www.youtube.com/embed/oTvQ-5BNC6w" },
+      { title: "Episode 7", link: "https://www.youtube.com/embed/Em5lFIz_kxU" },
+      { title: "Episode 8", link: "https://www.youtube.com/embed/SBaGblvd4mU" },
+      { title: "Episode 9", link: "https://www.youtube.com/embed/43Hj2GySjgA" },
+      { title: "Episode 10", link: "https://www.youtube.com/embed/TIpodnZtFP4" },
+      { title: "Episode 11", link: "https://www.youtube.com/embed/_L-UG_jvnM4" },
+      { title: "Episode 12", link: "https://www.youtube.com/embed/skAwsc6UL8A" },
+      { title: "Episode 13", link: "https://www.youtube.com/embed/-xUk9E2iQQY" }
     ];
-    const listEl = document.getElementById('episodeList'), searchEl=document.getElementById('search');
-    function render(filter=''){
-      listEl.innerHTML='';
-      episodes.filter(e=>e.title.toLowerCase().includes(filter.toLowerCase())).forEach(e=>{
-        const b=document.createElement('button');
-        b.textContent=`${e.title}`;
-        b.className='block w-full text-left px-4 py-2 bg-purple-700 hover:bg-purple-600 rounded mb-1';
-        b.onclick=()=>{
-          player.src=`https://www.youtube.com/embed/${e.id}?rel=0&modestbranding=1&enablejsapi=1&autoplay=1&controls=1`;
+
+    const list = document.getElementById("episodeList");
+    const player = document.getElementById("videoPlayer");
+
+    function loadEpisodes() {
+      episodes.forEach(ep => {
+        const btn = document.createElement("button");
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
+        btn.innerHTML = `<strong>${ep.title}</strong>`;
+        btn.onclick = () => {
+          player.src = ep.link + "?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1";
         };
-        listEl.appendChild(b);
+        list.appendChild(btn);
       });
     }
-    render(); searchEl.oninput=e=>render(e.target.value);
 
-    // Player controls
-    const player=document.getElementById('player');
-    function post(cmd,args){ player.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args}),'*'); }
-    function togglePlay(){ post('playVideo'); }
-    function seek(s){ post('seekBy',[s,true]); }
-    function toggleFullscreen(){
-      const c=document.getElementById('videoContainer');
-      if(!document.fullscreenElement) c.requestFullscreen(); else document.exitFullscreen();
+    function toggleThemes() {
+      const tList = document.getElementById("themeList");
+      tList.style.display = tList.style.display === "grid" ? "none" : "grid";
     }
 
-    // Theme persistence
-    const themeEl=document.getElementById('theme');
-    themeEl.onchange=e=>{ document.body.className=e.target.value; localStorage.theme=e.target.value; };
-    if(localStorage.theme){ themeEl.value=localStorage.theme; document.body.className=localStorage.theme; }
-  </script>  <!-- Popunder Script -->  <script>(function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); (p||document.body).appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body)</script></body>
+    function setTheme(theme) {
+      localStorage.setItem("theme", theme);
+      document.body.className = theme;
+    }
+
+    function searchEpisodes() {
+      const value = document.getElementById("searchBox").value.toLowerCase();
+      list.innerHTML = "";
+      episodes.filter(ep => ep.title.toLowerCase().includes(value)).forEach(ep => {
+        const btn = document.createElement("button");
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
+        btn.innerHTML = `<strong>${ep.title}</strong>`;
+        btn.onclick = () => {
+          player.src = ep.link + "?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1";
+        };
+        list.appendChild(btn);
+      });
+    }
+
+    function seek(sec) {
+      const iframe = player;
+      iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'seekTo', args: [sec, true] }), '*');
+    }
+
+    function togglePlay() {
+      player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+    }
+
+    function toggleFullscreen() {
+      const elem = player;
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        elem.requestFullscreen();
+      }
+    }
+
+    (function applySavedTheme() {
+      const saved = localStorage.getItem("theme");
+      if (saved) document.body.className = saved;
+    })();
+
+    loadEpisodes();
+  </script></body>
 </html>
