@@ -29,6 +29,7 @@
       position: relative;
       padding-top: 56.25%;
       background-color: black;
+      margin-top: 1rem;
     }
     .video-container:fullscreen,
     .video-container:-webkit-full-screen {
@@ -50,11 +51,12 @@
       left: 50%;
       transform: translateX(-50%);
       display: flex;
+      flex-direction: column;
       gap: 6px;
       z-index: 3;
-      flex-wrap: nowrap;
       opacity: 0;
       transition: opacity 0.3s;
+      width: 90%;
     }
     .control-btn {
       background-color: var(--control-bg);
@@ -69,26 +71,35 @@
     .control-btn:hover {
       background-color: var(--accent-color);
     }
+    .seek-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .seek-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-color);
+      transition: width 0.1s;
+    }
     .neon {
       text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
     }
     .floating-panel {
       position: fixed;
-      top: 10px;
       background-color: var(--control-bg);
       color: var(--text-color);
       padding: 10px;
       border-radius: 10px;
       z-index: 100;
-      display: none; /* hidden by default */
+      display: none;
     }
-    .theme-panel { left: 10px; }
-    .neon-panel { left: 150px; }
-    .font-panel { right: 10px; }
-    .neon-box {
-      box-shadow: var(--box-border);
-      transition: box-shadow 0.5s;
-    }
+    .theme-panel { top: 70px; left: 10px; }
+    .neon-panel { top: 70px; left: 180px; }
+    .font-panel { top: 70px; right: 10px; }
     .panel-title {
       font-size: 14px;
       margin-bottom: 5px;
@@ -99,15 +110,12 @@
       cursor: pointer;
       font-size: 12px;
     }
-    .panel-item:hover {
-      color: var(--accent-color);
-    }
-    /* Toggle button */
+    .panel-item:hover { color: var(--accent-color); }
     .toggle-btn {
       position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 20px;
+      right: 50%;
+      transform: translateX(50%);
       z-index: 200;
       background-color: var(--accent-color);
       color: var(--text-color);
@@ -117,7 +125,6 @@
       cursor: pointer;
       font-size: 14px;
     }
-    /* Search box styling */
     .search-box {
       width: 100%;
       max-width: 400px;
@@ -129,11 +136,23 @@
       color: var(--text-color);
       font-size: 14px;
     }
+    #episodeList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    #episodeList button {
+      flex: 0 0 auto;
+      width: auto;
+      padding: 0.75rem 1rem;
+      font-size: 14px;
+    }
   </style>
 </head>
-<body>  <!-- Customize UI toggle --><button class="toggle-btn" onclick="toggleUIPanels()">Customize UI</button>
-
-  <!-- Floating Panels (hidden by default) -->  <div class="floating-panel theme-panel" id="themePanel">
+<body>
+  <button class="toggle-btn" onclick="toggleUIPanels()">Customize UI</button>  <div class="floating-panel theme-panel" id="themePanel">
     <div class="panel-title">Themes</div>
     <div id="themeList"></div>
   </div>
@@ -147,22 +166,25 @@
   </div>  <div class="max-w-5xl mx-auto px-4 py-6">
     <header class="text-center mb-6">
       <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-    </header><!-- Refresh note -->
-<p class="text-center text-sm text-gray-400 mb-4 italic">
+    </header><p class="text-center text-sm text-gray-400 mb-4 italic">
   Note: If the episodes are not loaded, please refresh the page.
 </p>
 
-<!-- Search input -->
 <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
 
 <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
   <div id="videoPlayer"></div>
   <div class="overlay-layer" onclick="togglePlayPause()"></div>
   <div class="controls" id="videoControls">
-    <button class="control-btn" onclick="seek(-10)">-10s</button>
-    <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
-    <button class="control-btn" onclick="seek(10)">+10s</button>
-    <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+    <div class="seek-bar-container" id="seekBarContainer">
+      <div class="seek-bar" id="seekBar"></div>
+    </div>
+    <div class="flex gap-2">
+      <button class="control-btn" onclick="seek(-10)">-10s</button>
+      <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+      <button class="control-btn" onclick="seek(10)">+10s</button>
+      <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+    </div>
   </div>
 </div>
 
@@ -173,7 +195,7 @@
   </p>
 </div>
 
-<div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="episodeList"></div>
+<div id="episodeList"></div>
 
 <footer class="mt-10 text-sm text-center text-gray-400">
   <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
@@ -191,7 +213,7 @@
     let player;
     let currentEpisodeIndex = 0;
     let hideControlsTimer;
-    
+
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
       { title: "Episode 2", link: "J2568cnOa1g" },
@@ -213,12 +235,34 @@
         videoId: episodes[currentEpisodeIndex].link,
         playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
         events: {
-          onReady: loadEpisodes,
+          onReady: () => { loadEpisodes(); initSeekBar(); },
           onStateChange: event => {
             if (event.data === YT.PlayerState.ENDED) playNextEpisode();
           }
         }
       });
+    }
+
+    function loadEpisodes() {
+      const container = document.getElementById("episodeList");
+      container.innerHTML = '';
+      episodes.forEach((ep, i) => {
+        const btn = document.createElement("button");
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white neon-box";
+        btn.textContent = ep.title;
+        btn.onclick = () => {
+          currentEpisodeIndex = i;
+          player.loadVideoById(ep.link);
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function showControls() {
+      clearTimeout(hideControlsTimer);
+      const controls = document.getElementById("videoControls");
+      controls.style.opacity = 1;
+      hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
     }
 
     function seek(sec) {
@@ -238,35 +282,6 @@
       else document.exitFullscreen();
     }
 
-    function playNextEpisode() {
-      if (currentEpisodeIndex < episodes.length - 1) {
-        currentEpisodeIndex++;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-      }
-    }
-
-    function loadEpisodes() {
-      const container = document.getElementById("episodeList");
-      container.innerHTML = '';
-      episodes.forEach((ep, i) => {
-        const btn = document.createElement("button");
-        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full neon-box";
-        btn.textContent = ep.title;
-        btn.onclick = () => {
-          currentEpisodeIndex = i;
-          player.loadVideoById(ep.link);
-        };
-        container.appendChild(btn);
-      });
-    }
-
-    function showControls() {
-      clearTimeout(hideControlsTimer);
-      const controls = document.getElementById("videoControls");
-      controls.style.opacity = 1;
-      hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
-    }
-
     function filterEpisodes() {
       const query = document.getElementById('searchBox').value.toLowerCase();
       document.querySelectorAll('#episodeList button').forEach(btn => {
@@ -274,66 +289,26 @@
       });
     }
 
-    const themes = [
-      ['#0b0f1a', '#ffffff', '#8e2de2', 'Dark Violet'],
-      ['#1a1a1a', '#eee', '#ff4081', 'Dark Pink'],
-      ['#121212', '#ddd', '#00bcd4', 'Dark Aqua'],
-      ['#1e1e2f', '#e5e5e5', '#ff9800', 'Dark Orange'],
-      ['#202020', '#fafafa', '#e91e63', 'Dark Rose'],
-      ['#ffffff', '#000000', '#ff4081', 'White Pink'],
-      ['#f9f9f9', '#111', '#3f51b5', 'White Indigo'],
-      ['#eeeeee', '#000', '#009688', 'White Teal'],
-      ['#fff', '#333', '#673ab7', 'White Purple'],
-      ['#f0f0f0', '#111', '#ff5722', 'White Red']
-    ];
-
-    const neonColors = [
-      ['#39ff14', 'Neon Green'], ['#ff00ff', 'Neon Magenta'],
-      ['#00ffff', 'Neon Cyan'], ['#ffd700', 'Neon Gold'],
-      ['#00ff00', 'Neon Lime'], ['#ff4444', 'Neon Red'],
-      ['#44ffdd', 'Neon Aqua'], ['#cc00cc', 'Neon Purple'],
-      ['#ffaa00', 'Neon Orange'], ['#00ccff', 'Neon Sky']
-    ];
-
-    const fontFamilies = [
-      ['Poppins', 'Poppins'], ['Roboto', 'Roboto'], ['Orbitron', 'Orbitron'],
-      ['Montserrat', 'Montserrat'], ['Fira Sans', 'Fira Sans']
-    ];
-
-    themes.forEach(([bg, text, accent, name]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = name;
-      btn.onclick = () => {
-        document.documentElement.style.setProperty('--bg-color', bg);
-        document.documentElement.style.setProperty('--text-color', text);
-        document.documentElement.style.setProperty('--accent-color', accent);
-        document.documentElement.style.setProperty('--control-bg',
-          bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'
-        );
-      };
-      document.getElementById("themeList").appendChild(btn);
-    });
-
-    neonColors.forEach(([color, name]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = name;
-      btn.onclick = () => {
-        document.documentElement.style.setProperty('--neon-glow', color);
-        document.documentElement.style.setProperty('--box-border', `0 0 10px ${color}`);
-      };
-      document.getElementById("neonList").appendChild(btn);
-    });
-
-    fontFamilies.forEach(([font, label]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = label;
-      btn.onclick = () => {
-        document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
-      };
-      document.getElementById("fontList").appendChild(btn);
-    });
+    // Seek bar logic
+    function initSeekBar() {
+      const seekBar = document.getElementById('seekBar');
+      const seekContainer = document.getElementById('seekBarContainer');
+      player.addEventListener('onStateChange', () => {});
+      setInterval(() => {
+        if (player && player.getDuration) {
+          const dur = player.getDuration();
+          const cur = player.getCurrentTime();
+          const pct = dur ? (cur / dur) * 100 : 0;
+          seekBar.style.width = pct + '%';
+        }
+      }, 200);
+      seekContainer.addEventListener('click', e => {
+        const rect = seekContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const ratio = x / rect.width;
+        const dur = player.getDuration();
+        player.seekTo(ratio * dur, true);
+      });
+    }
   </script></body>
 </html>
