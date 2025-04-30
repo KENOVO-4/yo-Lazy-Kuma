@@ -27,6 +27,7 @@
       left: 0;
       width: 100%;
       height: 100%;
+      pointer-events: none;
       z-index: 1;
     }
     .overlay {
@@ -47,6 +48,7 @@
       justify-content: center;
       gap: 10px;
       z-index: 3;
+      pointer-events: auto;
     }
     .control-btn {
       background-color: rgba(0, 0, 0, 0.6);
@@ -62,9 +64,19 @@
       border-radius: 6px;
       background-color: #2d2d2d;
       color: white;
+      transition: all 0.3s;
+    }
+    .theme-button:hover {
+      background-color: #444;
+      transform: scale(1.05);
     }
     #themeList {
       display: none;
+    }
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
     }
   </style>
 </head>
@@ -77,29 +89,26 @@
       <a href="support.html" class="theme-button">Support Us</a>
     </div>
   </header>
-
   <div class="mb-4">
     <button onclick="toggleThemes()" class="theme-button">Choose Theme</button>
-    <div id="themeList" class="mt-2 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+    <div id="themeList" class="mt-2 theme-grid">
       <button onclick="setTheme('bg-[#0b0f1a]')" class="theme-button">AniWatch Dark</button>
       <button onclick="setTheme('bg-gray-900')" class="theme-button">Classic Dark</button>
-      <button onclick="setTheme('bg-black')" class="theme-button">Pure Black</button>
-      <button onclick="setTheme('bg-[#1a202c]')" class="theme-button">Slate</button>
-      <button onclick="setTheme('bg-[#111827]')" class="theme-button">Blue Gray</button>
-      <button onclick="setTheme('bg-[#2d3748]')" class="theme-button">Midnight</button>
-      <button onclick="setTheme('bg-[#4a5568]')" class="theme-button">Steel</button>
-      <button onclick="setTheme('bg-[#2c3e50]')" class="theme-button">Dark Ocean</button>
-      <button onclick="setTheme('bg-[#0f172a]')" class="theme-button">Zinc</button>
-      <button onclick="setTheme('bg-[#1e293b]')" class="theme-button">Charcoal</button>
-      <button onclick="setTheme('bg-[#222222]')" class="theme-button">Smoky</button>
-      <button onclick="setTheme('bg-[#121212]')" class="theme-button">Netflix Dark</button>
+      <button onclick="setTheme('bg-gradient-to-br from-indigo-900 to-black')" class="theme-button">Indigo Fade</button>
+      <button onclick="setTheme('bg-gradient-to-tr from-pink-900 to-gray-900')" class="theme-button">Pink Night</button>
+      <button onclick="setTheme('bg-gradient-to-b from-gray-800 to-black')" class="theme-button">Metal Shadow</button>
+      <button onclick="setTheme('bg-[#1a1a2e]')" class="theme-button">Cosmic Blue</button>
+      <button onclick="setTheme('bg-gradient-to-br from-red-900 to-black')" class="theme-button">Bloody Abyss</button>
+      <button onclick="setTheme('bg-gradient-to-tl from-yellow-800 to-black')" class="theme-button">Sunset Heat</button>
+      <button onclick="setTheme('bg-[#0d0d0d]')" class="theme-button">Pitch Dark</button>
+      <button onclick="setTheme('bg-gradient-to-r from-purple-900 via-indigo-900 to-black')" class="theme-button">Mystic Blend</button>
+      <button onclick="setTheme('bg-gradient-to-tr from-emerald-900 to-black')" class="theme-button">Emerald Gloom</button>
+      <button onclick="setTheme('bg-[#111827]')" class="theme-button">Tailwind Dark</button>
     </div>
   </div>
-
   <input type="text" id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes..." class="w-full p-2 mb-4 bg-gray-800 text-white rounded" />
-
   <div id="videoWrapper" class="video-container rounded-xl shadow-lg overflow-hidden relative">
-    <iframe id="videoPlayer" src="https://www.youtube.com/embed/ne0Y0vyjxpE?enablejsapi=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
+    <iframe id="videoPlayer" src="https://www.youtube.com/embed/ne0Y0vyjxpE?enablejsapi=1&autoplay=1&rel=0&modestbranding=1&controls=1&fs=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
     <div class="overlay" onclick="window.open('https://sawutser.top/4/9278457', '_blank')"></div>
     <div class="controls">
       <button class="control-btn" onclick="seek(-15)">⏪ 15s</button>
@@ -108,22 +117,19 @@
       <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
     </div>
   </div>
-
   <div class="mt-4 bg-gray-800 p-4 rounded-lg">
     <h2 class="text-xl font-semibold mb-1">About Wind Breaker</h2>
     <p>
-      Haruka Sakura joins Furin High known for its fighting students who protect their town.
-      This anime blends street fights with emotional growth and team spirit.
+      Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
     </p>
   </div>
-
   <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-
   <footer class="mt-10 text-sm text-center text-gray-400">
-    <p>Thanks to the original creators of <strong>Wind Breaker</strong>. Please support the official release.</p>
+    <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life. Your work has touched fans around the world with its powerful characters, stunning animation, and emotional storytelling.</p>
+    <p class="mt-2">We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region. Your efforts in promoting and streaming quality anime are deeply appreciated by the entire community.</p>
+    <p class="mt-2 font-semibold text-white">Thank you for everything!</p>
   </footer>
 </div>
-
 <script>
   const episodes = [
     { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE" },
@@ -180,16 +186,15 @@
     });
   }
 
-  function seek(sec) {
-    player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'seekTo', args: [sec + getCurrentTime(), true] }), '*');
-  }
-
-  function getCurrentTime() {
-    return 0; // Seeking will add this; use a library like YouTube API if needed
+  function seek(seconds) {
+    player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'seekTo', args: [seconds, true] }), '*');
   }
 
   function togglePlayPause() {
-    player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+    player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }), '*');
+    setTimeout(() => {
+      player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+    }, 100);
   }
 
   function toggleFullscreen() {
