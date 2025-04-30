@@ -126,51 +126,51 @@
       <p><strong>Thank you again!</strong></p>
     </div>
 
-    <!-- Ad Buttons Section -->
+    <!-- Redirect Ad Buttons -->
     <div class="ads-section">
       <h3>Click to Support:</h3>
-      <!-- 5 Redirect Ad Buttons -->
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Redirect Ad 1</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Redirect Ad 2</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Redirect Ad 3</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Redirect Ad 4</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Redirect Ad 1</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Redirect Ad 2</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Redirect Ad 3</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Redirect Ad 4</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
 
-      <!-- 5 Interstitial Ad Buttons -->
-      <button onclick="i.intstl('show')">Interstitial Ad 1</button>
-      <button onclick="i.intstl('show')">Interstitial Ad 2</button>
-      <button onclick="i.intstl('show')">Interstitial Ad 3</button>
-      <button onclick="i.intstl('show')">Interstitial Ad 4</button>
-      <button onclick="i.intstl('show')">Interstitial Ad 5</button>
+      <!-- Interstitial Ad Buttons -->
+      <button onclick="intstl('show')">Interstitial Ad 1</button>
+      <button onclick="intstl('show')">Interstitial Ad 2</button>
+      <button onclick="intstl('show')">Interstitial Ad 3</button>
     </div>
   </div>
 
   <!-- Banner Ad Section -->
   <div class="ads-section">
-    <div class="ad-banner"><iframe id="bannerAd" src="https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=banner1"></iframe></div>
+    <div class="ad-banner">
+      <iframe id="bannerAd" src="https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=banner1"></iframe>
+    </div>
   </div>
 
   <div class="footer">
     © 2025 Doosh Hub. All Rights Reserved.
   </div>
 
-  <!-- Interstitial Script -->
+  <!-- Interstitial Ad Script -->
   <script>
-  (function(i,n,t,s,t,l){
+  (function(i,n,t,s){
     i.intstl = i.intstl || function() {
       (i.intstl.q=(i.intstl.q||[])).push(arguments)
     };
-    var s=n.getElementsByTagName('head')[0];
-    var q=n.createElement('script'); q.async=1;
-    q.src='https://static.ezmob.com/intstl/intstl.js';
-    s.appendChild(q);
+    var q = n.createElement('script'); q.async = 1;
+    q.src = 'https://static.ezmob.com/intstl/intstl.js';
+    n.getElementsByTagName('head')[0].appendChild(q);
     i.intstl('init', {
       host: 'xml.qualiclicks.com',
-      feed: 0,
-      auth : '',
+      feed: 'YOUR_FEED_ID',
+      auth: 'YOUR_AUTH_TOKEN',
       logo: 'https://adk.ezmob.com/images/icoLogo.png',
-      color1: '#3c8dbc', color2: '#307196',
-      textColor: 'white', background: '#f7f7f6',
+      color1: '#3c8dbc',
+      color2: '#307196',
+      textColor: 'white',
+      background: '#f7f7f6',
       engagementPeriod: 10,
       interval: 15,
       defer: 10
@@ -182,10 +182,10 @@
   <script>
     function refreshBannerAd() {
       const banner = document.getElementById('bannerAd');
-      banner.src = 'https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=banner' + Math.floor(Math.random() * 1000);
+      banner.src = 'https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=banner' + Math.floor(Math.random() * 1000);
     }
 
-    setInterval(refreshBannerAd, 60000); // Refresh every 60 seconds
+    setInterval(refreshBannerAd, 60000);
   </script>
 
 </body>
