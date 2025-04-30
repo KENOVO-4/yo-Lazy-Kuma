@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,62 +18,74 @@
   </style>
 </head>
 <body class="bg-gradient-to-b from-purple-950 via-gray-900 to-purple-950 text-gray-100 min-h-screen" oncontextmenu="return false;">
-  <div class="max-w-4xl mx-auto p-6 space-y-6">
-
-    <!-- Header -->
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
-      <h1 class="text-4xl font-bold text-purple-300">Wind Breaker Season 1</h1>
-      <div class="flex space-x-3">
-        <a href="index.2.html" class="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-xl shadow transition-all duration-300">← Go Back</a>
-        <a href="support.html" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow transition-all duration-300">💖 Support Us</a>
-      </div>
-    </header>
-
-    <!-- Video Player -->
-    <div class="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden aspect-video">
-      <iframe
-        id="videoPlayer"
-        class="w-full h-full"
-        src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&autoplay=0&controls=1&fs=1"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        allowfullscreen>
-      </iframe>
-    </div>
-
-    <!-- Description BELOW video player -->
-    <div id="animeDesc" class="bg-purple-800 bg-opacity-30 p-4 rounded-lg text-sm shadow transition duration-500">
-      Loading anime description...
-    </div>
-
-    <!-- Episode Metadata -->
-    <div class="bg-purple-900 p-4 rounded-lg shadow-inner space-y-1">
-      <h2 id="episodeTitle" class="text-xl font-semibold text-purple-300">Select an episode</h2>
-      <p id="episodeDesc" class="text-gray-300 text-sm">Click any episode below to start watching.</p>
-      <p id="uploadDate" class="text-gray-400 text-xs">Uploaded: —</p>
-    </div>
-
-    <!-- Episode List -->
-    <div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
-
-    <!-- Special Thanks -->
-    <footer class="mt-12 text-center text-sm text-gray-400 border-t border-purple-700 pt-6">
-      <p>
-        Special thanks to the original creators, production studios, and copyright holders of <strong>Wind Breaker</strong> 
-        for their outstanding work and dedication to storytelling, animation, and artistry.
-      </p>
-      <p class="mt-2 italic">
-        All video content embedded on this site is property of their respective owners and is presented here for entertainment purposes only.
-      </p>
-      <p class="mt-1 text-purple-500 font-semibold">Support the official release whenever possible.</p>
-    </footer>
+  <div class="max-w-4xl mx-auto p-6 space-y-6"><!-- Header -->
+<header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
+  <h1 class="text-4xl font-bold text-purple-300">Wind Breaker Season 1</h1>
+  <div class="flex space-x-3">
+    <a href="index.2.html" class="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-xl shadow transition-all duration-300">← Go Back</a>
+    <a href="support.html" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow transition-all duration-300">💖 Support Us</a>
   </div>
+</header>
 
-  <script>
-    // Disable interactions
+<!-- Video Player -->
+<div class="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden aspect-video">
+  <iframe
+    id="videoPlayer"
+    class="w-full h-full z-10 relative"
+    src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&autoplay=0&controls=1&fs=1"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+    allowfullscreen>
+  </iframe>
+  <!-- Overlay on logo area -->
+  <div
+    id="ytLogoBlock"
+    class="absolute bottom-0 left-0 w-full h-10 z-30"
+    style="cursor:pointer;">
+  </div>
+</div>
+
+<!-- Description BELOW video player -->
+<div id="animeDesc" class="bg-purple-800 bg-opacity-30 p-4 rounded-lg text-sm shadow transition duration-500">
+  Loading anime description...
+</div>
+
+<!-- Episode Metadata -->
+<div class="bg-purple-900 p-4 rounded-lg shadow-inner space-y-1">
+  <h2 id="episodeTitle" class="text-xl font-semibold text-purple-300">Select an episode</h2>
+  <p id="episodeDesc" class="text-gray-300 text-sm">Click any episode below to start watching.</p>
+  <p id="uploadDate" class="text-gray-400 text-xs">Uploaded: —</p>
+</div>
+
+<!-- Episode List -->
+<div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+
+<!-- Special Thanks -->
+<footer class="mt-12 text-center text-sm text-gray-400 border-t border-purple-700 pt-6">
+  <p>
+    Special thanks to the original creators, production studios, and copyright holders of <strong>Wind Breaker</strong> 
+    for their outstanding work and dedication to storytelling, animation, and artistry.
+  </p>
+  <p class="mt-2 italic">
+    All video content embedded on this site is property of their respective owners and is presented here for entertainment purposes only.
+  </p>
+  <p class="mt-1 text-purple-500 font-semibold">Support the official release whenever possible.</p>
+</footer>
+
+  </div>  <script>
+    // Prevent right-click
     document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // Anime Description
+    // Add click popunder ad script on logo area only
+    document.getElementById('ytLogoBlock').addEventListener('click', function () {
+      (function(s,u,z,p){
+        s.src = u;
+        s.setAttribute('data-zone', z);
+        (p || document.body || document.documentElement).appendChild(s);
+      })(document.createElement('script'), 'https://shebudriftaiter.net/tag.min.js', 9277886);
+    });
+
+    // Description content
     const animeDesc = `
       <h3 class="text-lg font-semibold mb-1">About Wind Breaker</h3>
       <p>
@@ -84,6 +95,7 @@
     `;
     document.getElementById("animeDesc").innerHTML = animeDesc;
 
+    // Episodes
     const episodes = [
       { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE", date:"2025-04-25" },
       { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g", date:"2025-04-25" },
@@ -118,6 +130,5 @@
       };
       list.appendChild(btn);
     });
-  </script>
-</body>
+  </script></body>
 </html>
