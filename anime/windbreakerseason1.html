@@ -5,112 +5,84 @@
   <title>Wind Breaker Season 1</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Poppins', sans-serif; }
-    /* Layering: iframe at bottom, overlay captures logo clicks, controls on top */
+    body { font-family: 'Poppins', sans-serif; margin:0; }
     .video-wrapper { position: relative; width: 100%; padding-top: 56.25%; }
-    #yt-player, #overlayLayer, #controlsLayer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    #overlayLayer { pointer-events: none; }
-    #logoOverlay { position: absolute; bottom: 0.5rem; right: 0.5rem; width: 3rem; height: 2rem; pointer-events: auto; cursor: pointer; }
-    #controlsLayer { pointer-events: auto; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 1rem; gap: 1rem; }
-    .control-btn { background: rgba(0,0,0,0.6); color: #fff; padding: 0.5rem; border-radius: 0.375rem; }
+    .video-wrapper iframe, .video-wrapper .overlay, .video-wrapper .controls { position: absolute; top:0; left:0; width:100%; height:100%; }
+    /* Overlay layer catches logo clicks only */
+    .overlay { pointer-events: none; }
+    .overlay .logo-block { position: absolute; bottom: 0.5rem; right: 0.5rem; width: 3rem; height: 2rem; cursor: pointer; pointer-events: auto; }
+    /* Controls layer */
+    .controls { display: flex; justify-content: center; align-items: flex-end; gap: 1rem; padding-bottom: 1rem; pointer-events: auto; }
+    .controls button { background: rgba(0,0,0,0.6); color: #fff; border: none; padding: 0.5rem 0.75rem; border-radius: 0.375rem; }
   </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-  <div class="max-w-4xl mx-auto p-4 space-y-4">
-    <!-- Header: Title, theme & search -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <h1 class="text-3xl font-bold text-purple-300">Wind Breaker - Season 1</h1>
-      <div class="flex gap-2">
-        <input id="searchInput" type="text" placeholder="Search episodes..." class="px-3 py-2 rounded text-black" />
-        <select id="themeSelector" class="px-3 py-2 rounded bg-gray-800 text-white">
+<body class="bg-gray-900 text-white min-h-screen">
+  <div class="max-w-4xl mx-auto p-4 space-y-6">
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+      <h1 class="text-3xl font-bold">Wind Breaker - Season 1</h1>
+      <div class="flex flex-wrap gap-2">
+        <a href="index.2.html" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded">← Go Back</a>
+        <a href="support.html"  class="px-4 py-2 bg-pink-600 hover:bg-pink-500 rounded">💖 Support Us</a>
+        <input id="search" type="text" placeholder="Search episodes..." class="px-3 py-2 rounded text-black" />
+        <select id="theme" class="px-3 py-2 rounded bg-gray-800">
           <optgroup label="Dark Themes">
-            <option value="bg-gray-900 text-gray-100">Default Grey</option>
-            <option value="bg-purple-900 text-purple-100">Purple Dark</option>
-            <option value="bg-blue-900 text-blue-100">Blue Dark</option>
-            <option value="bg-black text-white">Black Dark</option>
-            <option value="bg-teal-900 text-teal-100">Teal Dark</option>
+            <option value="bg-gray-900 text-white">Grey (default)</option>
+            <option value="bg-purple-900 text-white">Purple</option>
+            <option value="bg-blue-900 text-white">Blue</option>
+            <option value="bg-black text-white">Black</option>
+            <option value="bg-teal-900 text-white">Teal</option>
           </optgroup>
           <optgroup label="Light Themes">
-            <option value="bg-white text-black">Light White</option>
-            <option value="bg-gray-100 text-gray-900">Light Grey</option>
-            <option value="bg-yellow-100 text-yellow-900">Light Yellow</option>
-            <option value="bg-blue-100 text-blue-900">Light Blue</option>
-            <option value="bg-pink-100 text-pink-900">Light Pink</option>
+            <option value="bg-gray-100 text-black">Light Grey</option>
+            <option value="bg-blue-100 text-black">Sky Blue</option>
+            <option value="bg-yellow-100 text-black">Cream</option>
+            <option value="bg-pink-100 text-black">Pink</option>
+            <option value="bg-green-100 text-black">Mint</option>
           </optgroup>
         </select>
       </div>
-    </div><!-- Video Player -->
-<div class="video-wrapper rounded-lg overflow-hidden shadow-lg">
-  <div id="yt-player"></div>
-  <div id="overlayLayer">
-    <div id="logoOverlay"></div>
+    </header><!-- Video Player -->
+<div id="videoWrapper" class="video-wrapper rounded-lg overflow-hidden shadow-lg bg-black">
+  <iframe id="player" src="https://www.youtube.com/embed/ne0Y0vyjxpE?enablejsapi=1&controls=0&modestbranding=1&rel=0&autoplay=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+  <div class="overlay">
+    <div class="logo-block" onclick="openAd()"></div>
   </div>
-  <div id="controlsLayer">
-    <button class="control-btn" id="back15">⏪ 15s</button>
-    <button class="control-btn" id="playPause">▶️</button>
-    <button class="control-btn" id="forward15">15s ⏩</button>
-    <button class="control-btn" id="fullscreenBtn">⛶</button>
+  <div class="controls">
+    <button onclick="seek(-15)">⏪ 15s</button>
+    <button id="playBtn" onclick="togglePlay()">▶️</button>
+    <button onclick="seek(15)">15s ⏩</button>
+    <button onclick="goFull()">⛶</button>
   </div>
 </div>
 
 <!-- Description -->
 <div class="bg-gray-800 p-4 rounded">
-  <h2 class="text-xl font-semibold">About Wind Breaker</h2>
-  <p>Haruka Sakura joins Furin High and discovers its delinquents protect their town. Action, honor, redemption!</p>
+  <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
+  <p>Haruka Sakura joins Furin High, a school of delinquents who secretly protect their city. Packed with action, honor, and friendship.</p>
 </div>
 
-<!-- Episode List -->
-<div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+<!-- Episodes -->
+<div>
+  <h3 class="text-lg font-semibold mb-2">Episodes</h3>
+  <div id="list" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+</div>
 
 <!-- Footer -->
-<footer class="text-center text-sm text-gray-400 pt-4 border-t border-gray-700">
-  <p>Special thanks to the original creators and copyright holders of <strong>Wind Breaker</strong>.</p>
-  <p class="italic">All content is property of respective owners. Support official releases.</p>
+<footer class="text-center text-sm text-gray-400 mt-8 border-t border-gray-700 pt-4">
+  <p>Special thanks to the original creators & copyright holders of <strong>Wind Breaker</strong>.</p>
+  <p class="italic">All video content is property of the respective owners.</p>
 </footer>
 
-  </div>  <!-- YouTube IFrame API -->  <script src="https://www.youtube.com/iframe_api"></script>  <script>
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('yt-player', {
-        videoId: 'ne0Y0vyjxpE',
-        playerVars: { autoplay: 1, controls: 1, modestbranding: 1, rel: 0, fs: 1, enablejsapi: 1 },
-        events: { 'onReady': () => {} }
-      });
-    }
+  </div>  <script>
+    const player = document.getElementById('player');
+    const list    = document.getElementById('list');
+    const search  = document.getElementById('search');
+    const theme   = document.getElementById('theme');
 
-    // Controls
-    document.getElementById('playPause').addEventListener('click', () => {
-      const state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        player.pauseVideo();
-        document.getElementById('playPause').textContent = '▶️';
-      } else {
-        player.playVideo();
-        document.getElementById('playPause').textContent = '⏸️';
-      }
-    });
-    document.getElementById('back15').addEventListener('click', () => {
-      const t = player.getCurrentTime();
-      player.seekTo(Math.max(t - 15, 0), true);
-    });
-    document.getElementById('forward15').addEventListener('click', () => {
-      const t = player.getCurrentTime();
-      player.seekTo(t + 15, true);
-    });
-    document.getElementById('fullscreenBtn').addEventListener('click', () => {
-      const container = document.querySelector('.video-wrapper');
-      if (container.requestFullscreen) container.requestFullscreen();
-    });
-
-    // Logo overlay redirect
-    document.getElementById('logoOverlay').addEventListener('click', () => {
-      window.open('https://sawutser.top/4/9278457', '_blank');
-    });
-
-    // Episodes
+    // Episodes data
     const episodes = [
       { title: 'Episode 1', id: 'ne0Y0vyjxpE' },
       { title: 'Episode 2', id: 'J2568cnOa1g' },
@@ -126,32 +98,52 @@
       { title: 'Episode 12', id: 'skAwsc6UL8A' },
       { title: 'Episode 13', id: '-xUk9E2iQQY' }
     ];
-    const listEl = document.getElementById('episodeList');
-    function renderEpisodes(filter = '') {
-      listEl.innerHTML = '';
-      episodes.filter(ep => ep.title.toLowerCase().includes(filter.toLowerCase()))
-        .forEach(ep => {
+
+    function render(filter='') {
+      list.innerHTML = '';
+      episodes.filter(e=>e.title.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(e=>{
           const btn = document.createElement('button');
-          btn.textContent = ep.title;
-          btn.className = 'w-full bg-purple-700 hover:bg-purple-800 p-2 rounded';
-          btn.addEventListener('click', () => {
-            player.loadVideoById(ep.id);
-          });
-          listEl.appendChild(btn);
+          btn.textContent = e.title;
+          btn.className = 'w-full text-left px-4 py-2 bg-purple-700 hover:bg-purple-800 rounded';
+          btn.onclick = () => {
+            player.src = `https://www.youtube.com/embed/${e.id}?enablejsapi=1&controls=0&modestbranding=1&rel=0&autoplay=1`;
+          };
+          list.appendChild(btn);
         });
     }
-    renderEpisodes();
-    document.getElementById('searchInput').addEventListener('input', e => renderEpisodes(e.target.value));
+    render();
+    search.addEventListener('input', e=>render(e.target.value));
 
-    // Themes
-    const themeSel = document.getElementById('themeSelector');
-    function applyTheme(val) {
-      document.body.className = val;
-      localStorage.setItem('theme', val);
+    // Theme persistence
+    theme.onchange = () => {
+      document.body.className = theme.value;
+      localStorage.setItem('theme', theme.value);
+    };
+    const saved = localStorage.getItem('theme');
+    if(saved) { theme.value = saved; document.body.className = saved; }
+
+    // Overlay popunder
+    function openAd(){ window.open('https://sawutser.top/4/9278457','_blank'); }
+
+    // YouTube API commands
+    function post(cmd, args=[]) {
+      player.contentWindow.postMessage(JSON.stringify({ event:'command', func:cmd, args }), '*');
     }
-    themeSel.addEventListener('change', e => applyTheme(e.target.value));
-    const saved = localStorage.getItem('theme') || 'bg-gray-900 text-gray-100';
-    themeSel.value = saved;
-    applyTheme(saved);
+    function togglePlay(){ post('playVideo'); post('pauseVideo'); }
+    function seek(s){ post('seekBy',[s,true]); }
+    function goFull(){ (player.requestFullscreen||player.webkitRequestFullscreen).call(player); }
+
+    // Fullscreen layering
+    document.addEventListener('fullscreenchange', ()=>{
+      const ow = document.querySelector('.overlay'), ctl = document.querySelector('.controls');
+      if(document.fullscreenElement) {
+        ow.style.position = ctl.style.position = 'fixed';
+      } else {
+        ow.style.position = ctl.style.position = 'absolute';
+      }
+    });
+  </script>  <!-- Anti-adblock popunder script -->  <script>(function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); (p||document.body).appendChild(s);} )
+    (document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body);
   </script></body>
 </html>
