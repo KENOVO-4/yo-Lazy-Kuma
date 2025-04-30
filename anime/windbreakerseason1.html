@@ -4,73 +4,95 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wind Breaker Season 1</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Font: Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Poppins', sans-serif;
     }
-    /* disable text selection */
-    body, html {
+    html, body {
       user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       touch-action: manipulation;
+    }
+    .block-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 30;
     }
   </style>
 </head>
-
-<body class="bg-gradient-to-b from-gray-900 via-black to-gray-900 text-gray-100" oncontextmenu="return false;">
+<body class="bg-gradient-to-b from-purple-950 via-gray-900 to-purple-950 text-gray-100 min-h-screen" oncontextmenu="return false;">
   <div class="max-w-4xl mx-auto p-6 space-y-6">
 
-    <!-- Header with Go Back & Support Us -->
-    <header class="flex items-center justify-between">
-      <h1 class="text-4xl font-bold text-pink-500">Wind Breaker Season 1</h1>
-      <div class="space-x-4">
-        <a href="index.2.html" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 rounded shadow transition">← Go Back</a>
-        <a href="support.html" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded shadow transition">💖 Support Us</a>
+    <!-- Header -->
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
+      <h1 class="text-4xl font-bold text-purple-300">Wind Breaker Season 1</h1>
+      <div class="flex space-x-3">
+        <a href="index.2.html" class="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-xl shadow transition-all duration-300">← Go Back</a>
+        <a href="support.html" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow transition-all duration-300">💖 Support Us</a>
       </div>
     </header>
 
-    <!-- Video Player Card -->
+    <!-- Description -->
+    <div id="animeDesc" class="bg-purple-800 bg-opacity-30 p-4 rounded-lg text-sm shadow transition duration-500">
+      Loading anime description...
+    </div>
+
+    <!-- Video Player -->
     <div class="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden" style="padding-bottom:56.25%; height:0;">
-      <!-- Loader Overlay -->
-      <div id="loader" class="absolute inset-0 bg-black bg-opacity-75 flex items-center justify-center z-20 text-pink-400 text-lg font-semibold hidden">
-        Ad playing… Skip in <span id="countdown">5</span>s
-      </div>
-      <!-- YouTube iframe -->
       <iframe
         id="videoPlayer"
-        class="absolute top-0 left-0 w-full h-full"
-        src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1"
+        class="absolute top-0 left-0 w-full h-full pointer-events-none"
+        src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&autoplay=0&controls=1"
         frameborder="0"
         allow="autoplay; encrypted-media"
         allowfullscreen>
       </iframe>
-      <!-- Click-block overlay top-right -->
-      <div class="absolute top-0 right-0 w-16 h-16 z-30"></div>
+      <div class="block-overlay"></div>
     </div>
 
     <!-- Episode Metadata -->
-    <div class="bg-gray-800 p-4 rounded-b-lg shadow-inner space-y-1">
-      <h2 id="episodeTitle" class="text-xl font-semibold">Select an episode</h2>
-      <p id="episodeDesc" class="text-gray-400 text-sm">Click any episode below to start watching.</p>
-      <p id="uploadDate" class="text-gray-500 text-xs">Uploaded: —</p>
+    <div class="bg-purple-900 p-4 rounded-lg shadow-inner space-y-1">
+      <h2 id="episodeTitle" class="text-xl font-semibold text-purple-300">Select an episode</h2>
+      <p id="episodeDesc" class="text-gray-300 text-sm">Click any episode below to start watching.</p>
+      <p id="uploadDate" class="text-gray-400 text-xs">Uploaded: —</p>
     </div>
 
     <!-- Episode List -->
     <div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
 
+    <!-- Special Thanks -->
+    <footer class="mt-12 text-center text-sm text-gray-400 border-t border-purple-700 pt-6">
+      <p>
+        Special thanks to the original creators, production studios, and copyright holders of <strong>Wind Breaker</strong> 
+        for their outstanding work and dedication to storytelling, animation, and artistry.
+      </p>
+      <p class="mt-2 italic">
+        All video content embedded on this site is property of their respective owners and is presented here for entertainment purposes only.
+      </p>
+      <p class="mt-1 text-purple-500 font-semibold">Support the official release whenever possible.</p>
+    </footer>
   </div>
 
   <script>
-    // disable right-click & long-press
+    // Disable interactions
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('mousedown', e => e.preventDefault());
     document.addEventListener('touchstart', e => e.preventDefault());
+
+    // Dynamic Anime Description
+    const animeDesc = `
+      <h3 class="text-lg font-semibold mb-1">About Wind Breaker</h3>
+      <p>
+        Set in a gritty urban landscape, <strong>Wind Breaker</strong> follows Haruka Sakura, a fierce and misunderstood teenager who joins a notorious biker gang known as Furin High. 
+        But unlike the rumors, Furin isn’t about causing chaos—they fight to protect the weak. With high-octane fights, heart-pounding drama, and a surprisingly emotional core, 
+        this anime blends adrenaline with friendship and redemption. As Haruka battles his way through foes and his own inner struggles, he learns what it means to be strong—not just in muscle, but in heart.
+      </p>
+    `;
+    document.getElementById("animeDesc").innerHTML = animeDesc;
 
     const episodes = [
       { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE", date:"2025-04-25" },
@@ -93,30 +115,16 @@
     const title = document.getElementById('episodeTitle');
     const desc  = document.getElementById('episodeDesc');
     const date  = document.getElementById('uploadDate');
-    const loader = document.getElementById('loader');
-    const countdown = document.getElementById('countdown');
 
     episodes.forEach(ep => {
       const btn = document.createElement('button');
-      btn.className = 'flex items-center space-x-3 p-3 bg-gray-700 hover:bg-pink-600 transition rounded shadow';
-      btn.innerHTML = '<span class="text-pink-400 text-lg">▶</span><span class="flex-1 text-left">' + ep.title + '</span>';
+      btn.className = 'flex items-center space-x-3 p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105';
+      btn.innerHTML = '<span class="text-pink-300 text-lg">▶</span><span class="flex-1 text-left">' + ep.title + '</span>';
       btn.onclick = () => {
-        // show loader & countdown
-        loader.classList.remove('hidden');
-        let sec = 5;
-        countdown.textContent = sec;
-        const iv = setInterval(() => {
-          sec--;
-          countdown.textContent = sec;
-          if (sec <= 0) {
-            clearInterval(iv);
-            loader.classList.add('hidden');
-            player.src = ep.link + '?autoplay=1&rel=0&modestbranding=1';
-            title.textContent = ep.title;
-            desc.textContent = 'Wind Breaker Season 1 — ' + ep.title;
-            date.textContent = 'Uploaded: ' + ep.date;
-          }
-        }, 1000);
+        player.src = ep.link + '?autoplay=1&rel=0&modestbranding=1';
+        title.textContent = ep.title;
+        desc.textContent = 'Wind Breaker Season 1 — ' + ep.title;
+        date.textContent = 'Uploaded: ' + ep.date;
       };
       list.appendChild(btn);
     });
