@@ -13,6 +13,7 @@
       --accent-color: #8e2de2;
       --control-bg: rgba(0, 0, 0, 0.6);
       --neon-glow: #39ff14;
+      --box-border: 0 0 10px var(--neon-glow);
     }
     body {
       margin: 0;
@@ -43,15 +44,15 @@
       display: flex;
       gap: 6px;
       z-index: 3;
-      opacity: 1;
-      transition: opacity 0.3s;
       flex-wrap: wrap;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .control-btn {
       background-color: var(--control-bg);
       color: var(--text-color);
       border: none;
-      padding: 6px;
+      padding: 6px 10px;
       font-size: 12px;
       border-radius: 6px;
       cursor: pointer;
@@ -63,10 +64,9 @@
     .neon {
       text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
     }
-    .theme-toggle {
+    .theme-toggle, .neon-toggle {
       position: absolute;
       top: 10px;
-      left: 10px;
       z-index: 4;
       background: var(--control-bg);
       color: var(--text-color);
@@ -75,16 +75,19 @@
       cursor: pointer;
       font-size: 12px;
     }
+    .theme-toggle { left: 10px; }
+    .neon-toggle { right: 10px; }
+    .neon-box {
+      box-shadow: var(--box-border);
+      transition: box-shadow 0.5s;
+    }
   </style>
 </head>
 <body>
   <div class="max-w-5xl mx-auto px-4 py-6">
     <header class="text-center mb-6">
       <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-      <div class="mt-2">
-        <a href="index.2.html" class="text-sm underline text-purple-300">Go Back</a>
-      </div>
-    </header><div class="video-container rounded-xl shadow-lg overflow-hidden relative">
+    </header><div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
   <div id="videoPlayer"></div>
   <div class="overlay-layer" onclick="togglePlayPause()"></div>
   <div class="controls" id="videoControls">
@@ -95,13 +98,14 @@
     <button class="control-btn" onclick="playNextEpisode()">Next</button>
     <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
   </div>
-  <div class="theme-toggle" onclick="toggleTheme()">Theme</div>
+  <div class="theme-toggle" onclick="cycleTheme()">Theme</div>
+  <div class="neon-toggle" onclick="cycleNeon()">Neon</div>
 </div>
 
-<div class="mt-6 bg-gray-800 p-4 rounded-lg">
+<div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
   <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
   <p>
-    Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
+    Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...
   </p>
 </div>
 
@@ -109,14 +113,29 @@
 
 <footer class="mt-10 text-sm text-center text-gray-400">
   <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
-  <p>We also extend our gratitude to <strong>Muse India</strong>. Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
-  <div class="mt-4">
-    <a href="support.html" class="text-sm text-purple-300 underline">Support Us</a>
-  </div>
+  <p>Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
 </footer>
 
   </div>  <script>
     let player;
+    let currentEpisodeIndex = 0;
+    let hideControlsTimer;
+    const themes = [
+      ['#0b0f1a', '#ffffff', '#8e2de2'],
+      ['#1a1a1a', '#eee', '#ff4081'],
+      ['#121212', '#ddd', '#00bcd4'],
+      ['#1e1e2f', '#e5e5e5', '#ff9800'],
+      ['#202020', '#fafafa', '#e91e63'],
+      ['#ffffff', '#000000', '#ff4081'],
+      ['#f9f9f9', '#111', '#3f51b5'],
+      ['#eeeeee', '#000', '#009688'],
+      ['#fff', '#333', '#673ab7'],
+      ['#f0f0f0', '#111', '#ff5722']
+    ];
+    const neonColors = ['#39ff14', '#ff00ff', '#00ffff', '#ffd700', '#00ff00', '#ff4444', '#44ffdd', '#cc00cc', '#ffaa00', '#00ccff'];
+    let themeIndex = 0;
+    let neonIndex = 0;
+
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
       { title: "Episode 2", link: "J2568cnOa1g" },
@@ -132,21 +151,12 @@
       { title: "Episode 12", link: "skAwsc6UL8A" },
       { title: "Episode 13", link: "-xUk9E2iQQY" }
     ];
-    let currentEpisodeIndex = 0;
 
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('videoPlayer', {
         videoId: episodes[currentEpisodeIndex].link,
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          modestbranding: 1,
-          rel: 0
-        },
-        events: {
-          onReady: loadEpisodes,
-          onStateChange: handleStateChange
-        }
+        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
+        events: { onReady: loadEpisodes, onStateChange: handleStateChange }
       });
     }
 
@@ -187,35 +197,42 @@
 
     function loadEpisodes() {
       const container = document.getElementById("episodeList");
-      container.innerHTML = "";
+      const fragment = document.createDocumentFragment();
       episodes.forEach((ep, i) => {
         const btn = document.createElement("button");
-        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full";
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full neon-box";
         btn.textContent = ep.title;
         btn.onclick = () => {
           currentEpisodeIndex = i;
           player.loadVideoById(ep.link);
         };
-        container.appendChild(btn);
+        fragment.appendChild(btn);
       });
+      container.innerHTML = '';
+      container.appendChild(fragment);
     }
 
-    function toggleTheme() {
+    function cycleTheme() {
+      themeIndex = (themeIndex + 1) % themes.length;
+      const [bg, text, accent] = themes[themeIndex];
       const root = document.documentElement;
-      const isDark = root.style.getPropertyValue('--bg-color') === '#0b0f1a';
-      if (isDark) {
-        root.style.setProperty('--bg-color', '#ffffff');
-        root.style.setProperty('--text-color', '#000000');
-        root.style.setProperty('--accent-color', '#ff4081');
-        root.style.setProperty('--control-bg', 'rgba(255, 255, 255, 0.8)');
-        root.style.setProperty('--neon-glow', '#ff4081');
-      } else {
-        root.style.setProperty('--bg-color', '#0b0f1a');
-        root.style.setProperty('--text-color', '#ffffff');
-        root.style.setProperty('--accent-color', '#8e2de2');
-        root.style.setProperty('--control-bg', 'rgba(0,0,0,0.6)');
-        root.style.setProperty('--neon-glow', '#39ff14');
-      }
+      root.style.setProperty('--bg-color', bg);
+      root.style.setProperty('--text-color', text);
+      root.style.setProperty('--accent-color', accent);
+      root.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
+    }
+
+    function cycleNeon() {
+      neonIndex = (neonIndex + 1) % neonColors.length;
+      document.documentElement.style.setProperty('--neon-glow', neonColors[neonIndex]);
+      document.documentElement.style.setProperty('--box-border', `0 0 10px ${neonColors[neonIndex]}`);
+    }
+
+    function showControls() {
+      clearTimeout(hideControlsTimer);
+      const controls = document.getElementById("videoControls");
+      controls.style.opacity = 1;
+      hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
     }
   </script></body>
 </html>
