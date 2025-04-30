@@ -18,9 +18,6 @@
     }
     html, body {
       height: 100%;
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-    body {
       margin: 0;
       font-family: var(--font-family);
       background-color: var(--bg-color);
@@ -33,6 +30,12 @@
       padding-top: 56.25%;
       background-color: black;
     }
+    .video-container:fullscreen,
+    .video-container:-webkit-full-screen {
+      padding-top: 0 !important;
+      width: 100vw;
+      height: 100vh;
+    }
     #videoPlayer, .overlay-layer {
       position: absolute;
       top: 0; left: 0;
@@ -43,7 +46,7 @@
     }
     .controls {
       position: absolute;
-      bottom: env(safe-area-inset-bottom, 16px);
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -52,7 +55,6 @@
       flex-wrap: nowrap;
       opacity: 0;
       transition: opacity 0.3s;
-      padding-bottom: 4px;
     }
     .control-btn {
       background-color: var(--control-bg);
@@ -70,32 +72,21 @@
     .neon {
       text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
     }
-    .floating-button {
+    .floating-panel {
       position: fixed;
-      left: 10px;
       top: 10px;
-      z-index: 999;
-      background: var(--accent-color);
-      color: white;
-      padding: 8px 10px;
-      border-radius: 8px;
-      cursor: pointer;
+      background-color: var(--control-bg);
+      color: var(--text-color);
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 100;
     }
-    .side-panel {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 250px;
-      background: var(--control-bg);
-      padding: 20px 15px;
-      z-index: 998;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      overflow-y: auto;
-    }
-    .side-panel.active {
-      transform: translateX(0);
+    .theme-panel { left: 10px; }
+    .neon-panel { left: 150px; }
+    .font-panel { right: 10px; }
+    .neon-box {
+      box-shadow: var(--box-border);
+      transition: box-shadow 0.5s;
     }
     .panel-title {
       font-size: 14px;
@@ -110,21 +101,18 @@
     .panel-item:hover {
       color: var(--accent-color);
     }
-    .neon-box {
-      box-shadow: var(--box-border);
-      transition: box-shadow 0.5s;
-    }
   </style>
 </head>
 <body>
-  <div class="floating-button" onclick="togglePanel()">Options</div>
-  <div class="side-panel" id="sidePanel">
+  <div class="floating-panel theme-panel">
     <div class="panel-title">Themes</div>
     <div id="themeList"></div>
-    <hr class="my-2">
+  </div>
+  <div class="floating-panel neon-panel">
     <div class="panel-title">Neon Combos</div>
     <div id="neonList"></div>
-    <hr class="my-2">
+  </div>
+  <div class="floating-panel font-panel">
     <div class="panel-title">Font Styles</div>
     <div id="fontList"></div>
   </div>
@@ -157,7 +145,82 @@
   <script>
     let player;
     let currentEpisodeIndex = 0;
-    let hideControlsTimer;const themes = [
+    let hideControlsTimer;const episodes = [
+  { title: "Episode 1", link: "ne0Y0vyjxpE" },
+  { title: "Episode 2", link: "J2568cnOa1g" },
+  { title: "Episode 3", link: "QOMv17IjJAU" },
+  { title: "Episode 4", link: "MT7WzTJZCxg" },
+  { title: "Episode 5", link: "4sRfndp1vAM" },
+  { title: "Episode 6", link: "oTvQ-5BNC6w" },
+  { title: "Episode 7", link: "Em5lFIz_kxU" },
+  { title: "Episode 8", link: "SBaGblvd4mU" },
+  { title: "Episode 9", link: "43Hj2GySjgA" },
+  { title: "Episode 10", link: "TIpodnZtFP4" },
+  { title: "Episode 11", link: "_L-UG_jvnM4" },
+  { title: "Episode 12", link: "skAwsc6UL8A" },
+  { title: "Episode 13", link: "-xUk9E2iQQY" }
+];
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('videoPlayer', {
+    videoId: episodes[currentEpisodeIndex].link,
+    playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
+    events: {
+      onReady: loadEpisodes,
+      onStateChange: event => {
+        if (event.data === YT.PlayerState.ENDED) playNextEpisode();
+      }
+    }
+  });
+}
+
+function seek(sec) {
+  const time = player.getCurrentTime();
+  player.seekTo(time + sec, true);
+}
+
+function togglePlayPause() {
+  const state = player.getPlayerState();
+  if (state === YT.PlayerState.PLAYING) player.pauseVideo();
+  else player.playVideo();
+}
+
+function toggleFullscreen() {
+  const wrapper = document.querySelector(".video-container");
+  if (!document.fullscreenElement) wrapper.requestFullscreen();
+  else document.exitFullscreen();
+}
+
+function playNextEpisode() {
+  if (currentEpisodeIndex < episodes.length - 1) {
+    currentEpisodeIndex++;
+    player.loadVideoById(episodes[currentEpisodeIndex].link);
+  }
+}
+
+function loadEpisodes() {
+  const container = document.getElementById("episodeList");
+  container.innerHTML = '';
+  episodes.forEach((ep, i) => {
+    const btn = document.createElement("button");
+    btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full neon-box";
+    btn.textContent = ep.title;
+    btn.onclick = () => {
+      currentEpisodeIndex = i;
+      player.loadVideoById(ep.link);
+    };
+    container.appendChild(btn);
+  });
+}
+
+function showControls() {
+  clearTimeout(hideControlsTimer);
+  const controls = document.getElementById("videoControls");
+  controls.style.opacity = 1;
+  hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
+}
+
+const themes = [
   ['#0b0f1a', '#ffffff', '#8e2de2', 'Dark Violet'],
   ['#1a1a1a', '#eee', '#ff4081', 'Dark Pink'],
   ['#121212', '#ddd', '#00bcd4', 'Dark Aqua'],
@@ -183,87 +246,6 @@ const fontFamilies = [
   ['Montserrat', 'Montserrat'], ['Fira Sans', 'Fira Sans']
 ];
 
-const episodes = [
-  { title: "Episode 1", link: "ne0Y0vyjxpE" },
-  { title: "Episode 2", link: "J2568cnOa1g" },
-  { title: "Episode 3", link: "QOMv17IjJAU" },
-  { title: "Episode 4", link: "MT7WzTJZCxg" },
-  { title: "Episode 5", link: "4sRfndp1vAM" },
-  { title: "Episode 6", link: "oTvQ-5BNC6w" },
-  { title: "Episode 7", link: "Em5lFIz_kxU" },
-  { title: "Episode 8", link: "SBaGblvd4mU" },
-  { title: "Episode 9", link: "43Hj2GySjgA" },
-  { title: "Episode 10", link: "TIpodnZtFP4" },
-  { title: "Episode 11", link: "_L-UG_jvnM4" },
-  { title: "Episode 12", link: "skAwsc6UL8A" },
-  { title: "Episode 13", link: "-xUk9E2iQQY" }
-];
-
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('videoPlayer', {
-    videoId: episodes[currentEpisodeIndex].link,
-    playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
-    events: { onReady: loadEpisodes, onStateChange: handleStateChange }
-  });
-}
-
-function seek(sec) {
-  const time = player.getCurrentTime();
-  player.seekTo(time + sec, true);
-}
-
-function togglePlayPause() {
-  const state = player.getPlayerState();
-  if (state === YT.PlayerState.PLAYING) player.pauseVideo();
-  else player.playVideo();
-}
-
-function toggleFullscreen() {
-  const wrapper = document.querySelector(".video-container");
-  if (!document.fullscreenElement) wrapper.requestFullscreen();
-  else document.exitFullscreen();
-}
-
-function handleStateChange(event) {
-  if (event.data === YT.PlayerState.ENDED) playNextEpisode();
-}
-
-function playNextEpisode() {
-  if (currentEpisodeIndex < episodes.length - 1) {
-    currentEpisodeIndex++;
-    player.loadVideoById(episodes[currentEpisodeIndex].link);
-  }
-}
-
-function loadEpisodes() {
-  const container = document.getElementById("episodeList");
-  const fragment = document.createDocumentFragment();
-  episodes.forEach((ep, i) => {
-    const btn = document.createElement("button");
-    btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full neon-box";
-    btn.textContent = ep.title;
-    btn.onclick = () => {
-      currentEpisodeIndex = i;
-      player.loadVideoById(ep.link);
-    };
-    fragment.appendChild(btn);
-  });
-  container.innerHTML = '';
-  container.appendChild(fragment);
-}
-
-function showControls() {
-  clearTimeout(hideControlsTimer);
-  const controls = document.getElementById("videoControls");
-  controls.style.opacity = 1;
-  hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
-}
-
-function togglePanel() {
-  const panel = document.getElementById("sidePanel");
-  panel.classList.toggle("active");
-}
-
 themes.forEach(([bg, text, accent, name]) => {
   const btn = document.createElement("div");
   btn.className = "panel-item";
@@ -273,7 +255,6 @@ themes.forEach(([bg, text, accent, name]) => {
     document.documentElement.style.setProperty('--text-color', text);
     document.documentElement.style.setProperty('--accent-color', accent);
     document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
-    localStorage.setItem('theme', JSON.stringify([bg, text, accent, name]));
   };
   document.getElementById("themeList").appendChild(btn);
 });
@@ -285,7 +266,6 @@ neonColors.forEach(([color, name]) => {
   btn.onclick = () => {
     document.documentElement.style.setProperty('--neon-glow', color);
     document.documentElement.style.setProperty('--box-border', `0 0 10px ${color}`);
-    localStorage.setItem('neon', color);
   };
   document.getElementById("neonList").appendChild(btn);
 });
@@ -296,30 +276,9 @@ fontFamilies.forEach(([font, label]) => {
   btn.textContent = label;
   btn.onclick = () => {
     document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
-    localStorage.setItem('font', font);
   };
   document.getElementById("fontList").appendChild(btn);
 });
-
-// Restore last theme on load
-window.onload = () => {
-  const savedTheme = JSON.parse(localStorage.getItem('theme'));
-  const neon = localStorage.getItem('neon');
-  const font = localStorage.getItem('font');
-  if (savedTheme) {
-    document.documentElement.style.setProperty('--bg-color', savedTheme[0]);
-    document.documentElement.style.setProperty('--text-color', savedTheme[1]);
-    document.documentElement.style.setProperty('--accent-color', savedTheme[2]);
-    document.documentElement.style.setProperty('--control-bg', savedTheme[0].includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
-  }
-  if (neon) {
-    document.documentElement.style.setProperty('--neon-glow', neon);
-    document.documentElement.style.setProperty('--box-border', `0 0 10px ${neon}`);
-  }
-  if (font) {
-    document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
-  }
-};
 
   </script>
 </body>
