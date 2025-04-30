@@ -1,222 +1,234 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wind Breaker - Season 1</title>
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&family=Roboto&family=Orbitron&family=Montserrat&family=Fira+Sans&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #0b0f1a;
-      --text-color: #ffffff;
-      --accent-color: #8e2de2;
-      --control-bg: rgba(0, 0, 0, 0.6);
-      --neon-glow: #39ff14;
-      --box-border: 0 0 10px var(--neon-glow);
-      --font-family: 'Poppins', sans-serif;
-    }
-    body {
-      margin: 0;
-      font-family: var(--font-family);
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      overflow-x: hidden;
-      transition: background-color 0.5s, color 0.5s, font-family 0.3s;
-    }
-    .video-container {
-      position: relative;
-      padding-top: 56.25%;
-      background-color: black;
-    }
-    #videoPlayer, .overlay-layer {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-    .overlay-layer {
-      z-index: 2;
-    }
-    .controls {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6px;
-      z-index: 3;
-      flex-wrap: wrap;
-      opacity: 0;
-      transition: opacity 0.3s;
-      flex-direction: row;
-      flex-wrap: nowrap;
-    }
-    .control-btn {
-      background-color: var(--control-bg);
-      color: var(--text-color);
-      border: none;
-      padding: 6px 10px;
-      font-size: 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .control-btn:hover {
-      background-color: var(--accent-color);
-    }
-    .neon {
-      text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
-    }
-    .floating-panel {
-      position: fixed;
-      top: 10px;
-      background-color: var(--control-bg);
-      color: var(--text-color);
-      padding: 10px;
-      border-radius: 10px;
-      z-index: 100;
-    }
-    .theme-panel { left: 10px; }
-    .neon-panel { left: 150px; }
-    .font-panel { right: 10px; }
-    .neon-box {
-      box-shadow: var(--box-border);
-      transition: box-shadow 0.5s;
-    }
-    .panel-title {
-      font-size: 14px;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-    .panel-item {
-      margin-bottom: 4px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-    .panel-item:hover {
-      color: var(--accent-color);
-    }
+      --bg-color: #222;
+      --text-color: #fff;
+      --accent-color: #00f7ff;
+      --font-family: 'Arial', sans-serif;
+      --neon-glow: #00f7ff;
+      --box-border: 0 0 10px #00f7ff;
+      --control-bg: rgba(255,255,255,0.1);
+    }body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+}
+
+.panel {
+  position: fixed;
+  z-index: 1000;
+  top: 1rem;
+  padding: 1rem;
+  background: var(--control-bg);
+  border-radius: 1rem;
+  box-shadow: var(--box-border);
+}
+.theme-panel { left: 1rem; }
+.neon-panel { left: 1rem; top: 10rem; }
+.font-panel { right: 1rem; }
+
+.panel-item {
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.video-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: auto;
+}
+
+#player {
+  width: 100%;
+  height: 540px;
+  background: #000;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--control-bg);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.neon-box {
+  box-shadow: var(--box-border);
+}
+
+#episodeList {
+  padding: 2rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
   </style>
 </head>
 <body>
-  <div class="floating-panel theme-panel">
-    <div class="panel-title">Themes</div>
+  <div class="panel theme-panel">
+    <div><strong>Themes</strong></div>
     <div id="themeList"></div>
   </div>
-  <div class="floating-panel neon-panel">
-    <div class="panel-title">Neon Combos</div>
+  <div class="panel neon-panel">
+    <div><strong>Neon</strong></div>
     <div id="neonList"></div>
   </div>
-  <div class="floating-panel font-panel">
-    <div class="panel-title">Font Styles</div>
+  <div class="panel font-panel">
+    <div><strong>Font</strong></div>
     <div id="fontList"></div>
-  </div>  <div class="max-w-5xl mx-auto px-4 py-6">
-    <header class="text-center mb-6">
-      <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-    </header>
-    <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
-      <div id="videoPlayer"></div>
-      <div class="overlay-layer" onclick="togglePlayPause()"></div>
-      <div class="controls" id="videoControls">
-        <button class="control-btn" onclick="seek(-10)">-10s</button>
-        <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
-        <button class="control-btn" onclick="seek(10)">+10s</button>
-        <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
-      </div>
-    </div><div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
-  <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
-  <p>
-    Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...
-  </p>
-</div>
-
-<div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="episodeList"></div>
-
-<footer class="mt-10 text-sm text-center text-gray-400">
-  <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
-  <p>Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
-</footer>
-
-  </div>  <script>
-    let player;
-    let currentEpisodeIndex = 0;
-    let hideControlsTimer;
-
+  </div>  <div class="video-container">
+    <div id="player"></div>
+    <div class="controls">
+      <button onclick="player.seekTo(player.getCurrentTime() - 10)">-10s</button>
+      <button onclick="player.pauseVideo()">Pause</button>
+      <button onclick="player.playVideo()">Play</button>
+      <button onclick="player.seekTo(player.getCurrentTime() + 10)">+10s</button>
+    </div>
+  </div>  <section id="episodeList"></section>  <script src="https://www.youtube.com/iframe_api"></script>  <script>
     const themes = [
-      ['#0b0f1a', '#ffffff', '#8e2de2', 'Dark Violet'],
-      ['#1a1a1a', '#eee', '#ff4081', 'Dark Pink'],
-      ['#121212', '#ddd', '#00bcd4', 'Dark Aqua'],
-      ['#1e1e2f', '#e5e5e5', '#ff9800', 'Dark Orange'],
-      ['#202020', '#fafafa', '#e91e63', 'Dark Rose'],
-      ['#ffffff', '#000000', '#ff4081', 'White Pink'],
-      ['#f9f9f9', '#111', '#3f51b5', 'White Indigo'],
-      ['#eeeeee', '#000', '#009688', 'White Teal'],
-      ['#fff', '#333', '#673ab7', 'White Purple'],
-      ['#f0f0f0', '#111', '#ff5722', 'White Red']
+      ["#222", "#fff", "#00f7ff", "Dark Grey"],
+      ["#fff", "#000", "#f00", "Light Red"],
+      ["#000", "#fff", "#0f0", "Black Green"],
+      ["#333", "#ccc", "#ff0", "Charcoal Yellow"],
+      ["#111", "#eee", "#f0f", "Night Purple"],
+      ["#fefefe", "#111", "#1e90ff", "Bright Blue"],
+      ["#fafafa", "#222", "#ff6347", "Tomato"],
+      ["#fffae6", "#222", "#ff69b4", "Soft Pink"],
+      ["#fffacd", "#111", "#32cd32", "Lime Light"],
+      ["#ffffe0", "#000", "#8a2be2", "Yellow Purple"]
     ];
 
     const neonColors = [
-      ['#39ff14', 'Neon Green'], ['#ff00ff', 'Neon Magenta'],
-      ['#00ffff', 'Neon Cyan'], ['#ffd700', 'Neon Gold'],
-      ['#00ff00', 'Neon Lime'], ['#ff4444', 'Neon Red'],
-      ['#44ffdd', 'Neon Aqua'], ['#cc00cc', 'Neon Purple'],
-      ['#ffaa00', 'Neon Orange'], ['#00ccff', 'Neon Sky']
+      ["#00f7ff", "Cyan"],
+      ["#f0f", "Magenta"],
+      ["#ff0", "Yellow"],
+      ["#0f0", "Green"],
+      ["#f00", "Red"]
     ];
 
     const fontFamilies = [
-      ['Poppins', 'Poppins'], ['Roboto', 'Roboto'], ['Orbitron', 'Orbitron'],
-      ['Montserrat', 'Montserrat'], ['Fira Sans', 'Fira Sans']
+      ["Arial", "Arial"],
+      ["Courier New", "Courier"],
+      ["Georgia", "Georgia"],
+      ["Comic Sans MS", "Comic Sans"],
+      ["Verdana", "Verdana"]
     ];
 
     const episodes = [
-      { title: "Episode 1", link: "ne0Y0vyjxpE" },
-      { title: "Episode 2", link: "J2568cnOa1g" },
-      { title: "Episode 3", link: "QOMv17IjJAU" },
-      { title: "Episode 4", link: "MT7WzTJZCxg" },
-      { title: "Episode 5", link: "4sRfndp1vAM" },
-      { title: "Episode 6", link: "oTvQ-5BNC6w" },
-      { title: "Episode 7", link: "Em5lFIz_kxU" },
-      { title: "Episode 8", link: "SBaGblvd4mU" },
-      { title: "Episode 9", link: "43Hj2GySjgA" },
-      { title: "Episode 10", link: "TIpodnZtFP4" },
-      { title: "Episode 11", link: "_L-UG_jvnM4" },
-      { title: "Episode 12", link: "skAwsc6UL8A" },
-      { title: "Episode 13", link: "-xUk9E2iQQY" }
+      { title: "Episode 1 - Wind Breaker Begins", link: "VIDEO_ID_1" },
+      { title: "Episode 2 - Clash in the Streets", link: "VIDEO_ID_2" },
+      { title: "Episode 3 - Velocity Rival", link: "VIDEO_ID_3" }
     ];
 
+    let player;
+    let currentEpisodeIndex = 0;
+
     function onYouTubeIframeAPIReady() {
-      player = new YT.Player('videoPlayer', {
+      player = new YT.Player('player', {
         videoId: episodes[currentEpisodeIndex].link,
-        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
-        events: { onReady: loadEpisodes, onStateChange: handleStateChange }
+        events: {
+          onReady: () => {
+            loadEpisodes();
+            player.playVideo();
+          },
+          onStateChange: (event) => {
+            if (event.data === YT.PlayerState.ENDED) playNextEpisode();
+          }
+        }
       });
     }
 
-    function seek(sec) {
-      const time = player.getCurrentTime();
-      player.seekTo(time + sec, true);
+    function saveSetting(key, value) {
+      localStorage.setItem(key, value);
     }
 
-    function togglePlayPause() {
-      const state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) player.pauseVideo();
-      else player.playVideo();
+    function applySavedSettings() {
+      const bg = localStorage.getItem('theme-bg');
+      const text = localStorage.getItem('theme-text');
+      const accent = localStorage.getItem('theme-accent');
+      const neon = localStorage.getItem('neon-glow');
+      const font = localStorage.getItem('font-family');
+      const episode = parseInt(localStorage.getItem('last-episode'), 10);
+
+      if (bg && text && accent) {
+        document.documentElement.style.setProperty('--bg-color', bg);
+        document.documentElement.style.setProperty('--text-color', text);
+        document.documentElement.style.setProperty('--accent-color', accent);
+        document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
+      }
+      if (neon) {
+        document.documentElement.style.setProperty('--neon-glow', neon);
+        document.documentElement.style.setProperty('--box-border', `0 0 10px ${neon}`);
+      }
+      if (font) {
+        document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
+      }
+      if (!isNaN(episode)) {
+        currentEpisodeIndex = episode;
+      }
     }
 
-    function toggleFullscreen() {
-      const wrapper = document.querySelector(".video-container");
-      if (!document.fullscreenElement) wrapper.requestFullscreen();
-      else document.exitFullscreen();
-    }
+    themes.forEach(([bg, text, accent, name]) => {
+      const btn = document.createElement("div");
+      btn.className = "panel-item";
+      btn.textContent = name;
+      btn.onclick = () => {
+        document.documentElement.style.setProperty('--bg-color', bg);
+        document.documentElement.style.setProperty('--text-color', text);
+        document.documentElement.style.setProperty('--accent-color', accent);
+        document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
+        saveSetting('theme-bg', bg);
+        saveSetting('theme-text', text);
+        saveSetting('theme-accent', accent);
+      };
+      document.getElementById("themeList").appendChild(btn);
+    });
 
-    function handleStateChange(event) {
-      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
-    }
+    neonColors.forEach(([color, name]) => {
+      const btn = document.createElement("div");
+      btn.className = "panel-item";
+      btn.textContent = name;
+      btn.onclick = () => {
+        document.documentElement.style.setProperty('--neon-glow', color);
+        document.documentElement.style.setProperty('--box-border', `0 0 10px ${color}`);
+        saveSetting('neon-glow', color);
+      };
+      document.getElementById("neonList").appendChild(btn);
+    });
+
+    fontFamilies.forEach(([font, label]) => {
+      const btn = document.createElement("div");
+      btn.className = "panel-item";
+      btn.textContent = label;
+      btn.onclick = () => {
+        document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
+        saveSetting('font-family', font);
+      };
+      document.getElementById("fontList").appendChild(btn);
+    });
 
     function playNextEpisode() {
       if (currentEpisodeIndex < episodes.length - 1) {
         currentEpisodeIndex++;
         player.loadVideoById(episodes[currentEpisodeIndex].link);
+        saveSetting('last-episode', currentEpisodeIndex);
       }
     }
 
@@ -230,6 +242,7 @@
         btn.onclick = () => {
           currentEpisodeIndex = i;
           player.loadVideoById(ep.link);
+          saveSetting('last-episode', currentEpisodeIndex);
         };
         fragment.appendChild(btn);
       });
@@ -237,48 +250,6 @@
       container.appendChild(fragment);
     }
 
-    function showControls() {
-      clearTimeout(hideControlsTimer);
-      const controls = document.getElementById("videoControls");
-      controls.style.opacity = 1;
-      hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
-    }
-
-    // Populate Theme Panel
-    themes.forEach(([bg, text, accent, name], i) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = name;
-      btn.onclick = () => {
-        document.documentElement.style.setProperty('--bg-color', bg);
-        document.documentElement.style.setProperty('--text-color', text);
-        document.documentElement.style.setProperty('--accent-color', accent);
-        document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
-      };
-      document.getElementById("themeList").appendChild(btn);
-    });
-
-    // Populate Neon Panel
-    neonColors.forEach(([color, name]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = name;
-      btn.onclick = () => {
-        document.documentElement.style.setProperty('--neon-glow', color);
-        document.documentElement.style.setProperty('--box-border', `0 0 10px ${color}`);
-      };
-      document.getElementById("neonList").appendChild(btn);
-    });
-
-    // Populate Font Panel
-    fontFamilies.forEach(([font, label]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = label;
-      btn.onclick = () => {
-        document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
-      };
-      document.getElementById("fontList").appendChild(btn);
-    });
+    document.addEventListener("DOMContentLoaded", applySavedSettings);
   </script></body>
 </html>
