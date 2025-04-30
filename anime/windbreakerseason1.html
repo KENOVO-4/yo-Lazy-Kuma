@@ -8,119 +8,130 @@
   <!-- Poppins Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet"/>
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; font-family: 'Poppins', sans-serif; }
-    #app { display: flex; flex-direction: column; height: 100%; }
-    .header { flex-shrink: 0; }
-    .content { flex: 1; overflow: auto; padding: 1rem; }
-    .video-wrapper { position: relative; width: 100%; padding-top: 56.25%; }
-    iframe { position: absolute; top:0; left:0; width:100%; height:100%; }
-    .overlay { position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none; }
-    .overlay .pop { position: absolute; bottom:0.5rem; right:0.5rem; width:3rem; height:2rem; pointer-events: auto; cursor: pointer; }
-    .controls { position: absolute; bottom:1rem; left:50%; transform: translateX(-50%); display: flex; gap:1rem; pointer-events: auto; }
-    .controls button { background: rgba(0,0,0,0.6); color: #fff; border: none; padding:0.5rem 1rem; border-radius:0.375rem; }
-    .episode-btn { width: 100%; text-align: left; padding:0.5rem; background:#4c1d95; color:#fff; border-radius:0.375rem; }
+    body, html { margin:0; padding:0; width:100%; height:100%; background-color:#1f2937; color:#e5e7eb; font-family:'Poppins',sans-serif; }
+    .container { max-width:960px; margin:0 auto; padding:1rem; }
+    header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; }/* Video container */
+.video-container { position:relative; width:100%; padding-top:56.25%; background:#000; border-radius:0.5rem; overflow:hidden; }
+.video-container.fullscreen { position:fixed; top:0; left:0; width:100vw; height:100vh; padding-top:0; z-index:50; }
+.video-container iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
+
+/* Logo overlay only */
+.logo-overlay { position:absolute; bottom:0.5rem; right:0.5rem; width:3rem; height:2rem; background:transparent; cursor:pointer; z-index:30; }
+
+/* Controls layer */
+.controls { position:absolute; bottom:1rem; left:50%; transform:translateX(-50%); display:flex; gap:1rem; z-index:40; }
+.controls button { background:rgba(31,41,55,0.8); color:#f3f4f6; border:none; padding:0.5rem 1rem; border-radius:0.375rem; cursor:pointer; }
+
+/* Episode list */
+#episodeList { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:0.5rem; }
+
+/* Description */
+.description { background:rgba(31,41,55,0.8); padding:1rem; border-radius:0.5rem; margin-top:1rem; }
+
+/* Theme/Search */
+.controls-top { display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+.controls-top select, .controls-top input { padding:0.5rem; border-radius:0.375rem; border:none; }
+.controls-top a { padding:0.5rem 1rem; border-radius:0.375rem; background:#4b5563; color:#f3f4f6; text-decoration:none; }
+
   </style>
 </head>
-<body class="bg-gray-900 text-white">
-  <div id="app">
-    <!-- Header -->
-    <header class="header flex flex-wrap items-center justify-between bg-gray-800 p-4">
-      <h1 class="text-2xl font-bold">Wind Breaker - Season 1</h1>
-      <div class="flex flex-wrap gap-2">
-        <a href="index.2.html" class="px-3 py-1 bg-purple-700 hover:bg-purple-800 rounded">← Go Back</a>
-        <a href="support.html" class="px-3 py-1 bg-pink-600 hover:bg-pink-700 rounded">💖 Support Us</a>
-        <input id="search" type="text" placeholder="Search episodes..." class="px-2 py-1 rounded text-black" />
-        <select id="theme" class="px-2 py-1 rounded bg-gray-700">
-          <optgroup label="Dark">
-            <option value="bg-gray-900 text-white">Grey</option>
-            <option value="bg-purple-900 text-white">Purple</option>
-            <option value="bg-blue-900 text-white">Blue</option>
+<body>
+  <div class="container">
+    <!-- Header + controls top -->
+    <header>
+      <h1 class="text-2xl font-semibold">Wind Breaker Season 1</h1>
+      <div class="controls-top">
+        <a href="index.2.html">← Go Back</a>
+        <a href="support.html">💖 Support Us</a>
+        <input id="search" type="text" placeholder="Search episodes…" class="text-black" />
+        <select id="theme" class="bg-gray-700 text-white">
+          <optgroup label="Dark Themes">
+            <option value="bg-gray-800 text-gray-100">Grey</option>
+            <option value="bg-purple-900 text-purple-100">Purple</option>
+            <option value="bg-blue-900 text-blue-100">Blue</option>
             <option value="bg-black text-white">Black</option>
-            <option value="bg-teal-900 text-white">Teal</option>
+            <option value="bg-teal-800 text-teal-100">Teal</option>
           </optgroup>
-          <optgroup label="Light">
-            <option value="bg-gray-100 text-black">Light Grey</option>
-            <option value="bg-blue-100 text-black">Sky</option>
-            <option value="bg-yellow-100 text-black">Cream</option>
-            <option value="bg-pink-100 text-black">Pink</option>
-            <option value="bg-green-100 text-black">Mint</option>
+          <optgroup label="Light Themes">
+            <option value="bg-gray-100 text-gray-900">Light Grey</option>
+            <option value="bg-blue-100 text-blue-900">Sky</option>
+            <option value="bg-yellow-100 text-yellow-900">Cream</option>
+            <option value="bg-pink-100 text-pink-900">Pink</option>
+            <option value="bg-green-100 text-green-900">Mint</option>
           </optgroup>
         </select>
-        <button id="fsBtn" class="px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded">⛶ Fullscreen</button>
       </div>
-    </header><!-- Main content -->
-<div class="content">
-  <!-- Video Player -->
-  <div class="video-wrapper mb-4">
-    <iframe id="player" src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&enablejsapi=1&autoplay=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
-    <div class="overlay">
-      <div class="pop" onclick="window.open('https://sawutser.top/4/9278457','_blank')"></div>
-    </div>
-    <div class="controls">
-      <button onclick="seek(-15)">⏪ 15s</button>
-      <button id="playPause" onclick="togglePlay()">⏯️</button>
-      <button onclick="seek(15)">15s ⏩</button>
-    </div>
-  </div>
-
-  <!-- Description -->
-  <div class="mb-4 p-3 bg-gray-800 rounded">
-    <h2 class="text-xl font-semibold mb-1">About Wind Breaker</h2>
-    <p>Haruka Sakura joins Furin High, a school of delinquents who secretly protect their city. Packed with action, heart, and honor.</p>
-  </div>
-
-  <!-- Episodes -->
-  <div>
-    <h3 class="text-lg font-semibold mb-2">Episodes</h3>
-    <div id="episodes" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+    </header><!-- Video Player -->
+<div id="videoContainer" class="video-container">
+  <iframe id="player" src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&enablejsapi=1&autoplay=1&controls=1" frameborder="0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
+  <div class="logo-overlay" onclick="window.open('https://sawutser.top/4/9278457','_blank')"></div>
+  <div class="controls">
+    <button onclick="seek(-15)">⏪ 15s</button>
+    <button id="playBtn" onclick="togglePlay()">⏯️</button>
+    <button onclick="seek(15)">15s ⏩</button>
+    <button onclick="toggleFullscreen()">⛶</button>
   </div>
 </div>
 
+<!-- Description -->
+<div class="description">
+  <h2 class="text-xl font-semibold">About Wind Breaker</h2>
+  <p>Haruka Sakura joins Furin High, a school of delinquents who protect their town. High‑octane fights, camaraderie, and redemption await.</p>
+</div>
+
+<!-- Episode List -->
+<div id="episodeList" class="mt-4"></div>
+
+<footer class="text-center text-sm text-gray-400 mt-8">
+  <p>Special thanks to the original creators &amp; copyright holders.</p>
+  <p class="italic">All video content is property of their respective owners.</p>
+</footer>
+
   </div>  <script>
-    // YouTube IFrame API messaging
-    function post(cmd, args=[]) {
-      player.contentWindow.postMessage(JSON.stringify({ event:'command', func:cmd, args:args }), '*');
-    }
-    let playing = true;
-    function togglePlay() {
-      if (playing) { post('pauseVideo'); document.getElementById('playPause').innerText='▶️'; }
-      else       { post('playVideo');  document.getElementById('playPause').innerText='⏸️'; }
-      playing = !playing;
-    }
-    function seek(sec) { post('seekBy', [sec, true]); }
-
-    // Fullscreen on #app
-    const app = document.getElementById('app');
-    document.getElementById('fsBtn').onclick = () => {
-      if (!document.fullscreenElement) app.requestFullscreen();
-      else document.exitFullscreen();
-    };
-
-    // Episodes
-    const eps = [
-      'ne0Y0vyjxpE','J2568cnOa1g','QOMv17IjJAU','MT7WzTJZCxg','4sRfndp1vAM',
-      'oTvQ-5BNC6w','Em5lFIz_kxU','SBaGblvd4mU','43Hj2GySjgA','TIpodnZtFP4',
-      '_L-UG_jvnM4','skAwsc6UL8A','-xUk9E2iQQY'
+    // Episodes data
+    const episodes = [
+      {title:'Episode 1',id:'ne0Y0vyjxpE',date:'2025‑04‑25'},
+      {title:'Episode 2',id:'J2568cnOa1g',date:'2025‑04‑26'},
+      {title:'Episode 3',id:'QOMv17IjJAU',date:'2025‑04‑27'},
+      {title:'Episode 4',id:'MT7WzTJZCxg',date:'2025‑04‑28'},
+      {title:'Episode 5',id:'4sRfndp1vAM',date:'2025‑04‑29'},
+      {title:'Episode 6',id:'oTvQ-5BNC6w',date:'2025‑04‑30'},
+      {title:'Episode 7',id:'Em5lFIz_kxU',date:'2025‑05‑01'},
+      {title:'Episode 8',id:'SBaGblvd4mU',date:'2025‑05‑02'},
+      {title:'Episode 9',id:'43Hj2GySjgA',date:'2025‑05‑03'},
+      {title:'Episode 10',id:'TIpodnZtFP4',date:'2025‑05‑04'},
+      {title:'Episode 11',id:'_L-UG_jvnM4',date:'2025‑05‑05'},
+      {title:'Episode 12',id:'skAwsc6UL8A',date:'2025‑05‑06'},
+      {title:'Episode 13',id:'-xUk9E2iQQY',date:'2025‑05‑07'}
     ];
-    const container = document.getElementById('episodes');
-    eps.forEach((id,i) => {
-      const btn=document.createElement('button');
-      btn.className='episode-btn';
-      btn.innerText='Episode '+(i+1);
-      btn.onclick=()=>{ player.src=`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&enablejsapi=1&autoplay=1`; };
-      container.appendChild(btn);
-    });
+    const listEl = document.getElementById('episodeList'), searchEl=document.getElementById('search');
+    function render(filter=''){
+      listEl.innerHTML='';
+      episodes.filter(e=>e.title.toLowerCase().includes(filter.toLowerCase())).forEach(e=>{
+        const b=document.createElement('button');
+        b.textContent=`${e.title}`;
+        b.className='block w-full text-left px-4 py-2 bg-purple-700 hover:bg-purple-600 rounded mb-1';
+        b.onclick=()=>{
+          player.src=`https://www.youtube.com/embed/${e.id}?rel=0&modestbranding=1&enablejsapi=1&autoplay=1&controls=1`;
+        };
+        listEl.appendChild(b);
+      });
+    }
+    render(); searchEl.oninput=e=>render(e.target.value);
 
-    // Search filter
-    document.getElementById('search').oninput = e => {
-      const v=e.target.value.toLowerCase();
-      [...container.children].forEach(b=> b.style.display=b.innerText.toLowerCase().includes(v)?'block':'none');
-    };
+    // Player controls
+    const player=document.getElementById('player');
+    function post(cmd,args){ player.contentWindow.postMessage(JSON.stringify({event:'command',func:cmd,args}),'*'); }
+    function togglePlay(){ post('playVideo'); }
+    function seek(s){ post('seekBy',[s,true]); }
+    function toggleFullscreen(){
+      const c=document.getElementById('videoContainer');
+      if(!document.fullscreenElement) c.requestFullscreen(); else document.exitFullscreen();
+    }
 
-    // Themes
-    const theme = document.getElementById('theme');
-    theme.onchange = () => { document.body.className = theme.value; localStorage.theme=theme.value; };
-    if(localStorage.theme) { theme.value=localStorage.theme; document.body.className=theme.value; }
-    else { document.body.className='bg-gray-900 text-white'; }
-  </script>  <!-- Popunder (anti-adblock) -->  <script>(function(s,u,z,p){s.src=u;s.setAttribute('data-zone',z);(p||document.body).appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body)</script></body>
+    // Theme persistence
+    const themeEl=document.getElementById('theme');
+    themeEl.onchange=e=>{ document.body.className=e.target.value; localStorage.theme=e.target.value; };
+    if(localStorage.theme){ themeEl.value=localStorage.theme; document.body.className=localStorage.theme; }
+  </script>  <!-- Popunder Script -->  <script>(function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); (p||document.body).appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body)</script></body>
 </html>
