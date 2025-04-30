@@ -110,8 +110,7 @@
 <body>
   <header class="text-center mt-4 relative">
     <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-  </header>
-  <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
+  </header>  <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
     <div id="videoPlayer"></div>
     <div class="overlay-layer" onclick="togglePlayPause()"></div>
     <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
@@ -122,62 +121,83 @@
       <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
     </div>
     <button class="toggle-btn" id="uiToggle">Customize UI</button>
-  </div>
-  <div class="description-box">
+  </div>  <div class="description-box">
     <h2 class="text-xl font-semibold mb-2">Description</h2>
     <p>Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...</p>
-  </div>
-  <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
-  <div id="episodeList"></div>
-  <footer class="mt-10 text-sm text-center text-gray-400">
+  </div>  <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
+  <div id="episodeList"></div>  <footer class="mt-10 text-sm text-center text-gray-400">
     <p>Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.</p>
-  </footer>
-  <div class="popup-overlay hidden" id="adPopup">
+  </footer>  <div class="popup-overlay hidden" id="adPopup">
     <div class="popup-box">
       <h3 class="text-lg font-bold mb-2">Support Us</h3>
       <p class="mb-4">To watch this anime, support us!<br><small>(Caution: don't download anything; ads are not directed by me.)</small></p>
       <button class="control-btn mb-2" id="adButton" onclick="onAdClick()" disabled>Wait...</button>
       <div id="countdown">Please wait 5s...</div>
     </div>
-  </div>
-  <div class="floating-panel theme-panel" id="themePanel"><div class="panel-title">Themes</div><div id="themeList"></div></div>
+  </div>  <div class="floating-panel theme-panel" id="themePanel"><div class="panel-title">Themes</div><div id="themeList"></div></div>
   <div class="floating-panel neon-panel" id="neonPanel"><div class="panel-title">Neon Colors</div><div id="neonList"></div></div>
-  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Fonts</div><div id="fontList"></div></div>
-  <script>
-  const episodes = [
-    { title: "Episode 1", link: "ne0Y0vyjxpE" },
-    { title: "Episode 2", link: "J2568cnOa1g" },
-    { title: "Episode 3", link: "QOMv17IjJAU" },
-    { title: "Episode 4", link: "MT7WzTJZCxg" },
-    { title: "Episode 5", link: "4sRfndp1vAM" },
-    { title: "Episode 6", link: "oTvQ-5BNC6w" },
-    { title: "Episode 7", link: "Em5lFIz_kxU" },
-    { title: "Episode 8", link: "SBaGblvd4mU" },
-    { title: "Episode 9", link: "43Hj2GySjgA" },
-    { title: "Episode 10", link: "TIpodnZtFP4" },
-    { title: "Episode 11", link: "_L-UG_jvnM4" },
-    { title: "Episode 12", link: "skAwsc6UL8A" },
-    { title: "Episode 13", link: "-xUk9E2iQQY" }
-  ];
-  let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging = false;
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('videoPlayer', {
-      videoId: episodes[0].link,
-      playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
-      events: { onReady: () => { loadEpisodes(); loadUISettings(); }, onStateChange: e => { if (e.data === YT.PlayerState.ENDED) playNextEpisode(); } }
-    });
-  }
-  function loadEpisodes() {
-    const list = document.getElementById('episodeList'); list.innerHTML = '';
-    episodes.forEach((ep, i) => { const btn = document.createElement('div'); btn.className = 'episode-btn'; btn.textContent = ep.title; btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); }; list.appendChild(btn); });
-  }
-  // UI panels
-  document.getElementById('uiToggle').addEventListener('click', toggleUIPanels);
-  function toggleUIPanels() { ['themePanel','neonPanel','fontPanel'].forEach(id => { const el = document.getElementById(id); el.style.display = el.style.display==='block' ? 'none' : 'block'; }); }
-  const themes = [['#0b0f1a','#fff','#8e2de2','Dark Violet'],['#1a1a1a','#eee','#ff4081','Dark Pink'],['#ffffff','#000','#ff4081','White Pink'],['#f0f0f0','#111','#ff5722','White Red']];
-  const neonColors = [['#39ff14','Neon Green'],['#ff00ff','Neon Magenta'],['#00ffff','Neon Cyan'],['#ffd700','Neon Gold'],['#ff4444','Neon Red']];
-  const fonts = [['Poppins','Poppins'],['Roboto','Roboto'],['Orbitron','Orbitron']];
-  let localTheme=null, localNeon=null, localFont=null;
-  function applyTheme(bg,txt,acc,ctrlBg){document.documentElement.style.setProperty('--bg-color',bg);document.documentElement.style.setProperty('--text-color',txt);document.documentElement.style.setProperty('--accent-color',acc);document.documentElement.style.setProperty('--control-bg',ctrlBg);}  
-  function applyNeon(col){document.documentElement.style.setProperty('--neon-glow',col);document.documentElement.style.setProperty('--box-border',`0 0 10px ${col}`);}  
-```
+  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Fonts</div><div id="fontList"></div></div>  <script>
+    const episodes = [
+      { title: "Episode 1", link: "ne0Y0vyjxpE" },
+      { title: "Episode 2", link: "J2568cnOa1g" },
+      { title: "Episode 3", link: "QOMv17IjJAU" },
+      { title: "Episode 4", link: "MT7WzTJZCxg" },
+      { title: "Episode 5", link: "4sRfndp1vAM" },
+      { title: "Episode 6", link: "oTvQ-5BNC6w" },
+      { title: "Episode 7", link: "Em5lFIz_kxU" },
+      { title: "Episode 8", link: "SBaGblvd4mU" },
+      { title: "Episode 9", link: "43Hj2GySjgA" },
+      { title: "Episode 10", link: "TIpodnZtFP4" },
+      { title: "Episode 11", link: "_L-UG_jvnM4" },
+      { title: "Episode 12", link: "skAwsc6UL8A" },
+      { title: "Episode 13", link: "-xUk9E2iQQY" }
+    ];
+    let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging = false;
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('videoPlayer', {
+        videoId: episodes[0].link,
+        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
+        events: {
+          onReady: () => { loadEpisodes(); loadUISettings(); },
+          onStateChange: e => { if (e.data === YT.PlayerState.ENDED) playNextEpisode(); }
+        }
+      });
+    }
+
+    function loadEpisodes() {
+      const list = document.getElementById('episodeList'); list.innerHTML = '';
+      episodes.forEach((ep, i) => {
+        const btn = document.createElement('div'); btn.className = 'episode-btn'; btn.textContent = ep.title;
+        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); };
+        list.appendChild(btn);
+      });
+    }
+
+    // Controls visibility
+    function showControls() {
+      clearTimeout(hideControlsTimer);
+      document.getElementById('videoControls').style.opacity = 1;
+      document.getElementById('uiToggle').style.opacity = 1;
+      document.getElementById('progress-bar').style.opacity = 1;
+      hideControlsTimer = setTimeout(() => {
+        document.getElementById('videoControls').style.opacity = 0;
+        document.getElementById('uiToggle').style.opacity = 0;
+        document.getElementById('progress-bar').style.opacity = 0;
+      }, 3000);
+    }
+
+    function seek(sec) { player.seekTo(player.getCurrentTime() + sec, true); }
+    function togglePlayPause() { const s = player.getPlayerState(); s === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
+    function toggleFullscreen() { const w = document.querySelector('.video-container'); document.fullscreenElement ? document.exitFullscreen() : w.requestFullscreen(); }
+    function playNextEpisode() { if (currentEpisodeIndex < episodes.length - 1) { currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); } }
+
+    // Progress drag
+    const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
+    progressBar.addEventListener('mousedown', e => { isDragging = true; updateSeek(e); });
+    document.addEventListener('mousemove', e => { if (isDragging) updateSeek(e); });
+    document.addEventListener('mouseup', e => { if (isDragging) { updateSeek(e); isDragging = false; } });
+    function updateSeek(e) {
+      const rect = progressBar.getBoundingClientRect(); let x = e.clientX - rect.left; x = Math.max(0, Math.min(x, rect.width));
+      const pct = x / rect.width; progress.style.width = pct * 100 + '%';
+      player.seekTo(pct *
