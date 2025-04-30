@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,93 +8,114 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.3s, color 0.3s;
     }
-    #overlay-block {
+    html, body {
+      user-select: none;
+    }
+    iframe {
+      pointer-events: auto !important;
+    }
+    .overlay {
       position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 9999;
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 10;
     }
-    .hidden-overlay {
-      display: none !important;
+    .hiddenOverlay {
+      background: transparent;
     }
+    .theme-dark-1 { background-color: #1f2937; color: white; }
+    .theme-dark-2 { background-color: #1e3a8a; color: white; }
+    .theme-dark-3 { background-color: #374151; color: white; }
+    .theme-dark-4 { background-color: #065f46; color: white; }
+    .theme-dark-5 { background-color: #7f1d1d; color: white; }
+    .theme-light-1 { background-color: #fef9c3; color: black; }
+    .theme-light-2 { background-color: #dbeafe; color: black; }
+    .theme-light-3 { background-color: #fce7f3; color: black; }
+    .theme-light-4 { background-color: #f3f4f6; color: black; }
+    .theme-light-5 { background-color: #dcfce7; color: black; }
   </style>
 </head>
-<body class="bg-gray-900 text-white transition-all duration-500" oncontextmenu="return false;">
-  <div class="max-w-5xl mx-auto p-4 space-y-6">
-
+<body class="theme-dark-1 min-h-screen" oncontextmenu="return false;">
+  <div class="max-w-4xl mx-auto p-6 space-y-6">
     <!-- Header -->
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-3 sm:space-y-0">
-      <h1 class="text-4xl font-bold text-purple-400">Wind Breaker - Season 1</h1>
-      <div class="flex flex-wrap gap-2">
-        <select id="themeSwitcher" class="rounded px-3 py-2 bg-purple-800 text-white">
-          <option value="theme-dark-1">Dark Purple</option>
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between space-y-2 sm:space-y-0">
+      <h1 class="text-4xl font-bold">Wind Breaker Season 1</h1>
+      <div class="flex space-x-3">
+        <select id="themeSwitcher" class="bg-white text-black p-2 rounded-xl">
+          <option value="theme-dark-1">Dark Gray</option>
           <option value="theme-dark-2">Dark Blue</option>
-          <option value="theme-dark-3">Dark Gray</option>
+          <option value="theme-dark-3">Dark Slate</option>
           <option value="theme-dark-4">Dark Green</option>
           <option value="theme-dark-5">Dark Red</option>
-          <option value="theme-light-1">Light Cream</option>
-          <option value="theme-light-2">Light Sky</option>
+          <option value="theme-light-1">Light Yellow</option>
+          <option value="theme-light-2">Light Blue</option>
           <option value="theme-light-3">Light Pink</option>
           <option value="theme-light-4">Light Gray</option>
-          <option value="theme-light-5">Light Mint</option>
+          <option value="theme-light-5">Light Green</option>
         </select>
-        <input type="text" id="searchInput" placeholder="Search episodes..." class="px-3 py-2 rounded bg-gray-800 text-white" />
-        <a href="support.html" class="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded transition">💖 Support Us</a>
+        <a href="index.2.html" class="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded-xl shadow">← Go Back</a>
       </div>
-    </header>
+    </header><!-- Search Bar -->
+<input id="searchInput" type="text" placeholder="Search episode..." class="w-full p-2 rounded bg-white text-black">
 
-    <!-- Video Player -->
-    <div class="relative aspect-video bg-black rounded shadow overflow-hidden">
-      <iframe id="videoPlayer" class="w-full h-full" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
-      <div id="overlay-block"></div>
-    </div>
+<!-- Video Player -->
+<div class="relative rounded-lg shadow-lg overflow-hidden aspect-video">
+  <iframe
+    id="videoPlayer"
+    class="w-full h-full"
+    src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&autoplay=0&controls=1&fs=1"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+    allowfullscreen>
+  </iframe>
+  <div class="overlay hiddenOverlay" onclick="window.open('https://shebudriftaiter.net', '_blank')"></div>
+</div>
 
-    <!-- Description -->
-    <div class="bg-black bg-opacity-30 p-4 rounded">
-      <h2 class="text-xl font-semibold">About Wind Breaker</h2>
-      <p class="text-sm text-gray-300 mt-2">
-        Haruka Sakura enters Furin High School, a school full of delinquents who actually protect the city. Watch him fight to find his place.
-      </p>
-    </div>
+<!-- Description -->
+<div id="animeDesc" class="p-4 rounded-lg text-sm shadow">Loading anime description...</div>
 
-    <!-- Episode Info -->
-    <div class="p-4 bg-gray-800 rounded space-y-1">
-      <h3 id="episodeTitle" class="text-lg font-semibold text-pink-400">Select an episode</h3>
-      <p id="episodeDesc" class="text-sm text-gray-300">Click an episode to play</p>
-      <p id="uploadDate" class="text-xs text-gray-400">Uploaded: —</p>
-    </div>
+<!-- Metadata -->
+<div class="p-4 rounded-lg shadow-inner space-y-1">
+  <h2 id="episodeTitle" class="text-xl font-semibold">Select an episode</h2>
+  <p id="episodeDesc" class="text-sm">Click any episode below to start watching.</p>
+  <p id="uploadDate" class="text-xs">Uploaded: —</p>
+</div>
 
-    <!-- Episode List -->
-    <div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+<!-- Episode List -->
+<div id="episodeList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
 
-    <!-- Footer -->
-    <footer class="text-center text-sm text-gray-400 mt-10 border-t border-gray-600 pt-4">
-      <p>Special thanks to the original creators, studios & copyright holders of <strong>Wind Breaker</strong>.</p>
-      <p class="italic mt-1">All videos are property of their respective owners. Support official releases.</p>
-    </footer>
-  </div>
+<!-- Special Thanks -->
+<footer class="mt-12 text-center text-sm border-t pt-6">
+  <p>Special thanks to the original creators, production studios, and copyright holders of <strong>Wind Breaker</strong>.</p>
+  <p class="mt-2 italic">All video content embedded on this site is property of their respective owners.</p>
+  <p class="mt-1 font-semibold">Support the official release whenever possible.</p>
+</footer>
 
-  <!-- Popunder Script -->
-  <script>
-    document.getElementById('overlay-block').addEventListener('click', () => {
-      (function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})
-      (document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement);
+  </div>  <script>
+    // Set saved theme
+    const themes = document.getElementById('themeSwitcher');
+    const savedTheme = localStorage.getItem('selectedTheme') || 'theme-dark-1';
+    document.body.className = savedTheme;
+    themes.value = savedTheme;
+
+    themes.addEventListener('change', (e) => {
+      document.body.className = e.target.value;
+      localStorage.setItem('selectedTheme', e.target.value);
     });
-  </script>
 
-  <script>
+    // Description
+    const animeDesc = `<h3 class="text-lg font-semibold mb-1">About Wind Breaker</h3>
+    <p>Haruka Sakura joins the feared Furin High, only to discover its delinquents protect their town. With intense fights and emotional growth, Wind Breaker balances action with heart.</p>`;
+    document.getElementById("animeDesc").innerHTML = animeDesc;
+
     const episodes = [
       { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE", date:"2025-04-25" },
-      { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g", date:"2025-04-26" },
-      { title: "Episode 3", link: "https://www.youtube.com/embed/QOMv17IjJAU", date:"2025-04-27" },
-      { title: "Episode 4", link: "https://www.youtube.com/embed/MT7WzTJZCxg", date:"2025-04-28" },
-      { title: "Episode 5", link: "https://www.youtube.com/embed/4sRfndp1vAM", date:"2025-04-29" },
-      // Add more as needed
+      { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g", date:"2025-04-25" },
+      { title: "Episode 3", link: "https://www.youtube.com/embed/QOMv17IjJAU", date:"2025-04-25" },
+      { title: "Episode 4", link: "https://www.youtube.com/embed/MT7WzTJZCxg", date:"2025-04-25" },
+      { title: "Episode 5", link: "https://www.youtube.com/embed/4sRfndp1vAM", date:"2025-04-25" }
     ];
 
     const list = document.getElementById('episodeList');
@@ -103,57 +123,29 @@
     const title = document.getElementById('episodeTitle');
     const desc  = document.getElementById('episodeDesc');
     const date  = document.getElementById('uploadDate');
-    const searchInput = document.getElementById('searchInput');
 
-    function renderEpisodes(filter = "") {
-      list.innerHTML = "";
-      episodes.filter(ep => ep.title.toLowerCase().includes(filter.toLowerCase())).forEach(ep => {
-        const btn = document.createElement('button');
-        btn.className = 'flex items-center p-3 bg-purple-800 hover:bg-purple-700 rounded shadow transition-all duration-200 transform hover:scale-105';
-        btn.innerHTML = '<span class="mr-2 text-pink-300">▶</span><span>' + ep.title + '</span>';
-        btn.onclick = () => {
-          const url = `${ep.link}?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1`;
-          player.src = url;
-          title.textContent = ep.title;
-          desc.textContent = 'Now playing: ' + ep.title;
-          date.textContent = 'Uploaded: ' + ep.date;
-          localStorage.setItem('lastWatched', JSON.stringify(ep));
-        };
-        list.appendChild(btn);
-      });
+    function renderEpisodes(filter = '') {
+      list.innerHTML = '';
+      episodes
+        .filter(ep => ep.title.toLowerCase().includes(filter.toLowerCase()))
+        .forEach(ep => {
+          const btn = document.createElement('button');
+          btn.className = 'flex items-center space-x-3 p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md';
+          btn.innerHTML = `<span class='text-pink-300 text-lg'>▶</span><span class='flex-1 text-left'>${ep.title}</span>`;
+          btn.onclick = () => {
+            player.src = ep.link + '?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1';
+            title.textContent = ep.title;
+            desc.textContent = 'Wind Breaker Season 1 — ' + ep.title;
+            date.textContent = 'Uploaded: ' + ep.date;
+          };
+          list.appendChild(btn);
+        });
     }
 
-    searchInput.addEventListener('input', e => renderEpisodes(e.target.value));
-    renderEpisodes();
-
-    // Load last watched
-    const last = localStorage.getItem('lastWatched');
-    if (last) {
-      const ep = JSON.parse(last);
-      player.src = `${ep.link}?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1`;
-      title.textContent = ep.title;
-      desc.textContent = 'Now playing: ' + ep.title;
-      date.textContent = 'Uploaded: ' + ep.date;
-    }
-
-    // Themes
-    const themes = {
-      "theme-dark-1": { bg: "bg-gray-900", text: "text-white" },
-      "theme-dark-2": { bg: "bg-blue-900", text: "text-white" },
-      "theme-dark-3": { bg: "bg-gray-800", text: "text-white" },
-      "theme-dark-4": { bg: "bg-green-900", text: "text-white" },
-      "theme-dark-5": { bg: "bg-red-900", text: "text-white" },
-      "theme-light-1": { bg: "bg-yellow-100", text: "text-black" },
-      "theme-light-2": { bg: "bg-blue-100", text: "text-black" },
-      "theme-light-3": { bg: "bg-pink-100", text: "text-black" },
-      "theme-light-4": { bg: "bg-gray-100", text: "text-black" },
-      "theme-light-5": { bg: "bg-green-100", text: "text-black" },
-    };
-
-    document.getElementById('themeSwitcher').addEventListener('change', e => {
-      const val = e.target.value;
-      document.body.className = themes[val].bg + ' ' + themes[val].text + ' transition-all duration-500';
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      renderEpisodes(e.target.value);
     });
-  </script>
-</body>
+
+    renderEpisodes();
+  </script></body>
 </html>
