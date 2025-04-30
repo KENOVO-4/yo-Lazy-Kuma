@@ -5,7 +5,7 @@
   <title>Wind Breaker - Season 1</title>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&family=Roboto&family=Orbitron&family=Montserrat&family=Fira+Sans&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-color: #0b0f1a;
@@ -14,14 +14,15 @@
       --control-bg: rgba(0, 0, 0, 0.6);
       --neon-glow: #39ff14;
       --box-border: 0 0 10px var(--neon-glow);
+      --font-family: 'Poppins', sans-serif;
     }
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: var(--font-family);
       background-color: var(--bg-color);
       color: var(--text-color);
       overflow-x: hidden;
-      transition: background-color 0.5s, color 0.5s;
+      transition: background-color 0.5s, color 0.5s, font-family 0.3s;
     }
     .video-container {
       position: relative;
@@ -47,6 +48,8 @@
       flex-wrap: wrap;
       opacity: 0;
       transition: opacity 0.3s;
+      flex-direction: row;
+      flex-wrap: nowrap;
     }
     .control-btn {
       background-color: var(--control-bg);
@@ -64,45 +67,63 @@
     .neon {
       text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
     }
-    .theme-toggle, .neon-toggle {
-      position: absolute;
+    .floating-panel {
+      position: fixed;
       top: 10px;
-      z-index: 4;
-      background: var(--control-bg);
+      background-color: var(--control-bg);
       color: var(--text-color);
-      padding: 6px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 12px;
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 100;
     }
-    .theme-toggle { left: 10px; }
-    .neon-toggle { right: 10px; }
+    .theme-panel { left: 10px; }
+    .neon-panel { left: 150px; }
+    .font-panel { right: 10px; }
     .neon-box {
       box-shadow: var(--box-border);
       transition: box-shadow 0.5s;
     }
+    .panel-title {
+      font-size: 14px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .panel-item {
+      margin-bottom: 4px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .panel-item:hover {
+      color: var(--accent-color);
+    }
   </style>
 </head>
 <body>
-  <div class="max-w-5xl mx-auto px-4 py-6">
+  <div class="floating-panel theme-panel">
+    <div class="panel-title">Themes</div>
+    <div id="themeList"></div>
+  </div>
+  <div class="floating-panel neon-panel">
+    <div class="panel-title">Neon Combos</div>
+    <div id="neonList"></div>
+  </div>
+  <div class="floating-panel font-panel">
+    <div class="panel-title">Font Styles</div>
+    <div id="fontList"></div>
+  </div>  <div class="max-w-5xl mx-auto px-4 py-6">
     <header class="text-center mb-6">
       <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-    </header><div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
-  <div id="videoPlayer"></div>
-  <div class="overlay-layer" onclick="togglePlayPause()"></div>
-  <div class="controls" id="videoControls">
-    <button class="control-btn" onclick="seek(-10)">-10s</button>
-    <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
-    <button class="control-btn" onclick="seek(10)">+10s</button>
-    <button class="control-btn" onclick="playPreviousEpisode()">Prev</button>
-    <button class="control-btn" onclick="playNextEpisode()">Next</button>
-    <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
-  </div>
-  <div class="theme-toggle" onclick="cycleTheme()">Theme</div>
-  <div class="neon-toggle" onclick="cycleNeon()">Neon</div>
-</div>
-
-<div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
+    </header>
+    <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
+      <div id="videoPlayer"></div>
+      <div class="overlay-layer" onclick="togglePlayPause()"></div>
+      <div class="controls" id="videoControls">
+        <button class="control-btn" onclick="seek(-10)">-10s</button>
+        <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+        <button class="control-btn" onclick="seek(10)">+10s</button>
+        <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+      </div>
+    </div><div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
   <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
   <p>
     Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...
@@ -120,21 +141,32 @@
     let player;
     let currentEpisodeIndex = 0;
     let hideControlsTimer;
+
     const themes = [
-      ['#0b0f1a', '#ffffff', '#8e2de2'],
-      ['#1a1a1a', '#eee', '#ff4081'],
-      ['#121212', '#ddd', '#00bcd4'],
-      ['#1e1e2f', '#e5e5e5', '#ff9800'],
-      ['#202020', '#fafafa', '#e91e63'],
-      ['#ffffff', '#000000', '#ff4081'],
-      ['#f9f9f9', '#111', '#3f51b5'],
-      ['#eeeeee', '#000', '#009688'],
-      ['#fff', '#333', '#673ab7'],
-      ['#f0f0f0', '#111', '#ff5722']
+      ['#0b0f1a', '#ffffff', '#8e2de2', 'Dark Violet'],
+      ['#1a1a1a', '#eee', '#ff4081', 'Dark Pink'],
+      ['#121212', '#ddd', '#00bcd4', 'Dark Aqua'],
+      ['#1e1e2f', '#e5e5e5', '#ff9800', 'Dark Orange'],
+      ['#202020', '#fafafa', '#e91e63', 'Dark Rose'],
+      ['#ffffff', '#000000', '#ff4081', 'White Pink'],
+      ['#f9f9f9', '#111', '#3f51b5', 'White Indigo'],
+      ['#eeeeee', '#000', '#009688', 'White Teal'],
+      ['#fff', '#333', '#673ab7', 'White Purple'],
+      ['#f0f0f0', '#111', '#ff5722', 'White Red']
     ];
-    const neonColors = ['#39ff14', '#ff00ff', '#00ffff', '#ffd700', '#00ff00', '#ff4444', '#44ffdd', '#cc00cc', '#ffaa00', '#00ccff'];
-    let themeIndex = 0;
-    let neonIndex = 0;
+
+    const neonColors = [
+      ['#39ff14', 'Neon Green'], ['#ff00ff', 'Neon Magenta'],
+      ['#00ffff', 'Neon Cyan'], ['#ffd700', 'Neon Gold'],
+      ['#00ff00', 'Neon Lime'], ['#ff4444', 'Neon Red'],
+      ['#44ffdd', 'Neon Aqua'], ['#cc00cc', 'Neon Purple'],
+      ['#ffaa00', 'Neon Orange'], ['#00ccff', 'Neon Sky']
+    ];
+
+    const fontFamilies = [
+      ['Poppins', 'Poppins'], ['Roboto', 'Roboto'], ['Orbitron', 'Orbitron'],
+      ['Montserrat', 'Montserrat'], ['Fira Sans', 'Fira Sans']
+    ];
 
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
@@ -177,22 +209,15 @@
       else document.exitFullscreen();
     }
 
+    function handleStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
+    }
+
     function playNextEpisode() {
       if (currentEpisodeIndex < episodes.length - 1) {
         currentEpisodeIndex++;
         player.loadVideoById(episodes[currentEpisodeIndex].link);
       }
-    }
-
-    function playPreviousEpisode() {
-      if (currentEpisodeIndex > 0) {
-        currentEpisodeIndex--;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-      }
-    }
-
-    function handleStateChange(event) {
-      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
     }
 
     function loadEpisodes() {
@@ -212,27 +237,48 @@
       container.appendChild(fragment);
     }
 
-    function cycleTheme() {
-      themeIndex = (themeIndex + 1) % themes.length;
-      const [bg, text, accent] = themes[themeIndex];
-      const root = document.documentElement;
-      root.style.setProperty('--bg-color', bg);
-      root.style.setProperty('--text-color', text);
-      root.style.setProperty('--accent-color', accent);
-      root.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
-    }
-
-    function cycleNeon() {
-      neonIndex = (neonIndex + 1) % neonColors.length;
-      document.documentElement.style.setProperty('--neon-glow', neonColors[neonIndex]);
-      document.documentElement.style.setProperty('--box-border', `0 0 10px ${neonColors[neonIndex]}`);
-    }
-
     function showControls() {
       clearTimeout(hideControlsTimer);
       const controls = document.getElementById("videoControls");
       controls.style.opacity = 1;
       hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
     }
+
+    // Populate Theme Panel
+    themes.forEach(([bg, text, accent, name], i) => {
+      const btn = document.createElement("div");
+      btn.className = "panel-item";
+      btn.textContent = name;
+      btn.onclick = () => {
+        document.documentElement.style.setProperty('--bg-color', bg);
+        document.documentElement.style.setProperty('--text-color', text);
+        document.documentElement.style.setProperty('--accent-color', accent);
+        document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
+      };
+      document.getElementById("themeList").appendChild(btn);
+    });
+
+    // Populate Neon Panel
+    neonColors.forEach(([color, name]) => {
+      const btn = document.createElement("div");
+      btn.className = "panel-item";
+      btn.textContent = name;
+      btn.onclick = () => {
+        document.documentElement.style.setProperty('--neon-glow', color);
+        document.documentElement.style.setProperty('--box-border', `0 0 10px ${color}`);
+      };
+      document.getElementById("neonList").appendChild(btn);
+    });
+
+    // Populate Font Panel
+    fontFamilies.forEach(([font, label]) => {
+      const btn = document.createElement("div");
+      btn.className = "panel-item";
+      btn.textContent = label;
+      btn.onclick = () => {
+        document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
+      };
+      document.getElementById("fontList").appendChild(btn);
+    });
   </script></body>
 </html>
