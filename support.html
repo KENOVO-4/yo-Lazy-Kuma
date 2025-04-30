@@ -99,7 +99,6 @@
     Support Us - Doosh Hub
   </header>
 
-  <!-- Navigation Buttons -->
   <div class="nav-buttons">
     <button onclick="location.href='index.html'">Main Page</button>
     <button onclick="location.href='index.2.html'">Content Page</button>
@@ -127,64 +126,66 @@
       <p><strong>Thank you again!</strong></p>
     </div>
 
-    <!-- Popunder Buttons -->
+    <!-- Ad Buttons Section -->
     <div class="ads-section">
-      <button onclick="openAd('https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1')">Popunder Ad 1</button>
-      <button onclick="openAd('https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1')">Popunder Ad 2</button>
-      <button onclick="openAd('https://www.profitableratecpm.com/zwdx8nvb?key=00fcac8229b5807d1b638c111f5273f9')">Popunder Ad 3</button>
-      <button onclick="openAd('https://www.profitableratecpm.com/sf9h6ikx?key=25d87d94939190ddff9fa5cb0edf81df')">Popunder Ad 4</button>
-      <button onclick="openAd('https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe')">Popunder Ad 5</button>
-    </div>
+      <h3>Click to Support:</h3>
+      <!-- 5 Redirect Ad Buttons -->
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Redirect Ad 1</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Redirect Ad 2</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Redirect Ad 3</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Redirect Ad 4</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
 
-    <!-- Social Bar Button -->
-    <div class="ads-section">
-      <button onclick="loadSocialBar()">Load Social Bar</button>
-      <div id="social-bar"></div>
+      <!-- 5 Interstitial Ad Buttons -->
+      <button onclick="i.intstl('show')">Interstitial Ad 1</button>
+      <button onclick="i.intstl('show')">Interstitial Ad 2</button>
+      <button onclick="i.intstl('show')">Interstitial Ad 3</button>
+      <button onclick="i.intstl('show')">Interstitial Ad 4</button>
+      <button onclick="i.intstl('show')">Interstitial Ad 5</button>
     </div>
   </div>
 
-  <!-- Banner Ads Section -->
+  <!-- Banner Ad Section -->
   <div class="ads-section">
-    <div class="ad-banner"><iframe id="frame1" src=""></iframe></div>
-    <div class="ad-banner"><iframe id="frame2" src=""></iframe></div>
-    <div class="ad-banner"><iframe id="frame3" src=""></iframe></div>
-    <div class="ad-banner"><iframe id="frame4" src=""></iframe></div>
-    <div class="ad-banner"><iframe id="frame5" src=""></iframe></div>
+    <div class="ad-banner"><iframe id="bannerAd" src="https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=banner1"></iframe></div>
   </div>
 
   <div class="footer">
     © 2025 Doosh Hub. All Rights Reserved.
   </div>
 
+  <!-- Interstitial Script -->
   <script>
-    function openAd(url) {
-      window.open(url, '_blank');
+  (function(i,n,t,s,t,l){
+    i.intstl = i.intstl || function() {
+      (i.intstl.q=(i.intstl.q||[])).push(arguments)
+    };
+    var s=n.getElementsByTagName('head')[0];
+    var q=n.createElement('script'); q.async=1;
+    q.src='https://static.ezmob.com/intstl/intstl.js';
+    s.appendChild(q);
+    i.intstl('init', {
+      host: 'xml.qualiclicks.com',
+      feed: 0,
+      auth : '',
+      logo: 'https://adk.ezmob.com/images/icoLogo.png',
+      color1: '#3c8dbc', color2: '#307196',
+      textColor: 'white', background: '#f7f7f6',
+      engagementPeriod: 10,
+      interval: 15,
+      defer: 10
+    });
+  })(window, document);
+  </script>
+
+  <!-- Banner Refresh Script -->
+  <script>
+    function refreshBannerAd() {
+      const banner = document.getElementById('bannerAd');
+      banner.src = 'https://xml.qualiclicks.com/redirect?feed=0&auth=&url=https://www.dooshtoons.linkpc.net/&subid=banner' + Math.floor(Math.random() * 1000);
     }
 
-    function loadSocialBar() {
-      var script = document.createElement('script');
-      script.src = '//pl26487838.profitableratecpm.com/b1/b5/3f/b1b53f67b160e09bda7bf4a781f629b2.js';
-      document.getElementById('social-bar').appendChild(script);
-    }
-
-    const bannerLinks = [
-      'https://www.profitableratecpm.com/ya4dw1q5i?key=b5695164ceecaa4c793ab32e9e4579f1',
-      'https://www.profitableratecpm.com/zstjddy20y?key=bd80ed79e02a9b21793e8253c54d4ec1',
-      'https://www.profitableratecpm.com/zwdx8nvb?key=00fcac8229b5807d1b638c111f5273f9',
-      'https://www.profitableratecpm.com/sf9h6ikx?key=25d87d94939190ddff9fa5cb0edf81df',
-      'https://www.profitableratecpm.com/qusnb8n8?key=d965c8699553fa2a225881c92e8494fe'
-    ];
-
-    function refreshIframes() {
-      for (let i = 1; i <= 5; i++) {
-        const frame = document.getElementById('frame' + i);
-        const randomLink = bannerLinks[Math.floor(Math.random() * bannerLinks.length)];
-        frame.src = randomLink;
-      }
-    }
-
-    refreshIframes(); // Initial load
-    setInterval(refreshIframes, 15000); // Refresh every 15 seconds
+    setInterval(refreshBannerAd, 60000); // Refresh every 60 seconds
   </script>
 
 </body>
