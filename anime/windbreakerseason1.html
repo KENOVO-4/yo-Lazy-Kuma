@@ -1,4 +1,3 @@
-
 <!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -6,131 +5,217 @@
   <title>Wind Breaker - Season 1</title>
   <script src="https://www.youtube.com/iframe_api"></script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&display=swap" rel="stylesheet">
   <style>
-    /* CSS Variables for theming */
     :root {
-      --bg-color: #000;
-      --text-color: #fff;
-      --primary-color: #7c3aed;
-      --control-bg: rgba(0,0,0,0.7);
-      --accent-color: #ff0066;
-      --panel-bg: rgba(0,0,0,0.8);
+      --bg-color: #0b0f1a;
+      --text-color: #ffffff;
+      --accent-color: #8e2de2;
+      --control-bg: rgba(0, 0, 0, 0.6);
+      --neon-glow: #39ff14;
     }
-    .theme-transition {
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
       transition: background-color 0.5s, color 0.5s;
     }
-    body, html {
-      margin: 0; padding: 0;
-      width: 100%; height: 100%;
-      background: var(--bg-color);
-      color: var(--text-color);
-      overflow-x: hidden; overflow-y: auto;
-      font-family: 'Poppins', sans-serif;
+    .video-container {
+      position: relative;
+      padding-top: 56.25%;
+      background-color: black;
     }
-    #mainWrapper { display: flex; flex-direction: column; min-height: 100vh; }
-    header, footer { background: var(--panel-bg); transition: background 0.5s; }
-    header { display:flex; flex-wrap:wrap; align-items:center; justify-content: space-between; padding:0.75rem 1rem; }
-    header h1 { flex:1; text-align:center; }
-    .nav-buttons { display:flex; gap:0.5rem; }
-    .nav-buttons a { background: var(--primary-color); color: var(--text-color); padding:0.5rem 1rem; border-radius:0.375rem; transition: background 0.5s; }
-    #videoWrapper { position: relative; width:100%; aspect-ratio:16/9; background:var(--bg-color); }
-    #videoPlayer, .video-overlay { position:absolute; top:0; left:0; width:100%; height:100%; }
-    .video-overlay { z-index:2; pointer-events:none; }
-    .controls { position:absolute; bottom:1rem; left:50%; transform:translateX(-50%); display:flex; gap:0.5rem; z-index:3; opacity:1; transition:opacity 0.3s; }
-    .controls.hide { opacity:0; }
-    .control-btn { background: var(--control-bg); color: var(--text-color); padding:0.5rem; border-radius:9999px; cursor:pointer; font-size:1.2rem; transition: background 0.5s; }
-    .bottom-bar { position:absolute; bottom:0; left:0; width:100%; display:flex; align-items:center; padding:0.5rem; gap:0.5rem; background: var(--control-bg); }
-    .progress { flex:1; height:4px; background:rgba(255,255,255,0.3); border-radius:2px; cursor:pointer; position:relative; }
-    .progress-filled { height:100%; width:0; background:var(--accent-color); }
-    #searchBox { width:100%; padding:0.5rem; margin-bottom:0.5rem; background:rgba(255,255,255,0.1); color:var(--text-color); border:none; border-radius:0.25rem; }
-    #episodeList { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:0.5rem; padding:0.5rem; }
-    #episodeList button { background: var(--primary-color); color: var(--text-color); padding:0.5rem; border:none; border-radius:0.375rem; }
-    .side-panel-toggle { position:fixed; top:1rem; right:1rem; background:var(--control-bg); color:var(--text-color); padding:0.5rem; border-radius:0.5rem; cursor:pointer; }
-    .side-panel { position:fixed; top:3.5rem; right:1rem; background:var(--panel-bg); padding:1rem; border-radius:0.5rem; display:none; flex-direction:column; gap:0.5rem; }
-    .side-panel.active { display:flex; }
-    .theme-option, .neon-option { cursor:pointer; padding:0.4rem 0.8rem; border-radius:0.3rem; background:rgba(255,255,255,0.1); transition:background 0.3s; }
-    .theme-option:hover, .neon-option:hover { background:rgba(255,255,255,0.2); }
+    #videoPlayer, .overlay-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+    .overlay-layer {
+      z-index: 2;
+    }
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 3;
+      opacity: 1;
+      transition: opacity 0.3s;
+      flex-wrap: wrap;
+    }
+    .control-btn {
+      background-color: var(--control-bg);
+      color: var(--text-color);
+      border: none;
+      padding: 6px;
+      font-size: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .control-btn:hover {
+      background-color: var(--accent-color);
+    }
+    .neon {
+      text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 4;
+      background: var(--control-bg);
+      color: var(--text-color);
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
   </style>
 </head>
-<body class="theme-transition">
-  <div id="mainWrapper">
-    <header class="theme-transition">
-      <div class="nav-buttons">
-        <a href="support.html">Support Us</a>
-        <a href="index.2.html">← Go Back</a>
+<body>
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <header class="text-center mb-6">
+      <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
+      <div class="mt-2">
+        <a href="index.2.html" class="text-sm underline text-purple-300">Go Back</a>
       </div>
-      <h1>Wind Breaker - Season 1</h1>
-    </header><div id="videoWrapper">
+    </header><div class="video-container rounded-xl shadow-lg overflow-hidden relative">
   <div id="videoPlayer"></div>
-  <div class="video-overlay"></div>
+  <div class="overlay-layer" onclick="togglePlayPause()"></div>
   <div class="controls" id="videoControls">
-    <button class="control-btn" onclick="seek(-15)">⏪15s</button>
-    <button class="control-btn" onclick="togglePlayPause()">▶️/⏸️</button>
-    <button class="control-btn" onclick="seek(15)">15s⏩</button>
-    <button class="control-btn" onclick="playPrev()">⬅️</button>
-    <button class="control-btn" onclick="playNext()">➡️</button>
-    <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+    <button class="control-btn" onclick="seek(-10)">-10s</button>
+    <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+    <button class="control-btn" onclick="seek(10)">+10s</button>
+    <button class="control-btn" onclick="playPreviousEpisode()">Prev</button>
+    <button class="control-btn" onclick="playNextEpisode()">Next</button>
+    <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
   </div>
-  <div class="bottom-bar">
-    <div class="progress" id="progressBar" onclick="scrub(event)">
-      <div class="progress-filled" id="progressFilled"></div>
-    </div>
-    <select onchange="setPlaybackRate(this.value)" class="control-btn">
-      <option value="0.5">0.5×</option>
-      <option value="1" selected>1×</option>
-      <option value="1.5">1.5×</option>
-      <option value="2">2×</option>
-    </select>
-  </div>
+  <div class="theme-toggle" onclick="toggleTheme()">Theme</div>
 </div>
 
-<div class="p-4">
-  <input id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes…" />
-  <div id="episodeList"></div>
+<div class="mt-6 bg-gray-800 p-4 rounded-lg">
+  <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
+  <p>
+    Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
+  </p>
 </div>
 
-<footer class="p-4 theme-transition">
-  <h2 class="font-semibold mb-1">About Wind Breaker</h2>
-  <p>Wind Breaker follows Haruka Sakura… action, heart, friendship and justice.</p>
-  <p class="mt-2">Thank you to the creators and Muse India!</p>
+<div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="episodeList"></div>
+
+<footer class="mt-10 text-sm text-center text-gray-400">
+  <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
+  <p>We also extend our gratitude to <strong>Muse India</strong>. Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
+  <div class="mt-4">
+    <a href="support.html" class="text-sm text-purple-300 underline">Support Us</a>
+  </div>
 </footer>
 
-  </div>  <div class="side-panel-toggle theme-transition" onclick="togglePanel()">⚙️</div>
-  <div class="side-panel theme-transition" id="sidePanel">
-    <div class="font-semibold">Themes:</div>
-    <div class="theme-option" onclick="applyTheme('#000','#fff','#7c3aed','#ff0066')">Dark</div>
-    <div class="theme-option" onclick="applyTheme('#fff','#000','#6366f1','#f43f5e')">Light</div>
-    <div class="theme-option" onclick="applyTheme('#fef3c7','#7c2d12','#c2410c','#ea580c')">Yellow/Purple</div>
-    <div class="theme-option" onclick="applyTheme('#1e293b','#cbd5e1','#22d3ee','#06b6d4')">Slate/Teal</div>
-    <div class="theme-option" onclick="applyTheme('#081c15','#a7f3d0','#059669','#10b981')">Emerald</div>
-    <div class="mt-2 font-semibold">Neon Modes:</div>
-    <div class="neon-option" onclick="applyNeon('text-pink-400')">Pink Neon</div>
-    <div class="neon-option" onclick="applyNeon('text-blue-400')">Blue Neon</div>
-    <div class="neon-option" onclick="applyNeon('text-green-400')">Green Neon</div>
-    <div class="neon-option" onclick="applyNeon('text-orange-400')">Orange Neon</div>
-    <div class="neon-option" onclick="removeNeon()">No Neon</div>
   </div>  <script>
-    let player, hideTimeout;
-    const episodes = [...Array(13)].map((_,i)=>({title:`Ep ${i+1}`,link:['ne0Y0vyjxpE','J2568cnOa1g','QOMv17IjJAU','MT7WzTJZCxg','4sRfndp1vAM','oTvQ-5BNC6w','Em5lFIz_kxU','SBaGblvd4mU','43Hj2GySjgA','TIpodnZtFP4','_L-UG_jvnM4','skAwsc6UL8A','-xUk9E2iQQY'][i]}));
-    let idx=0;
-    function onYouTubeIframeAPIReady(){ player=new YT.Player('videoPlayer',{videoId:episodes[0].link,playerVars:{autoplay:1,controls:0,modestbranding:1,rel:0,cc_load_policy:1},events:{onReady:init,onStateChange:onState}}); }
-    function init(){ loadEps(); setInterval(updateProgress,500); }
-    function updateProgress(){ if(!player.getCurrentTime) return; const p=player.getCurrentTime()/player.getDuration()*100;document.getElementById('progressFilled').style.width=p+'%'; }
-    function scrub(e){const r=e.currentTarget.getBoundingClientRect(),pct=(e.clientX-r.left)/r.width;player.seekTo(pct*player.getDuration(),true);}
-    function togglePlayPause(){const s=player.getPlayerState();s===1?player.pauseVideo():player.playVideo();}
-    function seek(s){player.seekTo(player.getCurrentTime()+s,true);}    
-    function playNext(){if(idx<episodes.length-1)player.loadVideoById(episodes[++idx].link);}    
-    function playPrev(){if(idx>0)player.loadVideoById(episodes[--idx].link);}    
-    function setPlaybackRate(r){player.setPlaybackRate(parseFloat(r));}
-    function toggleFullscreen(){const e=document.getElementById('videoWrapper');e.requestFullscreen?.()||e.webkitRequestFullscreen?.();}
-    function onState(e){const c=document.getElementById('videoControls');if(e.data===1){c.classList.remove('hide');clearTimeout(hideTimeout);hideTimeout=setTimeout(()=>c.classList.add('hide'),3000);}if(e.data===0)playNext();}
-    document.addEventListener('mousemove',()=>document.getElementById('videoControls').classList.remove('hide'));
+    let player;
+    const episodes = [
+      { title: "Episode 1", link: "ne0Y0vyjxpE" },
+      { title: "Episode 2", link: "J2568cnOa1g" },
+      { title: "Episode 3", link: "QOMv17IjJAU" },
+      { title: "Episode 4", link: "MT7WzTJZCxg" },
+      { title: "Episode 5", link: "4sRfndp1vAM" },
+      { title: "Episode 6", link: "oTvQ-5BNC6w" },
+      { title: "Episode 7", link: "Em5lFIz_kxU" },
+      { title: "Episode 8", link: "SBaGblvd4mU" },
+      { title: "Episode 9", link: "43Hj2GySjgA" },
+      { title: "Episode 10", link: "TIpodnZtFP4" },
+      { title: "Episode 11", link: "_L-UG_jvnM4" },
+      { title: "Episode 12", link: "skAwsc6UL8A" },
+      { title: "Episode 13", link: "-xUk9E2iQQY" }
+    ];
+    let currentEpisodeIndex = 0;
 
-    function loadEps(){const L=document.getElementById('episodeList');L.innerHTML='';episodes.forEach((ep,i)=>{const b=document.createElement('button');b.textContent=ep.title;b.onclick=()=>{idx=i;player.loadVideoById(ep.link);} ;b.className='bg-primary px-2 py-1 rounded text-center w-full';L.appendChild(b);});}
-    function searchEpisodes(){const v=document.getElementById('searchBox').value.toLowerCase();document.querySelectorAll('#episodeList button').forEach(b=>b.style.display=b.textContent.toLowerCase().includes(v)?'block':'none');}
-    function togglePanel(){document.getElementById('sidePanel').classList.toggle('active');}
-    function applyTheme(bg,txt,prim,accent){document.documentElement.style.setProperty('--bg-color',bg);document.documentElement.style.setProperty('--text-color',txt);document.documentElement.style.setProperty('--primary-color',prim);document.documentElement.style.setProperty('--accent-color',accent);}    
-    function applyNeon(color){document.body.classList.add('neon');document.documentElement.style.setProperty('--text-color',color);}    
-    function removeNeon(){document.body.classList.remove('neon');document.documentElement.style.setProperty('--text-color',getComputedStyle(document.documentElement).getPropertyValue('--text-color'));}
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('videoPlayer', {
+        videoId: episodes[currentEpisodeIndex].link,
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0
+        },
+        events: {
+          onReady: loadEpisodes,
+          onStateChange: handleStateChange
+        }
+      });
+    }
+
+    function seek(sec) {
+      const time = player.getCurrentTime();
+      player.seekTo(time + sec, true);
+    }
+
+    function togglePlayPause() {
+      const state = player.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) player.pauseVideo();
+      else player.playVideo();
+    }
+
+    function toggleFullscreen() {
+      const wrapper = document.querySelector(".video-container");
+      if (!document.fullscreenElement) wrapper.requestFullscreen();
+      else document.exitFullscreen();
+    }
+
+    function playNextEpisode() {
+      if (currentEpisodeIndex < episodes.length - 1) {
+        currentEpisodeIndex++;
+        player.loadVideoById(episodes[currentEpisodeIndex].link);
+      }
+    }
+
+    function playPreviousEpisode() {
+      if (currentEpisodeIndex > 0) {
+        currentEpisodeIndex--;
+        player.loadVideoById(episodes[currentEpisodeIndex].link);
+      }
+    }
+
+    function handleStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
+    }
+
+    function loadEpisodes() {
+      const container = document.getElementById("episodeList");
+      container.innerHTML = "";
+      episodes.forEach((ep, i) => {
+        const btn = document.createElement("button");
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full";
+        btn.textContent = ep.title;
+        btn.onclick = () => {
+          currentEpisodeIndex = i;
+          player.loadVideoById(ep.link);
+        };
+        container.appendChild(btn);
+      });
+    }
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const isDark = root.style.getPropertyValue('--bg-color') === '#0b0f1a';
+      if (isDark) {
+        root.style.setProperty('--bg-color', '#ffffff');
+        root.style.setProperty('--text-color', '#000000');
+        root.style.setProperty('--accent-color', '#ff4081');
+        root.style.setProperty('--control-bg', 'rgba(255, 255, 255, 0.8)');
+        root.style.setProperty('--neon-glow', '#ff4081');
+      } else {
+        root.style.setProperty('--bg-color', '#0b0f1a');
+        root.style.setProperty('--text-color', '#ffffff');
+        root.style.setProperty('--accent-color', '#8e2de2');
+        root.style.setProperty('--control-bg', 'rgba(0,0,0,0.6)');
+        root.style.setProperty('--neon-glow', '#39ff14');
+      }
+    }
   </script></body>
 </html>
