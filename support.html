@@ -4,97 +4,110 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Support Us - Doosh Hub</title>
-  <style>
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-      50% { box-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
-      100% { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 
+  <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #0f0f0f, #1a1a1a);
-      color: #fff;
       margin: 0;
       padding: 0;
+      background: radial-gradient(circle at top, #0f0f0f, #000000 100%);
+      font-family: 'Orbitron', sans-serif;
+      color: #ffffff;
       text-align: center;
+      overflow-x: hidden;
     }
 
     header {
-      background-color: #111;
-      padding: 20px 10px;
-      font-size: 26px;
-      color: #00ffff;
-      text-shadow: 0 0 10px #00ffff;
+      background: linear-gradient(45deg, #00ffff, #ff00ff);
+      padding: 20px;
+      font-size: 30px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff;
+      box-shadow: 0 0 20px #ff00ff;
     }
 
     .nav-buttons button {
-      background-color: transparent;
-      color: #fff;
+      background: transparent;
       border: 2px solid #00ffff;
       padding: 10px 20px;
-      margin: 10px;
+      color: white;
       font-size: 18px;
-      border-radius: 12px;
+      border-radius: 10px;
+      margin: 10px;
       cursor: pointer;
-      animation: glow 2s infinite;
-      transition: transform 0.3s, background 0.3s;
+      transition: all 0.3s ease;
     }
 
     .nav-buttons button:hover {
+      background: #00ffff30;
       transform: scale(1.05);
-      background: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 15px #00ffff;
     }
 
     .container {
-      max-width: 960px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #121212;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.1);
-    }
-
-    .ads-section button {
-      background-color: transparent;
-      border: 2px solid #ff00ff;
-      color: #fff;
-      font-size: 18px;
-      padding: 12px 30px;
-      border-radius: 14px;
-      margin: 10px;
-      cursor: pointer;
-      animation: glow 2s infinite;
-    }
-
-    .ads-section button:hover {
-      background-color: rgba(255, 0, 255, 0.1);
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 30px;
+      background: #121212dd;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #ff00ff40;
     }
 
     h2, h3 {
       color: #00ffff;
-      text-shadow: 0 0 6px #00ffff;
+      text-shadow: 0 0 10px #00ffff;
     }
 
-    .footer {
-      margin: 40px 0 20px;
-      font-size: 14px;
-      color: #aaa;
+    p, li {
+      color: #ccc;
+      font-size: 17px;
+      line-height: 1.6;
     }
 
     ul, ol {
       text-align: left;
       max-width: 700px;
-      margin: 10px auto;
+      margin: 0 auto 20px;
     }
 
-    .message p {
-      line-height: 1.7;
-      color: #ccc;
+    .support-buttons button {
+      background: linear-gradient(45deg, #ff00ff, #00ffff);
+      color: white;
+      border: none;
+      font-size: 18px;
+      padding: 12px 30px;
+      border-radius: 14px;
+      margin: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff00ff80;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .support-buttons button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #00ffff;
+    }
+
+    .footer {
+      margin: 40px 0 20px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .animated-bg {
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: floating 6s infinite ease-in-out;
     }
   </style>
 </head>
-<body>
+<body class="animated-bg">
   <header>
     Support Us - Doosh Hub
   </header>
@@ -105,123 +118,66 @@
   </div>
 
   <div class="container">
-    <div class="message">
-      <h2>Support Me – Your Help Means Everything</h2>
-      <p>Hello dear visitor,</p>
-      <p>Thank you for visiting and considering supporting this platform. Your kindness is what keeps this site running and improving.</p>
+    <h2>Help Us Shine Brighter</h2>
+    <p>Thank you for visiting. If you love what we do, your support helps us stay online and deliver more magic every day!</p>
 
-      <h3>Important Guidelines</h3>
-      <ul>
-        <li>Do not download anything from ads.</li>
-        <li>Click responsibly and wait for 10 seconds.</li>
-        <li>Avoid spammy or suspicious links.</li>
-      </ul>
+    <h3>How to Support:</h3>
+    <ol>
+      <li>Click the glowing buttons below.</li>
+      <li>A new tab/pop-up will open. Stay on it for a few seconds.</li>
+      <li>Each click helps us — even repeating them.</li>
+    </ol>
 
-      <h3>How to Support</h3>
-      <ol>
-        <li>Click on the buttons below and stay on the page for at least 10 seconds.</li>
-        <li>Repeat as much as you like – every click helps!</li>
-      </ol>
-
-      <p><strong>Please Note:</strong> The ads shown are automated and selected by ad providers. I do not control which ads appear, but I deeply appreciate your patience and support.</p>
-
-      <p><strong>From the bottom of my heart – thank you for supporting me!</strong></p>
-    </div>
-
-    <div class="ads-section">
-      <h3>Click to Support:</h3>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Your First Support</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Your Second Support</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Your Third Support</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Your Fourth Support</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Your Fifth Support</button>
-
-      <!-- Banners kept as they are -->
+    <div class="support-buttons">
+      <button onclick="showPopunder1()">Support Click 1</button>
+      <button onclick="showPopunder2()">Support Click 2</button>
+      <button onclick="showPopunder3()">Support Click 3</button>
+      <button onclick="showPopunder1()">Support Click 4</button>
+      <button onclick="showPopunder2()">Support Click 5</button>
       <br><br>
-      <button onclick="intstl('show')">Interstitial Ad 1</button>
-      <button onclick="intstl('show')">Interstitial Ad 2</button>
-      <button onclick="intstl('show')">Interstitial Ad 3</button>
+      <button onclick="showMessagePopup()">Special Message Popup</button>
     </div>
+
+    <p><strong>Note:</strong> Ads are handled by our trusted partners. We don’t control their content, but every visit helps us grow. Thank you!</p>
   </div>
 
   <div class="footer">
     © 2025 Doosh Hub. All Rights Reserved.
   </div>
 
-  <!-- Interstitial Ad Script -->
+  <!-- Popunder Scripts -->
   <script>
-    (function(i,n,t,s){
-      i.intstl = i.intstl || function() {
-        (i.intstl.q=(i.intstl.q||[])).push(arguments)
-      };
-      var q = n.createElement('script'); q.async = 1;
-      q.src = 'https://static.ezmob.com/intstl/intstl.js';
-      n.getElementsByTagName('head')[0].appendChild(q);
-      i.intstl('init', {
-        host: 'xml.qualiclicks.com',
-        feed: 787516,
-        auth: 'ywqa',
-        logo: 'https://adk.ezmob.com/images/icoLogo.png',
-        color1: '#3c8dbc',
-        color2: '#307196',
-        textColor: 'white',
-        background: '#f7f7f6',
-        engagementPeriod: 10,
-        interval: 15,
-        defer: 10
-      });
-    })(window, document);
+    function showPopunder1() {
+      (function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); p.appendChild(s);})
+      (document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement);
+    }
+
+    function showPopunder2() {
+      (function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); p.appendChild(s);})
+      (document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277883,document.body||document.documentElement);
+    }
+
+    function showPopunder3() {
+      (function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); p.appendChild(s);})
+      (document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277875,document.body||document.documentElement);
+    }
+
+    function showMessagePopup() {
+      var script = document.createElement('script');
+      script.src = "https://fenoofaussut.net/act/files/tag.min.js?z=9277894";
+      script.setAttribute("data-cfasync", "false");
+      script.async = true;
+      document.body.appendChild(script);
+    }
   </script>
 
-  <!-- Inpage Push Ads -->
+  <!-- In-page Push Ad -->
   <script>
-    (function(i,n,p,a,g,e){
-      i.inpagepush = i.inpagepush || function() {
-        (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
-      };
-      var s=n.getElementsByTagName('head')[0];
-      var q=n.createElement('script'); q.async=1;
-      q.src='//static.ezmob.com/inpage/inpage.js';
-      s.appendChild(q);
-      i.inpagepush('init', {
-        host: 'xml.qualiclicks.com',
-        feed: 787510,
-        auth : 'JSxO',
-        subid: 'inpage1',
-        refresh: 90,
-        position: 'bottom',
-        position_mobile: 'bottom',
-        slots: 1,
-        query : '',
-        nodesrc : true
-      });
-      i.inpagepush('show');
-    })(window, document);
-  </script>
-
-  <script>
-    (function(i,n,p,a,g,e){
-      i.inpagepush = i.inpagepush || function() {
-        (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
-      };
-      var s=n.getElementsByTagName('head')[0];
-      var q=n.createElement('script'); q.async=1;
-      q.src='//static.ezmob.com/inpage/inpage.js';
-      s.appendChild(q);
-      i.inpagepush('init', {
-        host: 'xml.qualiclicks.com',
-        feed: 787516,
-        auth : 'ywqa',
-        subid: 'inpage2',
-        refresh: 90,
-        position: 'bottom',
-        position_mobile: 'bottom',
-        slots: 1,
-        query : '',
-        nodesrc : true
-      });
-      i.inpagepush('show');
-    })(window, document);
+    (function(d,z,s){
+      s.src='https://'+d+'/400/'+z;
+      try { (document.body || document.documentElement).appendChild(s); }
+      catch(e){}
+    })('vemtoutcheeg.com',9277891,document.createElement('script'));
   </script>
 </body>
 </html>
