@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -8,58 +7,172 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
-    body, html {
-      margin: 0; padding: 0; height: 100%; width: 100%;
+    /* Base and layout adjustments */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      /* allow vertical scrolling */
+      overflow-x: hidden;
+      overflow-y: auto;
       font-family: 'Poppins', sans-serif;
-      background: #000; color: #fff;
-      overflow: hidden;
+      background: #000;
+      color: #fff;
     }
-    #mainWrapper { display: flex; flex-direction: column; height: 100%; }
-    header, footer { flex-shrink: 0; padding: 0.5rem; background: rgba(0,0,0,0.7); }
+    /* respect mobile safe area */
+    body {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    #mainWrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      flex-shrink: 0;
+      background: rgba(0,0,0,0.7);
+      padding: 0.75rem 1rem;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    header h1 {
+      flex: 1 1 auto;
+      text-align: center;
+      margin: 0;
+    }
+    header .nav-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex: 1 1 auto;
+      justify-content: flex-end;
+    }
     #videoWrapper {
-      position: relative; flex-grow: 1; background: #000;
+      position: relative;
+      flex-grow: 1;
+      background: #000;
     }
     #videoPlayer, .video-overlay {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
-    .video-overlay { z-index: 2; pointer-events: none; }
+    .video-overlay {
+      z-index: 2;
+      pointer-events: none;
+    }
+    /* Controls styling */
     .controls {
-      position: absolute; bottom: 1rem; left: 50%;
+      position: absolute;
+      bottom: 1rem;
+      left: 50%;
       transform: translateX(-50%);
-      display: flex; gap: 0.5rem;
-      z-index: 3; opacity: 1; transition: opacity 0.3s;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 3;
+      opacity: 1;
+      transition: opacity 0.3s;
+      flex-wrap: wrap;
     }
-    .controls.hide { opacity: 0; }
+    .controls.hide {
+      opacity: 0;
+    }
     .control-btn {
-      background: rgba(0,0,0,0.7); padding: 0.5rem;
-      border-radius: 9999px; cursor: pointer; font-size: 1.2rem;
+      background: rgba(0,0,0,0.7);
+      padding: 0.5rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      font-size: 1.2rem;
       pointer-events: auto;
     }
+    /* Bottom bar for progress & volume */
     .bottom-bar {
-      position: absolute; bottom: 0; left: 0; width: 100%;
-      display: flex; align-items: center; padding: 0.5rem;
-      gap: 0.5rem; background: rgba(0,0,0,0.5); z-index: 3;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      gap: 0.5rem;
+      background: rgba(0,0,0,0.5);
+      z-index: 3;
     }
     .progress {
-      flex-grow: 1; height: 4px; background: rgba(255,255,255,0.3);
-      border-radius: 2px; cursor: pointer; position: relative;
+      flex-grow: 1;
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
     }
     .progress-filled {
-      height: 100%; width: 0; background: #ff0066; border-radius: 2px;
+      height: 100%;
+      width: 0;
+      background: #ff0066;
+      border-radius: 2px;
     }
+    /* Episode list and search */
+    #searchBox {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      background: #1f1f1f;
+      color: #fff;
+      border: none;
+      border-radius: 0.25rem;
+    }
+    #episodeList {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 0.5rem;
+      padding: 0.5rem;
+    }
+    #episodeList button {
+      background: #7c3aed;
+      color: #fff;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 0.375rem;
+      text-align: center;
+      white-space: nowrap;
+    }
+    /* Side panel toggles */
     .side-panel-toggle {
-      position: fixed; top: 1rem; right: 1rem;
-      background: rgba(0,0,0,0.7); padding: 0.5rem; border-radius: 0.5rem;
-      cursor: pointer; z-index: 10;
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.7);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      z-index: 10;
     }
     .side-panel {
-      position: fixed; top: 3rem; right: 1rem; background: rgba(0,0,0,0.8);
-      padding: 1rem; border-radius: 0.5rem; display: none; flex-direction: column;
-      gap: 0.5rem; z-index: 10;
+      position: fixed;
+      top: 3.5rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.8);
+      padding: 1rem;
+      border-radius: 0.5rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      z-index: 10;
     }
     .side-panel.active { display: flex; }
-    .theme-option, .neon-option { cursor: pointer; padding: 0.3rem 0.6rem; border-radius: 0.3rem; }
+    .theme-option, .neon-option {
+      cursor: pointer;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.3rem;
+      border: 1px solid #555;
+    }
     .neon .control-btn, .neon .side-panel, .neon .side-panel-toggle {
       box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
     }
@@ -67,74 +180,64 @@
 </head>
 <body>
   <div id="mainWrapper">
-    <header class="flex justify-between items-center text-white">
-      <div class="flex gap-2">
+    <header>
+      <div class="nav-buttons">
         <a href="support.html" class="bg-purple-600 px-3 py-1 rounded">Support Us</a>
         <a href="index.2.html" class="bg-purple-600 px-3 py-1 rounded">← Go Back</a>
       </div>
-      <h1 class="text-xl font-bold">Wind Breaker - Season 1</h1>
-    </header>
-
-    <div id="videoWrapper">
-      <div id="videoPlayer"></div>
-      <div class="video-overlay"></div>
-
-      <!-- Controls -->
-      <div class="controls" id="videoControls">
-        <button class="control-btn" onclick="seek(-15)">⏪15s</button>
-        <button class="control-btn" onclick="togglePlayPause()">▶️/⏸️</button>
-        <button class="control-btn" onclick="seek(15)">15s⏩</button>
-        <button class="control-btn" onclick="playPreviousEpisode()">⬅️Prev</button>
-        <button class="control-btn" onclick="playNextEpisode()">Next➡️</button>
-        <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
-      </div>
-
-      <!-- Progress & volume bar -->
-      <div class="bottom-bar" id="bottomBar">
-        <div class="progress" id="progressBar" onclick="scrub(event)">
-          <div class="progress-filled" id="progressFilled"></div>
-        </div>
-        <input type="range" min="0" max="100" value="100" onchange="setVolume(this.value)" />
-        <select onchange="setPlaybackRate(this.value)">
-          <option value="0.25">0.25×</option>
-          <option value="0.5">0.5×</option>
-          <option value="1" selected>1×</option>
-          <option value="1.5">1.5×</option>
-          <option value="2">2×</option>
-        </select>
-        <button class="control-btn" onclick="togglePIP()">📺</button>
-      </div>
-    </div>
-
-    <div class="flex-shrink-0 p-4 bg-gray-800 text-white">
-      <input id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes…" class="w-full p-2 mb-2 bg-gray-700 rounded" />
-      <div id="episodeList" class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>
-    </div>
-
-    <footer class="flex-shrink-0 p-4 bg-gray-900 text-gray-300 text-sm">
-      <h2 class="font-semibold text-white mb-1">About Wind Breaker</h2>
-      <p>Wind Breaker follows Haruka Sakura… action, heart, friendship and justice.</p>
-      <p class="mt-2">Thank you to the creators and Muse India!</p>
-    </footer>
+      <h1>Wind Breaker - Season 1</h1>
+    </header><div id="videoWrapper">
+  <div id="videoPlayer"></div>
+  <div class="video-overlay"></div>
+  <div class="controls" id="videoControls">
+    <button class="control-btn" onclick="seek(-15)">⏪15s</button>
+    <button class="control-btn" onclick="togglePlayPause()">▶️/⏸️</button>
+    <button class="control-btn" onclick="seek(15)">15s⏩</button>
+    <button class="control-btn" onclick="playPreviousEpisode()">⬅️Prev</button>
+    <button class="control-btn" onclick="playNextEpisode()">Next➡️</button>
+    <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
   </div>
+  <div class="bottom-bar">
+    <div class="progress" id="progressBar" onclick="scrub(event)">
+      <div class="progress-filled" id="progressFilled"></div>
+    </div>
+    <input type="range" min="0" max="100" value="100" onchange="setVolume(this.value)" />
+    <select onchange="setPlaybackRate(this.value)">
+      <option value="0.25">0.25×</option>
+      <option value="0.5">0.5×</option>
+      <option value="1" selected>1×</option>
+      <option value="1.5">1.5×</option>
+      <option value="2">2×</option>
+    </select>
+    <button class="control-btn" onclick="togglePIP()">📺</button>
+  </div>
+</div>
 
-  <!-- Theme & Neon Panel -->
-  <div class="side-panel-toggle" onclick="togglePanel()">⚙️</div>
+<div class="flex-shrink-0 p-4 bg-gray-800 text-white">
+  <input id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes…" />
+  <div id="episodeList"></div>
+</div>
+
+<footer>
+  <h2 class="font-semibold text-white mb-1">About Wind Breaker</h2>
+  <p>Wind Breaker follows Haruka Sakura… action, heart, friendship and justice.</p>
+  <p class="mt-2">Thank you to the creators and Muse India!</p>
+</footer>
+
+  </div>  <div class="side-panel-toggle" onclick="togglePanel()">⚙️</div>
   <div class="side-panel" id="sidePanel">
-    <div class="font-semibold mb-1">Themes:</div>
+    <div class="font-semibold">Themes:</div>
     <div class="theme-option bg-black text-white" onclick="setTheme('bg-black','text-white')">Black/White</div>
     <div class="theme-option bg-yellow-500 text-purple-800" onclick="setTheme('bg-yellow-500','text-purple-800')">Yellow/Purple</div>
     <div class="theme-option bg-green-600 text-pink-300" onclick="setTheme('bg-green-600','text-pink-300')">Green/Pink</div>
     <div class="theme-option bg-blue-900 text-amber-300" onclick="setTheme('bg-blue-900','text-amber-300')">Blue/Amber</div>
     <div class="theme-option bg-gray-900 text-lime-400" onclick="setTheme('bg-gray-900','text-lime-400')">Dark/Lime</div>
-    <div class="mt-2 font-semibold mb-1">Neon Effects:</div>
+    <div class="mt-2 font-semibold">Neon Effects:</div>
     <div class="neon-option text-pink-400" onclick="toggleNeon('text-pink-400')">Pink Neon</div>
     <div class="neon-option text-blue-400" onclick="toggleNeon('text-blue-400')">Blue Neon</div>
     <div class="neon-option text-green-400" onclick="toggleNeon('text-green-400')">Green Neon</div>
     <div class="neon-option text-orange-400" onclick="toggleNeon('text-orange-400')">Orange Neon</div>
-  </div>
-
-  <script>
+  </div>  <script>
     let player, hideTimeout;
     const episodes = [...Array(13)].map((_, i) => ({ title: `Episode ${i+1}`, link: ['ne0Y0vyjxpE','J2568cnOa1g','QOMv17IjJAU','MT7WzTJZCxg','4sRfndp1vAM','oTvQ-5BNC6w','Em5lFIz_kxU','SBaGblvd4mU','43Hj2GySjgA','TIpodnZtFP4','_L-UG_jvnM4','skAwsc6UL8A','-xUk9E2iQQY'][i] }));
     let currentEpisodeIndex = 0;
@@ -149,22 +252,18 @@
 
     function initPlayer() {
       loadEpisodes();
-      updateProgress();
       setInterval(updateProgress, 500);
     }
-
     function updateProgress() {
-      if (!player || !player.getCurrentTime) return;
+      if (!player.getCurrentTime) return;
       const pct = (player.getCurrentTime() / player.getDuration()) * 100;
       document.getElementById('progressFilled').style.width = pct + '%';
     }
-
     function scrub(e) {
       const rect = e.currentTarget.getBoundingClientRect();
       const pct = (e.clientX - rect.left) / rect.width;
       player.seekTo(pct * player.getDuration(), true);
     }
-
     function setVolume(v) { player.setVolume(v); }
     function setPlaybackRate(r) { player.setPlaybackRate(r); }
     function togglePIP() {
@@ -172,74 +271,22 @@
       if (document.pictureInPictureElement) document.exitPictureInPicture();
       else iframe.requestPictureInPicture();
     }
-
-    function togglePlayPause() {
-      const s = player.getPlayerState();
-      s === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo();
-    }
+    function togglePlayPause() { const s = player.getPlayerState(); s===1?player.pauseVideo():player.playVideo(); }
     function seek(sec){ player.seekTo(player.getCurrentTime()+sec,true); }
-    function playNextEpisode(){
-      if (currentEpisodeIndex < episodes.length-1){
-        currentEpisodeIndex++;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-      }
-    }
-    function playPreviousEpisode(){
-      if (currentEpisodeIndex>0){
-        currentEpisodeIndex--;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-      }
-    }
-
-    function toggleFullscreen(){
-      const el = document.getElementById('videoWrapper');
-      el.requestFullscreen?.() || el.webkitRequestFullscreen?.();
-    }
-
+    function playNextEpisode(){ if (currentEpisodeIndex<episodes.length-1) player.loadVideoById(episodes[++currentEpisodeIndex].link); }
+    function playPreviousEpisode(){ if (currentEpisodeIndex>0) player.loadVideoById(episodes[--currentEpisodeIndex].link); }
+    function toggleFullscreen(){ const el=document.getElementById('videoWrapper'); el.requestFullscreen?.()||el.webkitRequestFullscreen?.(); }
     function onStateChange(e){
-      if (e.data === YT.PlayerState.PLAYING) {
-        document.getElementById('videoControls').classList.remove('hide');
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(()=>document.getElementById('videoControls').classList.add('hide'),3000);
-      }
-      if (e.data === YT.PlayerState.ENDED) playNextEpisode();
+      const ctrls=document.getElementById('videoControls');
+      if(e.data===1){ ctrls.classList.remove('hide'); clearTimeout(hideTimeout); hideTimeout=setTimeout(()=>ctrls.classList.add('hide'),3000); }
+      if(e.data===0) playNextEpisode();
     }
+    document.addEventListener('mousemove',()=>document.getElementById('videoControls').classList.remove('hide'));
 
-    document.addEventListener('mousemove', ()=> {
-      document.getElementById('videoControls').classList.remove('hide');
-    });
-
-    function loadEpisodes(){
-      const list = document.getElementById('episodeList');
-      list.innerHTML = '';
-      episodes.forEach((ep,i)=>{
-        const b = document.createElement('button');
-        b.className='p-2 bg-purple-600 rounded text-white';
-        b.textContent=ep.title;
-        b.onclick=()=>{currentEpisodeIndex=i;player.loadVideoById(ep.link);};
-        list.appendChild(b);
-      });
-    }
-
-    function searchEpisodes(){
-      const v = document.getElementById('searchBox').value.toLowerCase();
-      const list = document.getElementById('episodeList');
-      Array.from(list.children).forEach(btn=>{
-        btn.style.display = btn.textContent.toLowerCase().includes(v)?'':'none';
-      });
-    }
-
-    function togglePanel(){
-      document.getElementById('sidePanel').classList.toggle('active');
-    }
-    function setTheme(bg,txt){
-      document.body.className=''; document.body.classList.add(bg,txt);
-    }
-    function toggleNeon(color){
-      document.body.classList.toggle('neon');
-      document.body.style.setProperty('--tw-text-opacity','1');
-      document.body.style.color = color;
-    }
-  </script>
-</body>
+    function loadEpisodes(){ const list=document.getElementById('episodeList'); list.innerHTML=''; episodes.forEach((ep,i)=>{ const b=document.createElement('button'); b.className='p-2 bg-purple-600 rounded text-white'; b.textContent=ep.title; b.onclick=()=>{currentEpisodeIndex=i;player.loadVideoById(ep.link);}; list.appendChild(b); }); }
+    function searchEpisodes(){ const v=document.getElementById('searchBox').value.toLowerCase(); Array.from(document.getElementById('episodeList').children).forEach(btn=>btn.style.display=btn.textContent.toLowerCase().includes(v)?'':'none'); }
+    function togglePanel(){ document.getElementById('sidePanel').classList.toggle('active'); }
+    function setTheme(bg,txt){ document.body.className=''; document.body.classList.add(bg,txt); }
+    function toggleNeon(color){ document.body.classList.toggle('neon'); document.body.style.color=color; }
+  </script></body>
 </html>
