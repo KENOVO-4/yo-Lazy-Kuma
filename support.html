@@ -78,7 +78,6 @@
   </style>
 </head>
 <body>
-
   <header>
     Support Us - Doosh Hub
   </header>
@@ -93,20 +92,17 @@
       <h2>Support Me – Your Help Means Everything</h2>
       <p>Hello dear visitor,</p>
       <p>Thank you for considering supporting me. This website wouldn't be possible without kind people like you.</p>
-
       <h3>Important: Please Read Carefully</h3>
       <ul>
         <li>Do not download anything from ads.</li>
         <li>Click responsibly and naturally.</li>
         <li>Avoid spammy or suspicious links.</li>
       </ul>
-
       <h3>Steps to Support:</h3>
       <ol>
         <li>Click on ads and wait 10 seconds before returning.</li>
         <li>Multiple clicks are optional but appreciated!</li>
       </ol>
-
       <p><strong>Thank you again!</strong></p>
     </div>
 
@@ -120,6 +116,7 @@
       <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
 
       <!-- Interstitial Ad Buttons -->
+      <br><br>
       <button onclick="intstl('show')">Interstitial Ad 1</button>
       <button onclick="intstl('show')">Interstitial Ad 2</button>
       <button onclick="intstl('show')">Interstitial Ad 3</button>
@@ -132,61 +129,60 @@
 
   <!-- Interstitial Ad Script -->
   <script>
-  (function(i,n,t,s){
-    i.intstl = i.intstl || function() {
-      (i.intstl.q=(i.intstl.q||[])).push(arguments)
-    };
-    var q = n.createElement('script'); q.async = 1;
-    q.src = 'https://static.ezmob.com/intstl/intstl.js';
-    n.getElementsByTagName('head')[0].appendChild(q);
-    i.intstl('init', {
-      host: 'xml.qualiclicks.com',
-      feed: 787516,
-      auth: 'ywqa',
-      logo: 'https://adk.ezmob.com/images/icoLogo.png',
-      color1: '#3c8dbc',
-      color2: '#307196',
-      textColor: 'white',
-      background: '#f7f7f6',
-      engagementPeriod: 10,
-      interval: 15,
-      defer: 10
-    });
-  })(window, document);
+    (function(i,n,t,s){
+      i.intstl = i.intstl || function() {
+        (i.intstl.q=(i.intstl.q||[])).push(arguments)
+      };
+      var q = n.createElement('script'); q.async = 1;
+      q.src = 'https://static.ezmob.com/intstl/intstl.js';
+      n.getElementsByTagName('head')[0].appendChild(q);
+      i.intstl('init', {
+        host: 'xml.qualiclicks.com',
+        feed: 787516,
+        auth: 'ywqa',
+        logo: 'https://adk.ezmob.com/images/icoLogo.png',
+        color1: '#3c8dbc',
+        color2: '#307196',
+        textColor: 'white',
+        background: '#f7f7f6',
+        engagementPeriod: 10,
+        interval: 15,
+        defer: 10
+      });
+    })(window, document);
   </script>
 
-  <!-- Inpage Push Ad 1 (ID: 787510) -->
+  <!-- Inpage Push Ad 1 -->
   <script>
-  (function(i,n,p,a,g,e){
-    i.inpagepush = i.inpagepush || function() {
-    (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
-    };
-    var s=n.getElementsByTagName('head')[0];
-    var q=n.createElement('script'); q.async=1;
-    q.src='//static.ezmob.com/inpage/inpage.js';
-    s.appendChild(q);
-    i.inpagepush('init', {
-      host: 'xml.qualiclicks.com',
-      feed: 787510,
-      auth : 'JSxO',
-      subid: 'inpage1',
-      refresh: 90,
-      position: 'bottom',
-      position_mobile: 'bottom',
-      slots: 1,
-      query : '',
-      nodesrc : true
-    });
-    i.inpagepush('show');
-  })(window, document);
-  </script>
-
-  <!-- Inpage Push Ad 2 (ID: 787516, delay to avoid conflict) -->
-  <script>
-  setTimeout(function() {
     (function(i,n,p,a,g,e){
       i.inpagepush = i.inpagepush || function() {
-      (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
+        (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
+      };
+      var s=n.getElementsByTagName('head')[0];
+      var q=n.createElement('script'); q.async=1;
+      q.src='//static.ezmob.com/inpage/inpage.js';
+      s.appendChild(q);
+      i.inpagepush('init', {
+        host: 'xml.qualiclicks.com',
+        feed: 787510,
+        auth : 'JSxO',
+        subid: 'inpage1',
+        refresh: 90,
+        position: 'bottom',
+        position_mobile: 'bottom',
+        slots: 1,
+        query : '',
+        nodesrc : true
+      });
+      i.inpagepush('show');
+    })(window, document);
+  </script>
+
+  <!-- Inpage Push Ad 2 -->
+  <script>
+    (function(i,n,p,a,g,e){
+      i.inpagepush = i.inpagepush || function() {
+        (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
       };
       var s=n.getElementsByTagName('head')[0];
       var q=n.createElement('script'); q.async=1;
@@ -206,8 +202,6 @@
       });
       i.inpagepush('show');
     })(window, document);
-  }, 3000);
   </script>
-
 </body>
 </html>
