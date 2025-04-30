@@ -16,69 +16,46 @@
       --box-border: 0 0 10px var(--neon-glow);
       --font-family: 'Poppins', sans-serif;
     }
-    * { box-sizing: border-box; }
     html, body {
-      height: 100%; margin: 0; padding: 0;
+      height: 100%;
+      margin: 0;
+      font-family: var(--font-family);
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-family: var(--font-family);
       overflow-x: hidden;
-      transition: background-color 0.5s, color 0.5s;
-    }
-    .max-w-5xl { max-width: 64rem; }
-    .mx-auto { margin-left: auto; margin-right: auto; }
-    .px-4 { padding-left: 1rem; padding-right: 1rem; }
-    .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-    .text-center { text-align: center; }
-    .text-4xl { font-size: 2.25rem; }
-    .font-extrabold { font-weight: 800; }
-    .mb-6 { margin-bottom: 1.5rem; }
-    .italic { font-style: italic; }
-    .text-sm { font-size: 0.875rem; }
-    .text-gray-400 { color: #9ca3af; }
-    .mt-6 { margin-top: 1.5rem; }
-    .bg-gray-800 { background-color: #1f2937; }
-    .p-4 { padding: 1rem; }
-    .rounded-lg { border-radius: 0.5rem; }
-    .rounded-xl { border-radius: 0.75rem; }
-    .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,0.3); }
-    .overflow-hidden { overflow: hidden; }
-    .relative { position: relative; }
-    .neon-box { box-shadow: var(--box-border); transition: box-shadow 0.5s; }
-    .grid { display: grid; }
-    .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .gap-4 { gap: 1rem; }
-    .w-full { width: 100%; }
-    .search-box {
-      width: 100%; max-width: 400px;
-      margin: 1rem auto;
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: none;
-      background-color: var(--control-bg);
-      color: var(--text-color);
-      font-size: 14px;
-      display: block;
+      transition: background-color 0.5s, color 0.5s, font-family 0.3s;
     }
     .video-container {
       position: relative;
       padding-top: 56.25%;
       background-color: black;
+      margin: 20px auto;
+      max-width: 800px;
     }
-    .video-container:fullscreen, .video-container:-webkit-full-screen {
+    .video-container:fullscreen,
+    .video-container:-webkit-full-screen {
       padding-top: 0 !important;
-      width: 100vw; height: 100vh;
+      width: 100vw;
+      height: 100vh;
     }
     #videoPlayer, .overlay-layer {
-      position: absolute; top: 0; left: 0;
+      position: absolute;
+      top: 0; left: 0;
       width: 100%; height: 100%;
     }
-    .overlay-layer { z-index: 2; }
+    .overlay-layer {
+      z-index: 2;
+    }
     .controls {
-      position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center;
-      gap: 6px; z-index: 3;
-      opacity: 0; transition: opacity 0.3s;
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 3;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .control-btn {
       background-color: var(--control-bg);
@@ -88,36 +65,48 @@
       font-size: 12px;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s;
     }
-    .control-btn:hover { background-color: var(--accent-color); }
-    .seek-bar {
-      width: 90%; height: 4px;
+    .control-btn:hover {
+      background-color: var(--accent-color);
+    }
+    .progress-bar {
+      position: absolute;
+      bottom: 38px;
+      left: 10%;
+      width: 80%;
+      height: 4px;
       background: rgba(255,255,255,0.3);
-      border-radius: 2px;
       cursor: pointer;
-      position: relative;
+      z-index: 3;
     }
-    .seek-filled {
-      height: 100%; background: var(--accent-color);
-      width: 0%; border-radius: 2px;
+    .progress {
+      height: 100%;
+      background: var(--accent-color);
+      width: 0%;
     }
     .toggle-btn {
-      position: absolute; top: 10px; right: 10px;
+      position: absolute;
+      bottom: 60px;
+      right: 10px;
+      z-index: 200;
       background-color: var(--accent-color);
       color: var(--text-color);
       padding: 6px 12px;
-      border: none; border-radius: 6px;
-      cursor: pointer; font-size: 14px;
-      z-index: 100;
-      opacity: 0; transition: opacity 0.3s;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
     }
     .floating-panel {
-      position: absolute; top: 50px;
+      position: fixed;
+      top: 50px;
       background-color: var(--control-bg);
       color: var(--text-color);
-      padding: 10px; border-radius: 10px;
-      z-index: 100; display: none;
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 100;
+      display: none;
     }
     .theme-panel { right: 10px; }
     .neon-panel { right: 160px; }
@@ -125,172 +114,186 @@
     .panel-title { font-size: 14px; margin-bottom: 5px; font-weight: bold; }
     .panel-item { margin-bottom: 4px; cursor: pointer; font-size: 12px; }
     .panel-item:hover { color: var(--accent-color); }
-    /* Ad popup overlay */
-    .ad-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); display: flex;
-      align-items: center; justify-content: center;
-      z-index: 200; flex-direction: column;
-      color: #fff; text-align: center;
-      padding: 20px;
+    .search-box {
+      width: 100%;
+      max-width: 400px;
+      margin: 1rem auto;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      background-color: var(--control-bg);
+      color: var(--text-color);
     }
-    .ad-content {
-      background: #111; padding: 20px; border-radius: 8px;
-      box-shadow: 0 0 10px #39ff14;
-      max-width: 300px; width: 100%;
+    #episodeList {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      max-width: 800px;
+      margin: 20px auto;
     }
-    .ad-button {
-      display: inline-block; margin-top: 15px;
-      padding: 10px 20px; background: var(--accent-color);
-      color: #fff; text-decoration: none; border-radius: 5px;
+    .episode-btn {
+      padding: 10px;
+      background: #2d2d3d;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
     }
-    .ad-button:hover { background: #7a22cb; }
+    .episode-btn:hover { background: #444; }
+    .popup-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center;
+      z-index:300; color:#fff; text-align:center; padding:20px;
+    }
+    .popup-box {
+      background:#111; padding:20px; border-radius:8px; max-width:300px;
+    }
+    .hidden { display: none; }
   </style>
 </head>
-<body>
-  <div class="max-w-5xl mx-auto px-4 py-6">
-    <header class="text-center mb-6">
-      <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-    </header><input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
-
-<div id="episodeList" class="grid grid-cols-4 gap-4"></div>
-
-<div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
-  <div id="videoPlayer"></div>
-  <div class="overlay-layer" onclick="togglePlayPause()"></div>
-  <div class="controls" id="videoControls">
-    <div class="seek-bar" id="seekBar" onclick="seekTo(event)"><div class="seek-filled" id="seekFill"></div></div>
-    <div class="flex gap-2">
+<body>  <header class="text-center mt-4">
+    <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
+  </header>  <!-- Video above episodes -->  <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
+    <div id="videoPlayer"></div>
+    <div class="overlay-layer" onclick="togglePlayPause()"></div>
+    <div class="progress-bar" id="progress-bar" onclick="seekTo(event)"><div class="progress" id="progress"></div></div>
+    <div class="controls" id="videoControls">
       <button class="control-btn" onclick="seek(-10)">-10s</button>
       <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
       <button class="control-btn" onclick="seek(10)">+10s</button>
       <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
     </div>
+    <button class="toggle-btn" id="uiToggle" onclick="toggleUIPanels()">Customize UI</button>
+  </div>  <!-- Search episodes -->  <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">  <!-- Episodes grid -->  <div id="episodeList"></div>  <!-- Floating Panels -->  <div class="floating-panel theme-panel" id="themePanel">
+    <div class="panel-title">Themes</div><div id="themeList"></div>
   </div>
-  <button class="toggle-btn" id="uiToggle" onclick="toggleUIPanels()">Customize UI</button>
-  <div class="floating-panel theme-panel" id="themePanel"><div class="panel-title">Themes</div><div id="themeList"></div></div>
-  <div class="floating-panel neon-panel" id="neonPanel"><div class="panel-title">Neon Combos</div><div id="neonList"></div></div>
-  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Font Styles</div><div id="fontList"></div></div>
-</div>
-
-<div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
-  <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
-  <p>Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...</p>
-</div>
-
-<footer class="mt-10 text-sm text-center text-gray-400">
-  <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong>.</p>
-  <p>Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
-</footer>
-
-  </div>  <!-- Ad Popup Overlay -->  <div id="adOverlay" class="ad-overlay" style="display:none;">
-    <div class="ad-content">
-      <h2>Support Us to Watch</h2>
-      <p>Click the button below to support this anime.<br><small>(Caution: don't download anything; ads not directed by me.)</small></p>
-      <a id="adButton" class="ad-button" href="https://sawutser.top/4/9278457" target="_blank">Watch Ad</a>
-      <p id="countdownText">Closing in 5s...</p>
+  <div class="floating-panel neon-panel" id="neonPanel">
+    <div class="panel-title">Neon Combos</div><div id="neonList"></div>
+  </div>
+  <div class="floating-panel font-panel" id="fontPanel">
+    <div class="panel-title">Font Styles</div><div id="fontList"></div>
+  </div>  <!-- About section -->  <div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box max-w-3xl mx-auto">
+    <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
+    <p>Wind Breaker is a high-energy anime series that follows Haruka Sakura...</p>
+  </div>  <!-- Ad Popup -->  <div class="popup-overlay hidden" id="adPopup">
+    <div class="popup-box">
+      <h3 class="text-lg font-bold mb-2">Support Us</h3>
+      <p class="mb-4">To watch this anime, support us!<br><small>(Caution: don't download anything; ads are not directed by me.)</small></p>
+      <button class="control-btn mb-2" id="adButton" onclick="onAdClick()" disabled>Wait 5s...</button>
+      <div id="countdown"></div>
     </div>
-  </div>  <script>
-    // Episode data
-    const episodes = [
-      { title: "Episode 1", link: "ne0Y0vyjxpE" },
-      { title: "Episode 2", link: "J2568cnOa1g" },
-      { title: "Episode 3", link: "QOMv17IjJAU" },
-      { title: "Episode 4", link: "MT7WzTJZCxg" },
-      { title: "Episode 5", link: "4sRfndp1vAM" },
-      { title: "Episode 6", link: "oTvQ-5BNC6w" },
-      { title: "Episode 7", link: "Em5lFIz_kxU" },
-      { title: "Episode 8", link: "SBaGblvd4mU" }
-    ];
+  </div>  <footer class="mt-10 text-sm text-center text-gray-400">
+    <p>Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
+  </footer><script>
+  const episodes = [
+    { title: "Episode 1", link: "ne0Y0vyjxpE" },
+    { title: "Episode 2", link: "J2568cnOa1g" },
+    { title: "Episode 3", link: "QOMv17IjJAU" },
+    { title: "Episode 4", link: "MT7WzTJZCxg" },
+    { title: "Episode 5", link: "4sRfndp1vAM" },
+    { title: "Episode 6", link: "oTvQ-5BNC6w" },
+    { title: "Episode 7", link: "Em5lFIz_kxU" },
+    { title: "Episode 8", link: "SBaGblvd4mU" },
+    { title: "Episode 9", link: "43Hj2GySjgA" },
+    { title: "Episode 10", link: "TIpodnZtFP4" },
+    { title: "Episode 11", link: "_L-UG_jvnM4" },
+    { title: "Episode 12", link: "skAwsc6UL8A" },
+    { title: "Episode 13", link: "-xUk9E2iQQY" }
+  ];
 
-    // Load episode buttons
-    function loadEpisodes() {
-      const container = document.getElementById('episodeList');
-      container.innerHTML = '';
-      episodes.forEach((ep, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white neon-box';
-        btn.textContent = ep.title;
-        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); };
-        container.appendChild(btn);
-      });
-    }
+  let player, currentEpisodeIndex = 0, hideControlsTimer;
 
-    // Search filter
-    function filterEpisodes() {
-      const q = document.getElementById('searchBox').value.toLowerCase();
-      document.querySelectorAll('#episodeList button').forEach(btn => {
-        btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none';
-      });
-    }
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('videoPlayer', {
+      videoId: episodes[0].link,
+      playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
+      events: {
+        onReady: loadEpisodes,
+        onStateChange: e => { if (e.data === YT.PlayerState.ENDED) playNextEpisode(); }
+      }
+    });
+  }
 
-    // YouTube Player
-    let player, currentEpisodeIndex = 0;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('videoPlayer', {
-        videoId: episodes[0].link,
-        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
-        events: { onReady: () => { loadEpisodes(); showControls(); }, onStateChange: e => { if(e.data===YT.PlayerState.ENDED) playNext(); }}
-      });
-    }
-    function playNext() { if(currentEpisodeIndex < episodes.length-1) player.loadVideoById(episodes[++currentEpisodeIndex].link); }
+  function loadEpisodes() {
+    const list = document.getElementById('episodeList');
+    list.innerHTML = '';
+    episodes.forEach((ep, i) => {
+      const btn = document.createElement('div');
+      btn.className = 'episode-btn neon-box';
+      btn.textContent = ep.title;
+      btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); };
+      list.appendChild(btn);
+    });
+  }
 
-    // Controls
-    function seek(sec) { player.seekTo(player.getCurrentTime()+sec, true); }
-    function togglePlayPause() { const s = player.getPlayerState(); if(s===YT.PlayerState.PLAYING) player.pauseVideo(); else player.playVideo(); }
-    function toggleFullscreen() { const w = document.querySelector('.video-container'); if(!document.fullscreenElement) w.requestFullscreen(); else document.exitFullscreen(); }
+  function showControls() {
+    clearTimeout(hideControlsTimer);
+    document.getElementById('videoControls').style.opacity = 1;
+    document.getElementById('uiToggle').style.opacity = 1;
+    hideControlsTimer = setTimeout(() => {
+      document.getElementById('videoControls').style.opacity = 0;
+      document.getElementById('uiToggle').style.opacity = 0;
+    }, 3000);
+  }
 
-    // Seek bar update & click
-    const seekBar = document.getElementById('seekBar');
-    const seekFill = document.getElementById('seekFill');
-    function updateSeek() {
-      const pct = (player.getCurrentTime()/player.getDuration())*100;
-      seekFill.style.width = pct + '%';
-    }
-    function seekTo(e) {
-      const rect = seekBar.getBoundingClientRect();
-      const pct = (e.clientX-rect.left)/rect.width;
-      player.seekTo(pct*player.getDuration(), true);
-    }
-    setInterval(updateSeek, 500);
+  function seek(sec) { player.seekTo(player.getCurrentTime() + sec, true); }
+  function togglePlayPause() { const s = player.getPlayerState(); s === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
+  function toggleFullscreen() { const w = document.querySelector('.video-container'); document.fullscreenElement ? document.exitFullscreen() : w.requestFullscreen(); }
+  function playNextEpisode() { if (currentEpisodeIndex < episodes.length - 1) { currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); } }
 
-    // UI toggle & panels
-    function toggleUIPanels() {
-      ['themePanel','neonPanel','fontPanel'].forEach(id => {
-        const el = document.getElementById(id);
-        el.style.display = el.style.display==='block'?'none':'block';
-      });
+  // progress update
+  setInterval(() => {
+    if (player && player.getCurrentTime) {
+      const pct = (player.getCurrentTime() / player.getDuration()) * 100;
+      document.getElementById('progress').style.width = pct + '%';
     }
-    const themes = [...]; const neonColors = [...]; const fontFamilies = [...]; // your arrays
-    // init panels
-    // (copy your existing loops here)
+  }, 200);
 
-    // Auto-hide controls & toggle
-    let hideTimer;
-    function showControls() {
-      clearTimeout(hideTimer);
-      document.getElementById('videoControls').style.opacity = 1;
-      document.getElementById('uiToggle').style.opacity = 1;
-      hideTimer = setTimeout(() => {
-        document.getElementById('videoControls').style.opacity = 0;
-        document.getElementById('uiToggle').style.opacity = 0;
-      }, 3000);
-    }
+  function seekTo(e) {
+    const bar = document.getElementById('progress-bar'), rect = bar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left, pct = clickX / rect.width;
+    player.seekTo(pct * player.getDuration(), true);
+  }
 
-    // Ad popup logic with 1h cooldown
-    const overlay = document.getElementById('adOverlay');
-    const btn = document.getElementById('adButton');
-    const cdText = document.getElementById('countdownText');
-    function showAd() {
-      overlay.style.display = 'flex';
-      let sec=5; cdText.textContent = `Closing in ${sec}s...`;
-      const iv = setInterval(()=>{ if(--sec>0) cdText.textContent=`Closing in ${sec}s...`; else { clearInterval(iv); overlay.style.display='none'; } },1000);
+  // UI panels
+  function toggleUIPanels() { ['themePanel','neonPanel','fontPanel'].forEach(id => { const el = document.getElementById(id); el.style.display = el.style.display === 'block' ? 'none' : 'block'; }); }
+  const themes = [ ['#0b0f1a','#ffffff','#8e2de2','Dark Violet'], ['#1a1a1a','#eee','#ff4081','Dark Pink'], ['#121212','#ddd','#00bcd4','Dark Aqua'] ];
+  themes.forEach(([bg,txt,acc,name]) => {
+    const d = document.createElement('div'); d.className='panel-item'; d.textContent=name;
+    d.onclick = () => { document.documentElement.style.setProperty('--bg-color',bg); document.documentElement.style.setProperty('--text-color',txt); document.documentElement.style.setProperty('--accent-color',acc); };
+    document.getElementById('themeList').appendChild(d);
+  });
+  const neonColors = [ ['#39ff14','Neon Green'], ['#ff00ff','Neon Magenta'], ['#00ffff','Neon Cyan'] ];
+  neonColors.forEach(([col,name]) => {
+    const d = document.createElement('div'); d.className='panel-item'; d.textContent=name;
+    d.onclick = () => { document.documentElement.style.setProperty('--neon-glow',col); document.documentElement.style.setProperty('--box-border',`0 0 10px ${col}`); };
+    document.getElementById('neonList').appendChild(d);
+  });
+  const fonts = [ ['Poppins','Poppins'], ['Roboto','Roboto'], ['Orbitron','Orbitron'] ];
+  fonts.forEach(([f,label]) => {
+    const d = document.createElement('div'); d.className='panel-item'; d.textContent=label;
+    d.onclick = () => document.documentElement.style.setProperty('--font-family',`'${f}', sans-serif`);
+    document.getElementById('fontList').appendChild(d);
+  });
+
+  // search filter
+  function filterEpisodes() {
+    const q = document.getElementById('searchBox').value.toLowerCase();
+    document.querySelectorAll('#episodeList .episode-btn').forEach(btn => { btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none'; });
+  }
+
+  // ad popup cooldown
+  const popup = document.getElementById('adPopup'), btnAd = document.getElementById('adButton'), cd = document.getElementById('countdown');
+  function showPopup() {
+    const ts = localStorage.getItem('adClickedAt');
+    if (!ts) {
+      popup.classList.remove('hidden'); let t = 5; btnAd.disabled = true; cd.textContent = `Please wait ${t}s...`;
+      const iv = setInterval(() => { t--; cd.textContent = `Please wait ${t}s...`; if (t <= 0) { clearInterval(iv); btnAd.disabled = false; btnAd.textContent = 'Watch Ad'; } }, 1000);
     }
-    function checkAd() {
-      const last = localStorage.getItem('lastAdClick');
-      if(!last || Date.now()-last>3600_000) showAd();
-    }
-    btn.addEventListener('click',()=>{ localStorage.setItem('lastAdClick',Date.now()); overlay.style.display='none'; });
-    window.addEventListener('load',checkAd);
-  </script></body>
+  }
+  function onAdClick() {
+    localStorage.setItem('adClickedAt', Date.now()); window.open('https://sawutser.top/4/9278457','_blank'); popup.classList.add('hidden');
+  }
+  document.addEventListener('DOMContentLoaded', () => { showPopup(); setInterval(() => { const ts = localStorage.getItem('adClickedAt'); if (ts && Date.now() - ts > 3600000) localStorage.removeItem('adClickedAt'); }, 60000); });
+</script></body>
 </html>
