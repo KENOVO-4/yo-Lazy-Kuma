@@ -2,98 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anime Player</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Wind Breaker - Season 1</title>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
     body {
+      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
-      background: #111;
-      color: #fff;
+      overflow-x: hidden;
     }
-    #videoWrapper {
+    html, body {
+      user-select: none;
+      scroll-behavior: smooth;
+    }
+    .video-container {
       position: relative;
-      width: 100vw;
-      height: 56.25vw; /* 16:9 ratio */
-      max-height: 100vh;
-      overflow: hidden;
+      padding-top: 56.25%;
+      background-color: black;
     }
-    iframe {
+    .video-container #videoPlayer {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      border: none;
     }
     .controls {
       position: absolute;
       bottom: 10px;
-      left: 0;
-      right: 0;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       justify-content: center;
       gap: 10px;
+      z-index: 3;
       opacity: 1;
-      transition: opacity 0.5s ease-in-out;
-      z-index: 10;
-      pointer-events: auto;
+      transition: opacity 0.5s;
     }
-    .controls.fullscreen {
-      bottom: 20px;
-    }
-    .controls button {
-      padding: 10px;
-      background: rgba(0,0,0,0.6);
-      border: none;
+    .control-btn {
+      background-color: rgba(0,0,0,0.6);
       color: white;
-      border-radius: 5px;
+      border: none;
+      padding: 8px;
+      border-radius: 50%;
       cursor: pointer;
+      font-size: 16px;
     }
-    .episode-list {
-      padding: 10px;
-      overflow-y: auto;
-      max-height: 300px;
-    }
-    .episode-list button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0;
-      background: #5b21b6;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      text-align: left;
-    }
-    @media (max-width: 600px) {
-      #videoWrapper {
-        height: 56.25vw;
-      }
-      .controls {
-        flex-wrap: wrap;
-      }
+    .controls.hide {
+      opacity: 0;
+      pointer-events: none;
     }
   </style>
 </head>
-<body>
-  <div id="videoWrapper">
-    <div id="videoPlayer"></div>
-    <div class="controls">
-      <button onclick="seek(-10)">⏪ 10s</button>
-      <button onclick="togglePlayPause()">⏯</button>
-      <button onclick="seek(10)">10s ⏩</button>
-      <button onclick="playPreviousEpisode()">⬅️ Prev</button>
-      <button onclick="playNextEpisode()">Next ➡️</button>
-      <button onclick="toggleFullscreen()">⛶</button>
-      <button onclick="openOnYouTube()">🎬 YouTube</button>
+<body class="bg-[#0b0f1a] text-white">
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+      <h1 class="text-3xl font-bold text-purple-400">Wind Breaker - Season 1</h1>
+      <div class="flex gap-3 mt-2 sm:mt-0">
+        <a href="index.2.html" class="bg-purple-700 hover:bg-purple-800 px-3 py-2 rounded text-white">← Go Back</a>
+        <a href="support.html" class="bg-purple-700 hover:bg-purple-800 px-3 py-2 rounded text-white">Support Us</a>
+      </div>
+    </header>
+
+    <div class="mb-4">
+      <input type="text" id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes..." class="w-full p-2 mb-4 bg-gray-800 text-white rounded" />
     </div>
+
+    <div id="videoWrapper" class="video-container rounded-xl shadow-lg overflow-hidden relative">
+      <div id="videoPlayer"></div>
+      <div class="controls" id="videoControls">
+        <button class="control-btn" onclick="seek(-10)">⏪</button>
+        <button class="control-btn" onclick="togglePlayPause()">▶️/⏸️</button>
+        <button class="control-btn" onclick="seek(10)">⏩</button>
+        <button class="control-btn" onclick="playPreviousEpisode()">⬅️</button>
+        <button class="control-btn" onclick="playNextEpisode()">➡️</button>
+        <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
+      </div>
+    </div>
+
+    <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+
+    <div class="mt-6 bg-gray-800 p-4 rounded-lg">
+      <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
+      <p>
+        Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
+      </p>
+    </div>
+
+    <footer class="mt-10 text-sm text-center text-gray-400">
+      <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
+      <p>We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region.</p>
+      <p class="mt-2">Thank you for everything!</p>
+    </footer>
   </div>
 
-  <div>
-    <input type="text" id="searchBox" placeholder="Search episodes..." oninput="searchEpisodes()" />
-    <div id="episodeList" class="episode-list"></div>
-  </div>
-
-  <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     let player;
     const episodes = [
@@ -112,11 +117,11 @@
       { title: "Episode 13", link: "-xUk9E2iQQY" }
     ];
     let currentEpisodeIndex = 0;
-    let controlTimeout;
 
+    // Ensure the YouTube API is loaded before creating the player
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('videoPlayer', {
-        videoId: episodes[currentEpisodeIndex].link,
+        videoId: episodes[currentEpisodeIndex].link, // Make sure the link is correct
         playerVars: {
           autoplay: 1,
           controls: 1,
@@ -126,15 +131,15 @@
         },
         events: {
           onReady: loadEpisodes,
-          onStateChange: onPlayerStateChange
+          onStateChange: handleStateChange
         }
       });
     }
 
     function seek(seconds) {
       if (player && player.getCurrentTime) {
-        const currentTime = player.getCurrentTime();
-        player.seekTo(currentTime + seconds, true);
+        const time = player.getCurrentTime();
+        player.seekTo(time + seconds, true);
       }
     }
 
@@ -146,8 +151,11 @@
 
     function toggleFullscreen() {
       const wrapper = document.getElementById("videoWrapper");
-      if (document.fullscreenElement) document.exitFullscreen();
-      else wrapper.requestFullscreen();
+      if (!document.fullscreenElement) {
+        wrapper.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
     }
 
     function playNextEpisode() {
@@ -164,20 +172,19 @@
       }
     }
 
-    function onPlayerStateChange(event) {
-      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
-
-      const controls = document.querySelector(".controls");
-      controls.style.opacity = "1";
-      clearTimeout(controlTimeout);
-      controlTimeout = setTimeout(() => {
-        controls.style.opacity = "0";
-      }, 4000);
-    }
-
-    function openOnYouTube() {
-      const videoId = episodes[currentEpisodeIndex].link;
-      window.open(`https://www.youtube.com/watch?v=${videoId}`, "_blank");
+    function loadEpisodes() {
+      const list = document.getElementById("episodeList");
+      list.innerHTML = "";
+      episodes.forEach((ep, i) => {
+        const btn = document.createElement("button");
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
+        btn.innerHTML = `<strong>${ep.title}</strong>`;
+        btn.onclick = () => {
+          currentEpisodeIndex = i;
+          player.loadVideoById(ep.link);
+        };
+        list.appendChild(btn);
+      });
     }
 
     function searchEpisodes() {
@@ -186,7 +193,8 @@
       list.innerHTML = "";
       episodes.filter(ep => ep.title.toLowerCase().includes(value)).forEach((ep, i) => {
         const btn = document.createElement("button");
-        btn.textContent = ep.title;
+        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
+        btn.innerHTML = `<strong>${ep.title}</strong>`;
         btn.onclick = () => {
           currentEpisodeIndex = i;
           player.loadVideoById(ep.link);
@@ -195,19 +203,38 @@
       });
     }
 
-    function loadEpisodes() {
-      const list = document.getElementById("episodeList");
-      list.innerHTML = "";
-      episodes.forEach((ep, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = ep.title;
-        btn.onclick = () => {
-          currentEpisodeIndex = i;
-          player.loadVideoById(ep.link);
-        };
-        list.appendChild(btn);
-      });
+    function handleStateChange(event) {
+      const controls = document.getElementById("videoControls");
+      if (event.data === YT.PlayerState.PLAYING) {
+        startControlAutoHide();
+      } else {
+        clearTimeout(hideTimeout);
+        controls.classList.remove("hide");
+      }
+
+      if (event.data === YT.PlayerState.ENDED) {
+        playNextEpisode();
+      }
     }
+
+    let hideTimeout;
+    function startControlAutoHide() {
+      const controls = document.getElementById("videoControls");
+      controls.classList.remove("hide");
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        controls.classList.add("hide");
+      }, 4000);
+    }
+
+    document.addEventListener("mousemove", () => {
+      const controls = document.getElementById("videoControls");
+      controls.classList.remove("hide");
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(() => {
+        controls.classList.add("hide");
+      }, 4000);
+    });
   </script>
 </body>
 </html>
