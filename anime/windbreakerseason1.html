@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -23,93 +22,100 @@
       padding-top: 56.25%;
       background-color: black;
     }
-    .video-container #videoPlayer {
+    .video-container iframe, .video-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
     }
+    .video-overlay {
+      z-index: 2;
+      background: transparent;
+    }
     .controls {
       position: absolute;
-      bottom: 10px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
-      justify-content: center;
       gap: 10px;
       z-index: 3;
-      opacity: 1;
-      transition: opacity 0.5s;
+      flex-wrap: wrap;
     }
     .control-btn {
       background-color: rgba(0,0,0,0.6);
       color: white;
       border: none;
-      padding: 8px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .controls.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .theme-toggle {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: rgba(0,0,0,0.6);
       padding: 10px;
       border-radius: 50%;
       cursor: pointer;
+      font-size: 18px;
+    }
+    .theme-toggle, .neon-toggle {
+      position: absolute;
+      top: 10px;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .theme-toggle {
+      right: 50px;
+      background-color: rgba(0,0,0,0.6);
+    }
+    .neon-toggle {
+      right: 10px;
+      background-color: rgba(255,255,0,0.6);
+    }
+    .neon .control-btn {
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
     }
   </style>
 </head>
-<body class="bg-[#0b0f1a] text-white">
+<body class="bg-gray-900 text-white">
   <div class="max-w-5xl mx-auto px-4 py-6">
     <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
-      <h1 class="text-3xl font-bold text-purple-400">Wind Breaker - Season 1</h1>
-      <div class="flex gap-3 mt-2 sm:mt-0">
-        <a href="index.2.html" class="bg-purple-700 hover:bg-purple-800 px-3 py-2 rounded text-white">← Go Back</a>
+      <div class="flex gap-3 mb-3 sm:mb-0 order-2 sm:order-1">
         <a href="support.html" class="bg-purple-700 hover:bg-purple-800 px-3 py-2 rounded text-white">Support Us</a>
+        <a href="index.2.html" class="bg-purple-700 hover:bg-purple-800 px-3 py-2 rounded text-white">Go Back</a>
       </div>
-    </header>
+      <h1 class="text-3xl font-bold text-purple-400 order-1 sm:order-2">Wind Breaker - Season 1</h1>
+    </header><div class="mb-4">
+  <input type="text" id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes..." class="w-full p-2 mb-4 bg-gray-800 text-white rounded" />
+</div>
 
-    <div class="mb-4">
-      <input type="text" id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes..." class="w-full p-2 mb-4 bg-gray-800 text-white rounded" />
-    </div>
-
-    <div id="videoWrapper" class="video-container rounded-xl shadow-lg overflow-hidden relative">
-      <div id="videoPlayer"></div>
-      <div class="controls" id="videoControls">
-        <button class="control-btn" onclick="seek(-10)">⏪</button>
-        <button class="control-btn" onclick="togglePlayPause()">▶️/⏸️</button>
-        <button class="control-btn" onclick="seek(10)">⏩</button>
-        <button class="control-btn" onclick="playPreviousEpisode()">⬅️</button>
-        <button class="control-btn" onclick="playNextEpisode()">➡️</button>
-        <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
-      </div>
-      <div class="theme-toggle" onclick="toggleTheme()">🌙</div>
-    </div>
-
-    <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
-
-    <div class="mt-6 bg-gray-800 p-4 rounded-lg">
-      <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
-      <p>
-        Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
-      </p>
-    </div>
-
-    <footer class="mt-10 text-sm text-center text-gray-400">
-      <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
-      <p>We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region.</p>
-      <p class="mt-2">Thank you for everything!</p>
-    </footer>
+<div id="videoWrapper" class="video-container rounded-xl shadow-lg overflow-hidden relative">
+  <div id="videoPlayer"></div>
+  <div class="video-overlay" onclick="handleOverlayClick(event)"></div>
+  <div class="controls" id="videoControls">
+    <button class="control-btn" onclick="seek(-10)">⏪</button>
+    <button class="control-btn" onclick="togglePlayPause()">▶️/⏸️</button>
+    <button class="control-btn" onclick="seek(10)">⏩</button>
+    <button class="control-btn" onclick="playPreviousEpisode()">⬅️</button>
+    <button class="control-btn" onclick="playNextEpisode()">➡️</button>
+    <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
   </div>
+  <div class="theme-toggle" onclick="cycleTheme()">🎨</div>
+  <div class="neon-toggle" onclick="toggleNeon()">⚡</div>
+</div>
 
-  <script>
+<div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+
+<div class="mt-6 bg-gray-800 p-4 rounded-lg">
+  <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
+  <p>
+    Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School—a school known for its fierce fighters who protect their town. As Haruka navigates intense battles and forms bonds with unlikely allies, the series blends action, heart, and powerful themes of friendship and justice.
+  </p>
+</div>
+
+<footer class="mt-10 text-sm text-center text-gray-400">
+  <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life.</p>
+  <p>We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region.</p>
+  <p class="mt-2">Thank you for everything!</p>
+</footer>
+
+  </div>  <script>
     let player;
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
@@ -127,14 +133,26 @@
       { title: "Episode 13", link: "-xUk9E2iQQY" }
     ];
     let currentEpisodeIndex = 0;
+    const themes = [
+      ['bg-black', 'text-white'],
+      ['bg-white', 'text-black'],
+      ['bg-yellow-100', 'text-purple-900'],
+      ['bg-purple-900', 'text-yellow-100'],
+      ['bg-green-900', 'text-pink-200'],
+      ['bg-gray-900', 'text-white'],
+      ['bg-indigo-800', 'text-pink-100'],
+      ['bg-pink-800', 'text-yellow-200'],
+      ['bg-blue-950', 'text-lime-200'],
+      ['bg-amber-900', 'text-white']
+    ];
+    let currentTheme = 0;
 
-    // Ensure the YouTube API is loaded before creating the player
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('videoPlayer', {
-        videoId: episodes[currentEpisodeIndex].link, // Make sure the link is correct
+        videoId: episodes[currentEpisodeIndex].link,
         playerVars: {
           autoplay: 1,
-          controls: 1,
+          controls: 0,
           modestbranding: 1,
           rel: 0,
           cc_load_policy: 1
@@ -146,11 +164,13 @@
       });
     }
 
+    function handleOverlayClick(event) {
+      // prevent interaction with YouTube player
+    }
+
     function seek(seconds) {
-      if (player && player.getCurrentTime) {
-        const time = player.getCurrentTime();
-        player.seekTo(time + seconds, true);
-      }
+      const time = player.getCurrentTime();
+      player.seekTo(time + seconds, true);
     }
 
     function togglePlayPause() {
@@ -161,11 +181,8 @@
 
     function toggleFullscreen() {
       const wrapper = document.getElementById("videoWrapper");
-      if (!document.fullscreenElement) {
-        wrapper.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
+      if (!document.fullscreenElement) wrapper.requestFullscreen();
+      else document.exitFullscreen();
     }
 
     function playNextEpisode() {
@@ -214,50 +231,18 @@
     }
 
     function handleStateChange(event) {
-      const controls = document.getElementById("videoControls");
-      if (event.data === YT.PlayerState.PLAYING) {
-        startControlAutoHide();
-      } else {
-        clearTimeout(hideTimeout);
-        controls.classList.remove("hide");
-      }
-
-      if (event.data === YT.PlayerState.ENDED) {
-        playNextEpisode();
-      }
+      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
     }
 
-    let hideTimeout;
-    function startControlAutoHide() {
-      const controls = document.getElementById("videoControls");
-      controls.classList.remove("hide");
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        controls.classList.add("hide");
-      }, 4000);
+    function cycleTheme() {
+      const body = document.body;
+      body.classList.remove(...themes[currentTheme]);
+      currentTheme = (currentTheme + 1) % themes.length;
+      body.classList.add(...themes[currentTheme]);
     }
 
-    document.addEventListener("mousemove", () => {
-      const controls = document.getElementById("videoControls");
-      controls.classList.remove("hide");
-      clearTimeout(hideTimeout);
-      hideTimeout = setTimeout(() => {
-        controls.classList.add("hide");
-      }, 4000);
-    });
-
-    function toggleTheme() {
-      const currentTheme = document.body.classList.contains('bg-[#0b0f1a]') ? 'dark' : 'light';
-      if (currentTheme === 'dark') {
-        document.body.classList.remove('bg-[#0b0f1a]', 'text-white');
-        document.body.classList.add('bg-white', 'text-black');
-        document.querySelector('.theme-toggle').innerText = '🌞';
-      } else {
-        document.body.classList.remove('bg-white', 'text-black');
-        document.body.classList.add('bg-[#0b0f1a]', 'text-white');
-        document.querySelector('.theme-toggle').innerText = '🌙';
-      }
+    function toggleNeon() {
+      document.body.classList.toggle('neon');
     }
-  </script>
-</body>
+  </script></body>
 </html>
