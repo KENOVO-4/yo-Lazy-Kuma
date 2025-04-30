@@ -1,29 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DOOSH HUB</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Favicon -->
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
-
-  <!-- Open Graph Meta -->
-  <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
+  <script src="https://cdn.tailwindcss.com"></script>  <!-- Favicon -->  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />  <!-- Open Graph Meta -->  <meta property="og:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta property="og:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
   <meta property="og:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
   <meta property="og:url" content="https://www.dooshtoons.linkpc.net/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card Meta -->
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:type" content="website" />  <!-- Twitter Card Meta -->  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DOOSH HUB - Watch Animes, Movies and More!" />
   <meta name="twitter:description" content="Explore animes, movies, and series with fire neon vibes on DOOSH HUB." />
-  <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />
-
-  <style>
+  <meta name="twitter:image" content="https://www.dooshtoons.linkpc.net/Screenshot_2025-04-05-08-08-19-87.jpg" />  <style>
     /* Fire Neon Background */
     body {
       background: #0f0f0f;
@@ -57,11 +43,15 @@
       background: rgba(0, 0, 0, 0.6);
       z-index: 9999;
       transition: all 0.3s ease-in-out;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
     }
 
     header.shrink {
       background: rgba(0, 0, 0, 0.9);
-      padding: 10px;
+      padding: 0.25rem 1rem;
     }
 
     /* Carousel */
@@ -69,6 +59,7 @@
       position: relative;
       width: 100%;
       overflow: hidden;
+      margin-top: 100px;
     }
 
     #carousel {
@@ -112,6 +103,8 @@
       background-color: #333;
       border-radius: 8px;
       animation: shimmer 1.5s infinite linear;
+      background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+      background-size: 200% 100%;
     }
 
     .skeleton-card {
@@ -121,38 +114,8 @@
     }
 
     @keyframes shimmer {
-      0% { background-position: -1000px 0; }
-      100% { background-position: 1000px 0; }
-    }
-
-    /* Floating Ad Box */
-    #adBox {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      width: 300px;
-      background: #1f2937;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      overflow: hidden;
-      z-index: 99999;
-    }
-
-    #adContent iframe {
-      width: 100%;
-      height: 250px;
-      border: none;
-    }
-
-    #closeAd {
-      position: absolute;
-      top: 5px;
-      right: 10px;
-      color: white;
-      background: transparent;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
     }
 
     /* Scroll-to-Top Button */
@@ -191,46 +154,48 @@
       0% { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff4500, 0 0 30px #ff4500; }
       100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500, 0 0 40px #ff4500; }
     }
-  </style>
-</head>
 
-<body>
+    /* Support Button */
+    .support-btn {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: linear-gradient(45deg, #ff00ff, #00ffff);
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 0 15px #ff00ff88;
+      cursor: pointer;
+      transition: transform 0.3s;
+      z-index: 9999;
+    }
 
-  <!-- Scroll-to-Top Button -->
-  <button id="scrollToTop" onclick="scrollToTop()">↑</button>
+    .support-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px #00ffff;
+    }
+  </style></head><body>
+  <!-- Support Button -->
+  <button class="support-btn" onclick="triggerPopunder()">Support Us</button>  <!-- Scroll-to-Top Button --><button id="scrollToTop" onclick="scrollToTop()">↑</button>
 
-  <!-- Header -->
-  <header class="p-4">
+  <!-- Header -->  <header class="p-4">
     <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 inline-block rounded-full" />
     <input type="text" id="search" placeholder="Search animes, movies, drama..." class="w-1/2 p-2 rounded bg-gray-700 text-white placeholder-gray-400" oninput="filterAnime()" />
-  </header>
-
-  <!-- Welcome Message -->
-  <div class="welcome-message">
-    Welcome to DOOSH HUB!
-  </div>
-
-  <!-- Carousel -->
-  <section class="carousel-container p-4">
+  </header>  <!-- Welcome Message -->  <div class="welcome-message">Welcome to DOOSH HUB!</div>  <!-- Carousel -->  <section class="carousel-container p-4">
     <div id="carousel"></div>
-  </section>
-
-  <!-- Anime List -->
-  <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList">
+  </section>  <!-- Anime List -->  <main class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6" id="animeList">
     <div class="skeleton skeleton-card"></div>
     <div class="skeleton skeleton-card"></div>
     <div class="skeleton skeleton-card"></div>
-  </main>
-
-  <!-- Scripts -->
-  <script>
-   const animeData = {
+  </main>  <!-- Scripts -->  <script>
+    const animeData = {
       "wind-breaker season 1 ": { title: "WIND BREAKER Season 1 in Hindi", cover: "InShot_20250427_105208488.jpg", link: "anime/windbreakerseason1.html" },
       "dragon-ball": { title: "Dragon Ball Prison Planet Full Movie", cover: "unnamed (4).jpg", link: "anime/dragon-ball.html" },
-         "The_Curious_Case_of_Benjamin_Button_2008_Hindi": { title: "The_Curious_Case_of_Benjamin_Button_2008_Hindi", cover: "download (1).jpg", link: "anime/The_Curious_Case_of_Benjamin_Button_2008_Hindi.html" },
+      "The_Curious_Case_of_Benjamin_Button_2008_Hindi": { title: "The_Curious_Case_of_Benjamin_Button_2008_Hindi", cover: "download (1).jpg", link: "anime/The_Curious_Case_of_Benjamin_Button_2008_Hindi.html" },
       "shinchan-ninja": { title: "Shinchan The Legend of Ninja Mononoke (Hindi)", cover: "unnamed (1).jpg", link: "anime/anime/Shinchan The Legend of Ninja Mononoke (Hindi).html" },
       "wind-breaker": { title: "WIND BREAKER Season 2 in Hindi", cover: "WIND BREAKER S2.jpg", link: "anime/WIND BREAKER S2.html" },
-       "Justice_League_2017_Hindi_Dubbed": { title: "Justice_League_2017_Hindi_Dubbed", cover: "photos/images (1).jpg", link: "anime/Justice_League_2017_Hindi_Dubbed_Full_Movie.html" },
+      "Justice_League_2017_Hindi_Dubbed": { title: "Justice_League_2017_Hindi_Dubbed", cover: "photos/images (1).jpg", link: "anime/Justice_League_2017_Hindi_Dubbed_Full_Movie.html" },
       "Avengers_Endgame_2019_Dual_Audio_Hindi_Dubbed": { title: "Avengers_Endgame_2019_Dual_Audio_Hindi_Dubbed", cover: "photos/p15366809_v_h10_aw.jpg", link: "anime/Avengers_Endgame_2019_Dual_Audio_Hindi_Dubbed.html" },
       "tokyo-revengers": { title: "Tokyo Revengers Season 1", cover: "unnamed (2).jpg", link: "anime/Tokyo Revengers season 1.html" },
       "Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala": { title: "Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala", cover: "photos/download (4).jpg", link: "anime/Kesari_Chapter_2_The_Untold_Story_Of_Jallianwala.html" },
@@ -240,7 +205,8 @@
       "the shawshank redemption full movie in hindi ": { title: "the shawshank redemption full movie in hindi", cover: "download.jpg", link: "anime/the shawshank redemption full movie in hindi.html" },
       "chainsaw man all episodes in one video+ movie": { title: "chainsaw man all episodes in one video+ movie", cover: "images (7).jpeg", link: "anime/chainsaw man.html" }
     };
-  function loadAnimeCards() {
+
+    function loadAnimeCards() {
       const list = document.getElementById('animeList');
       list.innerHTML = '';
       Object.values(animeData).forEach(a => {
@@ -263,13 +229,11 @@
         slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" class="w-full h-full object-cover" />`;
         carousel.appendChild(slide);
       });
-
       const firstClone = carousel.firstElementChild.cloneNode(true);
       carousel.appendChild(firstClone);
     }
 
     let carouselIndex = 0;
-
     function autoSlide() {
       const carousel = document.getElementById('carousel');
       const items = document.querySelectorAll('#carousel a');
@@ -285,7 +249,6 @@
         }, 700);
       }
     }
-
     setInterval(autoSlide, 3000);
 
     function filterAnime() {
@@ -302,19 +265,30 @@
 
     window.onscroll = function () {
       const scrollButton = document.getElementById('scrollToTop');
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        scrollButton.style.display = "block";
-      } else {
-        scrollButton.style.display = "none";
-      }
+      scrollButton.style.display = (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) ? "block" : "none";
     };
 
+    // Popunder Auto Trigger on first interaction + periodic
+    let lastAdTriggerTime = 0;
+    const adCooldown = 5 * 60 * 1000;
+    const popunderZones = [9277886, 9277883, 9277875];
+
+    function triggerPopunder() {
+      const now = Date.now();
+      if (now - lastAdTriggerTime > adCooldown) {
+        const zone = popunderZones[Math.floor(Math.random() * popunderZones.length)];
+        const script = document.createElement('script');
+        script.src = 'https://shebudriftaiter.net/tag.min.js';
+        script.setAttribute('data-zone', zone);
+        (document.body || document.documentElement).appendChild(script);
+        lastAdTriggerTime = now;
+      }
+    }
+    ['click', 'touchstart'].forEach(ev => document.body.addEventListener(ev, triggerPopunder, { once: true }));
+    setInterval(triggerPopunder, 10 * 60 * 1000);
 
     window.onload = function () {
       loadCarousel();
       setTimeout(loadAnimeCards, 1500);
     };
-  </script>
-
-</body>
-</html>
+  </script></body></html>
