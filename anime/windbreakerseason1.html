@@ -21,7 +21,7 @@
     .video-container {
       position: relative;
       padding-top: 56.25%;
-      background-color: black;
+      background-color: black; /* Ensure video container has a background */
     }
     .video-container #videoPlayer {
       position: absolute;
@@ -74,17 +74,18 @@
     #themeList {
       display: none;
     }
+    /* Fix for full-screen and mobile landscape mode */
     .video-container.fullscreen {
-      height: 100vh;
-      width: 100vw;
+      height: 100vh; /* Full height in fullscreen */
+      width: 100vw; /* Full width in fullscreen */
     }
     .controls.fullscreen {
-      position: fixed;
+      position: fixed; /* Fix controls at the bottom */
       bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       width: 100%;
-      z-index: 9999;
+      z-index: 9999; /* Keep the controls on top */
     }
   </style>
 </head>
@@ -101,7 +102,18 @@
   <div class="mb-4">
     <button onclick="toggleThemes()" class="theme-button">Choose Theme</button>
     <div id="themeList" class="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
-      <!-- Theme Buttons Here -->
+      <button onclick="setTheme('bg-[#0b0f1a]')" class="theme-button">AniWatch Dark</button>
+      <button onclick="setTheme('bg-gray-900')" class="theme-button">Classic Dark</button>
+      <button onclick="setTheme('bg-gradient-to-r from-indigo-900 via-purple-900 to-gray-900')" class="theme-button">Indigo Wave</button>
+      <button onclick="setTheme('bg-gradient-to-r from-gray-800 to-black')" class="theme-button">Smoky</button>
+      <button onclick="setTheme('bg-gradient-to-r from-purple-800 via-pink-700 to-red-600')" class="theme-button">Neon Heat</button>
+      <button onclick="setTheme('bg-gradient-to-br from-black via-gray-800 to-black')" class="theme-button">Minimal Night</button>
+      <button onclick="setTheme('bg-gradient-to-r from-blue-900 to-indigo-800')" class="theme-button">Oceanic</button>
+      <button onclick="setTheme('bg-gradient-to-br from-yellow-800 via-red-800 to-pink-700')" class="theme-button">Twilight</button>
+      <button onclick="setTheme('bg-gradient-to-r from-black via-purple-800 to-black')" class="theme-button">Void Pulse</button>
+      <button onclick="setTheme('bg-gradient-to-br from-green-800 to-teal-900')" class="theme-button">Mystic Forest</button>
+      <button onclick="setTheme('bg-gradient-to-br from-zinc-900 to-neutral-800')" class="theme-button">Ash Fade</button>
+      <button onclick="setTheme('bg-gradient-to-br from-cyan-900 to-indigo-900')" class="theme-button">Cyber Chill</button>
     </div>
   </div>
 
@@ -127,12 +139,12 @@
     </p>
   </div>
 
-  <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-    <!-- Episode buttons will be populated dynamically -->
-  </div>
+  <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
 
   <footer class="mt-10 text-sm text-center text-gray-400">
-    <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life...</p>
+    <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life. Your work has touched fans around the world with its powerful characters, stunning animation, and emotional storytelling.</p>
+    <p>We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region. Your efforts in promoting and streaming quality anime are deeply appreciated by the entire community.</p>
+    <p class="mt-2">Thank you for everything!</p>
   </footer>
 </div>
 
@@ -158,7 +170,7 @@
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('videoPlayer', {
       videoId: episodes[currentEpisodeIndex].link,
-      playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0, playsinline: 1 },
+      playerVars: { autoplay: 1, controls: 1, modestbranding: 1, rel: 0 },
       events: {
         onReady: loadEpisodes,
         onStateChange: onPlayerStateChange
@@ -166,19 +178,11 @@
     });
   }
 
-  function loadEpisodes() {
-    const list = document.getElementById("episodeList");
-    list.innerHTML = "";
-    episodes.forEach((ep, i) => {
-      const btn = document.createElement("button");
-      btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
-      btn.innerHTML = `<strong>${ep.title}</strong>`;
-      btn.onclick = () => {
-        currentEpisodeIndex = i;
-        player.loadVideoById(ep.link);
-      };
-      list.appendChild(btn);
-    });
+  function seek(seconds) {
+    if (player && player.getCurrentTime) {
+      const currentTime = player.getCurrentTime();
+      player.seekTo(currentTime + seconds, true);
+    }
   }
 
   function togglePlayPause() {
@@ -236,6 +240,21 @@
     const list = document.getElementById("episodeList");
     list.innerHTML = "";
     episodes.filter(ep => ep.title.toLowerCase().includes(value)).forEach((ep, i) => {
+      const btn = document.createElement("button");
+      btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
+      btn.innerHTML = `<strong>${ep.title}</strong>`;
+      btn.onclick = () => {
+        currentEpisodeIndex = i;
+        player.loadVideoById(ep.link);
+      };
+      list.appendChild(btn);
+    });
+  }
+
+  function loadEpisodes() {
+    const list = document.getElementById("episodeList");
+    list.innerHTML = "";
+    episodes.forEach((ep, i) => {
       const btn = document.createElement("button");
       btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
       btn.innerHTML = `<strong>${ep.title}</strong>`;
