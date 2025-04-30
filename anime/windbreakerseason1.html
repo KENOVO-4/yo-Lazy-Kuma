@@ -12,15 +12,9 @@
     }
     html, body {
       user-select: none;
-      touch-action: manipulation;
     }
-    .block-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 30;
+    iframe {
+      pointer-events: auto !important;
     }
   </style>
 </head>
@@ -36,22 +30,21 @@
       </div>
     </header>
 
-    <!-- Description -->
-    <div id="animeDesc" class="bg-purple-800 bg-opacity-30 p-4 rounded-lg text-sm shadow transition duration-500">
-      Loading anime description...
-    </div>
-
     <!-- Video Player -->
-    <div class="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden" style="padding-bottom:56.25%; height:0;">
+    <div class="relative bg-gray-800 rounded-lg shadow-lg overflow-hidden aspect-video">
       <iframe
         id="videoPlayer"
-        class="absolute top-0 left-0 w-full h-full pointer-events-none"
-        src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&autoplay=0&controls=1"
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/ne0Y0vyjxpE?rel=0&modestbranding=1&autoplay=0&controls=1&fs=1"
         frameborder="0"
-        allow="autoplay; encrypted-media"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowfullscreen>
       </iframe>
-      <div class="block-overlay"></div>
+    </div>
+
+    <!-- Description BELOW video player -->
+    <div id="animeDesc" class="bg-purple-800 bg-opacity-30 p-4 rounded-lg text-sm shadow transition duration-500">
+      Loading anime description...
     </div>
 
     <!-- Episode Metadata -->
@@ -80,16 +73,13 @@
   <script>
     // Disable interactions
     document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('mousedown', e => e.preventDefault());
-    document.addEventListener('touchstart', e => e.preventDefault());
 
-    // Dynamic Anime Description
+    // Anime Description
     const animeDesc = `
       <h3 class="text-lg font-semibold mb-1">About Wind Breaker</h3>
       <p>
-        Set in a gritty urban landscape, <strong>Wind Breaker</strong> follows Haruka Sakura, a fierce and misunderstood teenager who joins a notorious biker gang known as Furin High. 
-        But unlike the rumors, Furin isn’t about causing chaos—they fight to protect the weak. With high-octane fights, heart-pounding drama, and a surprisingly emotional core, 
-        this anime blends adrenaline with friendship and redemption. As Haruka battles his way through foes and his own inner struggles, he learns what it means to be strong—not just in muscle, but in heart.
+        Haruka Sakura joins the feared Furin High, only to discover its delinquents protect their town.
+        With intense fights and emotional growth, Wind Breaker balances action with heart.
       </p>
     `;
     document.getElementById("animeDesc").innerHTML = animeDesc;
@@ -121,7 +111,7 @@
       btn.className = 'flex items-center space-x-3 p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105';
       btn.innerHTML = '<span class="text-pink-300 text-lg">▶</span><span class="flex-1 text-left">' + ep.title + '</span>';
       btn.onclick = () => {
-        player.src = ep.link + '?autoplay=1&rel=0&modestbranding=1';
+        player.src = ep.link + '?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1';
         title.textContent = ep.title;
         desc.textContent = 'Wind Breaker Season 1 — ' + ep.title;
         date.textContent = 'Uploaded: ' + ep.date;
