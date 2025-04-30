@@ -45,6 +45,7 @@
       display: flex;
       gap: 6px;
       z-index: 3;
+      flex-direction: row;
       flex-wrap: nowrap;
       opacity: 0;
       transition: opacity 0.3s;
@@ -65,66 +66,78 @@
     .neon {
       text-shadow: 0 0 5px var(--neon-glow), 0 0 10px var(--neon-glow);
     }
-    .side-bar {
+    .sidebar {
       position: fixed;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 180px;
+      width: 220px;
+      height: 100vh;
       background-color: var(--control-bg);
-      padding: 10px;
+      color: var(--text-color);
+      padding: 15px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      z-index: 200;
       overflow-y: auto;
-      z-index: 100;
     }
-    .panel-title {
+    .sidebar.active {
+      transform: translateX(0);
+    }
+    .sidebar .panel-title {
       font-size: 14px;
-      margin-bottom: 5px;
+      margin: 10px 0 5px;
       font-weight: bold;
     }
-    .panel-item {
+    .sidebar .panel-item {
       margin-bottom: 4px;
       cursor: pointer;
       font-size: 12px;
     }
-    .panel-item:hover {
+    .sidebar .panel-item:hover {
       color: var(--accent-color);
     }
-    .main-content {
-      margin-left: 200px;
-    }
-    .neon-box {
-      box-shadow: var(--box-border);
-      transition: box-shadow 0.5s;
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 10px;
+      z-index: 300;
+      background-color: var(--control-bg);
+      border: none;
+      color: var(--text-color);
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="side-bar">
+  <button class="toggle-btn" onclick="toggleSidebar()">Options</button>
+  <div id="sidebar" class="sidebar">
     <div class="panel-title">Themes</div>
     <div id="themeList"></div>
-    <hr class="my-2">
     <div class="panel-title">Neon Combos</div>
     <div id="neonList"></div>
-    <hr class="my-2">
     <div class="panel-title">Font Styles</div>
     <div id="fontList"></div>
-  </div>
-  <div class="main-content max-w-5xl mx-auto px-4 py-6">
+  </div>  <div class="max-w-5xl mx-auto px-4 py-6">
     <header class="text-center mb-6">
       <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
-    </header>
-    <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
-      <div id="videoPlayer"></div>
-      <div class="overlay-layer" onclick="togglePlayPause()"></div>
-      <div class="controls" id="videoControls">
-        <button class="control-btn" onclick="seek(-10)">-10s</button>
-        <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
-        <button class="control-btn" onclick="seek(10)">+10s</button>
-        <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
-      </div>
-    </div><div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
+    </header><div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
+  <div id="videoPlayer"></div>
+  <div class="overlay-layer" onclick="togglePlayPause()"></div>
+  <div class="controls" id="videoControls">
+    <button class="control-btn" onclick="seek(-10)">-10s</button>
+    <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+    <button class="control-btn" onclick="seek(10)">+10s</button>
+    <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+  </div>
+</div>
+
+<div class="mt-6 bg-gray-800 p-4 rounded-lg neon-box">
   <h2 class="text-xl font-semibold mb-2">About Wind Breaker</h2>
-  <p>Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...</p>
+  <p>
+    Wind Breaker is a high-energy anime series that follows Haruka Sakura, a strong and rebellious transfer student who joins Furin High School...
+  </p>
 </div>
 
 <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" id="episodeList"></div>
@@ -134,168 +147,177 @@
   <p>Please <strong>subscribe to Muse India</strong> for supporting anime in our region.</p>
 </footer>
 
-  </div>  <script>
-    let player;
-    let currentEpisodeIndex = parseInt(localStorage.getItem('currentEpisodeIndex')) || 0;
-    let hideControlsTimer;
+  </div><script>
+  let player;
+  let currentEpisodeIndex = 0;
+  let hideControlsTimer;
 
-    const themes = [
-      ['#0b0f1a', '#ffffff', '#8e2de2', 'Dark Violet'],
-      ['#1a1a1a', '#eee', '#ff4081', 'Dark Pink'],
-      ['#121212', '#ddd', '#00bcd4', 'Dark Aqua'],
-      ['#1e1e2f', '#e5e5e5', '#ff9800', 'Dark Orange'],
-      ['#202020', '#fafafa', '#e91e63', 'Dark Rose'],
-      ['#ffffff', '#000000', '#ff4081', 'White Pink'],
-      ['#f9f9f9', '#111', '#3f51b5', 'White Indigo'],
-      ['#eeeeee', '#000', '#009688', 'White Teal'],
-      ['#fff', '#333', '#673ab7', 'White Purple'],
-      ['#f0f0f0', '#111', '#ff5722', 'White Red']
-    ];
+  const themes = [
+    ['#0b0f1a', '#ffffff', '#8e2de2', 'Dark Violet'],
+    ['#1a1a1a', '#eee', '#ff4081', 'Dark Pink'],
+    ['#121212', '#ddd', '#00bcd4', 'Dark Aqua'],
+    ['#1e1e2f', '#e5e5e5', '#ff9800', 'Dark Orange'],
+    ['#202020', '#fafafa', '#e91e63', 'Dark Rose'],
+    ['#ffffff', '#000000', '#ff4081', 'White Pink'],
+    ['#f9f9f9', '#111', '#3f51b5', 'White Indigo'],
+    ['#eeeeee', '#000', '#009688', 'White Teal'],
+    ['#fff', '#333', '#673ab7', 'White Purple'],
+    ['#f0f0f0', '#111', '#ff5722', 'White Red']
+  ];
 
-    const neonColors = [
-      ['#39ff14', 'Neon Green'], ['#ff00ff', 'Neon Magenta'],
-      ['#00ffff', 'Neon Cyan'], ['#ffd700', 'Neon Gold'],
-      ['#00ff00', 'Neon Lime'], ['#ff4444', 'Neon Red'],
-      ['#44ffdd', 'Neon Aqua'], ['#cc00cc', 'Neon Purple'],
-      ['#ffaa00', 'Neon Orange'], ['#00ccff', 'Neon Sky']
-    ];
+  const neonColors = [
+    ['#39ff14', 'Neon Green'], ['#ff00ff', 'Neon Magenta'],
+    ['#00ffff', 'Neon Cyan'], ['#ffd700', 'Neon Gold'],
+    ['#00ff00', 'Neon Lime'], ['#ff4444', 'Neon Red'],
+    ['#44ffdd', 'Neon Aqua'], ['#cc00cc', 'Neon Purple'],
+    ['#ffaa00', 'Neon Orange'], ['#00ccff', 'Neon Sky']
+  ];
 
-    const fontFamilies = [
-      ['Poppins', 'Poppins'], ['Roboto', 'Roboto'], ['Orbitron', 'Orbitron'],
-      ['Montserrat', 'Montserrat'], ['Fira Sans', 'Fira Sans']
-    ];
+  const fontFamilies = [
+    ['Poppins', 'Poppins'], ['Roboto', 'Roboto'], ['Orbitron', 'Orbitron'],
+    ['Montserrat', 'Montserrat'], ['Fira Sans', 'Fira Sans']
+  ];
 
-    const episodes = [
-      { title: "Episode 1", link: "ne0Y0vyjxpE" },
-      { title: "Episode 2", link: "J2568cnOa1g" },
-      { title: "Episode 3", link: "QOMv17IjJAU" },
-      { title: "Episode 4", link: "MT7WzTJZCxg" },
-      { title: "Episode 5", link: "4sRfndp1vAM" },
-      { title: "Episode 6", link: "oTvQ-5BNC6w" },
-      { title: "Episode 7", link: "Em5lFIz_kxU" },
-      { title: "Episode 8", link: "SBaGblvd4mU" },
-      { title: "Episode 9", link: "43Hj2GySjgA" },
-      { title: "Episode 10", link: "TIpodnZtFP4" },
-      { title: "Episode 11", link: "_L-UG_jvnM4" },
-      { title: "Episode 12", link: "skAwsc6UL8A" },
-      { title: "Episode 13", link: "-xUk9E2iQQY" }
-    ];
+  const episodes = [
+    { title: "Episode 1", link: "ne0Y0vyjxpE" },
+    { title: "Episode 2", link: "J2568cnOa1g" },
+    { title: "Episode 3", link: "QOMv17IjJAU" },
+    { title: "Episode 4", link: "MT7WzTJZCxg" },
+    { title: "Episode 5", link: "4sRfndp1vAM" },
+    { title: "Episode 6", link: "oTvQ-5BNC6w" },
+    { title: "Episode 7", link: "Em5lFIz_kxU" },
+    { title: "Episode 8", link: "SBaGblvd4mU" },
+    { title: "Episode 9", link: "43Hj2GySjgA" },
+    { title: "Episode 10", link: "TIpodnZtFP4" },
+    { title: "Episode 11", link: "_L-UG_jvnM4" },
+    { title: "Episode 12", link: "skAwsc6UL8A" },
+    { title: "Episode 13", link: "-xUk9E2iQQY" }
+  ];
 
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('videoPlayer', {
-        videoId: episodes[currentEpisodeIndex].link,
-        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
-        events: {
-          onReady: loadEpisodes,
-          onStateChange: handleStateChange
-        }
-      });
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('videoPlayer', {
+      videoId: episodes[currentEpisodeIndex].link,
+      playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
+      events: { onReady: loadEpisodes, onStateChange: handleStateChange }
+    });
+  }
+
+  function seek(sec) {
+    const time = player.getCurrentTime();
+    player.seekTo(time + sec, true);
+  }
+
+  function togglePlayPause() {
+    const state = player.getPlayerState();
+    if (state === YT.PlayerState.PLAYING) player.pauseVideo();
+    else player.playVideo();
+  }
+
+  function toggleFullscreen() {
+    const wrapper = document.querySelector(".video-container");
+    if (!document.fullscreenElement) wrapper.requestFullscreen();
+    else document.exitFullscreen();
+  }
+
+  function handleStateChange(event) {
+    if (event.data === YT.PlayerState.ENDED) playNextEpisode();
+  }
+
+  function playNextEpisode() {
+    if (currentEpisodeIndex < episodes.length - 1) {
+      currentEpisodeIndex++;
+      player.loadVideoById(episodes[currentEpisodeIndex].link);
     }
+  }
 
-    function seek(sec) {
-      player.seekTo(player.getCurrentTime() + sec, true);
-    }
+  function loadEpisodes() {
+    const container = document.getElementById("episodeList");
+    container.innerHTML = '';
+    episodes.forEach((ep, i) => {
+      const btn = document.createElement("button");
+      btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full neon-box";
+      btn.textContent = ep.title;
+      btn.onclick = () => {
+        currentEpisodeIndex = i;
+        player.loadVideoById(ep.link);
+      };
+      container.appendChild(btn);
+    });
+  }
 
-    function togglePlayPause() {
-      const state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) player.pauseVideo();
-      else player.playVideo();
-    }
+  function showControls() {
+    clearTimeout(hideControlsTimer);
+    const controls = document.getElementById("videoControls");
+    controls.style.opacity = 1;
+    hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
+  }
 
-    function toggleFullscreen() {
-      const wrapper = document.querySelector(".video-container");
-      if (!document.fullscreenElement) wrapper.requestFullscreen();
-      else document.exitFullscreen();
-    }
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+  }
 
-    function handleStateChange(event) {
-      if (event.data === YT.PlayerState.ENDED) playNextEpisode();
-    }
-
-    function playNextEpisode() {
-      if (currentEpisodeIndex < episodes.length - 1) {
-        currentEpisodeIndex++;
-        localStorage.setItem('currentEpisodeIndex', currentEpisodeIndex);
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-      }
-    }
-
-    function loadEpisodes() {
-      const container = document.getElementById("episodeList");
-      const fragment = document.createDocumentFragment();
-      episodes.forEach((ep, i) => {
-        const btn = document.createElement("button");
-        btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left text-white w-full neon-box";
-        btn.textContent = ep.title;
-        btn.onclick = () => {
-          currentEpisodeIndex = i;
-          localStorage.setItem('currentEpisodeIndex', i);
-          player.loadVideoById(ep.link);
-        };
-        fragment.appendChild(btn);
-      });
-      container.innerHTML = '';
-      container.appendChild(fragment);
-    }
-
-    function showControls() {
-      clearTimeout(hideControlsTimer);
-      const controls = document.getElementById("videoControls");
-      controls.style.opacity = 1;
-      hideControlsTimer = setTimeout(() => { controls.style.opacity = 0; }, 3000);
-    }
-
-    // Populate panels and remember selections
-    const applyTheme = ([bg, text, accent]) => {
+  // Load saved settings
+  function applySavedSettings() {
+    const settings = JSON.parse(localStorage.getItem('userSettings')) || {};
+    if (settings.theme) {
+      const [bg, text, accent] = settings.theme;
       document.documentElement.style.setProperty('--bg-color', bg);
       document.documentElement.style.setProperty('--text-color', text);
       document.documentElement.style.setProperty('--accent-color', accent);
       document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
-      localStorage.setItem('theme', JSON.stringify([bg, text, accent]));
-    };
+    }
+    if (settings.neon) {
+      document.documentElement.style.setProperty('--neon-glow', settings.neon);
+      document.documentElement.style.setProperty('--box-border', `0 0 10px ${settings.neon}`);
+    }
+    if (settings.font) {
+      document.documentElement.style.setProperty('--font-family', `'${settings.font}', sans-serif`);
+    }
+  }
 
-    const applyNeon = (color) => {
+  applySavedSettings();
+
+  themes.forEach(([bg, text, accent, name]) => {
+    const btn = document.createElement("div");
+    btn.className = "panel-item";
+    btn.textContent = name;
+    btn.onclick = () => {
+      document.documentElement.style.setProperty('--bg-color', bg);
+      document.documentElement.style.setProperty('--text-color', text);
+      document.documentElement.style.setProperty('--accent-color', accent);
+      document.documentElement.style.setProperty('--control-bg', bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)');
+      saveSetting('theme', [bg, text, accent]);
+    };
+    document.getElementById("themeList").appendChild(btn);
+  });
+
+  neonColors.forEach(([color, name]) => {
+    const btn = document.createElement("div");
+    btn.className = "panel-item";
+    btn.textContent = name;
+    btn.onclick = () => {
       document.documentElement.style.setProperty('--neon-glow', color);
       document.documentElement.style.setProperty('--box-border', `0 0 10px ${color}`);
-      localStorage.setItem('neon', color);
+      saveSetting('neon', color);
     };
+    document.getElementById("neonList").appendChild(btn);
+  });
 
-    const applyFont = (font) => {
+  fontFamilies.forEach(([font, label]) => {
+    const btn = document.createElement("div");
+    btn.className = "panel-item";
+    btn.textContent = label;
+    btn.onclick = () => {
       document.documentElement.style.setProperty('--font-family', `'${font}', sans-serif`);
-      localStorage.setItem('font', font);
+      saveSetting('font', font);
     };
+    document.getElementById("fontList").appendChild(btn);
+  });
 
-    themes.forEach(t => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = t[3];
-      btn.onclick = () => applyTheme(t);
-      document.getElementById("themeList").appendChild(btn);
-    });
-
-    neonColors.forEach(([color, name]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = name;
-      btn.onclick = () => applyNeon(color);
-      document.getElementById("neonList").appendChild(btn);
-    });
-
-    fontFamilies.forEach(([font, name]) => {
-      const btn = document.createElement("div");
-      btn.className = "panel-item";
-      btn.textContent = name;
-      btn.onclick = () => applyFont(font);
-      document.getElementById("fontList").appendChild(btn);
-    });
-
-    window.onload = () => {
-      const savedTheme = localStorage.getItem('theme');
-      const savedNeon = localStorage.getItem('neon');
-      const savedFont = localStorage.getItem('font');
-      if (savedTheme) applyTheme(JSON.parse(savedTheme));
-      if (savedNeon) applyNeon(savedNeon);
-      if (savedFont) applyFont(savedFont);
-    };
-  </script></body>
+  function saveSetting(key, value) {
+    const settings = JSON.parse(localStorage.getItem('userSettings')) || {};
+    settings[key] = value;
+    localStorage.setItem('userSettings', JSON.stringify(settings));
+  }
+</script></body>
 </html>
