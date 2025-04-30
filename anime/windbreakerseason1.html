@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wind Breaker Season 1</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.youtube.com/iframe_api"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
     body {
@@ -22,12 +21,13 @@
       position: relative;
       padding-top: 56.25%;
     }
-    .video-container #videoPlayer {
+    .video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      pointer-events: none;
       z-index: 1;
     }
     .overlay {
@@ -64,19 +64,18 @@
       border-radius: 6px;
       background-color: #2d2d2d;
       color: white;
-      transition: all 0.3s ease;
-    }
-    .theme-button:hover {
-      transform: scale(1.05);
-      background-color: #4b5563;
     }
     #themeList {
+      display: none;
+    }
+    .video-container.fullscreen .controls {
       display: none;
     }
   </style>
 </head>
 <body class="bg-[#0b0f1a] text-white">
 <div class="max-w-5xl mx-auto px-4 py-6">
+  <!-- Header -->
   <header class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
     <h1 class="text-3xl font-bold text-purple-400">Wind Breaker - Season 1</h1>
     <div class="flex gap-3 mt-2 sm:mt-0">
@@ -85,39 +84,31 @@
     </div>
   </header>
 
+  <!-- Theme Selector -->
   <div class="mb-4">
     <button onclick="toggleThemes()" class="theme-button">Choose Theme</button>
-    <div id="themeList" class="mt-2 grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <div id="themeList" class="mt-2 grid grid-cols-2 gap-2">
       <button onclick="setTheme('bg-[#0b0f1a]')" class="theme-button">AniWatch Dark</button>
       <button onclick="setTheme('bg-gray-900')" class="theme-button">Classic Dark</button>
-      <button onclick="setTheme('bg-gradient-to-r from-indigo-900 via-purple-900 to-gray-900')" class="theme-button">Indigo Wave</button>
-      <button onclick="setTheme('bg-gradient-to-r from-gray-800 to-black')" class="theme-button">Smoky</button>
-      <button onclick="setTheme('bg-gradient-to-r from-purple-800 via-pink-700 to-red-600')" class="theme-button">Neon Heat</button>
-      <button onclick="setTheme('bg-gradient-to-br from-black via-gray-800 to-black')" class="theme-button">Minimal Night</button>
-      <button onclick="setTheme('bg-gradient-to-r from-blue-900 to-indigo-800')" class="theme-button">Oceanic</button>
-      <button onclick="setTheme('bg-gradient-to-br from-yellow-800 via-red-800 to-pink-700')" class="theme-button">Twilight</button>
-      <button onclick="setTheme('bg-gradient-to-r from-black via-purple-800 to-black')" class="theme-button">Void Pulse</button>
-      <button onclick="setTheme('bg-gradient-to-br from-green-800 to-teal-900')" class="theme-button">Mystic Forest</button>
-      <button onclick="setTheme('bg-gradient-to-br from-zinc-900 to-neutral-800')" class="theme-button">Ash Fade</button>
-      <button onclick="setTheme('bg-gradient-to-br from-cyan-900 to-indigo-900')" class="theme-button">Cyber Chill</button>
+      <!-- Add your additional themes here -->
     </div>
   </div>
 
+  <!-- Search -->
   <input type="text" id="searchBox" oninput="searchEpisodes()" placeholder="Search episodes..." class="w-full p-2 mb-4 bg-gray-800 text-white rounded" />
 
+  <!-- Video Player -->
   <div id="videoWrapper" class="video-container rounded-xl shadow-lg overflow-hidden relative">
-    <div id="videoPlayer"></div>
+    <iframe id="videoPlayer" src="https://www.youtube.com/embed/ne0Y0vyjxpE?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1" frameborder="0" allowfullscreen allow="autoplay; fullscreen"></iframe>
     <div class="overlay" onclick="window.open('https://sawutser.top/4/9278457', '_blank')"></div>
     <div class="controls">
       <button class="control-btn" onclick="seek(-15)">⏪ 15s</button>
       <button class="control-btn" onclick="togglePlayPause()">▶️ / ⏸️</button>
       <button class="control-btn" onclick="seek(15)">15s ⏩</button>
-      <button class="control-btn" onclick="playPreviousEpisode()">⬅️ Prev</button>
-      <button class="control-btn" onclick="playNextEpisode()">Next ➡️</button>
-      <button class="control-btn" onclick="toggleFullscreen()">⛶</button>
     </div>
   </div>
 
+  <!-- Description -->
   <div class="mt-4 bg-gray-800 p-4 rounded-lg">
     <h2 class="text-xl font-semibold mb-1">About Wind Breaker</h2>
     <p>
@@ -125,85 +116,47 @@
     </p>
   </div>
 
+  <!-- Episodes -->
   <div id="episodeList" class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
 
+  <!-- Footer -->
   <footer class="mt-10 text-sm text-center text-gray-400">
     <p>A heartfelt thank you to the creators of <strong>Wind Breaker</strong> for bringing such an inspiring and thrilling story to life. Your work has touched fans around the world with its powerful characters, stunning animation, and emotional storytelling.</p>
-    <p>We also extend our gratitude to <strong>Muse India</strong> for making Wind Breaker accessible to fans across the region. Your efforts in promoting and streaming quality anime are deeply appreciated by the entire community.</p>
-    <p class="mt-2">Thank you for everything!</p>
+    <p>We also extend our gratitude to Muse India for making Wind Breaker accessible to fans across the region. Your efforts in promoting and streaming quality anime are deeply appreciated by the entire community.</p>
+    <p>Thank you for everything!</p>
   </footer>
 </div>
 
 <script>
-  let player;
   const episodes = [
-    { title: "Episode 1", link: "ne0Y0vyjxpE" },
-    { title: "Episode 2", link: "J2568cnOa1g" },
-    { title: "Episode 3", link: "QOMv17IjJAU" },
-    { title: "Episode 4", link: "MT7WzTJZCxg" },
-    { title: "Episode 5", link: "4sRfndp1vAM" },
-    { title: "Episode 6", link: "oTvQ-5BNC6w" },
-    { title: "Episode 7", link: "Em5lFIz_kxU" },
-    { title: "Episode 8", link: "SBaGblvd4mU" },
-    { title: "Episode 9", link: "43Hj2GySjgA" },
-    { title: "Episode 10", link: "TIpodnZtFP4" },
-    { title: "Episode 11", link: "_L-UG_jvnM4" },
-    { title: "Episode 12", link: "skAwsc6UL8A" },
-    { title: "Episode 13", link: "-xUk9E2iQQY" }
+    { title: "Episode 1", link: "https://www.youtube.com/embed/ne0Y0vyjxpE" },
+    { title: "Episode 2", link: "https://www.youtube.com/embed/J2568cnOa1g" },
+    { title: "Episode 3", link: "https://www.youtube.com/embed/QOMv17IjJAU" },
+    { title: "Episode 4", link: "https://www.youtube.com/embed/MT7WzTJZCxg" },
+    { title: "Episode 5", link: "https://www.youtube.com/embed/4sRfndp1vAM" },
+    { title: "Episode 6", link: "https://www.youtube.com/embed/oTvQ-5BNC6w" },
+    { title: "Episode 7", link: "https://www.youtube.com/embed/Em5lFIz_kxU" },
+    { title: "Episode 8", link: "https://www.youtube.com/embed/SBaGblvd4mU" },
+    { title: "Episode 9", link: "https://www.youtube.com/embed/43Hj2GySjgA" },
+    { title: "Episode 10", link: "https://www.youtube.com/embed/TIpodnZtFP4" },
+    { title: "Episode 11", link: "https://www.youtube.com/embed/_L-UG_jvnM4" },
+    { title: "Episode 12", link: "https://www.youtube.com/embed/skAwsc6UL8A" },
+    { title: "Episode 13", link: "https://www.youtube.com/embed/-xUk9E2iQQY" }
   ];
-  let currentEpisodeIndex = 0;
 
-  function onYouTubeIframeAPIReady() {
-    player = new YT.Player('videoPlayer', {
-      videoId: episodes[currentEpisodeIndex].link,
-      playerVars: { autoplay: 1, controls: 1, modestbranding: 1, rel: 0 },
-      events: {
-        onReady: loadEpisodes,
-        onStateChange: onPlayerStateChange
-      }
+  const list = document.getElementById("episodeList");
+  const player = document.getElementById("videoPlayer");
+
+  function loadEpisodes() {
+    episodes.forEach(ep => {
+      const btn = document.createElement("button");
+      btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
+      btn.innerHTML = `<strong>${ep.title}</strong>`;
+      btn.onclick = () => {
+        player.src = ep.link + "?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1";
+      };
+      list.appendChild(btn);
     });
-  }
-
-  function seek(seconds) {
-    if (player && player.getCurrentTime) {
-      const currentTime = player.getCurrentTime();
-      player.seekTo(currentTime + seconds, true);
-    }
-  }
-
-  function togglePlayPause() {
-    const state = player.getPlayerState();
-    if (state === YT.PlayerState.PLAYING) player.pauseVideo();
-    else player.playVideo();
-  }
-
-  function toggleFullscreen() {
-    const wrapper = document.getElementById("videoWrapper");
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    } else {
-      wrapper.requestFullscreen();
-    }
-  }
-
-  function playNextEpisode() {
-    if (currentEpisodeIndex < episodes.length - 1) {
-      currentEpisodeIndex++;
-      player.loadVideoById(episodes[currentEpisodeIndex].link);
-    }
-  }
-
-  function playPreviousEpisode() {
-    if (currentEpisodeIndex > 0) {
-      currentEpisodeIndex--;
-      player.loadVideoById(episodes[currentEpisodeIndex].link);
-    }
-  }
-
-  function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.ENDED) {
-      playNextEpisode();
-    }
   }
 
   function toggleThemes() {
@@ -218,39 +171,38 @@
 
   function searchEpisodes() {
     const value = document.getElementById("searchBox").value.toLowerCase();
-    const list = document.getElementById("episodeList");
     list.innerHTML = "";
-    episodes.filter(ep => ep.title.toLowerCase().includes(value)).forEach((ep, i) => {
+    episodes.filter(ep => ep.title.toLowerCase().includes(value)).forEach(ep => {
       const btn = document.createElement("button");
       btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
       btn.innerHTML = `<strong>${ep.title}</strong>`;
       btn.onclick = () => {
-        currentEpisodeIndex = i;
-        player.loadVideoById(ep.link);
+        player.src = ep.link + "?autoplay=1&rel=0&modestbranding=1&controls=1&fs=1";
       };
       list.appendChild(btn);
     });
   }
 
-  function loadEpisodes() {
-    const list = document.getElementById("episodeList");
-    list.innerHTML = "";
-    episodes.forEach((ep, i) => {
-      const btn = document.createElement("button");
-      btn.className = "p-3 bg-purple-700 hover:bg-purple-800 rounded-xl shadow-md text-left";
-      btn.innerHTML = `<strong>${ep.title}</strong>`;
-      btn.onclick = () => {
-        currentEpisodeIndex = i;
-        player.loadVideoById(ep.link);
-      };
-      list.appendChild(btn);
-    });
+  function seek(sec) {
+    player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'seekTo', args: [sec, true] }), '*');
   }
+
+  function togglePlayPause() {
+    player.contentWindow.postMessage(JSON.stringify({ event: 'command', func: 'playVideo', args: [] }), '*');
+  }
+
+  // Detect fullscreen mode and hide controls
+  document.addEventListener("fullscreenchange", () => {
+    const isFullscreen = document.fullscreenElement != null;
+    document.querySelector(".controls").style.display = isFullscreen ? "none" : "flex";
+  });
 
   (function applySavedTheme() {
     const saved = localStorage.getItem("theme");
     if (saved) document.body.className = saved + " text-white";
   })();
+
+  loadEpisodes();
 </script>
 </body>
 </html>
