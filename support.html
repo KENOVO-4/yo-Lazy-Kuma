@@ -65,22 +65,6 @@
     .ads-section {
       margin-top: 30px;
     }
-    .ad-banner {
-      margin: 15px auto;
-      width: 90%;
-      max-width: 728px;
-      height: 90px;
-      background: #ffe4f0;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 0 12px rgba(0,0,0,0.15);
-    }
-    .ad-banner iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 12px;
-    }
     .footer {
       margin: 40px 0 20px;
       font-size: 14px;
@@ -129,23 +113,16 @@
     <!-- Redirect Ad Buttons -->
     <div class="ads-section">
       <h3>Click to Support:</h3>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Redirect Ad 1</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Redirect Ad 2</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Redirect Ad 3</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Redirect Ad 4</button>
-      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn1', '_blank')">Redirect Ad 1</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn2', '_blank')">Redirect Ad 2</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn3', '_blank')">Redirect Ad 3</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787510&auth=JSxO&url=https://www.dooshtoons.linkpc.net/&subid=btn4', '_blank')">Redirect Ad 4</button>
+      <button onclick="window.open('https://xml.qualiclicks.com/redirect?feed=787516&auth=ywqa&url=https://www.dooshtoons.linkpc.net/&subid=btn5', '_blank')">Redirect Ad 5</button>
 
       <!-- Interstitial Ad Buttons -->
       <button onclick="intstl('show')">Interstitial Ad 1</button>
       <button onclick="intstl('show')">Interstitial Ad 2</button>
       <button onclick="intstl('show')">Interstitial Ad 3</button>
-    </div>
-  </div>
-
-  <!-- Banner Ad Section -->
-  <div class="ads-section">
-    <div class="ad-banner">
-      <iframe id="bannerAd" src="https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=banner1"></iframe>
     </div>
   </div>
 
@@ -164,8 +141,8 @@
     n.getElementsByTagName('head')[0].appendChild(q);
     i.intstl('init', {
       host: 'xml.qualiclicks.com',
-      feed: 'YOUR_FEED_ID',
-      auth: 'YOUR_AUTH_TOKEN',
+      feed: 787516,
+      auth: 'ywqa',
       logo: 'https://adk.ezmob.com/images/icoLogo.png',
       color1: '#3c8dbc',
       color2: '#307196',
@@ -178,14 +155,58 @@
   })(window, document);
   </script>
 
-  <!-- Banner Refresh Script -->
+  <!-- Inpage Push Ad 1 (ID: 787510) -->
   <script>
-    function refreshBannerAd() {
-      const banner = document.getElementById('bannerAd');
-      banner.src = 'https://xml.qualiclicks.com/redirect?feed=YOUR_FEED_ID&auth=YOUR_AUTH_TOKEN&url=https://www.dooshtoons.linkpc.net/&subid=banner' + Math.floor(Math.random() * 1000);
-    }
+  (function(i,n,p,a,g,e){
+    i.inpagepush = i.inpagepush || function() {
+    (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
+    };
+    var s=n.getElementsByTagName('head')[0];
+    var q=n.createElement('script'); q.async=1;
+    q.src='//static.ezmob.com/inpage/inpage.js';
+    s.appendChild(q);
+    i.inpagepush('init', {
+      host: 'xml.qualiclicks.com',
+      feed: 787510,
+      auth : 'JSxO',
+      subid: 'inpage1',
+      refresh: 90,
+      position: 'bottom',
+      position_mobile: 'bottom',
+      slots: 1,
+      query : '',
+      nodesrc : true
+    });
+    i.inpagepush('show');
+  })(window, document);
+  </script>
 
-    setInterval(refreshBannerAd, 60000);
+  <!-- Inpage Push Ad 2 (ID: 787516, delay to avoid conflict) -->
+  <script>
+  setTimeout(function() {
+    (function(i,n,p,a,g,e){
+      i.inpagepush = i.inpagepush || function() {
+      (i.inpagepush.q=(i.inpagepush.q||[])).push(arguments)
+      };
+      var s=n.getElementsByTagName('head')[0];
+      var q=n.createElement('script'); q.async=1;
+      q.src='//static.ezmob.com/inpage/inpage.js';
+      s.appendChild(q);
+      i.inpagepush('init', {
+        host: 'xml.qualiclicks.com',
+        feed: 787516,
+        auth : 'ywqa',
+        subid: 'inpage2',
+        refresh: 90,
+        position: 'bottom',
+        position_mobile: 'bottom',
+        slots: 1,
+        query : '',
+        nodesrc : true
+      });
+      i.inpagepush('show');
+    })(window, document);
+  }, 3000);
   </script>
 
 </body>
