@@ -5,10 +5,8 @@
   <title>DOOSH HUB</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* ───────── Theme Variables ───────── */
-    :root {
-      --bg:#0f0f0f; --fg:#fff; --accent:#39ff14; --frame:4px;
-    }
+    /* Theme Variables */
+    :root { --bg:#0f0f0f; --fg:#fff; --accent:#39ff14; }
     .theme-cyber    { --bg:#0a0a12; --accent:#ff0099; --fg:#e0e0e0 }
     .theme-neon     { --bg:#080808; --accent:#00e5ff; --fg:#f0f0f0 }
     .theme-holo     { --bg:#111;   --accent:#ff00ff; --fg:#ddd   }
@@ -21,88 +19,90 @@
     .theme-dmatrix  { --bg:#000;   --accent:#33ff33; --fg:#88f  }
 
     body {
-      background:var(--bg); color:var(--fg);
-      font-family:'Roboto',sans-serif; margin:0; overflow-x:hidden;
-      transition:background .5s,color .5s;
+      background: var(--bg); color: var(--fg);
+      margin:0; overflow-x:hidden; font-family:'Roboto',sans-serif;
+      transition: background .5s, color .5s;
     }
-    /* loader overlay */
+
+    /* Loader */
     #loader {
-      position:fixed;inset:0;background:var(--bg);display:flex;
-      flex-direction:column;align-items:center;justify-content:center;z-index:9999;
+      position:fixed; inset:0; background:var(--bg);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      z-index:9999;
     }
-    #loader-text { font-size:2rem;letter-spacing:2px;color:var(--accent);margin-bottom:1rem; }
-    /* loaders by theme */
-    .loader-bar { width:200px;height:6px;background:var(--accent);animation:scan 1.5s infinite; }
-    @keyframes scan {0%{transform:scaleX(0)}50%{transform:scaleX(1)}100%{transform:scaleX(0)}}
-    .loader-circle {
-      border:6px solid rgba(255,255,255,0.2);border-top:6px solid var(--accent);
-      border-radius:50%;width:80px;height:80px;animation:spin 1s linear infinite;
+    #loader-text { color:var(--accent); font-size:2rem; margin-bottom:1rem; }
+    .loader-bar {
+      width:80%; max-width:400px; height:8px; background:var(--accent);
+      animation:scan 1.5s infinite;
+      border-radius:4px;
     }
-    @keyframes spin { to{transform:rotate(360deg)} }
-    /* header */
+    @keyframes scan {0%,100%{transform:scaleX(0)}50%{transform:scaleX(1)}}
+
+    /* Header */
     header {
-      position:fixed;top:0;left:0;width:100%;background:rgba(0,0,0,0.6);
-      display:flex;align-items:center;padding:0.5rem;gap:1rem;z-index:50;
+      position:fixed;top:0;left:0;width:100%;
+      background:rgba(0,0,0,0.7);display:flex;align-items:center;padding:0.5rem;gap:1rem;z-index:50;
     }
     #search {
       flex:1;height:40px;padding:0 1rem;border:none;border-radius:20px;
-      background:rgba(255,255,255,0.1);color:var(--fg);
-      outline:none;position:relative;
+      background:rgba(255,255,255,0.1);color:var(--fg);outline:none;
     }
     #search::placeholder { color:var(--accent); }
-    #search:focus { box-shadow:0 0 0 2px var(--accent) inset; }
     #themeSelect {
-      background:var(--bg);color:var(--fg);border:1px solid var(--accent);
-      border-radius:6px;padding:.5rem;
+      background:var(--bg);color:var(--fg);
+      border:1px solid var(--accent);border-radius:6px;padding:.5rem;
     }
-    /* welcome */
-    .welcome-message { margin-top:4.5rem;text-align:center;font-size:2rem;font-weight:bold; }
-    /* carousel banner */
+
+    /* Welcome */
+    .welcome { margin-top:4.5rem;text-align:center;font-size:2rem;font-weight:bold;padding:1rem 0; }
+
+    /* Carousel (landscape) */
     .carousel-frame {
-      margin:1rem auto;max-width:1000px;padding:10px;border:var(--frame) solid var(--accent);
-      position:relative;
+      position:relative;margin-top:1rem;width:100%;height:300px;overflow:hidden;
     }
     #carousel {
-      display:flex;gap:10px;overflow:hidden;
+      display:flex;transition:transform .7s ease-in-out;
     }
     #carousel a {
-      flex:0 0 calc(33.333% - 10px);height:250px;border-radius:8px;overflow:hidden;
-      box-shadow:0 4px 10px rgba(0,0,0,0.4);position:relative;
+      flex:0 0 100%;height:300px;position:relative;
     }
-    #carousel img { width:100%;height:100%;object-fit:cover; }
+    #carousel img {
+      position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:auto;height:100%;
+    }
     .carousel-caption {
       position:absolute;bottom:0;width:100%;background:rgba(0,0,0,0.6);
-      text-align:center;padding:0.5rem;color:#fff;font-weight:bold;
+      text-align:center;padding:.5rem;color:#fff;font-weight:bold;
     }
-    /* grid */
+
+    /* Grid */
     .anime-grid {
       display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:1rem;padding:1rem;
+      gap:1rem;padding:1rem;margin-bottom:4rem;
     }
     .anime-card {
       position:relative;width:200px;height:280px;margin:auto;
-      border:var(--frame) solid var(--accent);border-radius:8px;overflow:hidden;
-      box-shadow:0 4px 15px rgba(0,0,0,0.3);transition:transform .3s;
+      box-shadow:0 4px 15px rgba(0,0,0,0.3);border-radius:8px;overflow:hidden;
+      transition:transform .3s;
     }
-    .anime-card:hover {
-      transform:scale(1.05);box-shadow:0 6px 20px var(--accent);
+    .anime-card:hover { transform:scale(1.05); }
+    .anime-card img {
+      width:100%;height:220px;object-fit:cover;
     }
-    .anime-card img { width:100%;height:220px;object-fit:cover; }
     .anime-card-title {
-      text-align:center;padding:0.5rem;background:var(--bg);color:var(--fg);
-      font-weight:bold;
+      text-align:center;padding:.5rem;background:var(--bg);color:var(--fg);font-weight:bold;
     }
-    /* buttons */
+
+    /* Buttons */
     .circle-btn {
       position:fixed;right:1rem;width:50px;height:50px;border-radius:50%;
       background:var(--accent);color:#000;display:flex;align-items:center;justify-content:center;
-      font-size:1.25rem;z-index:50;cursor:pointer;transition:transform .2s,box-shadow .2s;
+      font-size:1.25rem;cursor:pointer;transition:transform .2s,box-shadow .2s;z-index:50;
     }
-    .circle-btn:hover {
-      transform:scale(1.1);box-shadow:0 0 10px var(--accent);
-    }
-    #supportBtn { top:6rem; }
-    #scrollToTop { bottom:1rem; display:none; }
+    .circle-btn:hover { transform:scale(1.1);box-shadow:0 0 10px var(--accent); }
+    #support { top:6rem; }
+    #scroll { bottom:1rem; display:none; }
+
   </style>
 </head>
 <body class="theme-cyber">
@@ -110,8 +110,7 @@
   <!-- Loader -->
   <div id="loader">
     <div id="loader-text">DOOSH HUB</div>
-    <!-- choose loader: bar for cyber/glitch/matrix; circle for others -->
-    <div id="loader-bar" class="loader-bar"></div>
+    <div class="loader-bar"></div>
   </div>
 
   <!-- Header -->
@@ -121,108 +120,80 @@
     <select id="themeSelect"></select>
   </header>
 
-  <div class="welcome-message">Welcome to DOOSH HUB!</div>
+  <div class="welcome">Welcome to DOOSH HUB!</div>
 
   <!-- Carousel -->
-  <div class="carousel-frame">
-    <div id="carousel"></div>
-  </div>
+  <div class="carousel-frame"><div id="carousel"></div></div>
 
   <!-- Grid -->
   <div class="anime-grid" id="animeList"></div>
 
   <!-- Buttons -->
-  <div id="supportBtn" class="circle-btn" onclick="triggerPopunder()">💖</div>
-  <div id="scrollToTop" class="circle-btn" onclick="scrollToTop()">↑</div>
+  <div id="support" class="circle-btn" onclick="triggerPopunder()">💖</div>
+  <div id="scroll" class="circle-btn" onclick="scrollToTop()">↑</div>
 
   <script>
-    // 1. Data
+    // Data
     const animeData = {
-      "wind-breaker s1":{title:"Wind Breaker S1",cover:"InShot_20250427_105208488.jpg",link:"#"}
-      // …add more…
+      "wind1":{title:"Wind Breaker S1",cover:"InShot_20250427_105208488.jpg",link:"#"}
+      // add more…
     };
-
-    // 2. Themes
-    const themes=[
-      {id:'cyber',name:'Cyberpunk',loader:'bar'},
-      {id:'neon',name:'Neon',loader:'circle'},
-      {id:'holo',name:'Holo',loader:'circle'},
-      {id:'glitch',name:'Glitch',loader:'bar'},
-      {id:'vapor',name:'Vaporwave',loader:'circle'},
-      {id:'synth',name:'Synthwave',loader:'circle'},
-      {id:'matrix',name:'Matrix',loader:'bar'},
-      {id:'hologrid',name:'Holo-Grid',loader:'circle'},
-      {id:'chrome',name:'Holo-Chrome',loader:'circle'},
-      {id:'dmatrix',name:'Dark-Matrix',loader:'bar'}
-    ];
+    // Themes
+    const themes=[{id:'cyber',name:'Cyberpunk'},{id:'neon',name:'Neon'},{id:'holo',name:'Holo'},
+      {id:'glitch',name:'Glitch'},{id:'vapor',name:'Vaporwave'},{id:'synth',name:'Synthwave'},
+      {id:'matrix',name:'Matrix'},{id:'hologrid',name:'Holo-Grid'},{id:'chrome',name:'Holo-Chrome'},
+      {id:'dmatrix',name:'Dark-Matrix'}];
     const sel=document.getElementById('themeSelect');
-    themes.forEach(t=>{
-      let o=document.createElement('option');o.value=t.id;o.text=t.name;sel.add(o);
-    });
+    themes.forEach(t=>sel.add(new Option(t.name,t.id)));
     function applyTheme(id){
       document.body.className='theme-'+id;
       sel.value=id;
-      // switch loader style
-      const ld=document.getElementById('loader-bar');
-      if(themes.find(t=>t.id===id).loader==='circle'){
-        ld.outerHTML='<div id="loader-bar" class="loader-circle"></div>';
-      } else {
-        ld.outerHTML='<div id="loader-bar" class="loader-bar"></div>';
-      }
       localStorage.setItem('theme',id);
     }
     applyTheme(localStorage.getItem('theme')||'cyber');
     sel.onchange=()=>applyTheme(sel.value);
 
-    // 3. Loader tracking
+    // Loader
     let loaded=0,total=Object.keys(animeData).length*2;
-    function advanceLoader(){
-      if(++loaded>=total){
-        document.getElementById('loader').style.display='none';
-        setInterval(autoSlide,3000);
-      }
-    }
+    function advance(){ if(++loaded>=total) {
+      document.getElementById('loader').style.display='none';
+      setInterval(autoSlide,3000);
+    }};
 
-    // 4. Carousel
+    // Carousel
     function loadCarousel(){
       const c=document.getElementById('carousel');
       Object.values(animeData).forEach(a=>{
         let e=document.createElement('a');e.href=a.link;
-        let i=new Image();i.src=a.cover;i.onload=advanceLoader;
-        e.append(i);
-        let cap=document.createElement('div');
-        cap.className='carousel-caption';cap.innerText=a.title;
-        e.append(cap);c.append(e);
+        let i=new Image();i.src=a.cover;i.onload=advance;e.append(i);
+        let cap=document.createElement('div');cap.className='carousel-caption';cap.innerText=a.title;e.append(cap);
+        c.append(e);
       });
       c.append(c.children[0].cloneNode(true));
     }
     let idx=0;
     function autoSlide(){
-      const c=document.getElementById('carousel'),
-            items=c.children,gap=10,w=items[0].offsetWidth+gap;
+      const c=document.getElementById('carousel'),w=c.offsetWidth;
       idx++;c.style.transform=`translateX(-${idx*w}px)`;
-      if(idx>=items.length-1){
-        setTimeout(()=>{
-          c.style.transition='none';c.style.transform='translateX(0)';idx=0;
+      if(idx>=c.children.length-1){
+        setTimeout(()=>{c.style.transition='none';c.style.transform='translateX(0)';idx=0;
           setTimeout(()=>c.style.transition='transform .7s ease-in-out',50);
         },700);
       }
     }
 
-    // 5. Grid
-    function loadAnimeCards(){
+    // Grid
+    function loadGrid(){
       const g=document.getElementById('animeList');
       Object.values(animeData).forEach(a=>{
-        let e=document.createElement('a');e.href=a.link;
-        e.className='anime-card';
-        let i=new Image();i.src=a.cover;i.onload=advanceLoader;e.append(i);
-        let t=document.createElement('div');
-        t.className='anime-card-title';t.innerText=a.title;
-        e.append(t);g.append(e);
+        let e=document.createElement('a');e.href=a.link;e.className='anime-card';
+        let i=new Image();i.src=a.cover;i.onload=advance;e.append(i);
+        let t=document.createElement('div');t.className='anime-card-title';t.innerText=a.title;e.append(t);
+        g.append(e);
       });
     }
 
-    // 6. Search
+    // Search
     function filterAnime(){
       const q=document.getElementById('search').value.toLowerCase();
       document.querySelectorAll('.anime-card').forEach(c=>{
@@ -230,19 +201,17 @@
       });
     }
 
-    // 7. Scroll top
-    window.onscroll=()=>document.getElementById('scrollToTop').style.display=window.scrollY>200?'flex':'none';
+    // Scroll
+    window.onscroll=()=>document.getElementById('scroll').style.display=window.scrollY>200?'flex':'none';
     function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
 
-    // 8. Popunder
-    let lastAd=0,cool=5*60*1e3,z=[9277886,9277883,9277875];
+    // Popunder
+    let last=0,cool=300000,z=[9277886,9277883,9277875];
     function triggerPopunder(){
-      const now=Date.now();if(now-lastAd>cool){
-        let s=document.createElement('script'),
-            zID=z[Math.floor(Math.random()*z.length)];
-        s.src='https://shebudriftaiter.net/tag.min.js';
-        s.setAttribute('data-zone',zID);
-        document.body.appendChild(s);lastAd=now;
+      const now=Date.now();if(now-last>cool){
+        let s=document.createElement('script'),nz=z[Math.floor(Math.random()*z.length)];
+        s.src='https://shebudriftaiter.net/tag.min.js';s.setAttribute('data-zone',nz);
+        document.body.appendChild(s);last=now;
       }
     }
     ['click','touchstart'].forEach(evt=>{
@@ -252,13 +221,10 @@
         },{once:true});
       }
     });
-    setInterval(triggerPopunder,10*60*1e3);
+    setInterval(triggerPopunder,600000);
 
     // Init
-    window.onload=()=>{
-      loadCarousel();
-      loadAnimeCards();
-    };
+    window.onload=()=>{loadCarousel();loadGrid();};
   </script>
 </body>
 </html>
