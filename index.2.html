@@ -6,70 +6,101 @@
   <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
   <meta name="author" content="DOOSH HUB Team">
   <title>DOOSH HUB</title>
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
   <style>
     body {
-      margin: 0;
       background: #0f0f0f;
-      font-family: 'Segoe UI', sans-serif;
       color: #fff;
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+      animation: fireGlow 10s infinite alternate;
     }
+    @keyframes fireGlow {
+      0% { background-color: #0f0f0f; box-shadow: 0 0 40px #ff00ff, inset 0 0 80px #ff4500; }
+      50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, inset 0 0 100px #ff00ff; }
+      100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, inset 0 0 70px #ff4500; }
+    }
+    header {
+      @apply fixed top-0 left-0 w-full bg-black bg-opacity-60 flex items-center gap-4 p-4 z-50 transition-all;
+    }
+    header.shrink { background-opacity: 90%; padding-top: .5rem; padding-bottom: .5rem; }
     .carousel-container {
-      overflow-x: scroll;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x mandatory;
+      overflow: hidden;
+      margin-top: 5rem;
+    }
+    #carousel {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      transition: transform 0.7s ease-in-out;
     }
     .carousel-slide {
-      display: inline-block;
-      width: 100vw;
-      height: 220px;
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 90vw;
+      height: 200px;
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      scroll-snap-align: center;
+    }
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, black, transparent);
+      color: white;
+      text-align: center;
+      padding: 0.5rem;
+      font-weight: bold;
+    }
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
     }
     .anime-card {
-      background: #1a1a1a;
-      border-radius: 0.75rem;
+      position: relative;
       overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
+      transition: transform .3s;
     }
     .anime-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px #ff00ff;
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px #ff00ff;
+      border: 2px solid #ff00ff;
     }
-    .loader {
-      background: #000;
-      color: #fff;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
+    .anime-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
     }
-    #scrollToTop {
-      display: none;
+    .anime-card-title {
+      @apply absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent text-white text-center py-2 font-semibold;
     }
   </style>
 </head>
 <body>
-  <div id="loader" class="loader">Loading DOOSH HUB...</div>  <header class="fixed top-0 left-0 w-full bg-black bg-opacity-80 p-3 flex items-center justify-between z-50">
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" class="w-10 h-10 rounded-full" alt="Doosh Hub">
-    <input type="text" id="search" placeholder="Search animes, movies..." class="w-full max-w-md mx-4 px-4 py-2 rounded bg-gray-700 text-white placeholder-gray-300" oninput="filterAnime()">
-    <button class="bg-pink-500 text-white px-4 py-2 rounded-lg font-bold" onclick="triggerPopunder()">Support Us</button>
-  </header>  <main class="mt-24">
-    <div class="text-center text-3xl font-bold my-4">Welcome to DOOSH HUB</div><section class="carousel-container">
-  <img src="InShot_20250427_105208488.jpg" class="carousel-slide" alt="WIND BREAKER Season 1 in Hindi">
-</section>
-
-<section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4" id="animeList"></section>
-
-  </main><button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-500 text-white p-3 rounded-full" onclick="scrollToTop()">↑</button>
-
+  <div id="loader" class="fixed inset-0 bg-black text-white flex items-center justify-center text-3xl z-[9999]">Loading DOOSH HUB...</div>
+  <button class="support-btn fixed top-20 right-4 bg-gradient-to-br from-pink-500 to-cyan-400 text-white font-bold px-4 py-2 rounded-lg shadow-lg z-50" onclick="triggerPopunder()">Support Us</button>
+  <button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
+  <header>
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full"/>
+    <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
+  </header>
+  <div class="welcome-message text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div>
+  <section class="carousel-container">
+    <div id="carousel"></div>
+  </section>
+  <main id="animeList" class="anime-grid"></main>
   <script>
     const animeData = {
       "wind-breaker season 1": {
@@ -77,57 +108,106 @@
         cover: "InShot_20250427_105208488.jpg",
         link: "anime/windbreakerseason1.html"
       }
-    };
+    };function loadCarousel() {
+  const carousel = document.getElementById('carousel');
+  carousel.innerHTML = '';
+  Object.values(animeData).forEach((a) => {
+    const slide = document.createElement('a');
+    slide.href = a.link;
+    slide.className = 'carousel-slide';
+    slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
+    carousel.appendChild(slide);
+  });
+  Object.values(animeData).slice(0, 2).forEach((a) => {
+    const clone = document.createElement('a');
+    clone.href = a.link;
+    clone.className = 'carousel-slide';
+    clone.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
+    carousel.appendChild(clone);
+  });
+}
 
-    function loadAnimeCards() {
-      const grid = document.getElementById('animeList');
-      grid.innerHTML = '';
-      Object.values(animeData).forEach(a => {
-        const card = document.createElement('a');
-        card.href = a.link;
-        card.className = 'anime-card';
-        card.innerHTML = `
-          <img src="${a.cover}" class="w-full h-48 object-cover">
-          <div class="text-center text-white p-2 font-semibold">${a.title}</div>
-        `;
-        grid.appendChild(card);
-      });
-    }
+let slideIndex = 0;
+function autoSlide() {
+  const carousel = document.getElementById('carousel');
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const slideWidth = slides[0].offsetWidth + 16;
+  slideIndex++;
+  carousel.style.transition = 'transform 0.7s ease-in-out';
+  carousel.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+  if (slideIndex >= slides.length - 2) {
+    setTimeout(() => {
+      carousel.style.transition = 'none';
+      carousel.style.transform = 'translateX(0)';
+      slideIndex = 0;
+    }, 700);
+  }
+}
 
-    function filterAnime() {
-      const q = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('#animeList a').forEach(c => {
-        const t = c.innerText.toLowerCase();
-        c.style.display = t.includes(q) ? '' : 'none';
-      });
-    }
+function loadAnimeCards() {
+  const grid = document.getElementById('animeList');
+  grid.innerHTML = '';
+  Object.values(animeData).forEach(a => {
+    const card = document.createElement('a');
+    card.href = a.link;
+    card.className = 'anime-card';
+    card.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="anime-card-title">${a.title}</div>`;
+    grid.appendChild(card);
+  });
+}
 
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+function filterAnime() {
+  const q = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.anime-card').forEach(c => {
+    const t = c.querySelector('.anime-card-title').innerText.toLowerCase();
+    c.style.display = t.includes(q) ? '' : 'none';
+  });
+}
 
-    window.onscroll = () => {
-      document.getElementById('scrollToTop').style.display = (window.scrollY > 100) ? 'block' : 'none';
-    };
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-    function triggerPopunder() {
-      const lastAd = localStorage.getItem('lastAd') || 0;
-      const now = Date.now();
-      const cooldown = 5 * 60 * 1000;
-      if (now - lastAd > cooldown) {
-        const s = document.createElement('script');
-        s.src = 'https://shebudriftaiter.net/tag.min.js';
-        s.setAttribute('data-zone', '9277886');
-        document.body.appendChild(s);
-        localStorage.setItem('lastAd', now);
-      }
-    }
+window.onscroll = () => {
+  document.getElementById('scrollToTop').style.display = (window.scrollY > 200) ? 'block' : 'none';
+};
 
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        loadAnimeCards();
-      }, 3000);
-    };
-  </script></body>
+let lastAd = 0,
+    cooldown = 5 * 60 * 1000,
+    zones = [9277886, 9277883, 9277875];
+
+function triggerPopunder() {
+  const now = Date.now();
+  if (now - lastAd > cooldown) {
+    const z = zones[Math.floor(Math.random() * zones.length)];
+    const s = document.createElement('script');
+    s.src = 'https://shebudriftaiter.net/tag.min.js';
+    s.setAttribute('data-zone', z);
+    document.body.appendChild(s);
+    lastAd = now;
+  }
+}
+
+['click', 'touchstart'].forEach(e => {
+  if (!localStorage.getItem('adShown')) {
+    document.body.addEventListener(e, () => {
+      triggerPopunder();
+      localStorage.setItem('adShown', 'yes');
+    }, { once: true });
+  }
+});
+
+setInterval(triggerPopunder, 10 * 60 * 1000);
+
+window.onload = () => {
+  setTimeout(() => {
+    document.getElementById('loader').style.display = 'none';
+    loadCarousel();
+    loadAnimeCards();
+    setInterval(autoSlide, 3000);
+  }, 2500);
+};
+
+  </script>
+</body>
 </html>
