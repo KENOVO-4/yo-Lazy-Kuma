@@ -78,6 +78,7 @@
       transform: translateX(-50%);
       display: flex;
       gap: 6px;
+      z-index: 1000;
     }
     .control-btn {
       background-color: var(--control-bg);
@@ -99,6 +100,7 @@
       height: 12px;
       background: rgba(255,255,255,0.3);
       cursor: pointer;
+      z-index: 1000;
     }
     .progress {
       height: 100%;
@@ -115,6 +117,7 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      z-index: 1000;
     }
     .episode-btn {
       padding: 10px;
@@ -160,6 +163,26 @@
       max-width: 800px;
       margin: 20px auto;
     }
+
+    /* Fullscreen CSS overrides */
+    .video-container:-webkit-full-screen,
+    .video-container:-moz-full-screen,
+    .video-container:-ms-fullscreen,
+    .video-container:fullscreen {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .video-container:-webkit-full-screen .controls,
+    .video-container:-webkit-full-screen .progress-bar,
+    .video-container:fullscreen .controls,
+    .video-container:fullscreen .progress-bar {
+      opacity: 1 !important;
+      z-index: 10000;
+    }
+    .video-container:-webkit-full-screen .overlay-layer,
+    .video-container:fullscreen .overlay-layer {
+      z-index: 9999;
+    }
   </style>
 </head>
 <body>
@@ -198,7 +221,7 @@
 
   <div class="description-box">
     <h2 class="text-xl font-semibold mb-2">Description</h2>
-    <p>"Zom 100: Bucket List of the Dead" is an anime about Akira Tendo, a 24-year-old office worker who is tired of his soul-crushing job and lack of purpose. When a zombie outbreak occurs, Akira sees it as an opportunity to live his life to the fullest and creates a bucket list of 100 things he wants to do before becoming a zombie himself. </p>
+    <p>"Zom 100: Bucket List of the Dead" is an anime about Akira Tendo, a 24-year-old office worker who is tired of his soul-crushing job and lack of purpose. When a zombie outbreak occurs, Akira sees it as an opportunity to live his life to the fullest and creates a bucket list of 100 things he wants to do before becoming a zombie himself.</p>
     <button class="control-btn mt-2" onclick="window.open('https://youtube.com/@museasia', '_blank')">Subscribe to Muse Asia</button>
   </div>
 
@@ -269,18 +292,11 @@
 
             const muteBtn = document.getElementById('muteToggle');
             muteBtn.onclick = () => {
-              if (player.isMuted()) {
-                player.unMute();
-                muteBtn.textContent = 'Mute';
-              } else {
-                player.mute();
-                muteBtn.textContent = 'Unmute';
-              }
+              if (player.isMuted()) {player.unMute(); muteBtn.textContent = 'Mute';} 
+              else {player.mute(); muteBtn.textContent = 'Unmute';}
             };
           },
-          onStateChange: e => {
-            if (e.data === YT.PlayerState.ENDED) nextEpisode();
-          }
+          onStateChange: e => { if (e.data === YT.PlayerState.ENDED) nextEpisode(); }
         }
       });
     }
@@ -291,84 +307,59 @@
     }
 
     function loadEpisodes() {
-      const list = document.getElementById('episodeList');
-      list.innerHTML = '';
+      const list = document.getElementById('episodeList'); list.innerHTML = '';
       episodes.forEach((ep, i) => {
         const btn = document.createElement('div');
-        btn.className = 'episode-btn';
-        btn.textContent = ep.title;
-        btn.onclick = () => {
-          currentEpisodeIndex = i;
-          player.loadVideoById(ep.link);
-          updateDisplay();
-        };
+        btn.className = 'episode-btn'; btn.textContent = ep.title;
+        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); updateDisplay(); };
         list.appendChild(btn);
       });
     }
 
     function updateDisplay() {
       document.getElementById('episodeDisplay').textContent = `Episode ${currentEpisodeIndex + 1}`;
-      document.querySelectorAll('.episode-btn').forEach((b, i) => {
-        b.classList.toggle('active', i === currentEpisodeIndex);
-      });
+      document.querySelectorAll('.episode-btn').forEach((b, i) => { b.classList.toggle('active', i === currentEpisodeIndex); });
     }
 
-    function nextEpisode() {
-      if (currentEpisodeIndex < episodes.length - 1) {
-        currentEpisodeIndex++;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-        updateDisplay();
-      }
-    }
-
-    function prevEpisode() {
-      if (currentEpisodeIndex > 0) {
-        currentEpisodeIndex--;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-        updateDisplay();
-      }
-    }
+    function nextEpisode() { if (currentEpisodeIndex < episodes.length - 1) { currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); } }
+    function prevEpisode() { if (currentEpisodeIndex > 0) { currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); } }
 
     function showControls() {
       clearTimeout(hideControlsTimer);
       document.getElementById('videoControls').style.opacity = 1;
       document.getElementById('progress-bar').style.opacity = 1;
-      hideControlsTimer = setTimeout(() => {
-        document.getElementById('videoControls').style.opacity = 0;
-        document.getElementById('progress-bar').style.opacity = 0;
-      }, 3000);
+      hideControlsTimer = setTimeout(() => { document.getElementById('videoControls').style.opacity = 0; document.getElementById('progress-bar').style.opacity = 0; }, 3000);
     }
 
-    function seek(sec) {
-      player.seekTo(player.getCurrentTime() + sec, true);
-    }
-
-    function togglePlayPause() {
-      const state = player.getPlayerState();
-      state === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo();
-    }
-
+    function seek(sec) { player.seekTo(player.getCurrentTime() + sec, true); }
+    function togglePlayPause() { const state = player.getPlayerState(); state === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
     function toggleFullscreen() {
       const el = document.querySelector('.video-container');
-      !document.fullscreenElement ? el.requestFullscreen() : document.exitFullscreen();
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (el.requestFullscreen) el.requestFullscreen(); else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen(); else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      }
     }
 
-    const progressBar = document.getElementById('progress-bar'),
-          progress = document.getElementById('progress');
+    // lock/unlock orientation on fullscreen change
+    function onFullScreenChange() {
+      const fsElement = document.fullscreenElement || document.webkitFullscreenElement;
+      if (fsElement) {
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('landscape').catch(err => console.warn('Orientation lock failed:', err));
+        }
+      } else {
+        if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
+      }
+    }
+    document.addEventListener('fullscreenchange', onFullScreenChange);
+    document.addEventListener('webkitfullscreenchange', onFullScreenChange);
 
-    progressBar.addEventListener('mousedown', e => {
-      isDragging = true;
-      updateSeek(e);
-    });
-
-    document.addEventListener('mousemove', e => {
-      if (isDragging) updateSeek(e);
-    });
-
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
+    const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
+    progressBar.addEventListener('mousedown', e => { isDragging = true; updateSeek(e); });
+    document.addEventListener('mousemove', e => { if (isDragging) updateSeek(e); });
+    document.addEventListener('mouseup', () => { isDragging = false; });
     function updateSeek(e) {
       const rect = progressBar.getBoundingClientRect();
       let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
@@ -376,7 +367,6 @@
       progress.style.width = pct * 100 + '%';
       if (player && player.seekTo) player.seekTo(pct * player.getDuration(), true);
     }
-
     setInterval(() => {
       if (!isDragging && player && player.getCurrentTime) {
         const pct = (player.getCurrentTime() / player.getDuration()) * 100;
@@ -386,9 +376,7 @@
 
     function filterEpisodes() {
       const q = document.getElementById('searchBox').value.toLowerCase();
-      document.querySelectorAll('#episodeList .episode-btn').forEach(btn => {
-        btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none';
-      });
+      document.querySelectorAll('#episodeList .episode-btn').forEach(btn => { btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none'; });
     }
   </script>
 </body>
