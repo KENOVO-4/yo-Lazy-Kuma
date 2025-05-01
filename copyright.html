@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Doosh Hub - Copyright Information</title>
+  <title>Doosh Hub – Anime Copyright Information</title>
   <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" type="image/jpeg" sizes="32x32" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -15,205 +12,104 @@
       overflow-x: hidden;
       color: white;
       animation: fireGlow 10s infinite alternate;
-    }
+      padding: 2rem;
+    }@keyframes fireGlow {
+  0% {
+    background-color: #0f0f0f;
+    box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
+  }
 
-    @keyframes fireGlow {
-      0% {
-        background-color: #0f0f0f;
-        box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff4500 inset;
-      }
+  50% {
+    background-color: #1a1a1a;
+    box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
+  }
 
-      50% {
-        background-color: #1a1a1a;
-        box-shadow: 0 0 60px #ff4500, 0 0 100px #ff00ff inset;
-      }
+  100% {
+    background-color: #0f0f0f;
+    box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
+  }
+}
 
-      100% {
-        background-color: #0f0f0f;
-        box-shadow: 0 0 50px #ff00ff, 0 0 70px #ff4500 inset;
-      }
-    }
+/* Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 9999;
-      padding: 20px;
-    }
+h1 {
+  font-size: 2.5rem;
+  color: #ff00ff;
+  text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500;
+  margin-bottom: 1rem;
+}
 
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+p,
+h3 {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
 
-    .header-content img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
+h3 {
+  font-size: 1.25rem;
+  color: #ff00ff;
+}
 
-    .header-content a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2rem;
-    }
+/* Buttons */
+.subscribe-btn,
+.nav-btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  text-decoration: none;
+  margin: 1rem 0.5rem 0 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
 
-    .header-content a:hover {
-      color: #ff00ff;
-    }
+.subscribe-btn {
+  background-color: #ff0000;
+  color: white;
+}
 
-    /* Copyright Content */
-    .copyright-container {
-      padding: 100px 20px;
-      text-align: center;
-      margin-top: 80px;
-    }
+.subscribe-btn:hover {
+  background-color: #cc0000;
+}
 
-    .copyright-container h1 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 30px;
-      color: #ff00ff;
-      text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff4500;
-    }
+.nav-btn {
+  background-color: #ff00ff;
+  color: white;
+}
 
-    .copyright-text {
-      max-width: 800px;
-      margin: 0 auto;
-      font-size: 1.2rem;
-      line-height: 1.8;
-      color: white;
-      text-align: left;
-    }
+.nav-btn:hover {
+  background-color: #e600e6;
+}
 
-    .btn-container {
-      margin-top: 30px;
-      text-align: center;
-    }
-
-    .btn-container a {
-      padding: 12px 30px;
-      background-color: #ff00ff;
-      color: white;
-      text-decoration: none;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    .btn-container a:hover {
-      background-color: #ff4500;
-    }
-
-    /* Discord Button */
-    .discord-btn {
-      padding: 10px 20px;
-      background-color: #7289DA;
-      color: white;
-      font-size: 1.2rem;
-      text-decoration: none;
-      border-radius: 50px;
-      margin-top: 20px;
-    }
-
-    .discord-btn:hover {
-      background-color: #4d69a3;
-    }
-
-    .copy-btn {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background-color: #ff00ff;
-      color: white;
-      font-size: 1.5rem;
-      padding: 10px 20px;
-      border-radius: 50%;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-    }
-
-    .copy-btn:hover {
-      background-color: #ff4500;
-    }
   </style>
-</head>
+</head><body>
+  <div class="container">
+    <h1>Anime Copyright Information</h1><p>Welcome to Doosh Hub’s anime section! We do <strong>not</strong> host or store any anime content on our servers. All anime videos are embedded directly from official sources like Muse Asia. We do not claim any ownership over these videos.</p>
 
-<body>
+<h3>1. Hosting & Distribution</h3>
+<p>All embedded anime episodes come from Muse Asia’s official YouTube channel. We preserve their ads, branding, and all original attributions.</p>
 
-  <!-- Header -->
-  <header>
-    <div class="header-content">
-      <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" />
-      <a href="index.2.html">Go to Doosh Hub</a>
-    </div>
-  </header>
+<h3>2. Monetization</h3>
+<p>This site is monetized with display ads, but it remains non-commercial in spirit—our goal is to support the anime industry by driving traffic back to official sources.</p>
 
-  <!-- Copyright Content -->
-  <div class="copyright-container">
-    <h1>Doosh Hub - Copyright Information</h1>
+<h3>3. Your Responsibility</h3>
+<p>By watching anime here, you agree to view it via Muse Asia’s official embeds. Please do not download or redistribute any content.</p>
 
-    <div class="copyright-text">
-      <p>Welcome to Doosh Hub, the go-to platform for streaming movies, TV shows, anime, and more! We offer a variety of content, including Bollywood, Hollywood, anime, K-dramas, C-dramas, and much more. Please read the important copyright and legal information below to understand your rights and responsibilities when using our platform.</p>
+<h3>4. Inquiries & Removal Requests</h3>
+<p>If you are a rights holder and wish to request removal of any content, please contact us directly at <a href="mailto:youremail@example.com" class="text-pink-400 underline">youremail@example.com</a>.</p>
 
-      <h3>1. Copyright Notice</h3>
-      <p>Doosh Hub does not host or store any content on our servers. The movies, TV shows, anime, K-dramas, C-dramas, and other media accessible through our platform are hosted by third-party websites. We do not own, upload, or claim any rights over this content. All intellectual property rights to the media are held by the respective creators, production companies, and distributors.</p>
+<a href="https://youtube.com/@museasia?si=6x9eXmTP93_PuwT-" target="_blank" class="subscribe-btn">
+  Subscribe to Muse Asia
+</a>
 
-      <h3>2. Legal Compliance</h3>
-      <p>Doosh Hub is committed to adhering to copyright laws and ethical standards. We do not endorse or facilitate illegal downloading, distribution, or streaming of copyrighted content. If you are the copyright owner of any content listed on our platform and wish to request its removal, please reach out to us through our Copyright Notice section.</p>
+<!-- Navigation Buttons -->
+<a href="index.html" class="nav-btn">Go Back</a>
+<a href="index.2.html" class="nav-btn">Main Site</a>
 
-      <h3>3. Content Accuracy</h3>
-      <p>We strive to ensure that all information provided on Doosh Hub is accurate and up-to-date, but we cannot guarantee the availability or correctness of external content linked through our platform. Third-party sites may change their content or links without notice.</p>
-
-      <h3>4. No Downloads</h3>
-      <p>We strictly advise against downloading any media content from external links provided on our website. All media is streamed via third-party websites, and we recommend that users avoid downloading files from untrusted or unofficial sources.</p>
-
-      <h3>5. Advertising and Pop-ups</h3>
-      <p>Doosh Hub is not responsible for the content of advertisements, pop-ups, or other promotional materials displayed on third-party websites linked through our platform.</p>
-
-      <h3>6. User Responsibility</h3>
-      <p>By using Doosh Hub, you agree to take full responsibility for your actions on external sites linked to our platform.</p>
-
-      <h3>7. Limitation of Liability</h3>
-      <p>Doosh Hub and its affiliates are not liable for any direct, indirect, incidental, or consequential damages arising from the use of our platform or the content linked through third-party websites.</p>
-
-      <h3>8. For Copyright Issues or Reports</h3>
-      <p>If you believe that any content on Doosh Hub infringes upon your copyright or if you wish to submit a report regarding any issue, please contact us directly.</p>
-
-      <h3>9. Promote Your Content</h3>
-      <p>Are you a content creator or distributor looking to promote your movies, TV shows, or series? Please reach out to us through the Contact Us page or join our Discord community to discuss promotion opportunities.</p>
-
-      <h3>10. Reviews and Feedback</h3>
-      <p>We encourage you to leave reviews for the content you discover on Doosh Hub. Join our Discord community to share your feedback, reviews, and suggestions with us.</p>
-    </div>
-
-    <div class="btn-container">
-      <a href="index.2.html">Go to Main Site</a>
-    </div>
-
-    <a href="https://discord.gg/Wj32meHh" class="discord-btn" target="_blank">Join our Discord</a>
   </div>
-
-  <!-- Copy to Clipboard Button -->
-  <button class="copy-btn" onclick="copyText()">Copy Copyright Text</button>
-
-  <!-- Scripts -->
-  <script>
-    function copyText() {
-      const text = `Copyright Notice: Doosh Hub does not host or store any content on our servers. The movies, TV shows, anime, K-dramas, C-dramas, and other media accessible through our platform are hosted by third-party websites. We do not own, upload, or claim any rights over this content.`;
-      navigator.clipboard.writeText(text).then(function () {
-        alert("Copyright text copied to clipboard!");
-      }).catch(function (error) {
-        alert("Error copying text: " + error);
-      });
-    }
-  </script>
-
-</body>
-
-</html>
+</body></html>
