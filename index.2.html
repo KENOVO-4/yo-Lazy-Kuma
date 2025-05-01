@@ -1,178 +1,309 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!">
-  <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
-  <meta name="author" content="DOOSH HUB Team">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!"/>
+  <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime"/>
+  <meta name="author" content="DOOSH HUB Team"/>
   <title>DOOSH HUB</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
   <style>
+    /* ─── Theme Variables ─── */
+    :root {
+      --bg: #0f0f0f; --fg: #fff; --accent: #39ff14;
+    }
+    .theme-cyber    { --bg:#0a0a12; --accent:#ff0099; --fg:#e0e0e0 }
+    .theme-neon     { --bg:#080808; --accent:#00e5ff; --fg:#f0f0f0 }
+    .theme-holo     { --bg:#111;   --accent:#ff00ff; --fg:#ddd   }
+    .theme-glitch   { --bg:#050505;--accent:#ff5500; --fg:#ccc   }
+    .theme-vapor    { --bg:#120022;--accent:#ff77ff; --fg:#ffe  }
+    .theme-synth    { --bg:#0b0018;--accent:#ff4444; --fg:#ffd  }
+    .theme-matrix   { --bg:#001100;--accent:#00ff00; --fg:#99f  }
+    .theme-hologrid { --bg:#00111a;--accent:#11aaff; --fg:#bbd  }
+    .theme-chrome   { --bg:#111111;--accent:#aaccee; --fg:#dde  }
+    .theme-dmatrix  { --bg:#000000;--accent:#33ff33; --fg:#88f  }
+
     body {
-      background: #0f0f0f;
-      color: #fff;
+      background: var(--bg);
+      color: var(--fg);
       font-family: 'Roboto', sans-serif;
       overflow-x: hidden;
+      transition: background .5s, color .5s;
       animation: fireGlow 10s infinite alternate;
     }
     @keyframes fireGlow {
-      0% { background-color: #0f0f0f; box-shadow: 0 0 40px #ff00ff, inset 0 0 80px #ff4500; }
-      50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, inset 0 0 100px #ff00ff; }
-      100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, inset 0 0 70px #ff4500; }
+      0%   { box-shadow:0 0 40px var(--accent), inset 0 0 80px #ff4500; }
+      50%  { box-shadow:0 0 60px #ff4500, inset 0 0 100px var(--accent); }
+      100% { box-shadow:0 0 50px var(--accent), inset 0 0 70px #ff4500; }
     }
+
+    /* Header */
     header {
-      @apply fixed top-0 left-0 w-full bg-black bg-opacity-60 flex items-center gap-4 p-4 z-50 transition-all;
+      @apply fixed top-0 left-0 w-full bg-black bg-opacity-60 flex items-center gap-4 p-4 z-50;
     }
-    header.shrink { background-opacity: 90%; padding-top: .5rem; padding-bottom: .5rem; }
-    .carousel-container { margin-top: 5rem; overflow: hidden; }
-    #carousel { display: flex; transition: transform .7s ease-in-out; gap: 1rem; padding: 1rem; }
+    #search {
+      @apply flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2;
+    }
+    #themeSelect {
+      background: var(--bg);
+      color: var(--fg);
+      border: 1px solid var(--accent);
+      padding: .5rem;
+      border-radius: 6px;
+    }
+
+    /* Loader */
+    #loader {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+    }
+    #loader-text { font-size: 2rem; margin-bottom: 1rem; }
+    #loader-bar-bg {
+      width: 80%; max-width: 400px; height: 12px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 6px; overflow: hidden;
+    }
+    #loader-bar {
+      width: 0; height: 100%; background: var(--accent);
+      transition: width .2s linear;
+    }
+
+    /* Carousel */
+    .carousel-container { margin-top: 1rem; overflow: hidden; }
+    #carousel {
+      display: flex; gap: 1rem; padding: 1rem;
+      transition: transform .7s ease-in-out;
+    }
     #carousel a {
       flex: 0 0 auto;
-      width: 100%;
-      max-width: 100vw;
-      height: 200px;
+      width: calc((100% - 3rem)/4);
+      max-width: 300px;
+      height: 180px;
       border-radius: .5rem;
       overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, .4);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
       position: relative;
     }
-    #carousel img { width: 100%; height: 100%; object-fit: cover; }
+    #carousel img { width:100%; height:100%; object-fit:cover; }
     .carousel-caption {
-      @apply absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent text-center text-white font-bold py-2 text-lg;
+      @apply absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent text-center text-white font-bold py-1;
+      font-size: .9rem;
     }
+
+    /* Grid */
     .anime-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 1rem; padding:1rem;
     }
     .anime-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1rem;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
-      transition: transform .3s;
+      position: relative; overflow:hidden; border-radius:1rem;
+      box-shadow:0 4px 15px rgba(0,0,0,0.3);
+      transition:transform .3s;
     }
     .anime-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 30px #ff00ff;
-      border: 2px solid #ff00ff;
+      transform:translateY(-6px);
+      box-shadow:0 8px 30px var(--accent);
+      border:2px solid var(--accent);
     }
-    .anime-card img { width: 100%; height: 260px; object-fit: cover; }
+    .anime-card img { width:100%; height:260px; object-fit:cover; }
     .anime-card-title {
       @apply absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent text-white text-center py-2 font-semibold;
     }
+
+    /* Buttons */
+    .support-btn, #scrollToTop {
+      position:fixed; right:1rem;
+      background:var(--accent); color:#000;
+      padding:.75rem 1rem; border-radius:.5rem; font-weight:bold;
+      z-index:50;
+    }
+    .support-btn { top:6rem; }
+    #scrollToTop {
+      bottom:1rem; width:3rem; height:3rem;
+      display:none; align-items:center; justify-content:center;
+      font-size:1.25rem;
+    }
+
+    /* Welcome */
+    .welcome-message {
+      margin-top:6rem; text-align:center;
+      font-size:2.5rem; font-weight:bold; margin-bottom:1.5rem;
+    }
   </style>
 </head>
+
 <body>
-  <div id="loader" class="fixed inset-0 bg-black text-white flex items-center justify-center text-3xl z-[9999]">Loading DOOSH HUB...</div>
-  <button class="support-btn fixed top-20 right-4 bg-gradient-to-br from-pink-500 to-cyan-400 text-white font-bold px-4 py-2 rounded-lg shadow-lg z-50" onclick="triggerPopunder()">Support Us</button>
-  <button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
+  <!-- Loader -->
+  <div id="loader">
+    <div id="loader-text">Loading DOOSH HUB…</div>
+    <div id="loader-bar-bg"><div id="loader-bar"></div></div>
+  </div>
+
+  <!-- Header -->
   <header>
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full"/>
-    <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Logo" class="w-12 h-12 rounded-full"/>
+    <input id="search" type="text" placeholder="Search anime…" oninput="filterAnime()"/>
+    <select id="themeSelect"></select>
   </header>
-  <div class="welcome-message text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div>
+
+  <!-- Buttons -->
+  <button class="support-btn" onclick="triggerPopunder()">Support Us</button>
+  <button id="scrollToTop" onclick="scrollToTop()">↑</button>
+
+  <!-- Welcome -->
+  <div class="welcome-message">Welcome to DOOSH HUB!</div>
+
+  <!-- Carousel -->
   <section class="carousel-container">
     <div id="carousel"></div>
   </section>
-  <main id="animeList" class="anime-grid"></main>  <script>
+
+  <!-- Grid -->
+  <main id="animeList" class="anime-grid"></main>
+
+  <script>
+    // 1) Data
     const animeData = {
       "wind-breaker season 1": {
         title: "WIND BREAKER Season 1 in Hindi",
         cover: "InShot_20250427_105208488.jpg",
         link: "anime/windbreakerseason1.html"
       }
+      // …add more…
     };
 
+    // 2) Themes
+    const themes = [
+      { id:'cyber',    name:'Cyberpunk' },
+      { id:'neon',     name:'Neon' },
+      { id:'holo',     name:'Holo' },
+      { id:'glitch',   name:'Glitch' },
+      { id:'vapor',    name:'Vaporwave' },
+      { id:'synth',    name:'Synthwave' },
+      { id:'matrix',   name:'Matrix' },
+      { id:'hologrid', name:'Holo-Grid' },
+      { id:'chrome',   name:'Holo-Chrome' },
+      { id:'dmatrix',  name:'Dark-Matrix' }
+    ];
+    const sel = document.getElementById('themeSelect');
+    themes.forEach(t => {
+      const o = document.createElement('option');
+      o.value = t.id; o.text = t.name;
+      sel.add(o);
+    });
+    function applyTheme(id) {
+      document.body.className = 'theme-' + id;
+      sel.value = id;
+      localStorage.setItem('theme', id);
+    }
+    // init theme
+    applyTheme(localStorage.getItem('theme') || 'cyber');
+    sel.onchange = () => applyTheme(sel.value);
+
+    // 3) Loader
+    let loaded=0, total=Object.keys(animeData).length*2;
+    function advanceLoader(){
+      loaded++;
+      document.getElementById('loader-bar').style.width = Math.round(loaded/total*100) + '%';
+      if(loaded>=total){
+        document.getElementById('loader').style.display='none';
+        setInterval(autoSlide,3000);
+      }
+    }
+
+    // 4) Carousel
     function loadCarousel() {
-      const carousel = document.getElementById('carousel');
-      carousel.innerHTML = '';
-      Object.values(animeData).forEach(a => {
-        const slide = document.createElement('a');
-        slide.href = a.link;
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="carousel-caption">${a.title}</div>`;
-        carousel.appendChild(slide);
+      const c = document.getElementById('carousel');
+      c.innerHTML = '';
+      Object.values(animeData).forEach(a=>{
+        const aEl = document.createElement('a');
+        aEl.href = a.link;
+        const img = new Image(); img.src=a.cover; img.onload=advanceLoader;
+        aEl.append(img);
+        const cap = document.createElement('div');
+        cap.className='carousel-caption'; cap.innerText=a.title;
+        aEl.append(cap);
+        c.append(aEl);
       });
-      const clone = carousel.children[0].cloneNode(true);
-      carousel.appendChild(clone);
+      if(c.children.length) c.append(c.children[0].cloneNode(true));
     }
-
-    let idx = 0;
-    function autoSlide() {
-      const carousel = document.getElementById('carousel');
-      const items = carousel.children;
-      const width = items[0].offsetWidth + 16;
-      idx++;
-      carousel.style.transform = `translateX(-${idx * width}px)`;
-      if (idx >= items.length - 1) {
-        setTimeout(() => {
-          carousel.style.transition = 'none';
-          carousel.style.transform = 'translateX(0)';
-          idx = 0;
-          setTimeout(() => carousel.style.transition = 'transform .7s ease-in-out', 50);
-        }, 700);
+    let idx=0;
+    function autoSlide(){
+      const c=document.getElementById('carousel'),
+            items=c.children,
+            gap=parseInt(getComputedStyle(c).gap)||16,
+            w=items[0].offsetWidth+gap;
+      idx++; c.style.transform=`translateX(-${idx*w}px)`;
+      if(idx>=items.length-1){
+        setTimeout(()=>{
+          c.style.transition='none'; c.style.transform='translateX(0)'; idx=0;
+          setTimeout(()=>c.style.transition='transform .7s ease-in-out',50);
+        },700);
       }
     }
 
-    function loadAnimeCards() {
-      const grid = document.getElementById('animeList');
-      grid.innerHTML = '';
-      Object.values(animeData).forEach(a => {
-        const card = document.createElement('a');
-        card.href = a.link;
-        card.className = 'anime-card';
-        card.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="anime-card-title">${a.title}</div>`;
-        grid.appendChild(card);
+    // 5) Cards
+    function loadAnimeCards(){
+      const g=document.getElementById('animeList');
+      g.innerHTML='';
+      Object.values(animeData).forEach(a=>{
+        const c=document.createElement('a');
+        c.href=a.link; c.className='anime-card';
+        const img=new Image(); img.src=a.cover; img.onload=advanceLoader;
+        c.append(img);
+        const t=document.createElement('div');
+        t.className='anime-card-title'; t.innerText=a.title;
+        c.append(t); g.append(c);
       });
     }
 
-    function filterAnime() {
-      const q = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('.anime-card').forEach(c => {
-        const t = c.querySelector('.anime-card-title').innerText.toLowerCase();
-        c.style.display = t.includes(q) ? '' : 'none';
+    // 6) Search
+    function filterAnime(){
+      const q=document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.anime-card').forEach(c=>{
+        c.style.display=c.querySelector('.anime-card-title').innerText.toLowerCase().includes(q)?'':'none';
       });
     }
 
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    window.onscroll = () => {
-      document.getElementById('scrollToTop').style.display = (window.scrollY > 200) ? 'block' : 'none';
+    // 7) Scroll to top
+    window.onscroll=()=>{ 
+      document.getElementById('scrollToTop').style.display=window.scrollY>200?'flex':'none';
     };
+    function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
 
-    let lastAd = 0, cooldown = 5 * 60 * 1000, zones = [9277886, 9277883, 9277875];
-    function triggerPopunder() {
-      let now = Date.now();
-      if (now - lastAd > cooldown) {
-        let z = zones[Math.floor(Math.random() * zones.length)];
-        let s = document.createElement('script');
-        s.src = 'https://shebudriftaiter.net/tag.min.js';
-        s.setAttribute('data-zone', z);
+    // 8) Popunder ad
+    let lastAd=0, cooldown=5*60*1000, zones=[9277886,9277883,9277875];
+    function triggerPopunder(){
+      const now=Date.now();
+      if(now-lastAd>cooldown){
+        const z=zones[Math.floor(Math.random()*zones.length)];
+        const s=document.createElement('script');
+        s.src='https://shebudriftaiter.net/tag.min.js';
+        s.setAttribute('data-zone',z);
         document.body.appendChild(s);
-        lastAd = now;
+        lastAd=now;
       }
     }
-    ['click', 'touchstart'].forEach(e => {
-      if (!localStorage.getItem('adShown')) {
-        document.body.addEventListener(e, () => {
+    ['click','touchstart'].forEach(evt=>{
+      if(!localStorage.getItem('adShown')){
+        document.body.addEventListener(evt,()=>{
           triggerPopunder();
-          localStorage.setItem('adShown', 'yes');
-        }, { once: true });
+          localStorage.setItem('adShown','yes');
+        },{once:true});
       }
     });
-    setInterval(triggerPopunder, 10 * 60 * 1000);
+    setInterval(triggerPopunder,10*60*1000);
 
-    window.onload = () => {
-      setTimeout(() => {
-        document.getElementById('loader').style.display = 'none';
-        loadCarousel();
-        loadAnimeCards();
-        setInterval(autoSlide, 3000);
-      }, 5000);
+    // 9) Init
+    window.onload = ()=>{
+      loadCarousel();
+      loadAnimeCards();
     };
-  </script></body>
+  </script>
+</body>
 </html>
