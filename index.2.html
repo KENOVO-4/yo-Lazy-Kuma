@@ -1,247 +1,133 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!">
   <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
   <meta name="author" content="DOOSH HUB Team">
   <title>DOOSH HUB</title>
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32">
   <style>
-    :root {
-      --main-glow: #ff00ff;
-      --secondary-glow: #00ffe0;
-    }body {
-  background-color: #0d0d0d;
-  color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  z-index: 1000;
-}
-
-header img {
-  height: 48px;
-  border-radius: 50%;
-}
-
-.search-bar {
-  flex-grow: 1;
-  margin-left: 1rem;
-}
-
-.search-bar input {
-  width: 100%;
-  padding: 0.5rem;
-  background: #1f1f1f;
-  border: none;
-  border-radius: 0.5rem;
-  color: white;
-}
-
-#loader {
-  position: fixed;
-  inset: 0;
-  background: black;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  z-index: 9999;
-}
-
-.carousel {
-  margin-top: 80px;
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.carousel-item {
-  flex: none;
-  width: 100vw;
-  height: 220px;
-  scroll-snap-align: start;
-  position: relative;
-}
-
-.carousel-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.carousel-caption {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-  color: white;
-  text-align: center;
-  padding: 0.5rem;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-  margin-top: 1rem;
-}
-
-.anime-card {
-  background: #1e1e1e;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  transition: transform 0.2s;
-  position: relative;
-}
-
-.anime-card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 10px var(--main-glow);
-}
-
-.anime-card img {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-}
-
-.anime-title {
-  text-align: center;
-  padding: 0.5rem;
-  font-weight: bold;
-}
-
-#adPopup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9998;
-}
-
-.ad-box {
-  background: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  text-align: center;
-  max-width: 300px;
-}
-
-.ad-box button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+    .carousel-container {
+      overflow-x: scroll;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+    .carousel-slide {
+      display: inline-block;
+      width: 100vw;
+      height: 220px;
+      object-fit: cover;
+      scroll-snap-align: center;
+    }
+    .anime-card {
+      background: #1a1a1a;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .anime-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ff00ff;
+    }
+    .loader {
+      background: #000;
+      color: #fff;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    #scrollToTop {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div id="loader">Loading DOOSH HUB...</div>  <header>
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Logo">
-    <div class="search-bar">
-      <input type="text" placeholder="Search animes, movies..." id="search" oninput="filterAnime()">
-    </div>
-  </header>  <div class="carousel" id="carousel"></div>
-  <main class="grid-container" id="animeList"></main>  <div id="adPopup">
-    <div class="ad-box relative">
-      <button onclick="closeAd()">&times;</button>
-      <h2 class="text-xl font-semibold mb-2">Support Us!</h2>
-      <p>Check out new releases only on DOOSH HUB</p>
-      <a href="https://dooshtoons.linkpc.net" class="mt-4 inline-block bg-purple-600 hover:bg-purple-800 text-white px-4 py-2 rounded-full">Visit Now</a>
-    </div>
-  </div>  <script>
+  <div id="loader" class="loader">Loading DOOSH HUB...</div>  <header class="fixed top-0 left-0 w-full bg-black bg-opacity-80 p-3 flex items-center justify-between z-50">
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" class="w-10 h-10 rounded-full" alt="Doosh Hub">
+    <input type="text" id="search" placeholder="Search animes, movies..." class="w-full max-w-md mx-4 px-4 py-2 rounded bg-gray-700 text-white placeholder-gray-300" oninput="filterAnime()">
+    <button class="bg-pink-500 text-white px-4 py-2 rounded-lg font-bold" onclick="triggerPopunder()">Support Us</button>
+  </header>  <main class="mt-24">
+    <div class="text-center text-3xl font-bold my-4">Welcome to DOOSH HUB</div><section class="carousel-container">
+  <img src="InShot_20250427_105208488.jpg" class="carousel-slide" alt="WIND BREAKER Season 1 in Hindi">
+</section>
+
+<section class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4" id="animeList"></section>
+
+  </main><button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-500 text-white p-3 rounded-full" onclick="scrollToTop()">↑</button>
+
+  <script>
     const animeData = {
       "wind-breaker season 1": {
         title: "WIND BREAKER Season 1 in Hindi",
         cover: "InShot_20250427_105208488.jpg",
         link: "anime/windbreakerseason1.html"
-      },
-      "attack on titan": {
-        title: "Attack on Titan Hindi Dubbed",
-        cover: "aot_cover.jpg",
-        link: "anime/aot.html"
       }
     };
 
-    function buildCarousel() {
-      const carousel = document.getElementById('carousel');
-      carousel.innerHTML = '';
-      Object.values(animeData).forEach(a => {
-        const slide = document.createElement('div');
-        slide.className = 'carousel-item';
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}"><div class="carousel-caption">${a.title}</div>`;
-        carousel.appendChild(slide);
-      });
-    }
-
-    function buildGrid() {
+    function loadAnimeCards() {
       const grid = document.getElementById('animeList');
       grid.innerHTML = '';
       Object.values(animeData).forEach(a => {
         const card = document.createElement('a');
         card.href = a.link;
         card.className = 'anime-card';
-        card.innerHTML = `<img src="${a.cover}" alt="${a.title}"><div class="anime-title">${a.title}</div>`;
+        card.innerHTML = `
+          <img src="${a.cover}" class="w-full h-48 object-cover">
+          <div class="text-center text-white p-2 font-semibold">${a.title}</div>
+        `;
         grid.appendChild(card);
       });
     }
 
     function filterAnime() {
       const q = document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('.anime-card').forEach(card => {
-        const title = card.querySelector('.anime-title').innerText.toLowerCase();
-        card.style.display = title.includes(q) ? '' : 'none';
+      document.querySelectorAll('#animeList a').forEach(c => {
+        const t = c.innerText.toLowerCase();
+        c.style.display = t.includes(q) ? '' : 'none';
       });
     }
 
-    function showAdIfNeeded() {
-      const lastShown = localStorage.getItem("lastAdShown");
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.onscroll = () => {
+      document.getElementById('scrollToTop').style.display = (window.scrollY > 100) ? 'block' : 'none';
+    };
+
+    function triggerPopunder() {
+      const lastAd = localStorage.getItem('lastAd') || 0;
       const now = Date.now();
-      const twelveHours = 12 * 60 * 60 * 1000;
-      if (!lastShown || now - parseInt(lastShown) > twelveHours) {
-        document.getElementById("adPopup").style.display = "flex";
-        localStorage.setItem("lastAdShown", now);
+      const cooldown = 5 * 60 * 1000;
+      if (now - lastAd > cooldown) {
+        const s = document.createElement('script');
+        s.src = 'https://shebudriftaiter.net/tag.min.js';
+        s.setAttribute('data-zone', '9277886');
+        document.body.appendChild(s);
+        localStorage.setItem('lastAd', now);
       }
     }
 
-    function closeAd() {
-      document.getElementById("adPopup").style.display = "none";
-    }
-
     window.onload = () => {
-      buildCarousel();
-      buildGrid();
-      showAdIfNeeded();
-      setTimeout(() => document.getElementById('loader').style.display = 'none', 2000);
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        loadAnimeCards();
+      }, 3000);
     };
   </script></body>
 </html>
