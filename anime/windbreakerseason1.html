@@ -22,29 +22,40 @@
       background-color: var(--bg-color); color: var(--text-color);
       overflow-x: hidden;
     }
+
+    /* Fullscreen fixes */
+    .video-container:-webkit-full-screen,
+    .video-container:-moz-full-screen,
+    .video-container:-ms-fullscreen,
+    .video-container:fullscreen {
+      padding-top: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      margin: 0;
+    }
+    .video-container:-webkit-full-screen #videoPlayer,
+    .video-container:-moz-full-screen #videoPlayer,
+    .video-container:-ms-fullscreen #videoPlayer,
+    .video-container:fullscreen #videoPlayer,
+    .video-container:-webkit-full-screen .overlay-layer,
+    .video-container:-moz-full-screen .overlay-layer,
+    .video-container:-ms-fullscreen .overlay-layer,
+    .video-container:fullscreen .overlay-layer {
+      position: absolute; top: 0; left: 0;
+      width: 100% !important; height: 100% !important;
+    }
+
     .loader-overlay {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.8);
-      display: none; /* hidden by default */
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
       z-index: 9999;
     }
-    .loader-bar-container {
-      width: 80%; max-width: 400px;
-      height: 10px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 5px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-    .loader-bar {
-      width: 0%; height: 100%;
-      background: var(--accent-color);
-      transition: width 0.1s linear;
-    }
+    .loader-bar-container { width: 80%; max-width: 400px; height: 10px; background: rgba(255,255,255,0.2); border-radius: 5px; overflow: hidden; margin-bottom: 10px; }
+    .loader-bar { width: 0%; height: 100%; background: var(--accent-color); transition: width 0.1s linear; }
+
     .video-container {
       position: relative; padding-top: 56.25%; max-width: 800px;
       margin: 20px auto; background-color: black;
@@ -53,7 +64,8 @@
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
     }
-    .controls, .progress-bar, .toggle-btn {
+
+    .controls, .progress-bar {
       opacity: 0; transition: opacity 0.3s;
     }
     .controls {
@@ -66,19 +78,25 @@
       cursor: pointer; font-size: 12px;
     }
     .control-btn:hover { background-color: var(--accent-color); }
+
     .progress-bar {
-      position: absolute; bottom: 38px; left: 10%; width: 80%; height: 12px;
+      position: absolute; bottom: 38px; left: 10%;
+      width: 80%; height: 12px;
       background: rgba(255,255,255,0.3); cursor: pointer;
     }
     .progress { height: 100%; background: var(--accent-color); width: 0%; }
+
     .toggle-btn {
       position: absolute; top: 10px; right: 10px;
       background-color: var(--accent-color); color: var(--text-color);
-      padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer;
+      padding: 6px 12px; border: none; border-radius: 6px;
+      cursor: pointer;
     }
+
     .episode-btn { padding: 10px; background: #2d2d3d; border-radius: 6px; text-align: center; cursor: pointer; }
     .episode-btn.active { background: var(--accent-color); }
     .episode-btn:hover { background: #444; }
+
     .search-box {
       display: block; width: 100%; max-width: 400px;
       margin: 1rem auto; padding: 8px 12px; border-radius: 6px;
@@ -177,44 +195,30 @@
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('videoPlayer', {
         videoId: episodes[0].link,
-        playerVars: {
-          autoplay: 1,
-          controls: 0,
-          modestbranding: 1,
-          rel: 0,
-          playsinline: 1
-        },
-        events: {
-          onReady: (e) => {
-            e.target.playVideo();
-            // leave muted for autoplay, browser policy
-            showLoader();
-            setTimeout(() => {
-              init();
-              hideLoader();
-            }, 5000);
-
-            // Unmute on first container click
-            document.querySelector('.video-container').addEventListener('click', () => {
-              player.unMute();
-              player.setVolume(100);
-            }, { once: true });
-
-            // Mute/unmute toggle button
-            const muteBtn = document.getElementById('muteToggle');
-            muteBtn.onclick = () => {
-              if (player.isMuted()) {
-                player.unMute();
-                muteBtn.textContent = 'Mute';
-              } else {
-                player.mute();
-                muteBtn.textContent = 'Unmute';
-              }
-            };
-          },
-          onStateChange: e => { if (e.data === YT.PlayerState.ENDED) nextEpisode(); }
-        }
+        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0, playsinline: 1 },
+        events: { onReady: setupPlayer, onStateChange: e => { if (e.data === YT.PlayerState.ENDED) nextEpisode(); } }
       });
+    }
+
+    function setupPlayer(e) {
+      e.target.playVideo();
+      showLoader();
+      setTimeout(() => { init(); hideLoader(); }, 5000);
+
+      document.querySelector('.video-container').addEventListener('click', () => {
+        player.unMute();
+        player.setVolume(100);
+      }, { once: true });
+
+      document.getElementById('muteToggle').onclick = function() {
+        if (player.isMuted()) {
+          player.unMute();
+          this.textContent = 'Mute';
+        } else {
+          player.mute();
+          this.textContent = 'Unmute';
+        }
+      };
     }
 
     function init() {
@@ -277,9 +281,20 @@
       const state = player.getPlayerState();
       state === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo();
     }
+
     function toggleFullscreen() {
       const el = document.querySelector('.video-container');
-      !document.fullscreenElement ? el.requestFullscreen() : document.exitFullscreen();
+      if (!document.fullscreenElement) {
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+        else if (el.msRequestFullscreen) el.msRequestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+      }
     }
 
     const progressBar = document.getElementById('progress-bar'),
