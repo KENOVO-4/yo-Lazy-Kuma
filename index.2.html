@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!">
   <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
   <meta name="author" content="DOOSH HUB Team">
   <title>DOOSH HUB</title>
-
+  
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <!-- Roboto Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  
   <!-- Favicon -->
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32">
-
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
+  
   <style>
     body {
       background: #0f0f0f;
@@ -28,133 +30,47 @@
       50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, inset 0 0 100px #ff00ff; }
       100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, inset 0 0 70px #ff4500; }
     }
+    
+    /* Spinner */
+    .spinner {
+      border: 4px solid transparent;
+      border-top: 4px solid #ff6b81;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 0.5rem;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
 
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      z-index: 50;
-      transition: all 0.3s ease;
+      position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(0,0,0,0.6);
+      display: flex; align-items: center; gap: 1rem; padding: 1rem; z-index:50; transition: all .3s;
     }
+    .carousel-container { overflow:hidden; margin-top:5rem; }
+    #carousel { display:flex; gap:1rem; padding:1rem; transition:transform .7s ease-in-out; }
+    .carousel-slide{ flex:0 0 auto; width:100%; max-width:90vw; height:200px; border-radius:1rem; overflow:hidden; position:relative; }
+    .carousel-slide img{ width:100%; height:100%; object-fit:cover; }
+    .carousel-caption{ position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(to top, black, transparent); color:#fff; text-align:center; padding:.5rem; font-weight:bold; }
 
-    .carousel-container {
-      overflow: hidden;
-      margin-top: 5rem;
-    }
-
-    #carousel {
-      display: flex;
-      gap: 1rem;
-      padding: 1rem;
-      transition: transform 0.7s ease-in-out;
-    }
-
-    .carousel-slide {
-      flex: 0 0 auto;
-      width: 100%;
-      max-width: 90vw;
-      height: 200px;
-      border-radius: 1rem;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .carousel-caption {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(to top, black, transparent);
-      color: white;
-      text-align: center;
-      padding: 0.5rem;
-      font-weight: bold;
-    }
-
-    .anime-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-    }
-
-    .anime-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 1rem;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, .3);
-      transition: transform .3s;
-    }
-
-    .anime-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 8px 30px #ff00ff;
-      border: 2px solid #ff00ff;
-    }
-
-    .anime-card img {
-      width: 100%;
-      height: 260px;
-      object-fit: cover;
-    }
-
-    .anime-card-title {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(to top, black, transparent);
-      color: white;
-      text-align: center;
-      padding: 0.5rem;
-      font-weight: 600;
-    }
+    .anime-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; padding:1rem; }
+    .anime-card{ position:relative; overflow:hidden; border-radius:1rem; box-shadow:0 4px 15px rgba(0,0,0,.3); transition:transform .3s; }
+    .anime-card:hover{ transform:translateY(-8px); box-shadow:0 8px 30px #ff00ff; border:2px solid #ff00ff; }
+    .anime-card img{ width:100%; height:260px; object-fit:cover; }
+    .anime-card-title{ position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(to top, black, transparent); color:#fff; text-align:center; padding:.5rem; font-weight:600; }
 
     /* Support Popup Styles */
     #supportPopup {
-      display: none;
-      position: fixed;
-      top: 25%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50%;
-      max-width: 400px;
-      background: #1a1a1a;
-      color: #fff;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 0 20px rgba(0,0,0,0.7);
-      z-index: 10000;
-      text-align: center;
+      display: none; position: fixed; top: 25%; left: 50%; transform: translateX(-50%);
+      width: 50%; max-width: 400px; background: #1a1a1a; color: #fff; border-radius:1rem;
+      padding: 2rem; box-shadow: 0 0 30px rgba(0,0,0,0.8); z-index:10000; text-align:center;
     }
-    #supportPopup.show {
-      display: block;
-    }
-    #supportPopup .highlight {
-      color: #ff4757;
-      font-weight: bold;
-    }
-    #supportPopup button {
-      margin-top: 1rem;
-      background: #ff6b81;
-      color: #fff;
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 0.5rem;
-      cursor: pointer;
-    }
+    #supportPopup.show { display: block; animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity:0; transform:translate(-50%,20px);} to { opacity:1; transform:translate(-50%,0);} }
+    #supportPopup .highlight { color:#ff4757; font-weight:bold; }
+    #supportPopup button { margin-top:1rem; background:#ff6b81; color:#fff; padding:.5rem 1rem; border:none; border-radius:.5rem; cursor:pointer; }
   </style>
 </head>
 <body>
@@ -163,10 +79,11 @@
 
   <!-- Support Popup -->
   <div id="supportPopup">
-    <div class="text-xl font-bold mb-2">🥺 Please Support Us!</div>
-    <div class="highlight mb-2">Wait 3-5 sec on the page<br>(caution: don't download or touch anything from ads)</div>
-    <div class="mb-4">I am a solo developer who built this site.<br>Please show some support ❤️</div>
-    <button id="closePopup">Okay, got it</button>
+    <div class="spinner"></div>
+    <div class="text-xl font-bold mb-2">🥺 Support us, click on this ad!</div>
+    <div class="highlight mb-2">Wait <strong>3-5 sec</strong> on the page<br>(caution: don't download or touch anything from ads)</div>
+    <div class="mb-4">I'm a solo developer who built this site.<br>Please show some support ❤️</div>
+    <button id="closePopup">Got it!</button>
   </div>
 
   <!-- Support Button -->
@@ -177,8 +94,8 @@
 
   <!-- Header -->
   <header>
-    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full">
-    <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()">
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full" />
+    <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()" />
   </header>
 
   <!-- Welcome Message -->
@@ -193,7 +110,7 @@
   <main id="animeList" class="anime-grid"></main>
 
   <!-- Ads Code -->
-  <script>(function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); p.appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement)</script>
+  <script>(function(s,u,z,p){s.src=u;s.setAttribute('data-zone',z);p.appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement)</script>
 
   <script>
     // Anime Data
@@ -206,74 +123,78 @@
       "Fairy tail  in Hindi all episodes ": { title: "Fairy tail  in Hindi all episodes ", cover: "photo/unnamed (7).jpg", link: "anime/fairy.html" }
     };
 
-    // Load Carousel
-    functionloadCarousel();
+    // Populate carousel
     function loadCarousel() {
-      const carousel = document.getElementById('carousel');
-      carousel.innerHTML = '';
+      const carousel = document.getElementById('carousel'); carousel.innerHTML = '';
       Object.values(animeData).forEach(a => {
-        const slide = document.createElement('a'); slide.href = a.link; slide.className = 'carousel-slide';
-        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
+        const slide = document.createElement('a'); slide.href=a.link; slide.className='carousel-slide';
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="carousel-caption">${a.title}</div>`;
         carousel.appendChild(slide);
       });
       Object.values(animeData).slice(0,2).forEach(a => {
         const clone = document.createElement('a'); clone.href=a.link; clone.className='carousel-slide';
-        clone.innerHTML=`<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
+        clone.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="carousel-caption">${a.title}</div>`;
         carousel.appendChild(clone);
       });
     }
 
+    // Carousel auto-slide
     let slideIndex=0;
     function autoSlide() {
       const carousel=document.getElementById('carousel'), slides=carousel.querySelectorAll('.carousel-slide');
-      const slideWidth=slides[0].offsetWidth+16;
-      slideIndex++; carousel.style.transition='transform 0.7s ease-in-out';
-      carousel.style.transform=`translateX(-${slideIndex*slideWidth}px)`;
-      if(slideIndex>=slides.length-2){
-        setTimeout(()=>{carousel.style.transition='none'; carousel.style.transform='translateX(0)'; slideIndex=0;},700);
-      }
+      const w=slides[0].offsetWidth+16; slideIndex++; carousel.style.transition='transform .7s ease-in-out';
+      carousel.style.transform=`translateX(-${slideIndex*w}px)`;
+      if(slideIndex>=slides.length-2){ setTimeout(()=>{ carousel.style.transition='none'; carousel.style.transform='translateX(0)'; slideIndex=0; },700); }
     }
 
-    // Load Anime Cards
+    // Load anime cards
     function loadAnimeCards(){
       const grid=document.getElementById('animeList'); grid.innerHTML='';
-      Object.values(animeData).forEach(a=>{const card=document.createElement('a'); card.href=a.link; card.className='anime-card';
+      Object.values(animeData).forEach(a=>{ const card=document.createElement('a'); card.href=a.link; card.className='anime-card';
         card.innerHTML=`<img src="${a.cover}" alt="${a.title}"/><div class="anime-card-title">${a.title}</div>`;
         grid.appendChild(card);
       });
     }
 
-    // Filter Function
+    // Filter
     function filterAnime(){ const q=document.getElementById('search').value.toLowerCase();
-      document.querySelectorAll('.anime-card').forEach(c=>{ const t=c.querySelector('.anime-card-title').innerText.toLowerCase(); c.style.display=t.includes(q)?'':'none';});
+      document.querySelectorAll('.anime-card').forEach(c=>{ const t=c.querySelector('.anime-card-title').innerText.toLowerCase(); c.style.display=t.includes(q)?'':'none'; });
     }
 
-    // Scroll to Top
+    // Scroll to top
     function scrollToTop(){ window.scrollTo({ top:0, behavior:'smooth' }); }
     window.onscroll=()=>{ document.getElementById('scrollToTop').style.display=(window.scrollY>200)?'block':'none'; };
 
-    // Popunder Helper
-    function triggerPopunder(){ const s=document.createElement('script'); s.src='https://shebudriftaiter.net/tag.min.js'; s.setAttribute('data-zone',9277886); document.body.appendChild(s);}
+    // Popunder helper
+    function triggerPopunder(){ const s=document.createElement('script'); s.src='https://shebudriftaiter.net/tag.min.js'; s.setAttribute('data-zone',9277886); document.body.appendChild(s); }
 
-    // Support Popup Logic
+    // Support popup control
     const popup=document.getElementById('supportPopup'), closeBtn=document.getElementById('closePopup');
     closeBtn.addEventListener('click',()=>popup.classList.remove('show'));
 
-    function showSupportPopup(){ popup.classList.add('show'); }
+    function showPopup(){ popup.classList.add('show'); }
 
+    // After load logic
     window.onload=()=>{
-      setTimeout(()=>{ document.getElementById('loader').style.display='none'; loadCarousel(); loadAnimeCards(); setInterval(autoSlide,3000);
-        const last=localStorage.getItem('adClickTime'); const now=Date.now();
-        if(!last||now-Number(last)>10*60*1000){ setTimeout(showSupportPopup,3000);} else {
-          setTimeout(showSupportPopup, 10*60*1000-(now-Number(last)));
-        }
+      setTimeout(()=>{
+        document.getElementById('loader').style.display='none';
+        loadCarousel(); loadAnimeCards(); setInterval(autoSlide,3000);
+        // schedule popup 3s after loader hide or later if ad clicked
+        const lastClick=localStorage.getItem('adClickTime'); const now=Date.now();
+        const delay = !lastClick || now-Number(lastClick)>10*60*1000 ? 3000 : 10*60*1000 - (now-Number(lastClick));
+        setTimeout(showPopup, delay);
       },2500);
     };
 
-    document.addEventListener('click',e=>{ if(e.target.tagName==='IFRAME'||e.target.closest('iframe')){ localStorage.setItem('adClickTime',Date.now()); popup.classList.remove('show'); }});
+    // Detect ad clicks
+    document.addEventListener('click', e=>{
+      if(e.target.tagName==='IFRAME' || e.target.closest('iframe')){
+        localStorage.setItem('adClickTime', Date.now()); popup.classList.remove('show');
+      }
+    });
   </script>
 
   <!-- Re-insert Ad Script at End -->
-  <script>(function(s,u,z,p){s.src=u; s.setAttribute('data-zone',z); p.appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement)</script>
+  <script>(function(s,u,z,p){s.src=u;s.setAttribute('data-zone',z);p.appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement)</script>
 </body>
 </html>
