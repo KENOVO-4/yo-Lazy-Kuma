@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wind Breaker - Season 1</title>
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <script async src="https://www.youtube.com/iframe_api"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&display=swap" rel="stylesheet">
   <style>
@@ -21,6 +21,30 @@
       height: 100%; margin: 0; font-family: var(--font-family);
       background-color: var(--bg-color); color: var(--text-color);
       overflow-x: hidden;
+    }
+    /* Loader Overlay */
+    .loader-overlay {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none; /* hidden by default */
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .loader-bar-container {
+      width: 80%; max-width: 400px;
+      height: 10px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .loader-bar {
+      width: 0%; height: 100%;
+      background: var(--accent-color);
+      transition: width 0.1s linear;
     }
     .video-container {
       position: relative; padding-top: 56.25%; max-width: 800px;
@@ -71,6 +95,14 @@
   </style>
 </head>
 <body>
+  <!-- Loader Popup -->
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-bar-container">
+      <div id="loaderBar" class="loader-bar"></div>
+    </div>
+    <p>Loading episodes...</p>
+  </div>
+
   <header class="text-center mt-4">
     <h1 class="text-4xl font-extrabold">Wind Breaker - Season 1</h1>
   </header>
@@ -108,6 +140,7 @@
   </footer>
 
   <script>
+    // Episodes data
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
       { title: "Episode 2", link: "J2568cnOa1g" },
@@ -126,17 +159,55 @@
 
     let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging = false;
 
+    // Loader functions
+    function showLoader() {
+      const overlay = document.getElementById('loaderOverlay');
+      const bar = document.getElementById('loaderBar');
+      overlay.style.display = 'flex';
+      let elapsed = 0;
+      const duration = 5000;
+      const interval = 100;
+      const timer = setInterval(() => {
+        elapsed += interval;
+        const pct = Math.min((elapsed / duration) * 100, 100);
+        bar.style.width = pct + '%';
+        if (elapsed >= duration) clearInterval(timer);
+      }, interval);
+    }
+
+    function hideLoader() {
+      document.getElementById('loaderOverlay').style.display = 'none';
+    }
+
+    // YouTube API ready
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('videoPlayer', {
         videoId: episodes[0].link,
-        playerVars: { autoplay: 1, controls: 0, modestbranding: 1, rel: 0 },
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          mute: 1,
+          playsinline: 1
+        },
         events: {
-          onReady: () => { init(); },
+          onReady: (e) => {
+            e.target.playVideo();
+            const iframe = player.getIframe();
+            iframe.setAttribute('allow', 'autoplay; fullscreen');
+            showLoader();
+            setTimeout(() => {
+              init();
+              hideLoader();
+            }, 5000);
+          },
           onStateChange: e => { if (e.data === YT.PlayerState.ENDED) nextEpisode(); }
         }
       });
     }
 
+    // Initialize episode list and display
     function init() {
       loadEpisodes();
       updateDisplay();
@@ -161,9 +232,11 @@
       });
     }
 
+    // Navigation controls
     function nextEpisode() { if (currentEpisodeIndex < episodes.length - 1) { currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); } }
     function prevEpisode() { if (currentEpisodeIndex > 0) { currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); } }
 
+    // Video controls and progress bar
     function showControls() {
       clearTimeout(hideControlsTimer);
       document.getElementById('videoControls').style.opacity = 1;
@@ -178,8 +251,7 @@
     function togglePlayPause() { const s = player.getPlayerState(); s === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
     function toggleFullscreen() {
       const el = document.querySelector('.video-container');
-      if (!document.fullscreenElement) el.requestFullscreen();
-      else document.exitFullscreen();
+      !document.fullscreenElement ? el.requestFullscreen() : document.exitFullscreen();
     }
 
     const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
