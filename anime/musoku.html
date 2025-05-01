@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zom 100: Bucket List of the Dead</title>
+  <script async src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0b0f1a;
+      --text-color: #ffffff;
+      --accent-color: #8e2de2;
+      --control-bg: rgba(0, 0, 0, 0.6);
+      --neon-glow: #39ff14;
+      --box-border: 0 0 10px var(--neon-glow);
+      --font-family: 'Poppins', sans-serif;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .loader-bar-container {
+      width: 80%;
+      max-width: 400px;
+      height: 10px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .loader-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--accent-color);
+      transition: width 0.1s linear;
+    }
+    .video-container {
+      position: relative;
+      padding-top: 56.25%;
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: black;
+    }
+    #videoPlayer, .overlay-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .controls, .progress-bar, .toggle-btn {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+    .control-btn {
+      background-color: var(--control-bg);
+      color: var(--text-color);
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .control-btn:hover {
+      background-color: var(--accent-color);
+    }
+    .progress-bar {
+      position: absolute;
+      bottom: 38px;
+      left: 10%;
+      width: 80%;
+      height: 12px;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+    }
+    .progress {
+      height: 100%;
+      background: var(--accent-color);
+      width: 0%;
+    }
+    .toggle-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .episode-btn {
+      padding: 10px;
+      background: #2d2d3d;
+      border-radius: 6px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .episode-btn.active {
+      background: var(--accent-color);
+    }
+    .episode-btn:hover {
+      background: #444;
+    }
+    .search-box {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 1rem auto;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: none;
+      background-color: var(--control-bg);
+      color: var(--text-color);
+    }
+    .description-box {
+      max-width: 800px;
+      margin: 20px auto;
+      background: rgba(0,0,0,0.6);
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--box-border);
+    }
+    .episode-display {
+      text-align: center;
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    #episodeList {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      max-width: 800px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader Popup -->
+  <div id="loaderOverlay" class="loader-overlay">
+    <div class="loader-bar-container">
+      <div id="loaderBar" class="loader-bar"></div>
+    </div>
+    <p>Loading episodes...</p>
+  </div>
+
+  <header class="text-center mt-4">
+    <h1 class="text-4xl font-extrabold">Wind Breaker - Season 1</h1>
+  </header>
+
+  <div class="video-container" onmousemove="showControls()">
+    <div id="videoPlayer"></div>
+    <div class="overlay-layer" onclick="togglePlayPause()"></div>
+    <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
+    <div class="controls" id="videoControls">
+      <button class="control-btn" onclick="seek(-10)">-10s</button>
+      <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+      <button class="control-btn" onclick="seek(10)">+10s</button>
+      <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+      <button id="muteToggle" class="control-btn">Mute</button>
+    </div>
+    <button class="toggle-btn">Customize UI</button>
+  </div>
+
+  <div class="nav-buttons text-center mt-2">
+    <button class="control-btn" onclick="prevEpisode()">Previous</button>
+    <button class="control-btn" onclick="nextEpisode()">Next</button>
+  </div>
+
+  <div class="episode-display" id="episodeDisplay">Episode 1</div>
+
+  <div class="description-box">
+    <h2 class="text-xl font-semibold mb-2">Description</h2>
+    <p>"Zom 100: Bucket List of the Dead" is an anime about Akira Tendo, a 24-year-old office worker who is tired of his soul-crushing job and lack of purpose. When a zombie outbreak occurs, Akira sees it as an opportunity to live his life to the fullest and creates a bucket list of 100 things he wants to do before becoming a zombie himself. </p>
+    <button class="control-btn mt-2" onclick="window.open('https://youtube.com/@museasia', '_blank')">Subscribe to Muse Asia</button>
+  </div>
+
+  <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
+
+  <div id="episodeList"></div>
+
+  <footer class="mt-10 text-sm text-center text-gray-400">
+    <p>Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.</p>
+  </footer>
+
+  <script>
+    const episodes = [
+      { title: "Episode 1", link: "qRd5wbH4Cio" },
+      { title: "Episode 2", link: "_z2gQeguOA0" },
+      { title: "Episode 3", link: "0kl6UUQW_K4" },
+      { title: "Episode 4", link: "JzXyCc_Sj5Q" },
+      { title: "Episode 5", link: "IHM4aCbhUmo" },
+      { title: "Episode 6", link: "93PPhq0V0MM" },
+      { title: "Episode 7", link: "E9WUKtmRQdc" },
+      { title: "Episode 8", link: "HSQc97u8s0Q" },
+      { title: "Episode 9", link: "XTafDZ9ZhUY" },
+      { title: "Episode 10", link: "GJNugrEKk2w" },
+      { title: "Episode 11", link: "EWZrbSs6SOM" },
+      { title: "Episode 12", link: "A1vXw83JAqo" }
+    ];
+
+    let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging = false;
+
+    function showLoader() {
+      const overlay = document.getElementById('loaderOverlay');
+      const bar = document.getElementById('loaderBar');
+      overlay.style.display = 'flex';
+      let elapsed = 0, duration = 5000, interval = 100;
+      const timer = setInterval(() => {
+        elapsed += interval;
+        bar.style.width = Math.min((elapsed / duration) * 100, 100) + '%';
+        if (elapsed >= duration) clearInterval(timer);
+      }, interval);
+    }
+
+    function hideLoader() {
+      document.getElementById('loaderOverlay').style.display = 'none';
+    }
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('videoPlayer', {
+        videoId: episodes[0].link,
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          modestbranding: 1,
+          rel: 0,
+          playsinline: 1
+        },
+        events: {
+          onReady: (e) => {
+            e.target.playVideo();
+            showLoader();
+            setTimeout(() => {
+              init();
+              hideLoader();
+            }, 5000);
+            document.querySelector('.video-container').addEventListener('click', () => {
+              player.unMute();
+              player.setVolume(100);
+            }, { once: true });
+
+            const muteBtn = document.getElementById('muteToggle');
+            muteBtn.onclick = () => {
+              if (player.isMuted()) {
+                player.unMute();
+                muteBtn.textContent = 'Mute';
+              } else {
+                player.mute();
+                muteBtn.textContent = 'Unmute';
+              }
+            };
+          },
+          onStateChange: e => {
+            if (e.data === YT.PlayerState.ENDED) nextEpisode();
+          }
+        }
+      });
+    }
+
+    function init() {
+      loadEpisodes();
+      updateDisplay();
+    }
+
+    function loadEpisodes() {
+      const list = document.getElementById('episodeList');
+      list.innerHTML = '';
+      episodes.forEach((ep, i) => {
+        const btn = document.createElement('div');
+        btn.className = 'episode-btn';
+        btn.textContent = ep.title;
+        btn.onclick = () => {
+          currentEpisodeIndex = i;
+          player.loadVideoById(ep.link);
+          updateDisplay();
+        };
+        list.appendChild(btn);
+      });
+    }
+
+    function updateDisplay() {
+      document.getElementById('episodeDisplay').textContent = `Episode ${currentEpisodeIndex + 1}`;
+      document.querySelectorAll('.episode-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === currentEpisodeIndex);
+      });
+    }
+
+    function nextEpisode() {
+      if (currentEpisodeIndex < episodes.length - 1) {
+        currentEpisodeIndex++;
+        player.loadVideoById(episodes[currentEpisodeIndex].link);
+        updateDisplay();
+      }
+    }
+
+    function prevEpisode() {
+      if (currentEpisodeIndex > 0) {
+        currentEpisodeIndex--;
+        player.loadVideoById(episodes[currentEpisodeIndex].link);
+        updateDisplay();
+      }
+    }
+
+    function showControls() {
+      clearTimeout(hideControlsTimer);
+      document.getElementById('videoControls').style.opacity = 1;
+      document.getElementById('progress-bar').style.opacity = 1;
+      hideControlsTimer = setTimeout(() => {
+        document.getElementById('videoControls').style.opacity = 0;
+        document.getElementById('progress-bar').style.opacity = 0;
+      }, 3000);
+    }
+
+    function seek(sec) {
+      player.seekTo(player.getCurrentTime() + sec, true);
+    }
+
+    function togglePlayPause() {
+      const state = player.getPlayerState();
+      state === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo();
+    }
+
+    function toggleFullscreen() {
+      const el = document.querySelector('.video-container');
+      !document.fullscreenElement ? el.requestFullscreen() : document.exitFullscreen();
+    }
+
+    const progressBar = document.getElementById('progress-bar'),
+          progress = document.getElementById('progress');
+
+    progressBar.addEventListener('mousedown', e => {
+      isDragging = true;
+      updateSeek(e);
+    });
+
+    document.addEventListener('mousemove', e => {
+      if (isDragging) updateSeek(e);
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    function updateSeek(e) {
+      const rect = progressBar.getBoundingClientRect();
+      let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      const pct = x / rect.width;
+      progress.style.width = pct * 100 + '%';
+      if (player && player.seekTo) player.seekTo(pct * player.getDuration(), true);
+    }
+
+    setInterval(() => {
+      if (!isDragging && player && player.getCurrentTime) {
+        const pct = (player.getCurrentTime() / player.getDuration()) * 100;
+        progress.style.width = pct + '%';
+      }
+    }, 200);
+
+    function filterEpisodes() {
+      const q = document.getElementById('searchBox').value.toLowerCase();
+      document.querySelectorAll('#episodeList .episode-btn').forEach(btn => {
+        btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
