@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Wind Breaker – Season 1</title>
+  <title>Wind Breaker – Season 1</title>
   <script async src="https://www.youtube.com/iframe_api"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&display=swap" rel="stylesheet">
@@ -23,36 +23,41 @@
       background: var(--bg);
       color: var(--fg);
       overflow-x: hidden;
-    }/* Video container & fullscreen fixes */
+    }/* Video container ratio using padding hack */
 .video-container {
   position: relative;
   width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 */
   max-width: 900px;
-  aspect-ratio: 16/9;
   margin: 1rem auto;
   background: black;
   overflow: hidden;
 }
-#videoPlayer iframe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain;
-}
+/* Fullscreen: override padding hack and fill viewport */
 .video-container:fullscreen,
 .video-container:-webkit-full-screen,
 .video-container:-moz-full-screen,
 .video-container:-ms-fullscreen {
   width: 100vw !important;
   height: 100vh !important;
-  aspect-ratio: auto;
+  padding-bottom: 0 !important;
   margin: 0;
-  padding: 0;
+}
+
+/* Iframe fill & center video */
+#videoPlayer iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  object-position: center center;
 }
 .video-container:fullscreen iframe,
 .video-container:-webkit-full-screen iframe {
   object-fit: contain;
+  object-position: center center;
 }
 
 /* Overlay & controls */
@@ -168,15 +173,15 @@
     <div class="loader-bar-container"><div id="loaderBar" class="loader-bar"></div></div>
     <p>Loading episodes…</p>
   </div>  <header class="text-center mt-4">
-    <h1 class="text-3xl font-bold">Wind Breaker – Season 1</h1>
+    <h1 class="text-3xl font-bold">Wind Breaker – Season 1</h1>
   </header>  <div class="video-container" id="videoContainer" onmousemove="showControls()">
     <div id="videoPlayer"></div>
     <div class="overlay-layer" onclick="togglePlayPause()"></div>
     <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
     <div class="controls" id="videoControls">
-      <button class="control-btn" onclick="seek(-10)">« 10s</button>
+      <button class="control-btn" onclick="seek(-10)">« 10s</button>
       <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
-      <button class="control-btn" onclick="seek(10)">10s »</button>
+      <button class="control-btn" onclick="seek(10)">10s »</button>
       <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
       <button id="muteToggle" class="control-btn">Mute</button>
     </div>
@@ -184,28 +189,28 @@
     <button onclick="prevEpisode()">Previous</button>
     <button onclick="nextEpisode()">Next</button>
   </div>
-  <div class="episode-display" id="episodeDisplay">Episode 1</div>  <div class="description-box">
+  <div class="episode-display" id="episodeDisplay">Episode 1</div>  <div class="description-box">
     <h2 class="text-xl font-semibold mb-2">Description</h2>
-    <p>Haruka Sakura wants nothing to do with weaklings—he's only interested in the strongest of the strong...</p>
-    <button class="control-btn mt-2" onclick="window.open('https://youtube.com/@museasia','_blank')">Subscribe to Muse Asia</button>
+    <p>Haruka Sakura wants nothing to do with weaklings—he's only interested in the strongest of the strong...</p>
+    <button class="control-btn mt-2" onclick="window.open('https://youtube.com/@museasia','_blank')">Subscribe to Muse Asia</button>
   </div>  <input id="searchBox" class="search-box" placeholder="Search episodes…" oninput="filterEpisodes()">
   <div id="episodeList"></div>  <footer class="text-center text-gray-400 text-sm mb-4">
-    Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.
+    Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.
   </footer>  <script>
     const episodes = [
-      { title: "Episode 1", link: "ne0Y0vyjxpE" },
-      { title: "Episode 2", link: "J2568cnOa1g" },
-      { title: "Episode 3", link: "QOMv17IjJAU" },
-      { title: "Episode 4", link: "MT7WzTJZCxg" },
-      { title: "Episode 5", link: "4sRfndp1vAM" },
-      { title: "Episode 6", link: "oTvQ-5BNC6w" },
-      { title: "Episode 7", link: "Em5lFIz_kxU" },
-      { title: "Episode 8", link: "SBaGblvd4mU" },
-      { title: "Episode 9", link: "43Hj2GySjgA" },
-      { title: "Episode 10", link: "TIpodnZtFP4" },
-      { title: "Episode 11", link: "_L-UG_jvnM4" },
-      { title: "Episode 12", link: "skAwsc6UL8A" },
-      { title: "Episode 13", link: "-xUk9E2iQQY" }
+      { title: "Episode 1", link: "ne0Y0vyjxpE" },
+      { title: "Episode 2", link: "J2568cnOa1g" },
+      { title: "Episode 3", link: "QOMv17IjJAU" },
+      { title: "Episode 4", link: "MT7WzTJZCxg" },
+      { title: "Episode 5", link: "4sRfndp1vAM" },
+      { title: "Episode 6", link: "oTvQ-5BNC6w" },
+      { title: "Episode 7", link: "Em5lFIz_kxU" },
+      { title: "Episode 8", link: "SBaGblvd4mU" },
+      { title: "Episode 9", link: "43Hj2GySjgA" },
+      { title: "Episode 10", link: "TIpodnZtFP4" },
+      { title: "Episode 11", link: "_L-UG_jvnM4" },
+      { title: "Episode 12", link: "skAwsc6UL8A" },
+      { title: "Episode 13", link: "-xUk9E2iQQY" }
     ];
 
     let player, idx = 0, hideCtrlsTimer, dragging = false;
@@ -231,20 +236,6 @@
       episodes.forEach((ep,i)=>{ const d=document.createElement('div'); d.className='episode-btn'; d.textContent=ep.title; d.onclick=()=>{ idx=i; loadEpisode(); }; list.appendChild(d); });
       loadEpisode();
     }
-    function loadEpisode(){ player.loadVideoById(episodes[idx].link); document.getElementById('episodeDisplay').textContent = `Episode ${idx+1}`; document.querySelectorAll('.episode-btn').forEach((b,i)=>b.classList.toggle('active',i===idx)); }
+    function loadEpisode(){ player.loadVideoById(episodes[idx].link); document.getElementById('episodeDisplay').textContent = `Episode ${idx+1}`; document.querySelectorAll('.episode-btn').forEach((b,i)=>b.classList.toggle('active',i===idx)); }
     function nextEpisode(){ if(idx<episodes.length-1){ idx++; loadEpisode(); }}
-    function prevEpisode(){ if(idx>0){ idx--; loadEpisode(); }}
-
-    function showControls(){ clearTimeout(hideCtrlsTimer); document.getElementById('videoControls').style.opacity=1; document.getElementById('progress-bar').style.opacity=1; hideCtrlsTimer=setTimeout(()=>{ document.getElementById('videoControls').style.opacity=0; document.getElementById('progress-bar').style.opacity=0; },3000); }
-    function seek(s){ player.seekTo(player.getCurrentTime()+s,true); }
-    function togglePlayPause(){ const st=player.getPlayerState(); st===YT.PlayerState.PLAYING?player.pauseVideo():player.playVideo(); }
-    function toggleFullscreen(){ const el=document.getElementById('videoContainer'); if(!document.fullscreenElement){ (el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen).call(el); } else { (document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen).call(document); }}
-
-    const pb=document.getElementById('progress-bar'), pr=document.getElementById('progress');
-    pb.addEventListener('mousedown',e=>{ dragging=true; updateSeek(e); }); document.addEventListener('mousemove',e=>{ if(dragging) updateSeek(e); }); document.addEventListener('mouseup',()=>{ dragging=false; });
-    function updateSeek(e){ const r=pb.getBoundingClientRect(), x=Math.max(0,Math.min(e.clientX-r.left,r.width)), pct=x/r.width; pr.style.width=pct*100+'%'; player.seekTo(pct*player.getDuration(),true); }
-    setInterval(()=>{ if(!dragging&&player&&player.getCurrentTime){ pr.style.width=(player.getCurrentTime()/player.getDuration()*100)+'%'; } },200);
-
-    function filterEpisodes(){ const q=document.getElementById('searchBox').value.toLowerCase(); document.querySelectorAll('.episode-btn').forEach(b=>{ b.style.display = b.textContent.toLowerCase().includes(q)?'block':'none'; }); }
-  </script></body>
-</html>
+    function prev
