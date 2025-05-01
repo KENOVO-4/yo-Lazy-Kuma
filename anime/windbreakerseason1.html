@@ -22,6 +22,7 @@
       background-color: var(--bg-color); color: var(--text-color);
       overflow-x: hidden;
     }
+    /* Loader Overlay */
     .loader-overlay {
       position: fixed; top: 0; left: 0;
       width: 100%; height: 100%;
@@ -115,7 +116,6 @@
       <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
       <button class="control-btn" onclick="seek(10)">+10s</button>
       <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
-      <button id="muteToggle" class="control-btn">Mute</button>
     </div>
     <button class="toggle-btn">Customize UI</button>
   </div>
@@ -140,6 +140,7 @@
   </footer>
 
   <script>
+    // Episodes data
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
       { title: "Episode 2", link: "J2568cnOa1g" },
@@ -158,14 +159,18 @@
 
     let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging = false;
 
+    // Loader functions
     function showLoader() {
       const overlay = document.getElementById('loaderOverlay');
       const bar = document.getElementById('loaderBar');
       overlay.style.display = 'flex';
-      let elapsed = 0, duration = 5000, interval = 100;
+      let elapsed = 0;
+      const duration = 5000;
+      const interval = 100;
       const timer = setInterval(() => {
         elapsed += interval;
-        bar.style.width = Math.min((elapsed / duration) * 100, 100) + '%';
+        const pct = Math.min((elapsed / duration) * 100, 100);
+        bar.style.width = pct + '%';
         if (elapsed >= duration) clearInterval(timer);
       }, interval);
     }
@@ -174,6 +179,7 @@
       document.getElementById('loaderOverlay').style.display = 'none';
     }
 
+    // YouTube API ready
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('videoPlayer', {
         videoId: episodes[0].link,
@@ -182,41 +188,26 @@
           controls: 0,
           modestbranding: 1,
           rel: 0,
+          mute: 1,
           playsinline: 1
         },
         events: {
           onReady: (e) => {
             e.target.playVideo();
-            // leave muted for autoplay, browser policy
+            const iframe = player.getIframe();
+            iframe.setAttribute('allow', 'autoplay; fullscreen');
             showLoader();
             setTimeout(() => {
               init();
               hideLoader();
             }, 5000);
-
-            // Unmute on first container click
-            document.querySelector('.video-container').addEventListener('click', () => {
-              player.unMute();
-              player.setVolume(100);
-            }, { once: true });
-
-            // Mute/unmute toggle button
-            const muteBtn = document.getElementById('muteToggle');
-            muteBtn.onclick = () => {
-              if (player.isMuted()) {
-                player.unMute();
-                muteBtn.textContent = 'Mute';
-              } else {
-                player.mute();
-                muteBtn.textContent = 'Unmute';
-              }
-            };
           },
           onStateChange: e => { if (e.data === YT.PlayerState.ENDED) nextEpisode(); }
         }
       });
     }
 
+    // Initialize episode list and display
     function init() {
       loadEpisodes();
       updateDisplay();
@@ -229,11 +220,7 @@
         const btn = document.createElement('div');
         btn.className = 'episode-btn';
         btn.textContent = ep.title;
-        btn.onclick = () => {
-          currentEpisodeIndex = i;
-          player.loadVideoById(ep.link);
-          updateDisplay();
-        };
+        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); updateDisplay(); };
         list.appendChild(btn);
       });
     }
@@ -245,21 +232,11 @@
       });
     }
 
-    function nextEpisode() {
-      if (currentEpisodeIndex < episodes.length - 1) {
-        currentEpisodeIndex++;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-        updateDisplay();
-      }
-    }
-    function prevEpisode() {
-      if (currentEpisodeIndex > 0) {
-        currentEpisodeIndex--;
-        player.loadVideoById(episodes[currentEpisodeIndex].link);
-        updateDisplay();
-      }
-    }
+    // Navigation controls
+    function nextEpisode() { if (currentEpisodeIndex < episodes.length - 1) { currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); } }
+    function prevEpisode() { if (currentEpisodeIndex > 0) { currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); } }
 
+    // Video controls and progress bar
     function showControls() {
       clearTimeout(hideControlsTimer);
       document.getElementById('videoControls').style.opacity = 1;
@@ -270,30 +247,27 @@
       }, 3000);
     }
 
-    function seek(sec) {
-      player.seekTo(player.getCurrentTime() + sec, true);
-    }
-    function togglePlayPause() {
-      const state = player.getPlayerState();
-      state === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo();
-    }
+    function seek(sec) { player.seekTo(player.getCurrentTime() + sec, true); }
+    function togglePlayPause() { const s = player.getPlayerState(); s === YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
     function toggleFullscreen() {
       const el = document.querySelector('.video-container');
       !document.fullscreenElement ? el.requestFullscreen() : document.exitFullscreen();
     }
 
-    const progressBar = document.getElementById('progress-bar'),
-          progress = document.getElementById('progress');
+    const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
     progressBar.addEventListener('mousedown', e => { isDragging = true; updateSeek(e); });
     document.addEventListener('mousemove', e => { if (isDragging) updateSeek(e); });
     document.addEventListener('mouseup', () => { isDragging = false; });
+
     function updateSeek(e) {
       const rect = progressBar.getBoundingClientRect();
-      let x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+      let x = e.clientX - rect.left;
+      x = Math.max(0, Math.min(x, rect.width));
       const pct = x / rect.width;
       progress.style.width = pct * 100 + '%';
       if (player && player.seekTo) player.seekTo(pct * player.getDuration(), true);
     }
+
     setInterval(() => {
       if (!isDragging && player && player.getCurrentTime) {
         const pct = (player.getCurrentTime() / player.getDuration()) * 100;
