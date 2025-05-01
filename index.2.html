@@ -103,22 +103,23 @@
   <main id="animeList" class="anime-grid"></main>
   <script>
     const animeData = {
-      "wind-breaker season 1": {
-        title: "WIND BREAKER Season 1 in Hindi",
-        cover: "photo/download (5).jpg",
-        link: "anime/windbreakerseason1.html"
-      },
-      "Zom 100: Bucket List of the Dead": {
-        title: "Zom 100: Bucket List of the Dead",
-        cover: "photo/unnamed (2).jpg",
-        link: "anime/bucket.html"
-      },
-        "hunter x hunter": {
-        title: "hunter x hunter",
-        cover: "photo/download (6).jpg",
-        link: "anime/HUNTER×HUNTER.html"
-      }
-    };function loadCarousel() {
+  "wind-breaker season 1": {
+    title: "WIND BREAKER Season 1 in Hindi",
+    cover: "photo/download (5).jpg",
+    link: "anime/windbreakerseason1.html"
+  },
+  "Zom 100: Bucket List of the Dead": {
+    title: "Zom 100: Bucket List of the Dead",
+    cover: "photo/unnamed (2).jpg",
+    link: "anime/bucket.html"
+  },
+  "hunter x hunter": {
+    title: "hunter x hunter",
+    cover: "photo/download (6).jpg",
+    link: "anime/HUNTER×HUNTER.html"
+  }
+};
+    function loadCarousel() {
   const carousel = document.getElementById('carousel');
   carousel.innerHTML = '';
   Object.values(animeData).forEach((a) => {
