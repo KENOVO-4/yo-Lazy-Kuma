@@ -155,8 +155,7 @@ body.loading {
   <div id="loader">
     <div class="bar-container"><div class="bar"></div></div>
     <div class="loading-text">Episodes are loading...</div>
-  </div>
-  <header class="text-center mt-4 relative">
+  </div>  <header class="text-center mt-4 relative">
     <h1 class="text-4xl font-extrabold neon">Wind Breaker - Season 1</h1>
   </header>
   <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
@@ -187,8 +186,7 @@ body.loading {
   <div id="episodeList"></div>
   <footer class="mt-10 text-sm text-center text-gray-400">
     <p>Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.</p>
-  </footer>
-  <div class="popup-overlay hidden" id="adPopup">
+  </footer>  <div class="popup-overlay hidden" id="adPopup">
     <div class="popup-box">
       <h3 class="text-lg font-bold mb-2">Support Us</h3>
       <p class="mb-4">To watch this anime, support us!<br><small>(Caution: don't download anything; ads are not directed by me.)</small></p>
@@ -198,14 +196,14 @@ body.loading {
   </div>
   <div class="floating-panel theme-panel" id="themePanel"><div class="panel-title">Themes</div><div id="themeList"></div></div>
   <div class="floating-panel neon-panel" id="neonPanel"><div class="panel-title">Neon Colors</div><div id="neonList"></div></div>
-  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Fonts</div><div id="fontList"></div></div>
-  <script>
+  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Fonts</div><div id="fontList"></div></div>  <script>
     function hideLoader() {
       const loader = document.getElementById('loader');
       if (loader) loader.style.display = 'none';
       document.body.classList.remove('loading');
     }
     window.addEventListener('load', hideLoader);
+
     const episodes = [
       { title: "Episode 1", link: "ne0Y0vyjxpE" },
       { title: "Episode 2", link: "J2568cnOa1g" },
@@ -236,29 +234,47 @@ body.loading {
       loadEpisodes(); loadUISettings(); showPopup(); updateDisplay();
     }
     function loadEpisodes() {
-      const list=document.getElementById('episodeList'); list.innerHTML='';
-      episodes.forEach((ep,i)=>{
-        const btn=document.createElement('div'); btn.className='episode-btn'; btn.textContent=ep.title;
-        btn.onclick=()=>{ currentEpisodeIndex=i; player.loadVideoById(ep.link); updateDisplay(); };
+      const list = document.getElementById('episodeList'); list.innerHTML = '';
+      episodes.forEach((ep,i) => {
+        const btn = document.createElement('div'); btn.className = 'episode-btn'; btn.textContent = ep.title;
+        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); updateDisplay(); };
         list.appendChild(btn);
       });
     }
     function updateDisplay() {
       document.getElementById('episodeDisplay').textContent = `Episode ${currentEpisodeIndex+1}`;
-      document.querySelectorAll('.episode-btn').forEach((b,i)=>{ b.classList.toggle('active', i===currentEpisodeIndex); });
+      document.querySelectorAll('.episode-btn').forEach((b,i) => { b.classList.toggle('active', i===currentEpisodeIndex); });
     }
-    function nextEpisode(){ if(currentEpisodeIndex<episodes.length-1){ currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
-    function prevEpisode(){ if(currentEpisodeIndex>0){ currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
+    function nextEpisode(){ if(currentEpisodeIndex < episodes.length-1){ currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
+    function prevEpisode(){ if(currentEpisodeIndex > 0){ currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
     function showControls(){ clearTimeout(hideControlsTimer); document.getElementById('videoControls').style.opacity=1; document.getElementById('uiToggle').style.opacity=1; document.getElementById('progress-bar').style.opacity=1;
-      hideControlsTimer=setTimeout(()=>{ document.getElementById('videoControls').style.opacity=0; document.getElementById('uiToggle').style.opacity=0; document.getElementById('progress-bar').style.opacity=0; },3000);
+      hideControlsTimer = setTimeout(() => { document.getElementById('videoControls').style.opacity=0; document.getElementById('uiToggle').style.opacity=0; document.getElementById('progress-bar').style.opacity=0; }, 3000);
     }
     function seek(sec){ player.seekTo(player.getCurrentTime()+sec,true); }
-    function togglePlayPause(){ const s=player.getPlayerState(); s===YT.PlayerState.PLAYING?player.pauseVideo():player.playVideo(); }
-    function toggleFullscreen(){ const w=document.querySelector('.video-container'); document.fullscreenElement?document.exitFullscreen():w.requestFullscreen(); }
-    const progressBar=document.getElementById('progress-bar'), progress=document.getElementById('progress');
-    progressBar.addEventListener('mousedown', e=>{ isDragging=true; updateSeek(e); }); document.addEventListener('mousemove', e=>{ if(isDragging) updateSeek(e); }); document.addEventListener('mouseup', e=>{ if(isDragging){ updateSeek(e); isDragging=false; }});
-    function updateSeek(e){ const rect=progressBar.getBoundingClientRect(); let x=e.clientX-rect.left; x=Math.max(0,Math.min(x,rect.width)); const pct=x/rect.width; progress.style.width=pct*100+'%'; if(player&&player.seekTo)player.seekTo(pct*player.getDuration(),true); }
-    setInterval(()=>{ if(!isDragging&&player&&!isNaN(player.getCurrentTime())){ const pct=(player.getCurrentTime()/player.getDuration())*100; progress.style.width=pct+'%'; } },200);
-    function filterEpisodes(){ const q=document.getElementById('searchBox').value.toLowerCase(); document.querySelectorAll('#episodeList .episode-btn').forEach(btn=>{ btn.style.display=btn.textContent.toLowerCase().includes(q)?'block':'none'; }); }
-    const popup=document.getElementById('adPopup'), btnAd=document.getElementById('adButton'), cd=document.getElementById('countdown');
-    function showPopup(){ if(!localStorage.getItem('adClickedAt')){ popup.classList.remove('hidden'); let t=5; const iv=setInterval(()=>{ t--; cd.textContent=`Please wait ${t}s...
+    function togglePlayPause(){ const s = player.getPlayerState(); s===YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
+    function toggleFullscreen(){ const w = document.querySelector('.video-container'); document.fullscreenElement ? document.exitFullscreen() : w.requestFullscreen(); }
+    const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
+    progressBar.addEventListener('mousedown', e => { isDragging=true; updateSeek(e); }); document.addEventListener('mousemove', e => { if(isDragging) updateSeek(e); }); document.addEventListener('mouseup', e => { if(isDragging){ updateSeek(e); isDragging=false; }});
+    function updateSeek(e){ const rect = progressBar.getBoundingClientRect(); let x = e.clientX - rect.left; x = Math.max(0, Math.min(x, rect.width)); const pct = x/rect.width; progress.style.width = pct*100 + '%'; if(player && player.seekTo) player.seekTo(pct*player.getDuration(), true); }
+    setInterval(() => { if(!isDragging && player && !isNaN(player.getCurrentTime())){ const pct = (player.getCurrentTime()/player.getDuration())*100; progress.style.width = pct + '%'; } }, 200);
+    function filterEpisodes(){ const q = document.getElementById('searchBox').value.toLowerCase(); document.querySelectorAll('#episodeList .episode-btn').forEach(btn => { btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none'; }); }
+    const popup = document.getElementById('adPopup'), btnAd = document.getElementById('adButton'), cd = document.getElementById('countdown');
+    function showPopup(){ if(!localStorage.getItem('adClickedAt')){ popup.classList.remove('hidden'); let t=5; const iv = setInterval(()=>{ t--; cd.textContent = `Please wait ${t}s...`; if(t<=0){ clearInterval(iv); btnAd.textContent='Watch Ad'; btnAd.disabled=false; } },1000); }}
+    function onAdClick(){ localStorage.setItem('adClickedAt', Date.now()); window.open('https://sawutser.top/4/9278457','_blank'); popup.classList.add('hidden'); }
+    document.addEventListener('DOMContentLoaded', ()=>{ setInterval(()=>{ const ts = localStorage.getItem('adClickedAt'); if(ts && Date.now()-ts>3600000) localStorage.removeItem('adClickedAt'); },60000); });
+    // UI Panels & Storage
+    const themes = [['#0b0f1a','#fff','#8e2de2','Dark Violet'],['#1a1a1a','#eee','#ff4081','Dark Pink'],['#121212','#ddd','#00bcd4','Dark Aqua'],['#1e1e2f','#e5e5e5','#ff9800','Dark Orange'],['#202020','#fafafa','#e91e63','Dark Rose'],['#ffffff','#000','#ff4081','White Pink'],['#f9f9f9','#111','#3f51b5','White Indigo'],['#eeeeee','#000','#009688','White Teal'],['#fff','#333','#673ab7','White Purple'],['#f0f0f0','#111','#ff5722','White Red']];
+    const neonColors = [['#39ff14','Neon Green'],['#ff00ff','Neon Magenta'],['#00ffff','Neon Cyan'],['#ffd700','Neon Gold'],['#00ff00','Neon Lime'],['#ff4444','Neon Red'],['#44ffdd','Neon Aqua'],['#cc00cc','Neon Purple'],['#ffaa00','Neon Orange'],['#00ccff','Neon Sky']];
+    const fontsList = [['Poppins','Poppins'],['Roboto','Roboto'],['Orbitron','Orbitron'],['Montserrat','Montserrat'],['Fira Sans','Fira Sans']];
+    let localTheme=null, localNeon=null, localFont=null;
+    function applyTheme(bg,txt,acc,ctrlBg){ document.documentElement.style.setProperty('--bg-color',bg); document.documentElement.style.setProperty('--text-color',txt); document.documentElement.style.setProperty('--accent-color',acc); document.documentElement.style.setProperty('--control-bg',ctrlBg); }
+    function applyNeon(col){ document.documentElement.style.setProperty('--neon-glow',col); document.documentElement.style.setProperty('--box-border',`0 0 10px ${col}`); }
+    function applyFont(f){ document.documentElement.style.setProperty('--font-family',`'${f}', sans-serif`); }
+    function saveUISettings(){ localStorage.setItem('uiSettings', JSON.stringify({theme:localTheme, neon:localNeon, font:localFont})); }
+    function loadUISettings(){ const saved = localStorage.getItem('uiSettings'); if(!saved) return; const {theme, neon, font} = JSON.parse(saved); if(theme){ const [bg,txt,acc] = theme; const ctrlBg = bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.6)'; applyTheme(bg,txt,acc,ctrlBg); localTheme=theme; } if(neon){ applyNeon(neon); localNeon=neon; } if(font){ applyFont(font); localFont=font; } }
+    document.getElementById('uiToggle').addEventListener('click', ()=>{ ['themePanel','neonPanel','fontPanel'].forEach(id=>{ const el=document.getElementById(id); el.style.display = el.style.display==='block' ? 'none' : 'block'; }); });
+    const themeListEl = document.getElementById('themeList'); themes.forEach(item=>{ const [bg,txt,acc,name]=item; const d=document.createElement('div'); d.className='panel-item'; d.textContent=name; d.onclick=()=>{ const ctrlBg=bg.includes('#fff')?'rgba(0,0,0,0.1)':'rgba(0,0,0,0.6)'; applyTheme(bg,txt,acc,ctrlBg); localTheme=item; saveUISettings(); }; themeListEl.appendChild(d); });
+    const neonListEl = document.getElementById('neonList'); neonColors.forEach(([col,name])=>{ const d=document.createElement('div'); d.className='panel-item'; d.textContent=name; d.onclick=()=>{ applyNeon(col); localNeon=col; saveUISettings(); }; neonListEl.appendChild(d); });
+    const fontListEl = document.getElementById('fontList'); fontsList.forEach(([f,label])=>{ const d=document.createElement('div'); d.className='panel-item'; d.textContent=label; d.onclick=()=>{ applyFont(f); localFont=f; saveUISettings(); }; fontListEl.appendChild(d); });
+  </script></body>
+</html>
