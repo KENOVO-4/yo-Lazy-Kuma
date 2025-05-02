@@ -1,0 +1,12 @@
+# robots.txt for https://www.dooshtoons.linkpc.net/
+
+User-agent: *
+Allow: /
+
+# Disallow sensitive or irrelevant paths (customize if needed)
+Disallow: /private/
+Disallow: /admin/
+Disallow: /hidden/
+
+# Sitemap location
+Sitemap: https://www.dooshtoons.linkpc.net/sitemap.xml
