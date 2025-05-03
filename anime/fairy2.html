@@ -1,0 +1,1578 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>fairy tail anime english sub </title>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&family=Roboto&family=Orbitron&family=Montserrat&family=Fira+Sans&display=swap" rel="stylesheet">
+  <style>
+    /* Loader Styles */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .bar-container {
+      width: 60%;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .bar {
+      width: 30%;
+      height: 100%;
+      background: var(--accent-color);
+      animation: loading 1.2s ease-in-out infinite;
+    }
+    @keyframes loading {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .loading-text {
+      color: var(--text-color);
+      font-size: 14px;
+      margin-top: 8px;
+    }:root {
+  --bg-color: #0b0f1a;
+  --text-color: #ffffff;
+  --accent-color: #8e2de2;
+  --control-bg: rgba(0, 0, 0, 0.6);
+  --neon-glow: #39ff14;
+  --box-border: 0 0 10px var(--neon-glow);
+  --font-family: 'Poppins', sans-serif;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color 0.5s, color 0.5s, font-family 0.3s;
+}
+body.loading {
+  overflow: hidden;
+}
+.video-container {
+  position: relative;
+  padding-top: 56.25%;
+  background-color: black;
+  margin: 20px auto;
+  max-width: 800px;
+}
+.video-container:fullscreen,
+.video-container:-webkit-full-screen {
+  padding-top: 0 !important;
+  width: 100vw;
+  height: 100vh;
+}
+#videoPlayer, .overlay-layer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.overlay-layer { z-index: 2; }
+.controls, .progress-bar, .toggle-btn {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+.control-btn {
+  background-color: var(--control-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.control-btn:hover { background-color: var(--accent-color); }
+.progress-bar {
+  position: absolute;
+  bottom: 38px;
+  left: 10%;
+  width: 80%;
+  height: 12px;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  z-index: 3;
+}
+.progress { height: 100%; background: var(--accent-color); width: 0%; }
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 200;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.floating-panel { position: fixed; top: 50px; background-color: var(--control-bg); color: var(--text-color); padding: 10px; border-radius: 10px; z-index: 100; display: none; }
+.theme-panel { right: 10px; }
+.neon-panel { right: 160px; }
+.font-panel { right: 310px; }
+.panel-title { font-size: 14px; margin-bottom: 5px; font-weight: bold; }
+.panel-item { margin-bottom: 4px; cursor: pointer; font-size: 12px; }
+.panel-item:hover { color: var(--accent-color); }
+.search-box { width: 100%; max-width: 400px; margin: 1rem auto; display: block; padding: 8px 12px; border-radius: 6px; border: none; background-color: var(--control-bg); color: var(--text-color); }
+#episodeList { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 800px; margin: 20px auto; }
+.episode-btn { padding: 10px; background: #2d2d3d; border-radius: 6px; text-align: center; cursor: pointer; }
+.episode-btn.active { background: var(--accent-color); }
+.episode-btn:hover { background: #444; }
+.description-box { max-width: 800px; margin: 20px auto; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; box-shadow: var(--box-border); }
+.popup-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:300; color:#fff; text-align:center; padding:20px; }
+.popup-box { background:#111; padding:20px; border-radius:8px; max-width:300px; }
+.hidden { display: none; }
+.nav-buttons { text-align:center; margin:10px 0; }
+.nav-buttons button { margin: 0 5px; }
+.episode-display { text-align:center; margin-top:8px; font-weight:bold; }
+
+  </style>
+</head>
+<body class="loading">
+  <div id="loader">
+    <div class="bar-container"><div class="bar"></div></div>
+    <div class="loading-text">Episodes are loading...</div>
+  </div>  <header class="text-center mt-4 relative">
+    <h1 class="text-4xl font-extrabold neon">fairy tail anime english sub </h1>
+  </header>
+  <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
+    <div id="videoPlayer"></div>
+    <div class="overlay-layer" onclick="togglePlayPause()"></div>
+    <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
+    <div class="controls" id="videoControls">
+      <button class="control-btn" onclick="seek(-10)">-10s</button>
+      <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+      <button class="control-btn" onclick="seek(10)">+10s</button>
+      <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+    </div>
+    <button class="toggle-btn" id="uiToggle">Customize UI</button>
+  </div>
+  <div class="nav-buttons">
+    <button class="control-btn" onclick="prevEpisode()">Previous</button>
+    <button class="control-btn" onclick="nextEpisode()">Next</button>
+  </div>
+  <div class="episode-display" id="episodeDisplay">Episode 1</div>
+  <div class="description-box">
+    <h2 class="text-xl font-semibold mb-2">Description</h2>
+    <p>"Fairy Tail is a fantasy adventure anime and manga series that follows the fiery and fun-filled journey of Natsu Dragneel, a dragon slayer wizard, and his friends in the magical guild Fairy Tail. Together with Lucy, Gray, Erza, and Happy, Natsu takes on powerful enemies, dark guilds, and epic quests, all while emphasizing themes of friendship, loyalty, and never giving up.</p>
+    <button class="subscribe-btn" onclick="window.open('https://youtube.com/@museasia?si=6x9eXmTP93_PuwT-', '_blank')">Subscribe to Muse Asia</button>
+  </div>
+  <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
+  <div id="episodeList"></div>
+  <footer class="mt-10 text-sm text-center text-gray-400">
+    <p>Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.</p>
+  </footer>  <div class="popup-overlay hidden" id="adPopup">
+    <div class="popup-box">
+      <h3 class="text-lg font-bold mb-2">Support Us</h3>
+      <p class="mb-4"> support us!<br><small>(Caution: don't download anything; ads are not directed by me.)</small></p>
+      <button class="control-btn mb-2" id="adButton" onclick="onAdClick()" disabled>Wait...</button>
+      <div id="countdown">Please wait 5s...</div>
+    </div>
+  </div>
+  <div class="floating-panel theme-panel" id="themePanel"><div class="panel-title">Themes</div><div id="themeList"></div></div>
+  <div class="floating-panel neon-panel" id="neonPanel"><div class="panel-title">Neon Colors</div><div id="neonList"></div></div>
+  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Fonts</div><div id="fontList"></div></div>  <script>
+    function hideLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.style.display = 'none';
+      document.body.classList.remove('loading');
+    }
+    window.addEventListener('load', hideLoader);
+   
+const episodes = [
+  {
+    "title": "Episode 1",
+    "link": "gJst1MyxoNY"
+  },
+  {
+    "title": "Episode 2",
+    "link": "zBCvK-HG6e0"
+  },
+  {
+    "title": "Episode 3",
+    "link": "0Q4h19g28c8"
+  },
+  {
+    "title": "Episode 4",
+    "link": "aSAnd9VP4Kw"
+  },
+  {
+    "title": "Episode 5",
+    "link": "MWCLBsIBx4w"
+  },
+  {
+    "title": "Episode 6",
+    "link": "Ly_ZmQwgHss"
+  },
+  {
+    "title": "Episode 7",
+    "link": "PT81wszzWTU"
+  },
+  {
+    "title": "Episode 8",
+    "link": "zNp7qx8leAU"
+  },
+  {
+    "title": "Episode 9",
+    "link": "0wj0pWrwFd0"
+  },
+  {
+    "title": "Episode 10",
+    "link": "iwDm6tANXKE"
+  },
+  {
+    "title": "Episode 11",
+    "link": "qFvRxYfHgFM"
+  },
+  {
+    "title": "Episode 12",
+    "link": "_YFjErVfb5Q"
+  },
+  {
+    "title": "Episode 13",
+    "link": "O9RBM5ZtVdI"
+  },
+  {
+    "title": "Episode 14",
+    "link": "bo7hqSkQ2Wg"
+  },
+  {
+    "title": "Episode 15",
+    "link": "pllg3kb3X_w"
+  },
+  {
+    "title": "Episode 16",
+    "link": "VDE6OyEPX6g"
+  },
+  {
+    "title": "Episode 17",
+    "link": "zhC-BVuGifo"
+  },
+  {
+    "title": "Episode 18",
+    "link": "T9YnxyVv4_c"
+  },
+  {
+    "title": "Episode 19",
+    "link": "2q7Q7Htaacc"
+  },
+  {
+    "title": "Episode 20",
+    "link": "RKx6lDay2lg"
+  },
+  {
+    "title": "Episode 21",
+    "link": "xoEf7EJm5G4"
+  },
+  {
+    "title": "Episode 22",
+    "link": "6eYe2SsT3fI"
+  },
+  {
+    "title": "Episode 23",
+    "link": "l2x6JnDCjPY"
+  },
+  {
+    "title": "Episode 24",
+    "link": "VFhqJqv3t0o"
+  },
+  {
+    "title": "Episode 25",
+    "link": "U-18fJlw8qM"
+  },
+  {
+    "title": "Episode 26",
+    "link": "Z1Euc6Kjr5k"
+  },
+  {
+    "title": "Episode 27",
+    "link": "oGwAR2JwqzU"
+  },
+  {
+    "title": "Episode 28",
+    "link": "85MMY2TUcdc"
+  },
+  {
+    "title": "Episode 29",
+    "link": "AgA2ADfIMBk"
+  },
+  {
+    "title": "Episode 30",
+    "link": "1YHAZQf3mO8"
+  },
+  {
+    "title": "Episode 31",
+    "link": "86aRqzWKM7M"
+  },
+  {
+    "title": "Episode 32",
+    "link": "RQ3cXja-MJY"
+  },
+  {
+    "title": "Episode 33",
+    "link": "dGiUir090CU"
+  },
+  {
+    "title": "Episode 34",
+    "link": "TRc1iOTwC2w"
+  },
+  {
+    "title": "Episode 35",
+    "link": "8IoszZcjRno"
+  },
+  {
+    "title": "Episode 36",
+    "link": "z65W48YF09E"
+  },
+  {
+    "title": "Episode 37",
+    "link": "OYux5xBf7a4"
+  },
+  {
+    "title": "Episode 38",
+    "link": "cjw3zacNyFA"
+  },
+  {
+    "title": "Episode 39",
+    "link": "TTwvZQsoviA"
+  },
+  {
+    "title": "Episode 40",
+    "link": "t8lwVgvQegE"
+  },
+  {
+    "title": "Episode 41",
+    "link": "OvVtX1uKpFM"
+  },
+  {
+    "title": "Episode 42",
+    "link": "u29Yki5GvlM"
+  },
+  {
+    "title": "Episode 43",
+    "link": "LYzBnDWfJAc"
+  },
+  {
+    "title": "Episode 44",
+    "link": "X44-6wcgcy0"
+  },
+  {
+    "title": "Episode 45",
+    "link": "yUQ57uEigiA"
+  },
+  {
+    "title": "Episode 46",
+    "link": "tSWSqSSJI_g"
+  },
+  {
+    "title": "Episode 47",
+    "link": "8x6UHwzKWao"
+  },
+  {
+    "title": "Episode 48",
+    "link": "4oIT4q8Doe0"
+  },
+  {
+    "title": "Episode 49",
+    "link": "3T56-OGWVW0"
+  },
+  {
+    "title": "Episode 50",
+    "link": "hDAGApyD_UY"
+  },
+  {
+    "title": "Episode 51",
+    "link": "fIE2ZiJ4ujI"
+  },
+  {
+    "title": "Episode 52",
+    "link": "Qvz8OqeNkXg"
+  },
+  {
+    "title": "Episode 53",
+    "link": "03divvZ2RU0"
+  },
+  {
+    "title": "Episode 54",
+    "link": "T5ZuITJsLiQ"
+  },
+  {
+    "title": "Episode 55",
+    "link": "8KgqRZ5dqI4"
+  },
+  {
+    "title": "Episode 56",
+    "link": "sJ2B7DHf_2w"
+  },
+  {
+    "title": "Episode 57",
+    "link": "q0yFqiu3zhc"
+  },
+  {
+    "title": "Episode 58",
+    "link": "p__9ltpcn5A"
+  },
+  {
+    "title": "Episode 59",
+    "link": "-MXhckkdzZc"
+  },
+  {
+    "title": "Episode 60",
+    "link": "gHLtExHuGo0"
+  },
+  {
+    "title": "Episode 61",
+    "link": "ug_6XUXjc_8"
+  },
+  {
+    "title": "Episode 62",
+    "link": "3FNvKJfkyVc"
+  },
+  {
+    "title": "Episode 63",
+    "link": "C7Um03KgmOs"
+  },
+  {
+    "title": "Episode 64",
+    "link": "0xeF30T_jvc"
+  },
+  {
+    "title": "Episode 65",
+    "link": "OZY4exRM1Nk"
+  },
+  {
+    "title": "Episode 66",
+    "link": "51ORujQANfw"
+  },
+  {
+    "title": "Episode 67",
+    "link": "zU0P6-ndUos"
+  },
+  {
+    "title": "Episode 68",
+    "link": "8W51DenbW08"
+  },
+  {
+    "title": "Episode 69",
+    "link": "qysFMerdg5w"
+  },
+  {
+    "title": "Episode 70",
+    "link": "7c5FdDAVSos"
+  },
+  {
+    "title": "Episode 71",
+    "link": "R0V6KCyQo74"
+  },
+  {
+    "title": "Episode 72",
+    "link": "2UFll-fDo7M"
+  },
+  {
+    "title": "Episode 73",
+    "link": "nkYf1W5uyCo"
+  },
+  {
+    "title": "Episode 74",
+    "link": "wBeKIANB_fk"
+  },
+  {
+    "title": "Episode 75",
+    "link": "VbnzjPuCRD8"
+  },
+  {
+    "title": "Episode 76",
+    "link": "4TFR8aEBdTc"
+  },
+  {
+    "title": "Episode 77",
+    "link": "zIfveKcmJG0"
+  },
+  {
+    "title": "Episode 78",
+    "link": "nSPczHelFh0"
+  },
+  {
+    "title": "Episode 79",
+    "link": "S7aM-Okbb3c"
+  },
+  {
+    "title": "Episode 80",
+    "link": "PLbePzoGmqM"
+  },
+  {
+    "title": "Episode 81",
+    "link": "3LUkRubvP5M"
+  },
+  {
+    "title": "Episode 82",
+    "link": "VSCbyqIH_WI"
+  },
+  {
+    "title": "Episode 83",
+    "link": "sZb8TJw3_Jw"
+  },
+  {
+    "title": "Episode 84",
+    "link": "m5A-5oDh_Qw"
+  },
+  {
+    "title": "Episode 85",
+    "link": "vUPdhZmW6No"
+  },
+  {
+    "title": "Episode 86",
+    "link": "c7cCr1eGOkA"
+  },
+  {
+    "title": "Episode 87",
+    "link": "5jsBw_50vwc"
+  },
+  {
+    "title": "Episode 88",
+    "link": "-ZSM9GWQvCI"
+  },
+  {
+    "title": "Episode 89",
+    "link": "J8ICXnbYxSg"
+  },
+  {
+    "title": "Episode 90",
+    "link": "cXT4i5qLJIM"
+  },
+  {
+    "title": "Episode 91",
+    "link": "qnNsXFzBC58"
+  },
+  {
+    "title": "Episode 92",
+    "link": "gZPtN7Pe_S0"
+  },
+  {
+    "title": "Episode 93",
+    "link": "383irpRHNck"
+  },
+  {
+    "title": "Episode 94",
+    "link": "BaQT5NwiWL0"
+  },
+  {
+    "title": "Episode 95",
+    "link": "9F4AY3vCZAc"
+  },
+  {
+    "title": "Episode 96",
+    "link": "mAVnsz47AVg"
+  },
+  {
+    "title": "Episode 97",
+    "link": "CvjU_FeLf8k"
+  },
+  {
+    "title": "Episode 98",
+    "link": "6jF9zzQucBg"
+  },
+  {
+    "title": "Episode 99",
+    "link": "6U6EyuBgT5I"
+  },
+  {
+    "title": "Episode 100",
+    "link": "gIXAGKtzFq0"
+  },
+  {
+    "title": "Episode 101",
+    "link": "Bpbg4qQjeg8"
+  },
+  {
+    "title": "Episode 102",
+    "link": "C5ux5eh34kM"
+  },
+  {
+    "title": "Episode 103",
+    "link": "X4PMS6kXxgc"
+  },
+  {
+    "title": "Episode 104",
+    "link": "kiLROGI1LFU"
+  },
+  {
+    "title": "Episode 105",
+    "link": "WgrkjNPRsM4"
+  },
+  {
+    "title": "Episode 106",
+    "link": "CafyM00GLqI"
+  },
+  {
+    "title": "Episode 107",
+    "link": "wdihfhGmyrc"
+  },
+  {
+    "title": "Episode 108",
+    "link": "BgSdKznb-wo"
+  },
+  {
+    "title": "Episode 109",
+    "link": "yj_mnGwzBlU"
+  },
+  {
+    "title": "Episode 110",
+    "link": "YJ03loKosCk"
+  },
+  {
+    "title": "Episode 111",
+    "link": "dbNuyelSnlg"
+  },
+  {
+    "title": "Episode 112",
+    "link": "pthuRFh9Fu0"
+  },
+  {
+    "title": "Episode 113",
+    "link": "X1HaLN3Gt_Q"
+  },
+  {
+    "title": "Episode 114",
+    "link": "NbcoHBFz1Vc"
+  },
+  {
+    "title": "Episode 115",
+    "link": "q2LN9dVpSMU"
+  },
+  {
+    "title": "Episode 116",
+    "link": "Kz3jeeq2Qw4"
+  },
+  {
+    "title": "Episode 117",
+    "link": "58EoIqwFMgY"
+  },
+  {
+    "title": "Episode 118",
+    "link": "RBW4ZlVLj3Q"
+  },
+  {
+    "title": "Episode 119",
+    "link": "mjTXgLiQP_I"
+  },
+  {
+    "title": "Episode 120",
+    "link": "Yu_5ZwyXU-Y"
+  },
+  {
+    "title": "Episode 121",
+    "link": "VFCG5z3gAwk"
+  },
+  {
+    "title": "Episode 122",
+    "link": "yHyVShG9aFM"
+  },
+  {
+    "title": "Episode 123",
+    "link": "kHybzzw1gFk"
+  },
+  {
+    "title": "Episode 124",
+    "link": "fEZKc9T67IY"
+  },
+  {
+    "title": "Episode 125",
+    "link": "z-Rmw_P104Y"
+  },
+  {
+    "title": "Episode 126",
+    "link": "CsCPJgrsOO4"
+  },
+  {
+    "title": "Episode 127",
+    "link": "4qhCbXIKlZ8"
+  },
+  {
+    "title": "Episode 128",
+    "link": "xUOTg7upqyQ"
+  },
+  {
+    "title": "Episode 129",
+    "link": "dOtKP4KjWDI"
+  },
+  {
+    "title": "Episode 130",
+    "link": "f-ikl7WHlNc"
+  },
+  {
+    "title": "Episode 131",
+    "link": "a67y5WiR8nw"
+  },
+  {
+    "title": "Episode 132",
+    "link": "NtUflOKkLRE"
+  },
+  {
+    "title": "Episode 133",
+    "link": "Awv1OILWcLw"
+  },
+  {
+    "title": "Episode 134",
+    "link": "DsmhiAcap-k"
+  },
+  {
+    "title": "Episode 135",
+    "link": "-fnLkD_0_DE"
+  },
+  {
+    "title": "Episode 136",
+    "link": "ibunfEfVxxU"
+  },
+  {
+    "title": "Episode 137",
+    "link": "8RwX2_AxlPg"
+  },
+  {
+    "title": "Episode 138",
+    "link": "1h85RfsVaB8"
+  },
+  {
+    "title": "Episode 139",
+    "link": "Yw7NdSo76ic"
+  },
+  {
+    "title": "Episode 140",
+    "link": "pVpeoCzDTUo"
+  },
+  {
+    "title": "Episode 141",
+    "link": "Wg1R37H0sXI"
+  },
+  {
+    "title": "Episode 142",
+    "link": "gWlaFO25ZA4"
+  },
+  {
+    "title": "Episode 143",
+    "link": "ez744qtdtVM"
+  },
+  {
+    "title": "Episode 144",
+    "link": "mAf_b_j5qwo"
+  },
+  {
+    "title": "Episode 145",
+    "link": "tSKD9R-julY"
+  },
+  {
+    "title": "Episode 146",
+    "link": "6gpk6ZgAyDc"
+  },
+  {
+    "title": "Episode 147",
+    "link": "4F-OIR_47mc"
+  },
+  {
+    "title": "Episode 148",
+    "link": "viiSzSNK0Ro"
+  },
+  {
+    "title": "Episode 149",
+    "link": "TVinfl_o7kE"
+  },
+  {
+    "title": "Episode 150",
+    "link": "YEb5Vi25phI"
+  },
+  {
+    "title": "Episode 151",
+    "link": "QlsOH0mtBHo"
+  },
+  {
+    "title": "Episode 152",
+    "link": "MxG3GNyxkQM"
+  },
+  {
+    "title": "Episode 153",
+    "link": "F2voZvrt40k"
+  },
+  {
+    "title": "Episode 154",
+    "link": "lKexZ_liV8k"
+  },
+  {
+    "title": "Episode 155",
+    "link": "GcgPua5gUCo"
+  },
+  {
+    "title": "Episode 156",
+    "link": "8aFMpCocqxU"
+  },
+  {
+    "title": "Episode 157",
+    "link": "vCK5HIybutc"
+  },
+  {
+    "title": "Episode 158",
+    "link": "Nzb8-gV8QC0"
+  },
+  {
+    "title": "Episode 159",
+    "link": "3a3TXl09hHg"
+  },
+  {
+    "title": "Episode 160",
+    "link": "7Ux9XqXjAxc"
+  },
+  {
+    "title": "Episode 161",
+    "link": "MepuymZLzLw"
+  },
+  {
+    "title": "Episode 162",
+    "link": "DzH5HLH9BFk"
+  },
+  {
+    "title": "Episode 163",
+    "link": "EZ6g7DOd82Q"
+  },
+  {
+    "title": "Episode 164",
+    "link": "iq1-66iHGok"
+  },
+  {
+    "title": "Episode 165",
+    "link": "pnQpdVssJtE"
+  },
+  {
+    "title": "Episode 166",
+    "link": "CqQCGleapGM"
+  },
+  {
+    "title": "Episode 167",
+    "link": "zZI3pPwBpeQ"
+  },
+  {
+    "title": "Episode 168",
+    "link": "ZQo4UhzTEz8"
+  },
+  {
+    "title": "Episode 169",
+    "link": "pTDWa1OZNtQ"
+  },
+  {
+    "title": "Episode 170",
+    "link": "T-Hdp02JgN0"
+  },
+  {
+    "title": "Episode 171",
+    "link": "t4HTx-ZeCbM"
+  },
+  {
+    "title": "Episode 172",
+    "link": "UYo2p0PC1N8"
+  },
+  {
+    "title": "Episode 173",
+    "link": "4WBaMMkCLOA"
+  },
+  {
+    "title": "Episode 174",
+    "link": "aTqXU7KlAwA"
+  },
+  {
+    "title": "Episode 175",
+    "link": "1hEXPnCJyas"
+  },
+  {
+    "title": "Episode 176",
+    "link": "yXxpd9izU8k"
+  },
+  {
+    "title": "Episode 177",
+    "link": "tR-EHXexpHs"
+  },
+  {
+    "title": "Episode 178",
+    "link": "dv1OprumNKU"
+  },
+  {
+    "title": "Episode 179",
+    "link": "OQToBe4qcBE"
+  },
+  {
+    "title": "Episode 180",
+    "link": "WSXLum3ddHc"
+  },
+  {
+    "title": "Episode 181",
+    "link": "gmFd6VDXqgY"
+  },
+  {
+    "title": "Episode 182",
+    "link": "9fO_DIBKiCA"
+  },
+  {
+    "title": "Episode 183",
+    "link": "Gx1qKKSJjFM"
+  },
+  {
+    "title": "Episode 184",
+    "link": "kH7Vu4HXuGk"
+  },
+  {
+    "title": "Episode 185",
+    "link": "xMh_N7zGgDc"
+  },
+  {
+    "title": "Episode 186",
+    "link": "Dg9hPuDYGeI"
+  },
+  {
+    "title": "Episode 187",
+    "link": "Hlpzzy8LaSA"
+  },
+  {
+    "title": "Episode 188",
+    "link": "8-fs1980Tlg"
+  },
+  {
+    "title": "Episode 189",
+    "link": "8reah0UmtNk"
+  },
+  {
+    "title": "Episode 190",
+    "link": "s_jLtLjMbZI"
+  },
+  {
+    "title": "Episode 191",
+    "link": "yZIZye7UXPY"
+  },
+  {
+    "title": "Episode 192",
+    "link": "3xzm_0m8Pcs"
+  },
+  {
+    "title": "Episode 193",
+    "link": "60a3vimlaoY"
+  },
+  {
+    "title": "Episode 194",
+    "link": "5YPb1FZMZvg"
+  },
+  {
+    "title": "Episode 195",
+    "link": "VgqqRKgsyuU"
+  },
+  {
+    "title": "Episode 196",
+    "link": "rGiTJoWkZvQ"
+  },
+  {
+    "title": "Episode 197",
+    "link": "_sINMOhi8to"
+  },
+  {
+    "title": "Episode 198",
+    "link": "yNPRaA1_g18"
+  },
+  {
+    "title": "Episode 199",
+    "link": "FrLScH6GGR0"
+  },
+  {
+    "title": "Episode 200",
+    "link": "GtKiKWNTFZA"
+  },
+  {
+    "title": "Episode 201",
+    "link": "Kado1pT-tG4"
+  },
+  {
+    "title": "Episode 202",
+    "link": "JI_rax4z87E"
+  },
+  {
+    "title": "Episode 203",
+    "link": "aPEFWN72dsI"
+  },
+  {
+    "title": "Episode 204",
+    "link": "zJ6dP--ztus"
+  },
+  {
+    "title": "Episode 205",
+    "link": "iP8oskhj7bs"
+  },
+  {
+    "title": "Episode 206",
+    "link": "hLUZVPSxvo4"
+  },
+  {
+    "title": "Episode 207",
+    "link": "MvPejEWuWj4"
+  },
+  {
+    "title": "Episode 208",
+    "link": "bxsQPwde7RQ"
+  },
+  {
+    "title": "Episode 209",
+    "link": "42pIQvELU0E"
+  },
+  {
+    "title": "Episode 210",
+    "link": "fx7_KNa_Pgc"
+  },
+  {
+    "title": "Episode 211",
+    "link": "WGbmhBAtYJQ"
+  },
+  {
+    "title": "Episode 212",
+    "link": "xSlxvdCjDQU"
+  },
+  {
+    "title": "Episode 213",
+    "link": "p0VSIqDMCWg"
+  },
+  {
+    "title": "Episode 214",
+    "link": "K5URO6QMeyA"
+  },
+  {
+    "title": "Episode 215",
+    "link": "aOauSue3w28"
+  },
+  {
+    "title": "Episode 216",
+    "link": "uiaZPWERcLM"
+  },
+  {
+    "title": "Episode 217",
+    "link": "XIvCLxYURj0"
+  },
+  {
+    "title": "Episode 218",
+    "link": "2x8QCTo1tSc"
+  },
+  {
+    "title": "Episode 219",
+    "link": "H3A2BnQHmSA"
+  },
+  {
+    "title": "Episode 220",
+    "link": "BuBh02IuqcI"
+  },
+  {
+    "title": "Episode 221",
+    "link": "H6wIEJ_sG1s"
+  },
+  {
+    "title": "Episode 222",
+    "link": "B0re537YYhs"
+  },
+  {
+    "title": "Episode 223",
+    "link": "1TjlF7e3dP8"
+  },
+  {
+    "title": "Episode 224",
+    "link": "kcrugC-rq7k"
+  },
+  {
+    "title": "Episode 225",
+    "link": "FiRIo4ZCKcU"
+  },
+  {
+    "title": "Episode 226",
+    "link": "T5S5MScA3O8"
+  },
+  {
+    "title": "Episode 227",
+    "link": "LY3zDSeQzsk"
+  },
+  {
+    "title": "Episode 228",
+    "link": "kuKKwujfmrs"
+  },
+  {
+    "title": "Episode 229",
+    "link": "rSTF1Ck9TuY"
+  },
+  {
+    "title": "Episode 230",
+    "link": "t4B-bd6_Wt4"
+  },
+  {
+    "title": "Episode 231",
+    "link": "k1N-ukBhJ0k"
+  },
+  {
+    "title": "Episode 232",
+    "link": "RwWraTqvUfs"
+  },
+  {
+    "title": "Episode 233",
+    "link": "58-v6QZj7gQ"
+  },
+  {
+    "title": "Episode 234",
+    "link": "MQzo1fA8R8M"
+  },
+  {
+    "title": "Episode 235",
+    "link": "ClbiIxBOrRY"
+  },
+  {
+    "title": "Episode 236",
+    "link": "jEoro_5BoT8"
+  },
+  {
+    "title": "Episode 237",
+    "link": "KaJYShLdi1A"
+  },
+  {
+    "title": "Episode 238",
+    "link": "vdH1XY06i7w"
+  },
+  {
+    "title": "Episode 239",
+    "link": "D71wtAcPn3k"
+  },
+  {
+    "title": "Episode 240",
+    "link": "-32GLvePMyk"
+  },
+  {
+    "title": "Episode 241",
+    "link": "j88zjvhN0MU"
+  },
+  {
+    "title": "Episode 242",
+    "link": "XUAkST5JxGk"
+  },
+  {
+    "title": "Episode 243",
+    "link": "GZ2RRWancFs"
+  },
+  {
+    "title": "Episode 244",
+    "link": "KNh3QzIRcTE"
+  },
+  {
+    "title": "Episode 245",
+    "link": "CA0-r5nvzg8"
+  },
+  {
+    "title": "Episode 246",
+    "link": "dI2jdkS0hcs"
+  },
+  {
+    "title": "Episode 247",
+    "link": "xZ1Jz7UWz0o"
+  },
+  {
+    "title": "Episode 248",
+    "link": "_CY4ed76HuU"
+  },
+  {
+    "title": "Episode 249",
+    "link": "49ReQ-ikjSM"
+  },
+  {
+    "title": "Episode 250",
+    "link": "yZFX8D9R21w"
+  },
+  {
+    "title": "Episode 251",
+    "link": "n67BiQSoJqM"
+  },
+  {
+    "title": "Episode 252",
+    "link": "4icQv4987E4"
+  },
+  {
+    "title": "Episode 253",
+    "link": "D0wzjoDGiLQ"
+  },
+  {
+    "title": "Episode 254",
+    "link": "1ua18_unCek"
+  },
+  {
+    "title": "Episode 255",
+    "link": "5DcFLFRPe18"
+  },
+  {
+    "title": "Episode 256",
+    "link": "HTsKiRzWY_w"
+  },
+  {
+    "title": "Episode 257",
+    "link": "-7bvqXw2IPI"
+  },
+  {
+    "title": "Episode 258",
+    "link": "Fikf_VDvnPY"
+  },
+  {
+    "title": "Episode 259",
+    "link": "lwa8BPTbNCM"
+  },
+  {
+    "title": "Episode 260",
+    "link": "2rGVMrXSyCw"
+  },
+  {
+    "title": "Episode 261",
+    "link": "73y39n21_CM"
+  },
+  {
+    "title": "Episode 262",
+    "link": "hTKLILeIbeQ"
+  },
+  {
+    "title": "Episode 263",
+    "link": "q5nrRn8oZC4"
+  },
+  {
+    "title": "Episode 264",
+    "link": "XRgqeP4bnDU"
+  },
+  {
+    "title": "Episode 265",
+    "link": "I-XJ9DMCBB4"
+  },
+  {
+    "title": "Episode 266",
+    "link": "xG5wb0Y79-c"
+  },
+  {
+    "title": "Episode 267",
+    "link": "KkH3n0Y7HlI"
+  },
+  {
+    "title": "Episode 268",
+    "link": "RKAgpMb0tyM"
+  },
+  {
+    "title": "Episode 269",
+    "link": "geab6AuYbNg"
+  },
+  {
+    "title": "Episode 270",
+    "link": "XsJB98bqpAI"
+  },
+  {
+    "title": "Episode 271",
+    "link": "FJA9fngBi14"
+  },
+  {
+    "title": "Episode 272",
+    "link": "s-sj5iJzEa8"
+  },
+  {
+    "title": "Episode 273",
+    "link": "P4mty5wWkBw"
+  },
+  {
+    "title": "Episode 274",
+    "link": "Zs-HugsVuQ0"
+  },
+  {
+    "title": "Episode 275",
+    "link": "r6-fJrgDqYs"
+  },
+  {
+    "title": "Episode 276",
+    "link": "5iqKVmsWwO8"
+  },
+  {
+    "title": "Episode 277",
+    "link": "HkofNa-eVWY"
+  },
+  {
+    "title": "Episode 278",
+    "link": "2KHJ8pRDjvc"
+  },
+  {
+    "title": "Episode 279",
+    "link": "eAytZay87a0"
+  },
+  {
+    "title": "Episode 280",
+    "link": "GRPb_nYNDhY"
+  },
+  {
+    "title": "Episode 281",
+    "link": "_JprHdirCiw"
+  },
+  {
+    "title": "Episode 282",
+    "link": "wRwawjDFDFg"
+  },
+  {
+    "title": "Episode 283",
+    "link": "nVLCpirQSFQ"
+  },
+  {
+    "title": "Episode 284",
+    "link": "jNkX0dq1CpI"
+  },
+  {
+    "title": "Episode 285",
+    "link": "WFpkWgiUzPQ"
+  },
+  {
+    "title": "Episode 286",
+    "link": "kxAkfpSknvY"
+  },
+  {
+    "title": "Episode 287",
+    "link": "nRVNNF9thkM"
+  },
+  {
+    "title": "Episode 288",
+    "link": "V7kXVwXPOks"
+  },
+  {
+    "title": "Episode 289",
+    "link": "ltpzrbZDGa0"
+  },
+  {
+    "title": "Episode 290",
+    "link": "GwUnRHFCWDY"
+  },
+  {
+    "title": "Episode 291",
+    "link": "oZ8ViSJDG3Q"
+  },
+  {
+    "title": "Episode 292",
+    "link": "8Sbww7aD8uM"
+  },
+  {
+    "title": "Episode 293",
+    "link": "u3AFuFED5uY"
+  },
+  {
+    "title": "Episode 294",
+    "link": "kIS1U4fLIYU"
+  },
+  {
+    "title": "Episode 295",
+    "link": "19ZmacnRIn4"
+  },
+  {
+    "title": "Episode 296",
+    "link": "G5oEzcX2z6o"
+  },
+  {
+    "title": "Episode 297",
+    "link": "InHDg2IKOPw"
+  },
+  {
+    "title": "Episode 298",
+    "link": "PDZw34XaN6M"
+  },
+  {
+    "title": "Episode 299",
+    "link": "eTHifvpVDmE"
+  },
+  {
+    "title": "Episode 300",
+    "link": "HCp-oy16kBg"
+  },
+  {
+    "title": "Episode 301",
+    "link": "VQSDXu1J5FM"
+  },
+  {
+    "title": "Episode 302",
+    "link": "MkcMl_Zs1w8"
+  },
+  {
+    "title": "Episode 303",
+    "link": "0Xdz-GEUEk8"
+  },
+  {
+    "title": "Episode 304",
+    "link": "oZBbQxwdEBc"
+  },
+  {
+    "title": "Episode 305",
+    "link": "FX4ZGh0mkL8"
+  },
+  {
+    "title": "Episode 306",
+    "link": "sor2Y6tdh0s"
+  },
+  {
+    "title": "Episode 307",
+    "link": "J41XyIEbPw4"
+  },
+  {
+    "title": "Episode 308",
+    "link": "7MH5e9n4duo"
+  },
+  {
+    "title": "Episode 309",
+    "link": "10K4U9_50wk"
+  },
+  {
+    "title": "Episode 310",
+    "link": "h0LP77tUKV4"
+  },
+  {
+    "title": "Episode 311",
+    "link": "pPOdEg1SGg0"
+  },
+  {
+    "title": "Episode 312",
+    "link": "K6zgkF2dhWE"
+  },
+  {
+    "title": "Episode 313",
+    "link": "mdMoIGG6pm0"
+  },
+  {
+    "title": "Episode 314",
+    "link": "GOqTgjhrjG8"
+  },
+  {
+    "title": "Episode 315",
+    "link": "-BBQtSIIRzE"
+  },
+  {
+    "title": "Episode 316",
+    "link": "eachUXmA8x4"
+  },
+  {
+    "title": "Episode 317",
+    "link": "v-EOS80Uye8"
+  },
+  {
+    "title": "Episode 318",
+    "link": "lVErllMHhr0"
+  },
+  {
+    "title": "Episode 319",
+    "link": "Z893Fi0JkVg"
+  },
+  {
+    "title": "Episode 320",
+    "link": "RD6aP4oCiP4"
+  },
+  {
+    "title": "Episode 321",
+    "link": "ngUgu3C-m3c"
+  },
+  {
+    "title": "Episode 322",
+    "link": "LBshiKsPAKs"
+  },
+  {
+    "title": "Episode 323",
+    "link": "ZvggwGMZO5Q"
+  },
+  {
+    "title": "Episode 324",
+    "link": "Cil8i_SPMtE"
+  },
+  {
+    "title": "Episode 325",
+    "link": "hUaoKhfzWVQ"
+  },
+  {
+    "title": "Episode 326",
+    "link": "pOta7kVEbzE"
+  },
+  {
+    "title": "Episode 327",
+    "link": "3REW1Ii5Ulk"
+  },
+  {
+    "title": "Episode 328",
+    "link": "RnYQ7-5-n0o"
+  }
+];
+    
+    let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging=false;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('videoPlayer', {
+        videoId: episodes[0].link,
+        playerVars: { autoplay:1, controls:0, modestbranding:1, rel:0 },
+        events: {
+          onReady:()=>{ init(); hideLoader(); },
+          onStateChange: e=>{ if(e.data===YT.PlayerState.ENDED) nextEpisode(); }
+        }
+      });
+    }
+    function init() {
+      loadEpisodes(); loadUISettings(); showPopup(); updateDisplay();
+    }
+    function loadEpisodes() {
+      const list = document.getElementById('episodeList'); list.innerHTML = '';
+      episodes.forEach((ep,i) => {
+        const btn = document.createElement('div'); btn.className = 'episode-btn'; btn.textContent = ep.title;
+        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); updateDisplay(); };
+        list.appendChild(btn);
+      });
+    }
+    function updateDisplay() {
+      document.getElementById('episodeDisplay').textContent = `Episode ${currentEpisodeIndex+1}`;
+      document.querySelectorAll('.episode-btn').forEach((b,i) => { b.classList.toggle('active', i===currentEpisodeIndex); });
+    }
+    function nextEpisode(){ if(currentEpisodeIndex < episodes.length-1){ currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
+    function prevEpisode(){ if(currentEpisodeIndex > 0){ currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
+    function showControls(){ clearTimeout(hideControlsTimer); document.getElementById('videoControls').style.opacity=1; document.getElementById('uiToggle').style.opacity=1; document.getElementById('progress-bar').style.opacity=1;
+      hideControlsTimer = setTimeout(() => { document.getElementById('videoControls').style.opacity=0; document.getElementById('uiToggle').style.opacity=0; document.getElementById('progress-bar').style.opacity=0; }, 3000);
+    }
+    function seek(sec){ player.seekTo(player.getCurrentTime()+sec,true); }
+    function togglePlayPause(){ const s = player.getPlayerState(); s===YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
+    function toggleFullscreen(){ const w = document.querySelector('.video-container'); document.fullscreenElement ? document.exitFullscreen() : w.requestFullscreen(); }
+    const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
+    progressBar.addEventListener('mousedown', e => { isDragging=true; updateSeek(e); }); document.addEventListener('mousemove', e => { if(isDragging) updateSeek(e); }); document.addEventListener('mouseup', e => { if(isDragging){ updateSeek(e); isDragging=false; }});
+    function updateSeek(e){ const rect = progressBar.getBoundingClientRect(); let x = e.clientX - rect.left; x = Math.max(0, Math.min(x, rect.width)); const pct = x/rect.width; progress.style.width = pct*100 + '%'; if(player && player.seekTo) player.seekTo(pct*player.getDuration(), true); }
+    setInterval(() => { if(!isDragging && player && !isNaN(player.getCurrentTime())){ const pct = (player.getCurrentTime()/player.getDuration())*100; progress.style.width = pct + '%'; } }, 200);
+    function filterEpisodes(){ const q = document.getElementById('searchBox').value.toLowerCase(); document.querySelectorAll('#episodeList .episode-btn').forEach(btn => { btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none'; }); }
+    const popup = document.getElementById('adPopup'), btnAd = document.getElementById('adButton'), cd = document.getElementById('countdown');
+    function showPopup(){ if(!localStorage.getItem('adClickedAt')){ popup.classList.remove('hidden'); let t=5; const iv = setInterval(()=>{ t--; cd.textContent = `Please wait ${t}s...`; if(t<=0){ clearInterval(iv); btnAd.textContent='Watch Ad'; btnAd.disabled=false; } },1000); }}
+    function onAdClick(){ localStorage.setItem('adClickedAt', Date.now()); window.open('https://sawutser.top/4/9278457','_blank'); popup.classList.add('hidden'); }
+    document.addEventListener('DOMContentLoaded', ()=>{ setInterval(()=>{ const ts = localStorage.getItem('adClickedAt'); if(ts && Date.now()-ts>3600000) localStorage.removeItem('adClickedAt'); },60000); });
+    // UI Panels & Storage
+    const themes = [['#0b0f1a','#fff','#8e2de2','Dark Violet'],['#1a1a1a','#eee','#ff4081','Dark Pink'],['#121212','#ddd','#00bcd4','Dark Aqua'],['#1e1e2f','#e5e5e5','#ff9800','Dark Orange'],['#202020','#fafafa','#e91e63','Dark Rose'],['#ffffff','#000','#ff4081','White Pink'],['#f9f9f9','#111','#3f51b5','White Indigo'],['#eeeeee','#000','#009688','White Teal'],['#fff','#333','#673ab7','White Purple'],['#f0f0f0','#111','#ff5722','White Red']];
+    const neonColors = [['#39ff14','Neon Green'],['#ff00ff','Neon Magenta'],['#00ffff','Neon Cyan'],['#ffd700','Neon Gold'],['#00ff00','Neon Lime'],['#ff4444','Neon Red'],['#44ffdd','Neon Aqua'],['#cc00cc','Neon Purple'],['#ffaa00','Neon Orange'],['#00ccff','Neon Sky']];
+    const fontsList = [['Poppins','Poppins'],['Roboto','Roboto'],['Orbitron','Orbitron'],['Montserrat','Montserrat'],['Fira Sans','Fira Sans']];
+    let localTheme=null, localNeon=null, localFont=null;
+    function applyTheme(bg,txt,acc,ctrlBg){ document.documentElement.style.setProperty('--bg-color',bg); document.documentElement.style.setProperty('--text-color',txt); document.documentElement.style.setProperty('--accent-color',acc); document.documentElement.style.setProperty('--control-bg',ctrlBg); }
+    function applyNeon(col){ document.documentElement.style.setProperty('--neon-glow',col); document.documentElement.style.setProperty('--box-border',`0 0 10px ${col}`); }
+    function applyFont(f){ document.documentElement.style.setProperty('--font-family',`'${f}', sans-serif`); }
+    function saveUISettings(){ localStorage.setItem('uiSettings', JSON.stringify({theme:localTheme, neon:localNeon, font:localFont})); }
+    function loadUISettings(){ const saved = localStorage.getItem('uiSettings'); if(!saved) return; const {theme, neon, font} = JSON.parse(saved); if(theme){ const [bg,txt,acc] = theme; const ctrlBg = bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.6)'; applyTheme(bg,txt,acc,ctrlBg); localTheme=theme; } if(neon){ applyNeon(neon); localNeon=neon; } if(font){ applyFont(font); localFont=font; } }
+    document.getElementById('uiToggle').addEventListener('click', ()=>{ ['themePanel','neonPanel','fontPanel'].forEach(id=>{ const el=document.getElementById(id); el.style.display = el.style.display==='block' ? 'none' : 'block'; }); });
+    const themeListEl = document.getElementById('themeList'); themes.forEach(item=>{ const [bg,txt,acc,name]=item; const d=document.createElement('div'); d.className='panel-item'; d.textContent=name; d.onclick=()=>{ const ctrlBg=bg.includes('#fff')?'rgba(0,0,0,0.1)':'rgba(0,0,0,0.6)'; applyTheme(bg,txt,acc,ctrlBg); localTheme=item; saveUISettings(); }; themeListEl.appendChild(d); });
+    const neonListEl = document.getElementById('neonList'); neonColors.forEach(([col,name])=>{ const d=document.createElement('div'); d.className='panel-item'; d.textContent=name; d.onclick=()=>{ applyNeon(col); localNeon=col; saveUISettings(); }; neonListEl.appendChild(d); });
+    const fontListEl = document.getElementById('fontList'); fontsList.forEach(([f,label])=>{ const d=document.createElement('div'); d.className='panel-item'; d.textContent=label; d.onclick=()=>{ applyFont(f); localFont=f; saveUISettings(); }; fontListEl.appendChild(d); });
+  </script></body>
+</html>
