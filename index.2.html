@@ -344,22 +344,26 @@
     };
 
     function triggerPopunder() {
-      const now = Date.now();
-      const lastAd = localStorage.getItem('lastAdClick') || 0;
-      if (now - lastAd > 10 * 60 * 1000) {
-        const s = document.createElement('script');
-        s.src = 'https://shebudriftaiter.net/tag.min.js';
-        s.setAttribute('data-zone', '9277886');
-        document.body.appendChild(s);
-        localStorage.setItem('lastAdClick', now);
-      }
-    }
+  const now = Date.now();
+  const lastAd = parseInt(localStorage.getItem('lastAdClick') || '0', 10);
+  const twoHours = 2 * 60 * 60 * 1000; // 2 hours in ms
 
-    function handleSupportClick() {
-      triggerPopunder();
-      localStorage.setItem('lastAdClick', Date.now());
-      document.getElementById('supportPopup').style.display = 'none';
-    }
+  if (now - lastAd > twoHours) {
+    const s = document.createElement('script');
+    s.src = 'https://shebudriftaiter.net/tag.min.js';
+    s.setAttribute('data-zone', '9277886');
+    document.body.appendChild(s);
+    localStorage.setItem('lastAdClick', now.toString());
+  } else {
+    console.log("Ad already triggered within 2 hours.");
+  }
+}
+
+function handleSupportClick() {
+  triggerPopunder(); // sets localStorage if triggered
+  document.getElementById('supportPopup').style.display = 'none';
+}
+
 
     window.onload = () => {
       setTimeout(() => {
