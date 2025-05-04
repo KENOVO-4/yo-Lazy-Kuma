@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!">
   <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
   <meta name="author" content="DOOSH HUB Team">
-  <title>DOOSH HUB</title>
-
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Roboto Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
-
-  <style>
+  <title>DOOSH HUB</title>  <!-- Tailwind CDN -->  <script src="https://cdn.tailwindcss.com"></script>  <!-- Roboto Font -->  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  <!-- Favicon -->  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />  <style>
     body {
       background: #0f0f0f;
       color: #fff;
@@ -134,149 +122,34 @@
       padding: 0.5rem;
       font-weight: 600;
     }
-
-    /* Pop-up styles */
-    #supportPopup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 800px;
-      background: #1a1a1a;
-      color: white;
-      border: 2px solid #ff00ff;
-      padding: 2rem;
-      border-radius: 1rem;
-      z-index: 10000;
-      display: none;
-      box-shadow: 0 0 20px #ff00ff;
-    }
-
-    #supportPopup p span {
-      color: #f87171;
-      font-weight: bold;
-    }
-  </style>
-</head>
+  </style></head>
 <body>
   <!-- Loading Screen -->
   <div id="loader" class="fixed inset-0 bg-black text-white flex items-center justify-center text-3xl z-[9999]">
     <span>Loading DOOSH HUB...</span>
-  </div>
+  </div>  <!-- Scroll to Top Button --><button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
 
-  <!-- Support Pop-up -->
-  <div id="supportPopup" class="text-center space-y-4">
-    <div class="text-2xl font-semibold">Support Us 🥺</div>
-    <p>
-      I'm a solo developer building this site with love.<br>
-      Please <span>click on the ad</span> below and wait <span>3–5 seconds</span>.<br>
-      <span>⚠️ Don't download or interact with the ad, just wait and come back.</span>
-    </p>
-    <div class="flex justify-center">
-      <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://shebudriftaiter.net/tag.min.js',9277886,document.body||document.documentElement)</script>
-    </div>
-    <div class="flex justify-center gap-4 pt-2">
-      <button onclick="handleSupportClick()" class="px-5 py-2 bg-pink-600 rounded-full font-bold">Yes, I will support</button>
-      <button onclick="document.getElementById('supportPopup').style.display='none'" class="px-5 py-2 bg-gray-600 rounded-full">No, thanks</button>
-    </div>
-  </div>
-
-  <!-- Support Button -->
-  <button class="fixed top-20 right-4 bg-gradient-to-br from-pink-500 to-cyan-400 text-white font-bold px-4 py-2 rounded-lg shadow-lg z-50" onclick="triggerPopunder()">Support Us</button>
-
-  <!-- Scroll to Top Button -->
-  <button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
-
-  <!-- Header -->
-  <header>
+  <!-- Header -->  <header>
     <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full"/>
     <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
-  </header>
-
-  <!-- Welcome Message -->
-  <div class="text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div>
-
-  <!-- Carousel -->
-  <section class="carousel-container">
+  </header>  <!-- Welcome Message -->  <div class="text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div>  <!-- Carousel -->  <section class="carousel-container">
     <div id="carousel"></div>
-  </section>
-
-  <!-- Anime Grid -->
-  <main id="animeList" class="anime-grid"></main>
-
-  <script>
+  </section>  <!-- Anime Grid -->  <main id="animeList" class="anime-grid"></main>  <script>
     const animeData = {
-      "wind-breaker season 1": {
-        title: "WIND BREAKER Season 1 in Hindi",
-        cover: "photo/18815.jpg",
-        link: "anime/windbreakerseason1.html"
-      },
-      "Zom 100: Bucket List of the Dead": {
-        title: "Zom 100: Bucket List of the Dead",
-        cover: "photo/unnamed (2).jpg",
-        link: "anime/bucket.html"
-      },
-      "hunter x hunter": {
-        title: "hunter x hunter",
-        cover: "photo/hunter-x-hunter-6l28uunxtr53l0un.jpg",
-        link: "anime/HUNTER×HUNTER.html"
-      },
-      "Tokyo revengers both seasons in hindi ": {
-        title: "Tokyo revengers both seasons in hindi ",
-        cover: "photo/unnamed (6).jpg",
-        link: "anime/tokyo.html"
-      },
-      "Mushoku Tensei in hindi in hindi": {
-        title: "Mushoku Tensei",
-        cover: "photo/unnammmmmed.jpg",
-        link: "anime/musoku.html"
-      },
-       "spy x family ": {
-        title: "spy x family",
-        cover: "photo/unnamed (8).jpg",
-        link: "anime/spy.html"
-      },
-       "dandadan": {
-        title: "dandadan",
-        cover: "photo/unnamed (9).jpg",
-        link: "anime/Dan.html"
-      },
-       "Fairy tail  in english sub ": {
-        title: " Fairy tail  in english sub",
-        cover: "photo/unnamed (7).jpg",
-        link: "anime/fairy2.html"
-       },
-      "that time i reincarnated as slime in hindi": {
-        title: "that time i reincarnated as slime in hindi",
-        cover: "photo/that time i reincarnated as slime in hindi.png",
-        link: "anime/that time i reincarnated as slime in hindi.html"
-      },
-      "The Familiar of Zero [EN Sub]": {
-        title: "The Familiar of Zero [EN Sub]",
-        cover: "photo/The familer of zero.jpg",
-        link: "anime/The Familiar of Zero [EN Sub].html"
-      },
-      "Shikimori's Not Just a Cutie [English Sub]": {
-        title: "Shikimori's Not Just a Cutie [English Sub]",
-        cover: "photo/Shikanori is not just a cutie.jpg",
-        link: "anime/Shikimori's Not Just a Cutie [English Sub].html"
-      },
-      "Ragna crimson english sub": {
-        title: "Ragna crimson english sub",
-        cover: "photo/Ragna crimson english sub.jpg",
-        link: "anime/Ragna crimson english sub.html"
-      },
-      "Hayouka english sub": {
-        title: "Hayouka english sub",
-        cover: "photo/Hayouka english sub.jpg",
-        link: "anime/Hyouka [English Sub].html"
-      },
-      "Fairy tail  in Hindi all episodes ": {
-        title: "Fairy tail  in Hindi all episodes ",
-        cover: "photo/unnamed (7).jpg",
-        link: "anime/fairy.html"
-      }
+      "wind-breaker season 1": { title: "WIND BREAKER Season 1 in Hindi", cover: "photo/18815.jpg", link: "anime/windbreakerseason1.html" },
+      "Zom 100: Bucket List of the Dead": { title: "Zom 100: Bucket List of the Dead", cover: "photo/unnamed (2).jpg", link: "anime/bucket.html" },
+      "hunter x hunter": { title: "hunter x hunter", cover: "photo/hunter-x-hunter-6l28uunxtr53l0un.jpg", link: "anime/HUNTER×HUNTER.html" },
+      "Tokyo revengers both seasons in hindi ": { title: "Tokyo revengers both seasons in hindi ", cover: "photo/unnamed (6).jpg", link: "anime/tokyo.html" },
+      "Mushoku Tensei in hindi in hindi": { title: "Mushoku Tensei", cover: "photo/unnammmmmed.jpg", link: "anime/musoku.html" },
+      "spy x family ": { title: "spy x family", cover: "photo/unnamed (8).jpg", link: "anime/spy.html" },
+      "dandadan": { title: "dandadan", cover: "photo/unnamed (9).jpg", link: "anime/Dan.html" },
+      "Fairy tail  in english sub ": { title: " Fairy tail  in english sub", cover: "photo/unnamed (7).jpg", link: "anime/fairy2.html" },
+      "that time i reincarnated as slime in hindi": { title: "that time i reincarnated as slime in hindi", cover: "photo/that time i reincarnated as slime in hindi.png", link: "anime/that time i reincarnated as slime in hindi.html" },
+      "The Familiar of Zero [EN Sub]": { title: "The Familiar of Zero [EN Sub]", cover: "photo/The familer of zero.jpg", link: "anime/The Familiar of Zero [EN Sub].html" },
+      "Shikimori's Not Just a Cutie [English Sub]": { title: "Shikimori's Not Just a Cutie [English Sub]", cover: "photo/Shikanori is not just a cutie.jpg", link: "anime/Shikimori's Not Just a Cutie [English Sub].html" },
+      "Ragna crimson english sub": { title: "Ragna crimson english sub", cover: "photo/Ragna crimson english sub.jpg", link: "anime/Ragna crimson english sub.html" },
+      "Hayouka english sub": { title: "Hayouka english sub", cover: "photo/Hayouka english sub.jpg", link: "anime/Hyouka [English Sub].html" },
+      "Fairy tail  in Hindi all episodes ": { title: "Fairy tail  in Hindi all episodes ", cover: "photo/unnamed (7).jpg", link: "anime/fairy.html" }
     };
 
     function loadCarousel() {
@@ -343,43 +216,13 @@
       document.getElementById('scrollToTop').style.display = (window.scrollY > 200) ? 'block' : 'none';
     };
 
-    function triggerPopunder() {
-  const now = Date.now();
-  const lastAd = parseInt(localStorage.getItem('lastAdClick') || '0', 10);
-  const twoHours = 2 * 60 * 60 * 1000; // 2 hours in ms
-
-  if (now - lastAd > twoHours) {
-    const s = document.createElement('script');
-    s.src = 'https://shebudriftaiter.net/tag.min.js';
-    s.setAttribute('data-zone', '9277886');
-    document.body.appendChild(s);
-    localStorage.setItem('lastAdClick', now.toString());
-  } else {
-    console.log("Ad already triggered within 2 hours.");
-  }
-}
-
-function handleSupportClick() {
-  triggerPopunder(); // sets localStorage if triggered
-  document.getElementById('supportPopup').style.display = 'none';
-}
-
-
     window.onload = () => {
       setTimeout(() => {
         document.getElementById('loader').style.display = 'none';
         loadCarousel();
         loadAnimeCards();
         setInterval(autoSlide, 3000);
-
-        const lastClick = localStorage.getItem('lastAdClick') || 0;
-        if (Date.now() - lastClick > 10 * 60 * 1000) {
-          setTimeout(() => {
-            document.getElementById('supportPopup').style.display = 'block';
-          }, 3000);
-        }
       }, 2500);
     };
-  </script>
-</body>
+  </script></body>
 </html>
