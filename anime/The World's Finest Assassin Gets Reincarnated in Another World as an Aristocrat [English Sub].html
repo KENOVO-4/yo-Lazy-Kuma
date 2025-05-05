@@ -1,0 +1,320 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat [English Sub</title>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;800&family=Roboto&family=Orbitron&family=Montserrat&family=Fira+Sans&display=swap" rel="stylesheet">
+  <style>
+    /* Loader Styles */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .bar-container {
+      width: 60%;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .bar {
+      width: 30%;
+      height: 100%;
+      background: var(--accent-color);
+      animation: loading 1.2s ease-in-out infinite;
+    }
+    @keyframes loading {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    .loading-text {
+      color: var(--text-color);
+      font-size: 14px;
+      margin-top: 8px;
+    }:root {
+  --bg-color: #0b0f1a;
+  --text-color: #ffffff;
+  --accent-color: #8e2de2;
+  --control-bg: rgba(0, 0, 0, 0.6);
+  --neon-glow: #39ff14;
+  --box-border: 0 0 10px var(--neon-glow);
+  --font-family: 'Poppins', sans-serif;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  transition: background-color 0.5s, color 0.5s, font-family 0.3s;
+}
+body.loading {
+  overflow: hidden;
+}
+.video-container {
+  position: relative;
+  padding-top: 56.25%;
+  background-color: black;
+  margin: 20px auto;
+  max-width: 800px;
+}
+.video-container:fullscreen,
+.video-container:-webkit-full-screen {
+  padding-top: 0 !important;
+  width: 100vw;
+  height: 100vh;
+}
+#videoPlayer, .overlay-layer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+.overlay-layer { z-index: 2; }
+.controls, .progress-bar, .toggle-btn {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.controls {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 3;
+}
+.control-btn {
+  background-color: var(--control-bg);
+  color: var(--text-color);
+  border: none;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.control-btn:hover { background-color: var(--accent-color); }
+.progress-bar {
+  position: absolute;
+  bottom: 38px;
+  left: 10%;
+  width: 80%;
+  height: 12px;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  z-index: 3;
+}
+.progress { height: 100%; background: var(--accent-color); width: 0%; }
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 200;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.floating-panel { position: fixed; top: 50px; background-color: var(--control-bg); color: var(--text-color); padding: 10px; border-radius: 10px; z-index: 100; display: none; }
+.theme-panel { right: 10px; }
+.neon-panel { right: 160px; }
+.font-panel { right: 310px; }
+.panel-title { font-size: 14px; margin-bottom: 5px; font-weight: bold; }
+.panel-item { margin-bottom: 4px; cursor: pointer; font-size: 12px; }
+.panel-item:hover { color: var(--accent-color); }
+.search-box { width: 100%; max-width: 400px; margin: 1rem auto; display: block; padding: 8px 12px; border-radius: 6px; border: none; background-color: var(--control-bg); color: var(--text-color); }
+#episodeList { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; max-width: 800px; margin: 20px auto; }
+.episode-btn { padding: 10px; background: #2d2d3d; border-radius: 6px; text-align: center; cursor: pointer; }
+.episode-btn.active { background: var(--accent-color); }
+.episode-btn:hover { background: #444; }
+.description-box { max-width: 800px; margin: 20px auto; background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; box-shadow: var(--box-border); }
+.popup-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:300; color:#fff; text-align:center; padding:20px; }
+.popup-box { background:#111; padding:20px; border-radius:8px; max-width:300px; }
+.hidden { display: none; }
+.nav-buttons { text-align:center; margin:10px 0; }
+.nav-buttons button { margin: 0 5px; }
+.episode-display { text-align:center; margin-top:8px; font-weight:bold; }
+
+  </style>
+</head>
+<body class="loading">
+  <div id="loader">
+    <div class="bar-container"><div class="bar"></div></div>
+    <div class="loading-text">Episodes are loading...</div>
+  </div>  <header class="text-center mt-4 relative">
+    <h1 class="text-4xl font-extrabold neon">The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat [English Sub</h1>
+  </header>
+  <div class="video-container rounded-xl shadow-lg overflow-hidden relative neon-box" onmousemove="showControls()">
+    <div id="videoPlayer"></div>
+    <div class="overlay-layer" onclick="togglePlayPause()"></div>
+    <div class="progress-bar" id="progress-bar"><div class="progress" id="progress"></div></div>
+    <div class="controls" id="videoControls">
+      <button class="control-btn" onclick="seek(-10)">-10s</button>
+      <button class="control-btn" onclick="togglePlayPause()">Play/Pause</button>
+      <button class="control-btn" onclick="seek(10)">+10s</button>
+      <button class="control-btn" onclick="toggleFullscreen()">Fullscreen</button>
+    </div>
+    <button class="toggle-btn" id="uiToggle">Customize UI</button>
+  </div>
+  <div class="nav-buttons">
+    <button class="control-btn" onclick="prevEpisode()">Previous</button>
+    <button class="control-btn" onclick="nextEpisode()">Next</button>
+  </div>
+  <div class="episode-display" id="episodeDisplay">Episode 1</div>
+<div class="text-center mt-6">
+  <button onclick="window.location.href='fairy2.html'" class="control-btn text-lg px-4 py-2">
+    Watch english sub all
+  </button>
+</div>
+  <div class="description-box">
+    <h2 class="text-xl font-semibold mb-2">Description</h2>
+    <p>"This Anime is casted by muse india.... thankyou enjoy the anime .</p>
+    <button class="subscribe-btn" onclick="window.open('https://youtube.com/@museasia?si=6x9eXmTP93_PuwT-', '_blank')">Subscribe to Muse Asia</button>
+  </div>
+  <input type="text" id="searchBox" class="search-box" placeholder="Search episodes..." oninput="filterEpisodes()">
+  <div id="episodeList"></div>
+  <footer class="mt-10 text-sm text-center text-gray-400">
+    <p>Thank you for visiting! Please <strong>subscribe to Muse India</strong> to support anime in our region.</p>
+  </footer>  <div class="popup-overlay hidden" id="adPopup">
+    <div class="popup-box">
+      <h3 class="text-lg font-bold mb-2">Support Us</h3>
+      <p class="mb-4"> support us!<br><small>(Caution: don't download anything; ads are not directed by me.)</small></p>
+      <button class="control-btn mb-2" id="adButton" onclick="onAdClick()" disabled>Wait...</button>
+      <div id="countdown">Please wait 5s...</div>
+    </div>
+  </div>
+  <div class="floating-panel theme-panel" id="themePanel"><div class="panel-title">Themes</div><div id="themeList"></div></div>
+  <div class="floating-panel neon-panel" id="neonPanel"><div class="panel-title">Neon Colors</div><div id="neonList"></div></div>
+  <div class="floating-panel font-panel" id="fontPanel"><div class="panel-title">Fonts</div><div id="fontList"></div></div>  <script>
+    function hideLoader() {
+      const loader = document.getElementById('loader');
+      if (loader) loader.style.display = 'none';
+      document.body.classList.remove('loading');
+    }
+    window.addEventListener('load', hideLoader);
+const episodes = [
+  {
+    "title": "Episode 1",
+    "link": "rD11nMQP4ao"
+  },
+  {
+    "title": "Episode 2",
+    "link": "rgX5BrK7Zmg"
+  },
+  {
+    "title": "Episode 3",
+    "link": "S5iPI3FPxsk"
+  },
+  {
+    "title": "Episode 4",
+    "link": "GLAi2cBWkI8"
+  },
+  {
+    "title": "Episode 5",
+    "link": "FHMnrRJqD1M"
+  },
+  {
+    "title": "Episode 6",
+    "link": "oLlsme4B640"
+  },
+  {
+    "title": "Episode 7",
+    "link": "twBIp4N7aO8"
+  },
+  {
+    "title": "Episode 8",
+    "link": "xrZtEu-pfhI"
+  },
+  {
+    "title": "Episode 9",
+    "link": "L42747K22Io"
+  },
+  {
+    "title": "Episode 10",
+    "link": "M1haHUa8IpE"
+  },
+  {
+    "title": "Episode 11",
+    "link": "OJ3LQSP5mHE"
+  },
+  {
+    "title": "Episode 12",
+    "link": "AUhEB1vBNUg"
+  }
+];
+
+
+    
+    let player, currentEpisodeIndex = 0, hideControlsTimer, isDragging=false;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('videoPlayer', {
+        videoId: episodes[0].link,
+        playerVars: { autoplay:1, controls:0, modestbranding:1, rel:0 },
+        events: {
+          onReady:()=>{ init(); hideLoader(); },
+          onStateChange: e=>{ if(e.data===YT.PlayerState.ENDED) nextEpisode(); }
+        }
+      });
+    }
+    function init() {
+      loadEpisodes(); loadUISettings(); showPopup(); updateDisplay();
+    }
+    function loadEpisodes() {
+      const list = document.getElementById('episodeList'); list.innerHTML = '';
+      episodes.forEach((ep,i) => {
+        const btn = document.createElement('div'); btn.className = 'episode-btn'; btn.textContent = ep.title;
+        btn.onclick = () => { currentEpisodeIndex = i; player.loadVideoById(ep.link); updateDisplay(); };
+        list.appendChild(btn);
+      });
+    }
+    function updateDisplay() {
+      document.getElementById('episodeDisplay').textContent = `Episode ${currentEpisodeIndex+1}`;
+      document.querySelectorAll('.episode-btn').forEach((b,i) => { b.classList.toggle('active', i===currentEpisodeIndex); });
+    }
+    function nextEpisode(){ if(currentEpisodeIndex < episodes.length-1){ currentEpisodeIndex++; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
+    function prevEpisode(){ if(currentEpisodeIndex > 0){ currentEpisodeIndex--; player.loadVideoById(episodes[currentEpisodeIndex].link); updateDisplay(); }}
+    function showControls(){ clearTimeout(hideControlsTimer); document.getElementById('videoControls').style.opacity=1; document.getElementById('uiToggle').style.opacity=1; document.getElementById('progress-bar').style.opacity=1;
+      hideControlsTimer = setTimeout(() => { document.getElementById('videoControls').style.opacity=0; document.getElementById('uiToggle').style.opacity=0; document.getElementById('progress-bar').style.opacity=0; }, 3000);
+    }
+    function seek(sec){ player.seekTo(player.getCurrentTime()+sec,true); }
+    function togglePlayPause(){ const s = player.getPlayerState(); s===YT.PlayerState.PLAYING ? player.pauseVideo() : player.playVideo(); }
+    function toggleFullscreen(){ const w = document.querySelector('.video-container'); document.fullscreenElement ? document.exitFullscreen() : w.requestFullscreen(); }
+    const progressBar = document.getElementById('progress-bar'), progress = document.getElementById('progress');
+    progressBar.addEventListener('mousedown', e => { isDragging=true; updateSeek(e); }); document.addEventListener('mousemove', e => { if(isDragging) updateSeek(e); }); document.addEventListener('mouseup', e => { if(isDragging){ updateSeek(e); isDragging=false; }});
+    function updateSeek(e){ const rect = progressBar.getBoundingClientRect(); let x = e.clientX - rect.left; x = Math.max(0, Math.min(x, rect.width)); const pct = x/rect.width; progress.style.width = pct*100 + '%'; if(player && player.seekTo) player.seekTo(pct*player.getDuration(), true); }
+    setInterval(() => { if(!isDragging && player && !isNaN(player.getCurrentTime())){ const pct = (player.getCurrentTime()/player.getDuration())*100; progress.style.width = pct + '%'; } }, 200);
+    function filterEpisodes(){ const q = document.getElementById('searchBox').value.toLowerCase(); document.querySelectorAll('#episodeList .episode-btn').forEach(btn => { btn.style.display = btn.textContent.toLowerCase().includes(q) ? 'block' : 'none'; }); }
+    const popup = document.getElementById('adPopup'), btnAd = document.getElementById('adButton'), cd = document.getElementById('countdown');
+    function showPopup(){ if(!localStorage.getItem('adClickedAt')){ popup.classList.remove('hidden'); let t=5; const iv = setInterval(()=>{ t--; cd.textContent = `Please wait ${t}s...`; if(t<=0){ clearInterval(iv); btnAd.textContent='Watch Ad'; btnAd.disabled=false; } },1000); }}
+    function onAdClick(){ localStorage.setItem('adClickedAt', Date.now()); window.open('https://sawutser.top/4/9278457','_blank'); popup.classList.add('hidden'); }
+    document.addEventListener('DOMContentLoaded', ()=>{ setInterval(()=>{ const ts = localStorage.getItem('adClickedAt'); if(ts && Date.now()-ts>3600000) localStorage.removeItem('adClickedAt'); },60000); });
+    // UI Panels & Storage
+    const themes = [['#0b0f1a','#fff','#8e2de2','Dark Violet'],['#1a1a1a','#eee','#ff4081','Dark Pink'],['#121212','#ddd','#00bcd4','Dark Aqua'],['#1e1e2f','#e5e5e5','#ff9800','Dark Orange'],['#202020','#fafafa','#e91e63','Dark Rose'],['#ffffff','#000','#ff4081','White Pink'],['#f9f9f9','#111','#3f51b5','White Indigo'],['#eeeeee','#000','#009688','White Teal'],['#fff','#333','#673ab7','White Purple'],['#f0f0f0','#111','#ff5722','White Red']];
+    const neonColors = [['#39ff14','Neon Green'],['#ff00ff','Neon Magenta'],['#00ffff','Neon Cyan'],['#ffd700','Neon Gold'],['#00ff00','Neon Lime'],['#ff4444','Neon Red'],['#44ffdd','Neon Aqua'],['#cc00cc','Neon Purple'],['#ffaa00','Neon Orange'],['#00ccff','Neon Sky']];
+    const fontsList = [['Poppins','Poppins'],['Roboto','Roboto'],['Orbitron','Orbitron'],['Montserrat','Montserrat'],['Fira Sans','Fira Sans']];
+    let localTheme=null, localNeon=null, localFont=null;
+    function applyTheme(bg,txt,acc,ctrlBg){ document.documentElement.style.setProperty('--bg-color',bg); document.documentElement.style.setProperty('--text-color',txt); document.documentElement.style.setProperty('--accent-color',acc); document.documentElement.style.setProperty('--control-bg',ctrlBg); }
+    function applyNeon(col){ document.documentElement.style.setProperty('--neon-glow',col); document.documentElement.style.setProperty('--box-border',`0 0 10px ${col}`); }
+    function applyFont(f){ document.documentElement.style.setProperty('--font-family',`'${f}', sans-serif`); }
+    function saveUISettings(){ localStorage.setItem('uiSettings', JSON.stringify({theme:localTheme, neon:localNeon, font:localFont})); }
+    function loadUISettings(){ const saved = localStorage.getItem('uiSettings'); if(!saved) return; const {theme, neon, font} = JSON.parse(saved); if(theme){ const [bg,txt,acc] = theme; const ctrlBg = bg.includes('#fff') ? 'rgba(0,0,0,0.1)' : 'rgba(0,0,0,0.6)'; applyTheme(bg,txt,acc,ctrlBg); localTheme=theme; } if(neon){ applyNeon(neon); localNeon=neon; } if(font){ applyFont(font); localFont=font; } }
+    document.getElementById('uiToggle').addEventListener('click', ()=>{ ['themePanel','neonPanel','fontPanel'].forEach(id=>{ const el=document.getElementById(id); el.style.display = el.style.display==='block' ? 'none' : 'block'; }); });
+    const themeListEl = document.getElementById('themeList'); themes.forEach(item=>{ const [bg,txt,acc,name]=item; const d=document.createElement('div'); d.className='panel-item'; d.textContent=name; d.onclick=()=>{ const ctrlBg=bg.includes('#fff')?'rgba(0,0,0,0.1)':'rgba(0,0,0,0.6)'; applyTheme(bg,txt,acc,ctrlBg); localTheme=item; saveUISettings(); }; themeListEl.appendChild(d); });
+    const neonListEl = document.getElementById('neonList'); neonColors.forEach(([col,name])=>{ const d=document.createElement('div'); d.className='panel-item'; d.textContent=name; d.onclick=()=>{ applyNeon(col); localNeon=col; saveUISettings(); }; neonListEl.appendChild(d); });
+    const fontListEl = document.getElementById('fontList'); fontsList.forEach(([f,label])=>{ const d=document.createElement('div'); d.className='panel-item'; d.textContent=label; d.onclick=()=>{ applyFont(f); localFont=f; saveUISettings(); }; fontListEl.appendChild(d); });
+  </script></body>
+</html>
