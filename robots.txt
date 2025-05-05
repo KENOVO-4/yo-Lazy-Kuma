@@ -1,12 +1,15 @@
-# robots.txt for https://www.dooshtoons.linkpc.net/
+# robots.txt for Doosh Hub
 
+# Allow all user agents to crawl everything
 User-agent: *
-Allow: /
-
-# Disallow sensitive or irrelevant paths (customize if needed)
-Disallow: /private/
-Disallow: /admin/
-Disallow: /hidden/
+Disallow:
 
 # Sitemap location
 Sitemap: https://www.dooshtoons.linkpc.net/sitemap.xml
+
+# Crawl delay (optional, helps with server load)
+# Crawl-delay: 5
+
+# Block specific URLs or folders (if needed)
+# Disallow: /private/
+# Disallow: /temp/
