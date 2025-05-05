@@ -1,103 +1,160 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html><html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!">
-  <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
-  <meta name="author" content="DOOSH HUB Team">
-  <title>DOOSH HUB</title>  <!-- Tailwind CSS CDN -->  <script src="https://cdn.tailwindcss.com"></script>  <!-- Roboto Font -->  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  <!-- Favicon -->  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />  <style>
-    body { background: #0f0f0f; color: #fff; font-family: 'Roboto', sans-serif; overflow-x: hidden; animation: fireGlow 10s infinite alternate; margin: 0; }
-    @keyframes fireGlow { 0% { background-color: #0f0f0f; box-shadow: 0 0 40px #ff00ff, inset 0 0 80px #ff4500; } 50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, inset 0 0 100px #ff00ff; } 100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, inset 0 0 70px #ff4500; } }
-    header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(0,0,0,0.6); display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1rem; z-index: 50; }
-    @keyframes pulse { 0%,100%{opacity:0.3;}50%{opacity:1;} }
-    #loader span { animation: pulse 1s infinite; }
-    .carousel-container { overflow: hidden; margin-top: 5rem; }
-    #carousel { display: flex; gap: 1rem; padding: 1rem; transition: transform 0.7s ease-in-out; }
-    .carousel-slide { flex:0 0 auto; width:100%; max-width:90vw; height:200px; border-radius:1rem; overflow:hidden; position:relative; }
-    @media (min-width:640px){ .carousel-slide{ height:260px; }}
-    @media (min-width:1024px){ .carousel-slide{ height:300px; }}
-    .carousel-slide img{ width:100%; height:100%; object-fit:cover; }
-    .carousel-caption{ position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(to top,black,transparent); color:white; text-align:center; padding:0.5rem; font-weight:bold; }
-    .anime-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; padding:1rem; }
-    @media (min-width:1024px){ .anime-grid{ grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); }}
-    .anime-card{ position:relative; overflow:hidden; border-radius:1rem; box-shadow:0 4px 15px rgba(0,0,0,.3); transition:transform .3s; }
-    .anime-card:hover{ transform:translateY(-8px); box-shadow:0 8px 30px #ff00ff; border:2px solid #ff00ff; }
-    .anime-card img{ width:100%; height:240px; object-fit:cover; }
-    @media (min-width:640px){ .anime-card img{ height:260px; }}
-    .anime-card-title{ position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(to top,black,transparent); color:white; text-align:center; padding:0.5rem; font-weight:600; }
-    #supportBtn { background-color: #10B981; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
-    #supportBtn:hover { background-color: #059669; }
+  <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!" />
+  <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime" />
+  <meta name="author" content="DOOSH HUB Team" />
+  <title>DOOSH HUB</title>  <!-- SEO: Open Graph -->  <meta property="og:title" content="DOOSH HUB - Hindi Dubbed Anime Streaming" />
+  <meta property="og:description" content="Watch the latest anime, movies and dramas dubbed in Hindi on DOOSH HUB." />
+  <meta property="og:image" content="https://www.dooshtoons.linkpc.net/photo/18815.jpg" />
+  <meta property="og:url" content="https://www.dooshtoons.linkpc.net/index.2.html" />
+  <meta name="twitter:card" content="summary_large_image" />  <!-- JSON-LD Structured Data -->  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "DOOSH HUB",
+    "url": "https://www.dooshtoons.linkpc.net/index.2.html",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.dooshtoons.linkpc.net/index.2.html?s={search_term}",
+      "query-input": "required name=search_term"
+    }
+  }
+  </script>  <!-- Tailwind & Config -->  <script src="https://cdn.tailwindcss.com"></script>  <script>tailwind.config = { darkMode: 'class' }</script>  <!-- Roboto Font -->  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  <!-- Favicon -->  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />  <style>
+    body { @apply bg-gray-900 text-white font-roboto overflow-x-hidden; }
+    .dark body { @apply bg-gray-800; }
+    header { @apply fixed top-0 left-0 w-full bg-black bg-opacity-50 flex flex-wrap items-center gap-4 p-4 z-50; }
+    main { padding-top: 5rem; }
+    .carousel-container, .recommendations { @apply my-8; }
+    .anime-grid { @apply grid gap-4 p-4; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); }
+    .anime-card { @apply relative overflow-hidden rounded-lg shadow-lg transition-transform transform hover:-translate-y-2 hover:shadow-2xl; }
+    .anime-card img { @apply w-full h-48 object-cover; }
+    .anime-card-title { @apply absolute bottom-0 w-full bg-gradient-to-t from-black to-transparent text-center p-2 font-semibold; }
+    #supportBtn { @apply bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md; }
+    #themeToggle { @apply bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-md; }
   </style></head>
-<body><!-- Loading Screen --><div id="loader" class="fixed inset-0 bg-black text-white flex items-center justify-center text-3xl z-[9999]">
-  <span>Loading DOOSH HUB...</span>
-</div><!-- Scroll to Top Button --><button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
+<body>  <!-- Loader -->  <div id="loader" class="fixed inset-0 bg-black flex items-center justify-center text-white text-3xl z-50">
+    Loading DOOSH HUB...
+  </div>  <!-- Scroll to Top --><button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full hidden" onclick="scrollToTop()">↑</button>
 
-<!-- Header --><header>
-  <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full"/>
-  <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
-  <button id="supportBtn" onclick="location.href='support.html'">Support Us</button>
-</header><!-- Welcome Message --><div class="text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div><!-- Carousel --><section class="carousel-container">
-  <div id="carousel"></div>
-</section><!-- Anime Grid --><main id="animeList" class="anime-grid"></main><!-- JavaScript --><script>
-  const animeData = {
-    "wind-breaker season 1": { title: "WIND BREAKER Season 1 in Hindi", cover: "photo/18815.jpg", link: "anime/windbreakerseason1.html" },
-    "Zom 100: Bucket List of the Dead": { title: "Zom 100: Bucket List of the Dead", cover: "photo/unnamed (2).jpg", link: "anime/bucket.html" },
-    "hunter x hunter": { title: "hunter x hunter", cover: "photo/hunter-x-hunter-6l28uunxtr53l0un.jpg", link: "anime/HUNTER×HUNTER.html" },
-    "Tokyo revengers both seasons in hindi ": { title: "Tokyo revengers both seasons in hindi ", cover: "photo/unnamed (6).jpg", link: "anime/tokyo.html" },
-    "Mushoku Tensei in hindi in hindi": { title: "Mushoku Tensei", cover: "photo/unnammmmmed.jpg", link: "anime/musoku.html" },
-    "spy x family ": { title: "spy x family", cover: "photo/unnamed (8).jpg", link: "anime/spy.html" },
-    "dandadan": { title: "dandadan", cover: "photo/unnamed (9).jpg", link: "anime/Dan.html" },
-    "Fairy tail  in english sub ": { title: " Fairy tail  in english sub", cover: "photo/unnamed (7).jpg", link: "anime/fairy2.html" },
-    "that time i reincarnated as slime in hindi": { title: "that time i reincarnated as slime in hindi", cover: "photo/that time i reincarnated as slime in hindi.png", link: "anime/that time i reincarnated as slime in hindi.html" },
-    "The Familiar of Zero [EN Sub]": { title: "The Familiar of Zero [EN Sub]", cover: "photo/The familer of zero.jpg", link: "anime/The Familiar of Zero [EN Sub].html" },
-    "Shikimori's Not Just a Cutie [English Sub]": { title: "Shikimori's Not Just a Cutie [English Sub]", cover: "photo/Shikanori is not just a cutie.jpg", link: "anime/Shikimori's Not Just a Cutie [English Sub].html" },
-    "Ragna crimson english sub": { title: "Ragna crimson english sub", cover: "photo/Ragna crimson english sub.jpg", link: "anime/Ragna crimson english sub.html" },
-    "Hayouka english sub": { title: "Hayouka english sub", cover: "photo/Hayouka english sub.jpg", link: "anime/Hyouka [English Sub].html" },
-    "Fairy tail  in Hindi all episodes ": { title: "Fairy tail  in Hindi all episodes ", cover: "photo/unnamed (7).jpg", link: "anime/fairy.html" }
-  };
+  <!-- Header -->  <header>
+    <a href="https://www.dooshtoons.linkpc.net/index.2.html">
+      <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Logo" class="w-12 h-12 rounded-full"/>
+    </a>
+    <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
+    <button id="themeToggle" onclick="toggleTheme()">Toggle Theme</button>
+    <button id="supportBtn" onclick="location.href='https://www.dooshtoons.linkpc.net/support.html'">Support Us</button>
+    <a href="https://www.dooshtoons.linkpc.net/copyright.html" class="text-gray-300 hover:text-white">Contact Us</a>
+  </header>  <main>
+    <div class="text-center text-4xl font-bold mt-4">Welcome to DOOSH HUB!</div><!-- Main Carousel -->
+<section class="carousel-container">
+  <div id="carousel" class="flex overflow-x-auto space-x-4 p-4"></div>
+</section>
 
-  function loadCarousel() {
-    const carousel = document.getElementById('carousel'); carousel.innerHTML = '';
-    Object.values(animeData).forEach(a => {
-      const slide = document.createElement('a'); slide.href = a.link; slide.className = 'carousel-slide';
-      slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
-      carousel.appendChild(slide);
-    });
-    Object.values(animeData).slice(0,2).forEach(a => {
-      const clone = document.createElement('a'); clone.href = a.link; clone.className = 'carousel-slide';
-      clone.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
-      carousel.appendChild(clone);
-    });
-  }
+<!-- Recommendations -->
+<section class="recommendations">
+  <h2 class="text-2xl font-semibold px-4">You Might Also Like</h2>
+  <div id="recommendations" class="flex overflow-x-auto space-x-4 p-4"></div>
+</section>
 
-  let slideIndex = 0;
-  function autoSlide() {
-    const carousel = document.getElementById('carousel'); const slides = carousel.querySelectorAll('.carousel-slide');
-    const slideWidth = slides[0].offsetWidth + 16; slideIndex++;
-    carousel.style.transition = 'transform 0.7s ease-in-out';
-    carousel.style.transform = `translateX(-${slideIndex*slideWidth}px)`;
-    if (slideIndex >= slides.length-2) setTimeout(() => { carousel.style.transition='none'; carousel.style.transform='translateX(0)'; slideIndex=0; },700);
-  }
+<!-- Anime Grid -->
+<div id="animeList" class="anime-grid"></div>
 
-  function loadAnimeCards() {
-    const grid = document.getElementById('animeList'); grid.innerHTML='';
-    Object.values(animeData).forEach(a => {
-      const card = document.createElement('a'); card.href = a.link; card.className='anime-card';
-      card.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="anime-card-title">${a.title}</div>`;
-      grid.appendChild(card);
-    });
-  }
+  </main>  <footer class="text-center text-gray-400 py-4">
+    &copy; 2025 DOOSH HUB. All rights reserved. <a href="https://www.dooshtoons.linkpc.net/copyright.html" class="underline">Copyright Info</a>
+  </footer>  <script>
+    // Theme Toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark'); localStorage.setItem('theme','light');
+      } else {
+        html.classList.add('dark'); localStorage.setItem('theme','dark');
+      }
+    }
+    if (localStorage.getItem('theme')==='light') document.documentElement.classList.remove('dark');
 
-  function filterAnime() {
-    const q = document.getElementById('search').value.toLowerCase();
-    document.querySelectorAll('.anime-card').forEach(c => {
-      const t = c.querySelector('.anime-card-title').innerText.toLowerCase();
-      c.style.display = t.includes(q)?'' :'none';
-    });
-  }
+    // Anime Data
+    const animeData = [
+      { id: 'wind-breaker', title: 'WIND BREAKER Season 1 in Hindi', cover: 'photo/18815.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/windbreakerseason1.html' },
+      { id: 'zom100', title: 'Zom 100: Bucket List of the Dead', cover: 'photo/unnamed (2).jpg', link: 'https://www.dooshtoons.linkpc.net/anime/bucket.html' },
+      { id: 'hunter-x-hunter', title: 'Hunter x Hunter', cover: 'photo/hunter-x-hunter.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/HUNTER×HUNTER.html' },
+      { id: 'tokyo-revengers', title: 'Tokyo Revengers', cover: 'photo/unnamed (6).jpg', link: 'https://www.dooshtoons.linkpc.net/anime/tokyo.html' },
+      { id: 'mushoku-tensei', title: 'Mushoku Tensei in Hindi', cover: 'photo/unnammmmmed.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/musoku.html' },
+      { id: 'spy-x-family', title: 'Spy x Family', cover: 'photo/unnamed (8).jpg', link: 'https://www.dooshtoons.linkpc.net/anime/spy.html' },
+      { id: 'dandadan', title: 'Dandadan', cover: 'photo/unnamed (9).jpg', link: 'https://www.dooshtoons.linkpc.net/anime/Dan.html' },
+      { id: 'fairy-tail-sub', title: 'Fairy Tail (EN Sub)', cover: 'photo/unnamed (7).jpg', link: 'https://www.dooshtoons.linkpc.net/anime/fairy2.html' },
+      { id: 'slime', title: 'That Time I Reincarnated as Slime', cover: 'photo/that time i reincarnated as slime in hindi.png', link: 'https://www.dooshtoons.linkpc.net/anime/that time i reincarnated as slime in hindi.html' },
+      { id: 'familiar-zero', title: 'The Familiar of Zero [EN Sub]', cover: 'photo/The familer of zero.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/The Familiar of Zero [EN Sub].html' },
+      { id: 'shikimori', title: 'Shikimori's Not Just a Cutie', cover: 'photo/Shikanori is not just a cutie.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/Shikimori's Not Just a Cutie [English Sub].html' },
+      { id: 'ragna', title: 'Ragna Crimson', cover: 'photo/Ragna crimson english sub.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/Ragna crimson english sub.html' },
+      { id: 'hyouka', title: 'Hyouka [EN Sub]', cover: 'photo/Hayouka english sub.jpg', link: 'https://www.dooshtoons.linkpc.net/anime/Hyouka [English Sub].html' },
+      { id: 'fairy-tail-hi', title: 'Fairy Tail in Hindi All Episodes', cover: 'photo/unnamed (7).jpg', link: 'https://www.dooshtoons.linkpc.net/anime/fairy.html' }
+    ];
 
-  function scrollToTop() { window.scrollTo({ top:0, behavior:'smooth' }); }
-  window.onscroll = () => document.getElementById('scrollToTop').style.display=(window.scrollY>200)?'block':'none';
-  window.onload = () => setTimeout(()=>{ document.getElementById('loader').style.display='none'; loadCarousel(); loadAnimeCards(); setInterval(autoSlide,3000); },2500);
-</script></body>
+    // Get day-based seed to shuffle daily
+    function dailyShuffle(arr) {
+      const seed = Math.floor(Date.now() / 86400000);
+      let a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(((seed + i) * 9301 + 49297) % 233280 / 233280 * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function createCard(item) {
+      const card = document.createElement('a');
+      card.href = item.link;
+      card.className = 'anime-card';
+      card.innerHTML = `<img src="${item.cover}" alt="${item.title}" loading="lazy"/><div class="anime-card-title">${item.title}</div>`;
+      return card;
+    }
+
+    function loadCarousel() {
+      const c = document.getElementById('carousel'); c.innerHTML = '';
+      animeData.forEach(item => c.appendChild(createCard(item)));
+      animeData.slice(0,2).forEach(item => c.appendChild(createCard(item)));
+    }
+
+    let slideIndex = 0;
+    function autoSlide() {
+      const c = document.getElementById('carousel');
+      const slides = c.children;
+      const w = slides[0].offsetWidth + 16;
+      slideIndex++;
+      c.style.transition = 'transform .7s';
+      c.style.transform = `translateX(-${slideIndex * w}px)`;
+      if (slideIndex >= slides.length - 2) setTimeout(() => { c.style.transition='none'; c.style.transform='translateX(0)'; slideIndex=0; }, 700);
+    }
+
+    function loadRecommendations() {
+      const r = document.getElementById('recommendations'); r.innerHTML = '';
+      const shuffled = dailyShuffle(animeData);
+      shuffled.slice(0,5).forEach(item => r.appendChild(createCard(item)));
+    }
+
+    function loadAnimeGrid() {
+      const g = document.getElementById('animeList'); g.innerHTML = '';
+      animeData.forEach(item => g.appendChild(createCard(item)));
+    }
+
+    function filterAnime() {
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.anime-card').forEach(c => {
+        const t = c.querySelector('.anime-card-title').innerText.toLowerCase();
+        c.style.display = t.includes(q) ? '' : 'none';
+      });
+    }
+
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+    window.onscroll = () => document.getElementById('scrollToTop').style.display = (window.scrollY>200)?'block':'none';
+
+    window.onload = () => {
+      document.getElementById('loader').style.display = 'none';
+      loadCarousel(); loadRecommendations(); loadAnimeGrid();
+      setInterval(autoSlide, 3000);
+    };
+  </script></body>
 </html>
