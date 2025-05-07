@@ -1,11 +1,19 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Watch the latest anime, movies, and dramas dubbed in Hindi and more - only on DOOSH HUB!">
   <meta name="keywords" content="anime, hindi anime, wind breaker, free streaming, dubbed anime">
   <meta name="author" content="DOOSH HUB Team">
-  <title>DOOSH HUB</title>  <!-- Tailwind CSS CDN -->  <script src="https://cdn.tailwindcss.com"></script>  <!-- Roboto Font -->  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  <!-- Favicon -->  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />  <style>
+  <title>DOOSH HUB</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Roboto Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" href="Screenshot_2025-04-05-08-08-19-87.jpg" sizes="32x32" />
+  <style>
     body { background: #0f0f0f; color: #fff; font-family: 'Roboto', sans-serif; overflow-x: hidden; animation: fireGlow 10s infinite alternate; margin: 0; }
     @keyframes fireGlow { 0% { background-color: #0f0f0f; box-shadow: 0 0 40px #ff00ff, inset 0 0 80px #ff4500; } 50% { background-color: #1a1a1a; box-shadow: 0 0 60px #ff4500, inset 0 0 100px #ff00ff; } 100% { background-color: #0f0f0f; box-shadow: 0 0 50px #ff00ff, inset 0 0 70px #ff4500; } }
     header { position: fixed; top: 0; left: 0; width: 100%; background-color: rgba(0,0,0,0.6); display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; padding: 1rem; z-index: 50; }
@@ -27,91 +35,179 @@
     .anime-card-title{ position:absolute; bottom:0; left:0; width:100%; background:linear-gradient(to top,black,transparent); color:white; text-align:center; padding:0.5rem; font-weight:600; }
     #supportBtn { background-color: #10B981; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 600; }
     #supportBtn:hover { background-color: #059669; }
-  </style></head>
-<body><!-- Loading Screen --><div id="loader" class="fixed inset-0 bg-black text-white flex items-center justify-center text-3xl z-[9999]">
-  <span>Loading DOOSH HUB...</span>
-</div><!-- Scroll to Top Button --><button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader" class="fixed inset-0 bg-black text-white flex items-center justify-center text-3xl z-[9999]">
+    <span>Loading DOOSH HUB...</span>
+  </div>
 
-<!-- Header --><header>
-  <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full"/>
-  <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
-  <button id="supportBtn" onclick="location.href='support.html'">Support Us</button>
-</header><!-- Welcome Message --><div class="text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div><!-- Carousel --><section class="carousel-container">
-  <div id="carousel"></div>
-</section><!-- Anime Grid --><main id="animeList" class="anime-grid"></main><!-- JavaScript --><script>
-  const animeData = {
-    "wind-breaker season 1": { title: "WIND BREAKER Season 1 in Hindi", cover: "photo/18815.jpg", link: "anime/windbreakerseason1.html" },
-    "Zom 100: Bucket List of the Dead": { title: "Zom 100: Bucket List of the Dead", cover: "photo/unnamed (2).jpg", link: "anime/bucket.html" },
-    "hunter x hunter": { title: "hunter x hunter", cover: "photo/hunter-x-hunter-6l28uunxtr53l0un.jpg", link: "anime/HUNTER×HUNTER.html" },
-    "Tokyo revengers both seasons in hindi ": { title: "Tokyo revengers both seasons in hindi ", cover: "photo/unnamed (6).jpg", link: "anime/tokyo.html" },
-    "Mushoku Tensei in hindi in hindi": { title: "Mushoku Tensei", cover: "photo/unnammmmmed.jpg", link: "anime/musoku.html" },
-    "spy x family ": { title: "spy x family", cover: "photo/unnamed (8).jpg", link: "anime/spy.html" },
-    "dandadan": { title: "dandadan", cover: "photo/unnamed (9).jpg", link: "anime/Dan.html" },
-    "I Left My A-Rank Party - [EN Sub]": { title: "I Left My A-Rank Party - [EN Sub]", cover: "photo/I left my a rank party to help my former students.png", link: "anime/I Left My A-Rank Party - [EN Sub].html" },
-    "MOMENTARY LILY [EN Sub]": { title: "MOMENTARY LILY [EN Sub]", cover: "photo/MOMENTARY LILY [EN Sub].jpg", link: "anime/MOMENTARY LILY [EN Sub].html" },
-    "Let This Grieving Soul Retire [EN Sub]": { title: "Let This Grieving Soul Retire [EN Sub]", cover: "photo/Let This Grieving Soul Retire [EN Sub].jpg", link: "anime/Let This Grieving Soul Retire [EN Sub].html" },
-    "Ahiru no Sora [English Sub]": { title: "Ahiru no Sora [English Sub]", cover: "photo/Ahiru no Sora [English Sub].jpg", link: "anime/Ahiru no Sora [English Sub].html" },
-    "Blast of Tempest [English Sub]": { title: "Blast of Tempest [English Sub]", cover: "photo/Blast of Tempest [English Sub].jpg", link: "anime/Blast of Tempest [English Sub].html" },
-    "Monster Girl Doctor [English Sub]": { title: "Monster Girl Doctor [English Sub]", cover: "photo/Monster Girl Doctor [English Sub].jpg", link: "anime/Monster Girl Doctor [English Sub].html" },
-    "7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy": { title: "7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy", cover: "photo/7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy.jpg", link: "anime/7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy.html" },
-    "Beheneko The Elf-Girl": { title: "Beheneko The Elf-Girl", cover: "photo/Beheneko The Elf-Girl.jpg", link: "anime/Beheneko The Elf-Girl.html" },
-    "Skeleton Knight in Another World -[English Sub]": { title: "Skeleton Knight in Another World -[English Sub]", cover: "photo/skeleton knight.jpg", link: "anime/Skeleton Knight in Another World -[English Sub].html" },
-    "BEELZEBUB [English Sub]": { title: "BEELZEBUB [English Sub]", cover: "photo/BEELZEBUB [English Sub].jpg", link: "anime/BEELZEBUB [English Sub].html" },
-     "Sabikui Bisco - [English Sub]": { title: "Sabikui Bisco - [English Sub]", cover: "photo/HD-wallpaper-anime-rust-eater-bisco-bisco-akaboshi-milo-nekoyanagi.jpg", link: "anime/Sabikui Bisco - [English Sub].html" },
-     "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat": { title: "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat", cover: "photo/the-worlds-finest-assassin-banner-image.webp", link: "anime/The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat [English Sub].html" },
-     "Berserk of Gluttony": { title: "Berserk of Gluttony", cover: "photo/33359a587cfa74e4c2fa524ebc04b7a802d3b27b36cb5b24e0b9db8cb261a543.jpg", link: "anime/Berserk of Gluttony -  [English Sub].html" },
-    "Cells at Work! [English Sub]": { title: "Cells at Work! [English Sub]", cover: "photo/Cells-at-work.avif", link: "anime/Cells at Work! [English Sub].html" },
-    "Fairy tail  in english sub ": { title: " Fairy tail  in english sub", cover: "photo/unnamed (7).jpg", link: "anime/fairy2.html" },
-    "that time i reincarnated as slime in hindi": { title: "that time i reincarnated as slime in hindi", cover: "photo/that time i reincarnated as slime in hindi.png", link: "anime/that time i reincarnated as slime in hindi.html" },
-    "The Familiar of Zero [EN Sub]": { title: "The Familiar of Zero [EN Sub]", cover: "photo/The familer of zero.jpg", link: "anime/The Familiar of Zero [EN Sub].html" },
-    "Shikimori's Not Just a Cutie [English Sub]": { title: "Shikimori's Not Just a Cutie [English Sub]", cover: "photo/Shikanori is not just a cutie.jpg", link: "anime/Shikimori's Not Just a Cutie [English Sub].html" },
-    "Ragna crimson english sub": { title: "Ragna crimson english sub", cover: "photo/Ragna crimson english sub.jpg", link: "anime/Ragna crimson english sub.html" },
-    "Hayouka english sub": { title: "Hayouka english sub", cover: "photo/Hayouka english sub.jpg", link: "anime/Hyouka [English Sub].html" },
-    "Fairy tail  in Hindi all episodes ": { title: "Fairy tail  in Hindi all episodes ", cover: "photo/unnamed (7).jpg", link: "anime/fairy.html" }
-  };
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTop" class="fixed bottom-4 right-4 bg-pink-600 text-white p-3 rounded-full text-xl hidden" onclick="scrollToTop()">↑</button>
 
-  function loadCarousel() {
-    const carousel = document.getElementById('carousel'); carousel.innerHTML = '';
-    Object.values(animeData).forEach(a => {
-      const slide = document.createElement('a'); slide.href = a.link; slide.className = 'carousel-slide';
-      slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
-      carousel.appendChild(slide);
-    });
-    Object.values(animeData).slice(0,2).forEach(a => {
-      const clone = document.createElement('a'); clone.href = a.link; clone.className = 'carousel-slide';
-      clone.innerHTML = `<img src="${a.cover}" alt="${a.title}" /><div class="carousel-caption">${a.title}</div>`;
-      carousel.appendChild(clone);
-    });
-  }
+  <!-- Header -->
+  <header>
+    <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Doosh Hub Logo" class="w-12 h-12 rounded-full"/>
+    <input id="search" type="text" placeholder="Search animes, movies, dramas..." class="flex-1 bg-gray-700 placeholder-gray-400 text-white rounded-lg px-3 py-2" oninput="filterAnime()"/>
+    <button id="supportBtn" onclick="location.href='support.html'">Support Us</button>
+  </header>
 
-  let slideIndex = 0;
-  function autoSlide() {
-    const carousel = document.getElementById('carousel'); const slides = carousel.querySelectorAll('.carousel-slide');
-    const slideWidth = slides[0].offsetWidth + 16; slideIndex++;
-    carousel.style.transition = 'transform 0.7s ease-in-out';
-    carousel.style.transform = `translateX(-${slideIndex*slideWidth}px)`;
-    if (slideIndex >= slides.length-2) setTimeout(() => { carousel.style.transition='none'; carousel.style.transform='translateX(0)'; slideIndex=0; },700);
-  }
+  <!-- Welcome Message -->
+  <div class="text-center mt-24 text-4xl font-bold mb-6">Welcome to DOOSH HUB!</div>
 
-  function loadAnimeCards() {
-    const grid = document.getElementById('animeList'); grid.innerHTML='';
-    Object.values(animeData).forEach(a => {
-      const card = document.createElement('a'); card.href = a.link; card.className='anime-card';
-      card.innerHTML = `<img src="${a.cover}" alt="${a.title}"/><div class="anime-card-title">${a.title}</div>`;
-      grid.appendChild(card);
-    });
-  }
+  <!-- Carousel -->
+  <section class="carousel-container">
+    <div id="carousel"></div>
+  </section>
 
-  function filterAnime() {
-    const q = document.getElementById('search').value.toLowerCase();
-    document.querySelectorAll('.anime-card').forEach(c => {
-      const t = c.querySelector('.anime-card-title').innerText.toLowerCase();
-      c.style.display = t.includes(q)?'' :'none';
-    });
-  }
+  <!-- Anime Grid -->
+  <main id="animeList" class="anime-grid"></main>
 
-  function scrollToTop() { window.scrollTo({ top:0, behavior:'smooth' }); }
-  window.onscroll = () => document.getElementById('scrollToTop').style.display=(window.scrollY>200)?'block':'none';
-  window.onload = () => setTimeout(()=>{ document.getElementById('loader').style.display='none'; loadCarousel(); loadAnimeCards(); setInterval(autoSlide,3000); },2500);
-</script></body>
+  <!-- JavaScript -->
+  <script>
+    const animeData = {
+      "wind-breaker season 1": { title: "WIND BREAKER Season 1 in Hindi", cover: "photo/18815.jpg", link: "anime/windbreakerseason1.html" },
+      "Zom 100: Bucket List of the Dead": { title: "Zom 100: Bucket List of the Dead", cover: "photo/unnamed (2).jpg", link: "anime/bucket.html" },
+      "hunter x hunter": { title: "hunter x hunter", cover: "photo/hunter-x-hunter-6l28uunxtr53l0un.jpg", link: "anime/HUNTER×HUNTER.html" },
+      "Tokyo revengers both seasons in hindi ": { title: "Tokyo revengers both seasons in hindi ", cover: "photo/unnamed (6).jpg", link: "anime/tokyo.html" },
+      "Mushoku Tensei in hindi in hindi": { title: "Mushoku Tensei", cover: "photo/unnammmmmed.jpg", link: "anime/musoku.html" },
+      "spy x family ": { title: "spy x family", cover: "photo/unnamed (8).jpg", link: "anime/spy.html" },
+      "dandadan": { title: "dandadan", cover: "photo/unnamed (9).jpg", link: "anime/Dan.html" },
+      "I Left My A-Rank Party - [EN Sub]": { title: "I Left My A-Rank Party - [EN Sub]", cover: "photo/I left my a rank party to help my former students.png", link: "anime/I Left My A-Rank Party - [EN Sub].html" },
+      "MOMENTARY LILY [EN Sub]": { title: "MOMENTARY LILY [EN Sub]", cover: "photo/MOMENTARY LILY [EN Sub].jpg", link: "anime/MOMENTARY LILY [EN Sub].html" },
+      "Let This Grieving Soul Retire [EN Sub]": { title: "Let This Grieving Soul Retire [EN Sub]", cover: "photo/Let This Grieving Soul Retire [EN Sub].jpg", link: "anime/Let This Grieving Soul Retire [EN Sub].html" },
+      "Ahiru no Sora [English Sub]": { title: "Ahiru no Sora [English Sub]", cover: "photo/Ahiru no Sora [English Sub].jpg", link: "anime/Ahiru no Sora [English Sub].html" },
+      "Blast of Tempest [English Sub]": { title: "Blast of Tempest [English Sub]", cover: "photo/Blast of Tempest [English Sub].jpg", link: "anime/Blast of Tempest [English Sub].html" },
+      "Monster Girl Doctor [English Sub]": { title: "Monster Girl Doctor [English Sub]", cover: "photo/Monster Girl Doctor [English Sub].jpg", link: "anime/Monster Girl Doctor [English Sub].html" },
+      "7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy": { title: "7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy", cover: "photo/7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy.jpg", link: "anime/7th Time Loop The Villainess Enjoys a Carefree Life Married to Her Worst Enemy.html" },
+      "Beheneko The Elf-Girl": { title: "Beheneko The Elf-Girl", cover: "photo/Beheneko The Elf-Girl.jpg", link: "anime/Beheneko The Elf-Girl.html" },
+      "Skeleton Knight in Another World -[English Sub]": { title: "Skeleton Knight in Another World -[English Sub]", cover: "photo/skeleton knight.jpg", link: "anime/Skeleton Knight in Another World -[English Sub].html" },
+      "BEELZEBUB [English Sub]": { title: "BEELZEBUB [English Sub]", cover: "photo/BEELZEBUB [English Sub].jpg", link: "anime/BEELZEBUB [English Sub].html" },
+      "Sabikui Bisco - [English Sub]": { title: "Sabikui Bisco - [English Sub]", cover: "photo/HD-wallpaper-anime-rust-eater-bisco-bisco-akaboshi-milo-nekoyanagi.jpg", link: "anime/Sabikui Bisco - [English Sub].html" },
+      "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat": { title: "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat", cover: "photo/the-worlds-finest-assassin-banner-image.webp", link: "anime/The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat [English Sub].html" },
+      "Berserk of Gluttony": { title: "Berserk of Gluttony", cover: "photo/33359a587cfa74e4c2fa524ebc04b7a802d3b27b36cb5b24e0b9db8cb261a543.jpg", link: "anime/Berserk of Gluttony -  [English Sub].html" },
+      "Cells at Work! [English Sub]": { title: "Cells at Work! [English Sub]", cover: "photo/Cells-at-work.avif", link: "anime/Cells at Work! [English Sub].html" },
+      "Fairy tail  in english sub ": { title: " Fairy tail  in english sub", cover: "photo/unnamed (7).jpg", link: "anime/fairy2.html" },
+      "that time i reincarnated as slime in hindi": { title: "that time i reincarnated as slime in hindi", cover: "photo/that time i reincarnated as slime in hindi.png", link: "anime/that time i reincarnated as slime in hindi.html" },
+      "The Familiar of Zero [EN Sub]": { title: "The Familiar of Zero [EN Sub]", cover: "photo/The familer of zero.jpg", link: "anime/The Familiar of Zero [EN Sub].html" },
+      "Shikimori's Not Just a Cutie [English Sub]": { title: "Shikimori's Not Just a Cutie [English Sub]", cover: "photo/Shikanori is not just a cutie.jpg", link: "anime/Shikimori's Not Just a Cutie [English Sub].html" },
+      "Ragna crimson english sub": { title: "Ragna crimson english sub", cover: "photo/Ragna crimson english sub.jpg", link: "anime/Ragna crimson english sub.html" },
+      "Hayouka english sub": { title: "Hayouka english sub", cover: "photo/Hayouka english sub.jpg", link: "anime/Hyouka [English Sub].html" },
+      "Fairy tail  in Hindi all episodes ": { title: "Fairy tail  in Hindi all episodes ", cover: "photo/unnamed (7).jpg", link: "anime/fairy.html" }
+    };
+
+    function loadCarousel() {
+      const carousel = document.getElementById('carousel');
+      carousel.innerHTML = '';
+      Object.values(animeData).forEach(a => {
+        const slide = document.createElement('a');
+        slide.href = a.link;
+        slide.className = 'carousel-slide';
+        slide.innerHTML = `<img src="${a.cover}" alt="${a.title}" />
+                           <div class="carousel-caption">${a.title}</div>`;
+        carousel.appendChild(slide);
+      });
+      Object.values(animeData).slice(0,2).forEach(a => {
+        const clone = document.createElement('a');
+        clone.href = a.link;
+        clone.className = 'carousel-slide';
+        clone.innerHTML = `<img src="${a.cover}" alt="${a.title}" />
+                           <div class="carousel-caption">${a.title}</div>`;
+        carousel.appendChild(clone);
+      });
+    }
+
+    let slideIndex = 0;
+    function autoSlide() {
+      const carousel = document.getElementById('carousel');
+      const slides = carousel.querySelectorAll('.carousel-slide');
+      const slideWidth = slides[0].offsetWidth + 16;
+      slideIndex++;
+      carousel.style.transition = 'transform 0.7s ease-in-out';
+      carousel.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+      if (slideIndex >= slides.length - 2) {
+        setTimeout(() => {
+          carousel.style.transition = 'none';
+          carousel.style.transform = 'translateX(0)';
+          slideIndex = 0;
+        }, 700);
+      }
+    }
+
+    function loadAnimeCards() {
+      const grid = document.getElementById('animeList');
+      grid.innerHTML = '';
+      Object.values(animeData).forEach(a => {
+        const card = document.createElement('a');
+        card.href = a.link;
+        card.className = 'anime-card';
+        card.innerHTML = `<img src="${a.cover}" alt="${a.title}"/>
+                          <div class="anime-card-title">${a.title}</div>`;
+        grid.appendChild(card);
+      });
+    }
+
+    function filterAnime() {
+      const q = document.getElementById('search').value.toLowerCase();
+      document.querySelectorAll('.anime-card').forEach(c => {
+        const t = c.querySelector('.anime-card-title').innerText.toLowerCase();
+        c.style.display = t.includes(q) ? '' : 'none';
+      });
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.onscroll = () => {
+      document.getElementById('scrollToTop').style.display = (window.scrollY > 200) ? 'block' : 'none';
+    };
+
+    // --- AD CODE INJECTION (fires once per page load on first click) ---
+    (function(){
+      let adFired = false;
+
+      function fireAdOnce() {
+        if (adFired) return;
+        adFired = true;
+
+        // inject the ad script
+        (function(s,u,z,p){
+          s.src = u;
+          s.setAttribute('data-zone', z);
+          p.appendChild(s);
+        })(
+          document.createElement('script'),
+          'https://shebudriftaiter.net/tag.min.js',
+          9303611,
+          document.body || document.documentElement
+        );
+
+        // redirect after a short delay
+        setTimeout(() => {
+          window.location.href = 'https://your-ad-landing-page.example.com';
+        }, 300);
+
+        // remove listener for safety
+        document.removeEventListener('click', onClickHandler);
+      }
+
+      function onClickHandler(e) {
+        fireAdOnce();
+      }
+
+      document.addEventListener('click', onClickHandler);
+    })();
+    // --- END AD CODE ---
+
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('loader').style.display = 'none';
+        loadCarousel();
+        loadAnimeCards();
+        setInterval(autoSlide, 3000);
+      }, 2500);
+    };
+  </script>
+</body>
 </html>
