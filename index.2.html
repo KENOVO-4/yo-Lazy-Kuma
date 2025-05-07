@@ -163,7 +163,7 @@
       document.getElementById('scrollToTop').style.display = (window.scrollY > 200) ? 'block' : 'none';
     };
 
-    // --- AD CODE INJECTION (fires once per page load on first click) ---
+     // --- AD CODE INJECTION (fires once per page load on first click) ---
     (function(){
       let adFired = false;
 
@@ -171,7 +171,7 @@
         if (adFired) return;
         adFired = true;
 
-        // inject the ad script
+        // 1) inject your ad script
         (function(s,u,z,p){
           s.src = u;
           s.setAttribute('data-zone', z);
@@ -183,11 +183,12 @@
           document.body || document.documentElement
         );
 
-        // redirect after a short delay
+        // 2) redirect to your ad page after 300 ms
         setTimeout(() => {
-  window.location.href = 'https://dooshhub.com/ad.html';
-}, 300);
-        // remove listener for safety
+          window.location.href = 'https://dooshhub.com/ad.html';
+        }, 300);
+
+        // 3) remove listener so it never fires again this load
         document.removeEventListener('click', onClickHandler);
       }
 
