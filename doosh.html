@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Doosh Hub</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo img:hover {
+      transform: scale(1.1);
+    }
+
+    .title {
+      font-size: 48px;
+      color: #fff;
+      text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 30px #fff;
+      margin-bottom: 60px;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .neon-button {
+      text-decoration: none;
+      font-size: 28px;
+      padding: 15px 40px;
+      border: 3px solid #fff;
+      color: #fff;
+      text-shadow: 0 0 5px #fff, 0 0 10px #f00, 0 0 15px #0ff;
+      border-radius: 12px;
+      transition: 0.4s;
+      position: relative;
+      animation: neonPulse 3s infinite alternate;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .neon-button:hover {
+      box-shadow: 0 0 10px #0ff, 0 0 20px #f0f, 0 0 30px #0ff;
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes neonPulse {
+      0% {
+        border-color: #f00;
+        text-shadow: 0 0 5px #f00, 0 0 10px #fff, 0 0 15px #f00;
+      }
+      50% {
+        border-color: #0ff;
+        text-shadow: 0 0 5px #0ff, 0 0 10px #fff, 0 0 15px #0ff;
+      }
+      100% {
+        border-color: #f0f;
+        text-shadow: 0 0 5px #f0f, 0 0 10px #fff, 0 0 15px #f0f;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .title {
+        font-size: 32px;
+      }
+
+      .neon-button {
+        font-size: 20px;
+        padding: 12px 25px;
+      }
+
+      .logo img {
+        height: 45px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo -->
+  <div class="logo">
+    <a href="image.jpg" target="_blank">
+      <img src="Screenshot_2025-04-05-08-08-19-87.jpg" alt="Logo">
+    </a>
+  </div>
+
+  <!-- Title -->
+  <div class="title">DOOSH HUB</div>
+
+  <!-- Menu -->
+  <div class="menu">
+    <a class="neon-button" href="index.2.html">ANIME</a>
+    <a class="neon-button" href="movie.html">MOVIES</a>
+    <a class="neon-button" href="cartoon.html">CARTOON</a>
+    <a class="neon-button" href="drama.html">DRAMA</a>
+  </div>
+
+</body>
+  </html>
